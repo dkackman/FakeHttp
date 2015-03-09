@@ -34,7 +34,8 @@ namespace DynamicRestProxy.PortableHttpClient.UnitTests
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            SimpleIoc.Default.Register<HttpClientHandler>(() => new MockHttpMessageHandler());
+            SimpleIoc.Default.Register<IResponseStore>(() => new FileSystemResponseStore(@"D:\temp\MockResponses"));
+            SimpleIoc.Default.Register<HttpClientHandler, MockHttpMessageHandler>();
         }
 
         [ClassCleanup]

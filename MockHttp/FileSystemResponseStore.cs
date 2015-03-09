@@ -5,7 +5,7 @@ using System.Net.Http;
 
 namespace MockHttp
 {
-    class FileSystemResponseStore : IResponseStore
+    public class FileSystemResponseStore : IResponseStore
     {
         private readonly string _rootFolder;
 

@@ -6,7 +6,12 @@ namespace MockHttp
 {
     public class MockHttpMessageHandler : HttpClientHandler
     {
-        private readonly IResponseStore _store = new FileSystemResponseStore(@"D:\temp\MockResponses");
+        private readonly IResponseStore _store;
+
+        public MockHttpMessageHandler(IResponseStore store)
+        {
+            _store = store;
+        }
 
         protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
