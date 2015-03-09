@@ -19,12 +19,18 @@ namespace DynamicRestProxy.PortableHttpClient.UnitTests
     [TestClass]
     public class BasicTests
     {
+        /// <summary>
+        ///Gets or sets the test context which provides
+        ///information about and functionality for the current test run.
+        ///</summary>
+        public TestContext TestContext{get;set;}
+
         [TestMethod]
         [TestCategory("mock-http")]
         [TestCategory("portable")]
         public async Task ExplicitGetInvoke()
         {
-            var handler = new MockHttpMessageHandler(new FileSystemResponseStore(@"D:\temp\MockResponses"));
+            var handler = new MockHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
             if (handler.SupportsAutomaticDecompression)
             {
                 handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
@@ -50,7 +56,7 @@ namespace DynamicRestProxy.PortableHttpClient.UnitTests
         [TestCategory("mock-http")]
         public async Task GetMethodSegmentWithArgs()
         {
-            var handler = new MockHttpMessageHandler(new FileSystemResponseStore(@"D:\temp\MockResponses"));
+            var handler = new MockHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
             if (handler.SupportsAutomaticDecompression)
             {
                 handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;

@@ -19,6 +19,7 @@ namespace DynamicRestProxy.PortableHttpClient.UnitTests
     /// Summary description for MockHttpTests
     /// </summary>
     [TestClass]
+    [DeploymentItem(@"MockResponses\")]
     public class MockHttpTests
     {
         public MockHttpTests()
@@ -34,7 +35,7 @@ namespace DynamicRestProxy.PortableHttpClient.UnitTests
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            SimpleIoc.Default.Register<IResponseStore>(() => new FileSystemResponseStore(@"D:\temp\MockResponses"));
+            SimpleIoc.Default.Register<IResponseStore>(() => new FileSystemResponseStore(context.DeploymentDirectory));
             SimpleIoc.Default.Register<HttpClientHandler, MockHttpMessageHandler>();
         }
 
