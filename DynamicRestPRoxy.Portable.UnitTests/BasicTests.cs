@@ -17,6 +17,8 @@ using MockHttp;
 namespace DynamicRestProxy.PortableHttpClient.UnitTests
 {
     [TestClass]
+    [DeploymentItem(@"MockResponses\")]
+
     public class BasicTests
     {
         /// <summary>
@@ -31,10 +33,6 @@ namespace DynamicRestProxy.PortableHttpClient.UnitTests
         public async Task ExplicitGetInvoke()
         {
             var handler = new MockHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
-            if (handler.SupportsAutomaticDecompression)
-            {
-                handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-            }
 
             using (var client = new HttpClient(handler, true))
             {
@@ -57,10 +55,6 @@ namespace DynamicRestProxy.PortableHttpClient.UnitTests
         public async Task GetMethodSegmentWithArgs()
         {
             var handler = new MockHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
-            if (handler.SupportsAutomaticDecompression)
-            {
-                handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-            }
 
             using (var client = new HttpClient(handler, true))
             {
@@ -79,14 +73,10 @@ namespace DynamicRestProxy.PortableHttpClient.UnitTests
 
         [TestMethod]
         [TestCategory("portable")]
-        [TestCategory("integration")]
+        [TestCategory("mock-http")]
         public async Task GetMethod2PathAsProperty2Params()
         {
-            var handler = new HttpClientHandler();
-            if (handler.SupportsAutomaticDecompression)
-            {
-                handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-            }
+            var handler = new MockHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
 
             using (var client = new HttpClient(handler, true))
             {

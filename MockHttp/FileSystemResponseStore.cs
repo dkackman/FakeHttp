@@ -16,7 +16,8 @@ namespace MockHttp
 
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
         {
-            var path = Path.Combine(_rootFolder, request.RequestUri.Host, request.RequestUri.LocalPath.TrimStart('/').Replace('/','\\'), "content.json");
+            var path = Path.Combine(_rootFolder, request.RequestUri.Host, request.RequestUri.LocalPath.TrimStart('/').Replace('/', '\\'));
+            path = Path.Combine(path, request.Method.ToString() + ".json");
 
             if (File.Exists(path))
             {
