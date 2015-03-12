@@ -10,5 +10,7 @@ namespace MockHttp
     public interface IResponseStore
     {
         Task<HttpResponseMessage> FindResponse(HttpRequestMessage request);
+
+        Task StoreResponse(HttpResponseMessage response);
     }
 }

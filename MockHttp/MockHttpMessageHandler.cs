@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿//#define CAPTURE_RESPONSE
+
+using System.Threading.Tasks;
 using System.Net.Http;
 using System.Threading;
 
@@ -15,9 +17,16 @@ namespace MockHttp
 
         protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+#if CAPTURE_RESPONSE
+            var response = await base.SendAsync(request, cancellationToken);
+            await _store.StoreResponse(response);
+
+            return response;
+#else
             cancellationToken.ThrowIfCancellationRequested();
 
             return await _store.FindResponse(request);
+#endif
         }
     }
 }
