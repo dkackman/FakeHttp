@@ -12,13 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C31FD1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{AEFFFBCB-25A7-4B27-8C5D-DFB05C310DC0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8D0E367C-0BCB-4AF8-B8D7-F029A734ED82}"
-	ProjectSection(SolutionItems) = preProject
-		BinderExtensions.cs = BinderExtensions.cs
-		LinqExtensions.cs = LinqExtensions.cs
-		RestProxy.cs = RestProxy.cs
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockHttp", "MockHttp\MockHttp.csproj", "{7A88D444-64B6-456A-A5E8-F744A28991BE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MockHttp.UnitTests", "MockHttp.UnitTests\MockHttp.UnitTests.csproj", "{2617C307-009D-4291-BCE2-A8433E46D92F}"
