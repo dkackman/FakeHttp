@@ -12,7 +12,7 @@ namespace MockHttp
 {
     static class HttpClientExtensions
     {
-        public async static Task<T> Deserialize<T>(this HttpResponseMessage response, JsonSerializerSettings settings)
+        public async static Task<T> Deserialize<T>(this HttpResponseMessage response)
         {
             // if the client asked for a stream or byte array, return without serializing to a different type
             if (typeof(T) == typeof(Stream))
@@ -41,11 +41,11 @@ namespace MockHttp
                 // if the return type is object return a dynamic object
                 if (typeof(T) == typeof(object))
                 {
-                    return DeserializeToDynamic(content.Trim(), settings);
+                    return DeserializeToDynamic(content.Trim(), new JsonSerializerSettings());
                 }
 
                 // otherwise deserialize to the return type
-                return JsonConvert.DeserializeObject<T>(content, settings);
+                return JsonConvert.DeserializeObject<T>(content, new JsonSerializerSettings());
             }
 
             // no content - return default

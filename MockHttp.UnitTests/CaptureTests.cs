@@ -5,8 +5,6 @@ using System.IO;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Newtonsoft.Json;
-
 namespace MockHttp.UnitTests
 {
     [TestClass]
@@ -32,7 +30,7 @@ namespace MockHttp.UnitTests
                 var response = await client.GetAsync("storage/v1/b/uspto-pair");
                 response.EnsureSuccessStatusCode();
 
-                dynamic metaData = await response.Deserialize<dynamic>(new JsonSerializerSettings());
+                dynamic metaData = await response.Deserialize<dynamic>();
 
                 // we got a response and it looks like the one we want
                 Assert.IsNotNull(metaData);
