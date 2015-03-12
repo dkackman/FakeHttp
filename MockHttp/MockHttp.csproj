@@ -53,11 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CapturingMessageHandler.cs" />
+    <Compile Include="CapturingHttpClientHandler.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FileSystemResponseStore.cs" />
     <Compile Include="IResponseStore.cs" />
-    <Compile Include="MockHttpMessageHandler.cs" />
+    <Compile Include="MockHttpClientHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

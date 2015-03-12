@@ -24,7 +24,7 @@ namespace MockHttp.UnitTests
         {
             // store the rest response in a subfolder of the solution directory for future use
             var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\MockResponses\");
-            var handler = new CapturingMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder));            
+            var handler = new CapturingHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder));            
 
             using (var client = new HttpClient(handler, true))
             {

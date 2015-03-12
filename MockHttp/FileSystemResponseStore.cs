@@ -26,6 +26,8 @@ namespace MockHttp
             var path = Path.Combine(_storeFolder, request.RequestUri.ToFilePath());
             path = Path.Combine(path, request.Method.ToString() + ".json");
 
+            // if we find a json file that matches the request uri and method
+            // deserialize it into the repsonse
             if (File.Exists(path))
             {
                 using (var reader = new StreamReader(path))
@@ -38,7 +40,7 @@ namespace MockHttp
                     return response;
                 }
             }
-            else
+            else // otherwise return 404
             {
                 var response = new HttpResponseMessage(HttpStatusCode.NotFound);
                 response.RequestMessage = request;
