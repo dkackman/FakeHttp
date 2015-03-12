@@ -19,10 +19,12 @@ namespace MockHttp.UnitTests
         /// </summary>
         public TestContext TestContext { get; set; }
 
-        [TestMethod]
+        [TestMethod]        
         public async Task CaptureResponse()
         {
-            var handler = new MockHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, Path.Combine(TestContext.TestRunDirectory, @"..\..\MockResponses\")));            
+            // store the rest response in a subfolder of the solution directory for future use
+            var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\MockResponses\");
+            var handler = new CapturingMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder));            
 
             using (var client = new HttpClient(handler, true))
             {
@@ -31,8 +33,14 @@ namespace MockHttp.UnitTests
                 response.EnsureSuccessStatusCode();
 
                 dynamic metaData = await response.Deserialize<dynamic>(new JsonSerializerSettings());
+
+                // we got a response and it looks like the one we want
                 Assert.IsNotNull(metaData);
                 Assert.AreEqual("https://www.googleapis.com/storage/v1/b/uspto-pair", metaData.selfLink);
+
+                // assert we stored it where we want it to go
+                var responseFullPath = Path.Combine(captureFolder, response.RequestMessage.RequestUri.ToFilePath(), response.RequestMessage.Method + ".json");
+                Assert.IsTrue(File.Exists(responseFullPath));
             }
         }
     }
