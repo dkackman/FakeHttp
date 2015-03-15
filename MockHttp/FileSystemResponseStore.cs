@@ -3,15 +3,18 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 
+using Newtonsoft.Json;
+
 namespace MockHttp
 {
     public class FileSystemResponseStore : IResponseStore
     {
         private readonly string _storeFolder;
         private readonly string _captureFolder;
+        private readonly ResponseDeserializer _deserializer = new ResponseDeserializer();
 
         public FileSystemResponseStore(string storeFolder)
-           : this(storeFolder, storeFolder)
+            : this(storeFolder, storeFolder)
         {
         }
 
@@ -23,29 +26,21 @@ namespace MockHttp
 
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
         {
-            var path = Path.Combine(_storeFolder, request.RequestUri.ToFilePath());
-            path = Path.Combine(path, request.Method.ToString() + ".json");
+            var response = await _deserializer.DeserializeResponse(request.Method.ToString(), Path.Combine(_storeFolder, request.RequestUri.ToFilePath()));
 
             // if we find a json file that matches the request uri and method
             // deserialize it into the repsonse
-            if (File.Exists(path))
+            if (response != null)
             {
-                using (var reader = new StreamReader(path))
-                {
-                    var content = await reader.ReadToEndAsync();
+                return response;
+            }
 
-                    var response = new HttpResponseMessage(HttpStatusCode.OK);
-                    response.RequestMessage = request;
-                    response.Content = new StringContent(content);
-                    return response;
-                }
-            }
-            else // otherwise return 404
-            {
-                var response = new HttpResponseMessage(HttpStatusCode.NotFound);
-                response.RequestMessage = request;
-                return await Task.Run(() => response);
-            }
+            // otherwise return 404            
+            return await Task.Run(() =>
+                new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    RequestMessage = request
+                });
         }
 
         public async Task StoreResponse(HttpResponseMessage response)
@@ -53,12 +48,38 @@ namespace MockHttp
             var path = Path.Combine(_captureFolder, response.RequestMessage.RequestUri.ToFilePath());
             Directory.CreateDirectory(path);
 
-            path = Path.Combine(path, response.RequestMessage.Method.ToString() + ".json");
+            var method = response.RequestMessage.Method.ToString();
+
+            var info = new ResponseInfo()
+            {
+                Response = response,
+                ContentFileName = method + ".content.json"
+            };
 
             var content = await response.Content.ReadAsStringAsync();
-            using(var writer = new StreamWriter(path, false))
+            using (var contentWriter = new StreamWriter(Path.Combine(path, info.ContentFileName), false))
             {
-                writer.Write(content);
+                contentWriter.Write(content);
+            }
+
+            // to avoid serializing things like api keys and auth tokens
+            // null the original request object. 
+            // we also don't deserialize the content object as that will be constructed sepearately on deserializaiton
+            var request = response.RequestMessage;
+            var oldContent = response.Content;
+
+            info.Response.Content = null;
+            info.Response.RequestMessage = null;
+
+            var json = JsonConvert.SerializeObject(info);
+
+            // put things back so we are a good citizen in the handler chain
+            info.Response.Content = oldContent;
+            info.Response.RequestMessage = request; 
+
+            using (var responseWriter = new StreamWriter(Path.Combine(path, method + ".response.json"), false))
+            {
+                responseWriter.Write(json);
             }
         }
     }

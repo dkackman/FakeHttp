@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 
 using MockHttp;
+using UnitTestHelpers;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -23,11 +24,13 @@ namespace MockHttp.UnitTests
         [TestCategory("mock")]
         public async Task CanGetSimpleJsonResult()
         {
-            var handler = new MockHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
+            var handler = Factory.CreateMessageHandler(TestContext.DeploymentDirectory, Path.Combine(TestContext.TestRunDirectory, @"..\..\MockResponses\"));
 
             using (var client = new HttpClient(handler, true))
             {
                 client.BaseAddress = new Uri("http://openstates.org/api/v1/");
+                string key = CredentialStore.RetrieveObject("sunlight.key.json").Key;
+                client.DefaultRequestHeaders.Add("X-APIKEY", key);
 
                 var response = await client.GetAsync("metadata/mn");
                 response.EnsureSuccessStatusCode();

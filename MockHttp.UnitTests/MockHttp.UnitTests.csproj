@@ -65,6 +65,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Factory.cs" />
     <Compile Include="HttpClientExtensions.cs" />
     <Compile Include="CaptureTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,6 +75,10 @@
     <ProjectReference Include="..\MockHttp\MockHttp.csproj">
       <Project>{7a88d444-64b6-456a-a5e8-f744a28991be}</Project>
       <Name>MockHttp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnitTestHelpers\UnitTestHelpers.csproj">
+      <Project>{a589a7ba-9e16-4ae4-b01c-8d6b0aa9cff8}</Project>
+      <Name>UnitTestHelpers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -112,7 +117,9 @@
     <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
   <PropertyGroup>
-    <PreBuildEvent>xcopy /Y /S "$(SolutionDir)MockResponses\*" "$(TargetDir)MockResponses\"</PreBuildEvent>
+    <PreBuildEvent>del /f /s /q "$(TargetDir)MockResponses\"
+xcopy /Y /S "$(SolutionDir)MockResponses\*" "$(TargetDir)MockResponses\"
+</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
