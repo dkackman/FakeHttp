@@ -1,0 +1,21 @@
+{
+    "Response": {
+        "Version": { "Major": 1, "Minor": 1, "Build": -1, "Revision": -1, "MajorRevision": -1, "MinorRevision": -1 },
+        "Content": null,
+        "StatusCode": 401,
+        "ReasonPhrase": "Not Authorized",
+        "Headers": [
+            { "Key": "Vary", "Value": [ "Authorization" ] },
+            { "Key": "Access-Control-Allow-Origin", "Value": [ "*" ] },
+            { "Key": "X-Varnish", "Value": [ "1064019629 1064013088" ] },
+            { "Key": "Age", "Value": [ "96" ] },
+            { "Key": "Connection", "Value": [ "keep-alive" ] },
+            { "Key": "Date", "Value": [ "Sun, 15 Mar 2015 15:13:38 GMT" ] },
+            { "Key": "Server", "Value": [ "nginx/1.4.1", "(Ubuntu)" ] },
+            { "Key": "Via", "Value": [ "1.1 varnish" ] }
+        ],
+        "RequestMessage": null,
+        "IsSuccessStatusCode": false
+    },
+    "ContentFileName": null
+}
