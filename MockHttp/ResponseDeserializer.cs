@@ -24,7 +24,10 @@ namespace MockHttp
                     var json = await reader.ReadToEndAsync();
 
                     var info = JsonConvert.DeserializeObject<ResponseInfo>(json );
-                    info.Response.Content = await DeserializeContent(Path.Combine(folder, info.ContentFileName));
+                    if (!string.IsNullOrEmpty(info.ContentFileName))
+                    {
+                        info.Response.Content = await DeserializeContent(Path.Combine(folder, info.ContentFileName));
+                    }
                     return info.Response;
                 }
             }
