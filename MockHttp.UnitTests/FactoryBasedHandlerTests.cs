@@ -12,7 +12,7 @@ namespace MockHttp.UnitTests
 {
     [TestClass]
     [DeploymentItem(@"MockResponses\")]
-    public class GetTests
+    public class FactoryBasedHandlerTests
     {
         /// <summary>
         /// Gets or sets the test context which provides

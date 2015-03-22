@@ -18,6 +18,7 @@ namespace MockHttp.UnitTests
         public TestContext TestContext { get; set; }
 
         [TestMethod]        
+        [TestCategory("capture")]
         public async Task CaptureResponse()
         {
             // store the rest response in a subfolder of the solution directory for future use

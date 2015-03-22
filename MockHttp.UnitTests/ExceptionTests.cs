@@ -31,10 +31,8 @@ namespace MockHttp.UnitTests
             }
         }
 
-
         [TestMethod]
         [TestCategory("mock")]
-        [ExpectedException(typeof(HttpRequestException))]
         public async Task ThrowWhenStaticallySimulateFailure()
         {
             var handler = new MockHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
@@ -45,7 +43,14 @@ namespace MockHttp.UnitTests
 
                 var response = await client.PostAsync("metadata/mn", new StringContent("payload"));
 
-                response.EnsureSuccessStatusCode();
+                try
+                {
+                    response.EnsureSuccessStatusCode();
+                }
+                catch (HttpRequestException e)
+                {
+                    Assert.IsTrue(e.Message.Contains("401"));
+                }
             }
         }
     }
