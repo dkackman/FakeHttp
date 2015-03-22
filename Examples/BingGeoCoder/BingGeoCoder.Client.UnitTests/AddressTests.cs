@@ -30,6 +30,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task GetAddress()
         {
             var address = await _service.GetAddress(44.9108238220215, -93.1702041625977);
@@ -38,6 +39,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task RoundtripPostalCode()
         {
             var coord = await _service.GetCoordinate(new Address() { postalCode = "55116", countryRegion = "US" });
@@ -47,6 +49,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task ParseAnAddress()
         {
             var address = await _service.ParseAddress("One Microsoft Way, Redmond, WA 98052");
@@ -59,6 +62,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task ParseACanadianAddress()
         {
             var coord = new Tuple<double, double>(62.832908630371094, -95.913322448730469);

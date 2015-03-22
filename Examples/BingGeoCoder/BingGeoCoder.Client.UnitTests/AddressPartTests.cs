@@ -30,6 +30,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task GetFormattedAddressFromCoordinate()
         {
             var address = await _service.GetFormattedAddress(44.9108238220215, -93.1702041625977);
@@ -38,6 +39,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task GetNeighborhoodFromCoordinate()
         {
             var address = await _service.GetAddressPart(44.9108238220215, -93.1702041625977, "Neighborhood");
@@ -46,6 +48,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task GetAddressFromCoordinate()
         {
             var address = await _service.GetAddressPart(44.9108238220215, -93.1702041625977, "Address");
@@ -54,6 +57,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task GetPostalCodeFromCoordinate()
         {
             var postalCode = await _service.GetAddressPart(44.9108238220215, -93.1702041625977, "Postcode1");
@@ -62,6 +66,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task GetCityFromCoordinate()
         {
             var city = await _service.GetAddressPart(44.9108238220215, -93.1702041625977, "PopulatedPlace");
@@ -70,6 +75,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task GetCountyFromCoordinate()
         {
             var county = await _service.GetAddressPart(44.9108238220215, -93.1702041625977, "AdminDivision2");
@@ -78,6 +84,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task GetStateFromCoordinate()
         {
             var state = await _service.GetAddressPart(44.9108238220215, -93.1702041625977, "AdminDivision1");
@@ -86,6 +93,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task GetCountryFromCoordinate()
         {
             var country = await _service.GetAddressPart(44.9108238220215, -93.1702041625977, "CountryRegion");
@@ -94,6 +102,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task GetCountryFromCoordinateUsingEnum()
         {
             var country = await _service.GetAddressPart(44.9108238220215, -93.1702041625977, AddressEntityType.CountryRegion);

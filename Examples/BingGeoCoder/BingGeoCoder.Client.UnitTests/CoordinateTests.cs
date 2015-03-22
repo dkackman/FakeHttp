@@ -30,6 +30,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task CoordinateFromPostalCode()
         {
             var coord = await _service.GetCoordinate(null, null, null, "55116", "US");
@@ -39,6 +40,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task PostalCodeFromCoordinate()
         {
             var postalCode = await _service.GetAddressPart(44.9108238220215, -93.1702041625977, "Postcode1");
@@ -47,6 +49,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task CoordinateFromAddress()
         {
             var coord = await _service.GetCoordinate("One Microsoft Way", "Redmond", "WA", "98052", "US");
@@ -56,6 +59,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task CoordinateFromAddressObject()
         {
             var address = new Address()
@@ -73,6 +77,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task CoordinateFromAddressQuery()
         {
             var coord = await _service.QueryCoordinate("One Microsoft Way, Redmond, WA 98052");
@@ -82,6 +87,7 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
+        [TestCategory("geocoder")]
         public async Task CoordinateFromLandmark()
         {
             var coord = await _service.GetCoordinate("Eiffel Tower");
