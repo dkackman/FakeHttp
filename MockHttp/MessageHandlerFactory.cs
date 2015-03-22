@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
 
 namespace MockHttp
 {
@@ -18,7 +19,18 @@ namespace MockHttp
 
         public static MessageHandlerMode Mode { get; set; }
 
-        public static HttpMessageHandler CreateMessageHandler(string mockResponseFolder, string captureFolder)
+        public static HttpClientHandler CreateMessageHandler(string mockResponseFolder, string captureFolder)
+        {
+            var handler = CreateInstance(mockResponseFolder, captureFolder);
+            if (handler.SupportsAutomaticDecompression)
+            {
+                handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+            }
+
+            return handler;
+        }
+
+        private static HttpClientHandler CreateInstance(string mockResponseFolder, string captureFolder)
         {
             if (Mode == MessageHandlerMode.Capture)
             {

@@ -1,11 +1,18 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Practices.ServiceLocation;
+
+using GalaSoft.MvvmLight.Ioc;
 
 using BingGeoCoder.Client;
 
 using UnitTestHelpers;
+
+using MockHttp;
 
 namespace GeoCoderTests
 {
@@ -15,15 +22,14 @@ namespace GeoCoderTests
     {
         private static IGeoCoder _service;
 
-        [AssemblyInitialize]        
-        public static void AssemblyInit(TestContext context)
+        [AssemblyInitialize]
+        public static void AssemblyInitialize(TestContext context)
         {
-            
-        }
+            MessageHandlerFactory.Mode = MessageHandlerMode.Mock;
 
-        [AssemblyCleanup]
-        public static void AssemblyCleanup()
-        {
+            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            SimpleIoc.Default.Register<HttpClientHandler>(() => 
+                MessageHandlerFactory.CreateMessageHandler(context.DeploymentDirectory, Path.Combine(context.TestRunDirectory, @"..\..\MockResponses\")));
         }
 
         [ClassInitialize]
