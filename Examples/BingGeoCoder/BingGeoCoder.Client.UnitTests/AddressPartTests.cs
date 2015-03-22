@@ -10,18 +10,30 @@ using UnitTestHelpers;
 namespace GeoCoderTests
 {
     [TestClass]
+    [DeploymentItem(@"MockResponses\")]
     public class AddressPartTests
     {
         private static IGeoCoder _service;
 
+        [AssemblyInitialize]        
+        public static void AssemblyInit(TestContext context)
+        {
+            
+        }
+
+        [AssemblyCleanup]
+        public static void AssemblyCleanup()
+        {
+        }
+
         [ClassInitialize]
-        public static void Init(TestContext context)
+        public static void ClassInitialize(TestContext context)
         {
             _service = new GeoCoder(CredentialStore.RetrieveObject("bing.key.json").Key, "Portable-Bing-GeoCoder-UnitTests/1.0");
         }
 
         [ClassCleanup]
-        public static void Cleanup()
+        public static void ClassCleanup()
         {
             if (_service != null)
             {

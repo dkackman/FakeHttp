@@ -41,10 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressEntityType.cs" />
-    <Compile Include="BingMapsRestClient.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GeoCoder.cs" />
     <Compile Include="GeoResultExtensions.cs" />
+    <Compile Include="Factory.cs" />
     <Compile Include="IGeoCoder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultTypes.cs" />

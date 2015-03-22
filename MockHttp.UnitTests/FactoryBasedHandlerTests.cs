@@ -24,7 +24,7 @@ namespace MockHttp.UnitTests
         [TestCategory("mock")]
         public async Task CanGetSimpleJsonResult()
         {
-            var handler = Factory.CreateMessageHandler(TestContext.DeploymentDirectory, Path.Combine(TestContext.TestRunDirectory, @"..\..\MockResponses\"));
+            var handler = MessageHandlerFactory.CreateMessageHandler(TestContext.DeploymentDirectory, Path.Combine(TestContext.TestRunDirectory, @"..\..\MockResponses\"));
 
             using (var client = new HttpClient(handler, true))
             {

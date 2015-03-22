@@ -1,31 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Http;
+﻿using System.Net.Http;
 
-namespace MockHttp.UnitTests
+namespace MockHttp
 {
-    enum MessageHandlerMode
+    public enum MessageHandlerMode
     {
         Capture,
         Mock,
         Online
     }
 
-    static class Factory
+    public static class MessageHandlerFactory
     {
-        private const MessageHandlerMode _mode = MessageHandlerMode.Mock;
+        static MessageHandlerFactory()
+        {
+            Mode = MessageHandlerMode.Online;
+        }
+
+        public static MessageHandlerMode Mode { get; set; }
 
         public static HttpMessageHandler CreateMessageHandler(string mockResponseFolder, string captureFolder)
         {
-            if (_mode == MessageHandlerMode.Capture)
+            if (Mode == MessageHandlerMode.Capture)
             {
                 return new CapturingHttpClientHandler(new FileSystemResponseStore(mockResponseFolder, captureFolder));
             }
 
-            if (_mode == MessageHandlerMode.Mock)
+            if (Mode == MessageHandlerMode.Mock)
             {
                 return new MockHttpClientHandler(new FileSystemResponseStore(mockResponseFolder));
             }
