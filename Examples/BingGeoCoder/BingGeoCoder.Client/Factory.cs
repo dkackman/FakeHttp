@@ -15,36 +15,35 @@ namespace BingGeoCoder.Client
 {
     static class Factory
     {
-        private static HttpClientHandler GetHandler(ref bool dispose)
+        private static HttpMessageHandler GetHandler(out bool dispose)
         {
-            HttpClientHandler handler = null;
-
             if (ServiceLocator.IsLocationProviderSet)
             {
-                handler = ServiceLocator.Current.GetInstance<HttpClientHandler>();
-            }
-
-            if (handler == null)
-            {
-                handler = new HttpClientHandler();
-                if (handler.SupportsAutomaticDecompression)
+                var handler = ServiceLocator.Current.GetInstance<HttpMessageHandler>();
+                if (handler != null)
                 {
-                    handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+                    dispose = false;
+                    return handler;
                 }
-                dispose = true;
             }
 
-            return handler;
+            var clientHandler = new HttpClientHandler();
+            if (clientHandler.SupportsAutomaticDecompression)
+            {
+                clientHandler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+            }
+            dispose = true;
+            return clientHandler;
         }
 
         public static HttpClient CreateClient(string user_agent)
         {
-            bool dispose = false;
-            var handler = GetHandler(ref dispose);
+            bool dispose;
+            var handler = GetHandler(out dispose);
 
             var client = new HttpClient(handler, dispose);
 
-            if (handler.SupportsTransferEncodingChunked())
+            if (handler is HttpClientHandler && ((HttpClientHandler)handler).SupportsTransferEncodingChunked())
             {
                 client.DefaultRequestHeaders.TransferEncodingChunked = true;
             }

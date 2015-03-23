@@ -28,7 +28,7 @@ namespace GeoCoderTests
             MessageHandlerFactory.Mode = MessageHandlerMode.Mock;
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            SimpleIoc.Default.Register<HttpClientHandler>(() => 
+            SimpleIoc.Default.Register<HttpMessageHandler>(() => 
                 MessageHandlerFactory.CreateMessageHandler(context.DeploymentDirectory, Path.Combine(context.TestRunDirectory, @"..\..\MockResponses\")));
         }
 

@@ -12,5 +12,7 @@ namespace MockHttp
         public HttpResponseMessage Response { get; set; }
 
         public string ContentFileName { get; set; }
+
+        public string Query { get; set; }
     }
 }

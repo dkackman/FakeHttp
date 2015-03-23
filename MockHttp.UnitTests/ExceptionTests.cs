@@ -19,7 +19,7 @@ namespace MockHttp.UnitTests
         [ExpectedException(typeof(HttpRequestException))]
         public async Task ThrowWhenNoStaticResponseFound()
         {
-            var handler = new MockHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
+            var handler = new MockHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
 
             using (var client = new HttpClient(handler, true))
             {
@@ -35,7 +35,7 @@ namespace MockHttp.UnitTests
         [TestCategory("mock")]
         public async Task ThrowWhenStaticallySimulateFailure()
         {
-            var handler = new MockHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
+            var handler = new MockHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
 
             using (var client = new HttpClient(handler, true))
             {

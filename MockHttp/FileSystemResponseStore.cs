@@ -26,10 +26,18 @@ namespace MockHttp
 
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
         {
-            var response = await _deserializer.DeserializeResponse(request.Method.ToString(), Path.Combine(_storeFolder, request.RequestUri.ToFilePath()));
+            // first try to find a file keyed to the request method, uri and query
+            var response = await _deserializer.DeserializeResponse(Path.Combine(_storeFolder, request.RequestUri.ToFilePath()), request.ToFileName());
 
-            // if we find a json file that matches the request uri and method
+            // if we find a json file that matches the request uri, query and method
             // deserialize it into the repsonse
+            if (response != null)
+            {
+                return response;
+            }
+
+            // next just look for a default response based on the http method
+            response = await _deserializer.DeserializeResponse(Path.Combine(_storeFolder, request.RequestUri.ToFilePath()), request.ToShortFileName());
             if (response != null)
             {
                 return response;
@@ -48,12 +56,12 @@ namespace MockHttp
             var path = Path.Combine(_captureFolder, response.RequestMessage.RequestUri.ToFilePath());
             Directory.CreateDirectory(path);
 
-            var method = response.RequestMessage.Method.ToString();
-
+            var fileName = response.RequestMessage.ToFileName();
             var info = new ResponseInfo()
             {
                 Response = response,
-                ContentFileName = method + ".content.json"
+                Query = response.RequestMessage.RequestUri.NormalizeQuery(),
+                ContentFileName = fileName + ".content.json"
             };
 
             var content = await response.Content.ReadAsStringAsync();
@@ -75,9 +83,9 @@ namespace MockHttp
 
             // put things back so we are a good citizen in the handler chain
             info.Response.Content = oldContent;
-            info.Response.RequestMessage = request; 
+            info.Response.RequestMessage = request;
 
-            using (var responseWriter = new StreamWriter(Path.Combine(path, method + ".response.json"), false))
+            using (var responseWriter = new StreamWriter(Path.Combine(path, fileName + ".response.json"), false))
             {
                 responseWriter.Write(json);
             }

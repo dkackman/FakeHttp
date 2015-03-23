@@ -12,18 +12,18 @@ namespace MockHttp
 {
     class ResponseDeserializer
     {
-        public async Task<HttpResponseMessage> DeserializeResponse(string method, string folder)
+        public async Task<HttpResponseMessage> DeserializeResponse(string folder, string fileName)
         {
-            var path = Path.Combine(folder, method + ".response.json");
+            var path = Path.Combine(folder, fileName + ".response.json");
 
-            // first look for a complete serialized response
+            // first look for a completely serialized response
             if (File.Exists(path))
             {
                 using (var reader = new StreamReader(path))
                 {
                     var json = await reader.ReadToEndAsync();
 
-                    var info = JsonConvert.DeserializeObject<ResponseInfo>(json );
+                    var info = JsonConvert.DeserializeObject<ResponseInfo>(json);
                     if (!string.IsNullOrEmpty(info.ContentFileName))
                     {
                         info.Response.Content = await DeserializeContent(Path.Combine(folder, info.ContentFileName));
@@ -32,12 +32,13 @@ namespace MockHttp
                 }
             }
 
-            return await DeserializeFromContent(method, folder);
+            // no fully serialized response exists just look for a content file
+            return await DeserializeFromContent(folder, fileName);
         }
 
-        private async Task<HttpResponseMessage> DeserializeFromContent(string method, string folder)
+        private async Task<HttpResponseMessage> DeserializeFromContent(string folder, string fileName)
         {
-            var path = Path.Combine(folder, method + ".response.json");
+            var path = Path.Combine(folder, fileName + ".response.json");
 
             if (File.Exists(path))
             {
