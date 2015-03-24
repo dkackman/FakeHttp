@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -12,6 +13,7 @@ namespace MockHttp
         private readonly string _storeFolder;
         private readonly string _captureFolder;
         private readonly ResponseDeserializer _deserializer = new ResponseDeserializer();
+        private readonly Func<string, string, bool> _paramFilter;
 
         public FileSystemResponseStore(string storeFolder)
             : this(storeFolder, storeFolder)
@@ -19,15 +21,34 @@ namespace MockHttp
         }
 
         public FileSystemResponseStore(string storeFolder, string captureFolder)
+            : this(storeFolder, captureFolder, (key, value) => false)
         {
+
+        }
+
+        public FileSystemResponseStore(string storeFolder, Func<string, string, bool> paramFilter)
+            : this(storeFolder, storeFolder, paramFilter)
+        {
+        }
+
+        public FileSystemResponseStore(string storeFolder, string captureFolder, Func<string, string, bool> paramFilter)
+        {
+            if (paramFilter == null)
+            {
+                throw new ArgumentNullException("paramFilter");
+            }
+
             _storeFolder = storeFolder;
             _captureFolder = captureFolder;
+            _paramFilter = paramFilter;
         }
 
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
         {
+            var query = request.RequestUri.NormalizeQuery(_paramFilter);
+
             // first try to find a file keyed to the request method, uri and query
-            var response = await _deserializer.DeserializeResponse(Path.Combine(_storeFolder, request.RequestUri.ToFilePath()), request.ToFileName());
+            var response = await _deserializer.DeserializeResponse(Path.Combine(_storeFolder, request.RequestUri.ToFilePath()), request.ToFileName(query));
 
             // if we find a json file that matches the request uri, query and method
             // deserialize it into the repsonse
@@ -53,14 +74,16 @@ namespace MockHttp
 
         public async Task StoreResponse(HttpResponseMessage response)
         {
+            var query = response.RequestMessage.RequestUri.NormalizeQuery(_paramFilter);
+
             var path = Path.Combine(_captureFolder, response.RequestMessage.RequestUri.ToFilePath());
             Directory.CreateDirectory(path);
 
-            var fileName = response.RequestMessage.ToFileName();
+            var fileName = response.RequestMessage.ToFileName(query);
             var info = new ResponseInfo()
             {
                 Response = response,
-                Query = response.RequestMessage.RequestUri.NormalizeQuery(),
+                Query = query,
                 ContentFileName = fileName + ".content.json"
             };
 

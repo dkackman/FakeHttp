@@ -25,11 +25,17 @@ namespace GeoCoderTests
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext context)
         {
-            MessageHandlerFactory.Mode = MessageHandlerMode.Mock;
+            MessageHandlerFactory.Mode = MessageHandlerMode.Capture;
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            SimpleIoc.Default.Register<HttpMessageHandler>(() => 
-                MessageHandlerFactory.CreateMessageHandler(context.DeploymentDirectory, Path.Combine(context.TestRunDirectory, @"..\..\MockResponses\")));
+
+            var mockFolder = context.DeploymentDirectory; // thoe folder where the unit tests are running
+            var captureFolder = Path.Combine(context.TestRunDirectory, @"..\..\MockResponses\"); // kinda hacky but this should be the solution folder
+
+            // here we don't want to serialize or include our api key in response lookups so
+            // pass a lambda that will indicate to the serialzier to filter that param out
+            SimpleIoc.Default.Register<HttpMessageHandler>(() =>
+                MessageHandlerFactory.CreateMessageHandler(mockFolder, captureFolder, (name, value) => !name.Equals("key", StringComparison.InvariantCultureIgnoreCase)));
         }
 
         [ClassInitialize]
