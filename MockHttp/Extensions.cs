@@ -47,6 +47,11 @@ namespace MockHttp
 
         public static string ToFileName(this HttpRequestMessage request, string query)
         {
+            if (string.IsNullOrEmpty(query))
+            {
+                return request.ToShortFileName();
+            }
+
             return string.Concat(request.Method.Method, ".", query.ToSha1Hash());
         }
 

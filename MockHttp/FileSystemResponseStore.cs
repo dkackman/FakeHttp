@@ -46,26 +46,14 @@ namespace MockHttp
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
         {
             var query = request.RequestUri.NormalizeQuery(_paramFilter);
+            var folderPath = Path.Combine(_storeFolder, request.RequestUri.ToFilePath());
 
-            // first try to find a file keyed to the http method and query
-            var response = await _deserializer.DeserializeResponse(Path.Combine(_storeFolder, request.RequestUri.ToFilePath()), request.ToFileName(query));
-            if (response != null)
-            {
-                return response;
-            }
-
-            // next just look for a default response based on just the http method
-            response = await _deserializer.DeserializeResponse(Path.Combine(_storeFolder, request.RequestUri.ToFilePath()), request.ToShortFileName());
-            if (response != null)
-            {
-                return response;
-            }
-
-            // otherwise return 404            
-            return new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    RequestMessage = request
-                };
+            // first try to find a file keyed to the request method and query
+            return await _deserializer.DeserializeResponse(folderPath, request.ToFileName(query))
+                // next just look for a default response based on just the http method
+                ?? await _deserializer.DeserializeResponse(folderPath, request.ToShortFileName())
+                // otherwise return 404            
+                ?? new HttpResponseMessage(HttpStatusCode.NotFound) { RequestMessage = request };
         }
 
         public async Task StoreResponse(HttpResponseMessage response)
@@ -76,6 +64,7 @@ namespace MockHttp
             Directory.CreateDirectory(path);
 
             var fileName = response.RequestMessage.ToFileName(query);
+            // this is the object that is serialized (response, normalized request query and pointer to the content file)
             var info = new ResponseInfo()
             {
                 Response = response,
