@@ -47,17 +47,14 @@ namespace MockHttp
         {
             var query = request.RequestUri.NormalizeQuery(_paramFilter);
 
-            // first try to find a file keyed to the request method, uri and query
+            // first try to find a file keyed to the http method and query
             var response = await _deserializer.DeserializeResponse(Path.Combine(_storeFolder, request.RequestUri.ToFilePath()), request.ToFileName(query));
-
-            // if we find a json file that matches the request uri, query and method
-            // deserialize it into the repsonse
             if (response != null)
             {
                 return response;
             }
 
-            // next just look for a default response based on the http method
+            // next just look for a default response based on just the http method
             response = await _deserializer.DeserializeResponse(Path.Combine(_storeFolder, request.RequestUri.ToFilePath()), request.ToShortFileName());
             if (response != null)
             {
@@ -65,11 +62,10 @@ namespace MockHttp
             }
 
             // otherwise return 404            
-            return await Task.Run(() =>
-                new HttpResponseMessage(HttpStatusCode.NotFound)
+            return new HttpResponseMessage(HttpStatusCode.NotFound)
                 {
                     RequestMessage = request
-                });
+                };
         }
 
         public async Task StoreResponse(HttpResponseMessage response)
@@ -93,21 +89,7 @@ namespace MockHttp
                 contentWriter.Write(content);
             }
 
-            // to avoid serializing things like api keys and auth tokens
-            // null the original request object. 
-            // we also don't deserialize the content object as that will be constructed sepearately on deserializaiton
-            var request = response.RequestMessage;
-            var oldContent = response.Content;
-
-            info.Response.Content = null;
-            info.Response.RequestMessage = null;
-
-            var json = JsonConvert.SerializeObject(info);
-
-            // put things back so we are a good citizen in the handler chain
-            info.Response.Content = oldContent;
-            info.Response.RequestMessage = request;
-
+            var json = JsonConvert.SerializeObject(info, new HttpResponseMessageConverter());
             using (var responseWriter = new StreamWriter(Path.Combine(path, fileName + ".response.json"), false))
             {
                 responseWriter.Write(json);

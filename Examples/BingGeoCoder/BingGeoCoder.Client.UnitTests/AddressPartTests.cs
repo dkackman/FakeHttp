@@ -25,7 +25,7 @@ namespace GeoCoderTests
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext context)
         {
-            MessageHandlerFactory.Mode = MessageHandlerMode.Capture;
+            MessageHandlerFactory.Mode = MessageHandlerMode.Mock;
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 

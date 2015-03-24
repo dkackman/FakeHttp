@@ -38,7 +38,7 @@ namespace MockHttp
 
         private async Task<HttpResponseMessage> DeserializeFromContent(string folder, string fileName)
         {
-            var path = Path.Combine(folder, fileName + ".response.json");
+            var path = Path.Combine(folder, fileName + ".content.json");
 
             if (File.Exists(path))
             {

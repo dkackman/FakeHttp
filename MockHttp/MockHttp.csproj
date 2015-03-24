@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="CapturingHttpClientHandler.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="HttpResponseMessageConverter.cs" />
     <Compile Include="MessageHandlerFactory.cs" />
     <Compile Include="FileSystemResponseStore.cs" />
     <Compile Include="IResponseStore.cs" />

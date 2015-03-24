@@ -118,7 +118,7 @@
   </Target>
   <PropertyGroup>
     <PreBuildEvent>del /f /s /q "$(TargetDir)MockResponses\"
-xcopy /Y /S "$(SolutionDir)MockResponses\*" "$(TargetDir)MockResponses\"
+xcopy /Y /S /Q "$(SolutionDir)MockResponses\*" "$(TargetDir)MockResponses\"
 </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
