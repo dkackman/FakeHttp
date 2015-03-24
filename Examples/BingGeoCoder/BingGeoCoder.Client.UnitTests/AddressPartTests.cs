@@ -25,7 +25,7 @@ namespace GeoCoderTests
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext context)
         {
-            MessageHandlerFactory.Mode = MessageHandlerMode.Capture;
+            MessageHandlerFactory.Mode = MessageHandlerMode.Mock;
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
@@ -35,7 +35,7 @@ namespace GeoCoderTests
             // here we don't want to serialize or include our api key in response lookups so
             // pass a lambda that will indicate to the serialzier to filter that param out
             SimpleIoc.Default.Register<HttpMessageHandler>(() =>
-                MessageHandlerFactory.CreateMessageHandler(mockFolder, captureFolder, (name, value) => !name.Equals("key", StringComparison.InvariantCultureIgnoreCase)));
+                MessageHandlerFactory.CreateMessageHandler(mockFolder, captureFolder, (name, value) => name.Equals("key", StringComparison.InvariantCultureIgnoreCase)));
         }
 
         [ClassInitialize]

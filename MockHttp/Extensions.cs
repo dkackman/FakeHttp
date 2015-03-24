@@ -41,9 +41,7 @@ namespace MockHttp
 
         public static string NormalizeQuery(this Uri uri, Func<string, string, bool> paramFilter)
         {
-            var query = uri.Query.TrimStart('?').ToLowerInvariant();
-
-            var sortedParams = from p in GetParameters(query, paramFilter)
+            var sortedParams = from p in GetParameters(uri, paramFilter)
                                orderby p
                                select p;
 
@@ -55,22 +53,19 @@ namespace MockHttp
                 seperator = "&";
             }
 
-            return string.Concat(builder.ToString());
+            return builder.ToString();
         }
 
-        private static IEnumerable<string> GetParameters(string query, Func<string, string, bool> paramFilter)
+        private static IEnumerable<string> GetParameters(Uri uri, Func<string, string, bool> paramFilter)
         {
-            if (string.IsNullOrEmpty(query))
+            foreach (var param in uri.ParseQueryString())
             {
-                yield break;
-            }
-            
-            foreach (var param in query.Split('&'))
-            {
-                var split = param.Split('=');
-                if (!paramFilter(split[0], split[1]))
+                var name = param.Key.ToLowerInvariant();
+                var value = param.Value != null ? param.Value.ToLowerInvariant() : "";
+
+                if (!paramFilter(name, value))
                 {
-                    yield return param;
+                    yield return string.Format("{0}={1}", name, value);
                 }
             }
         }
