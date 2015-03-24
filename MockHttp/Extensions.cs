@@ -5,11 +5,27 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography;
 
 namespace MockHttp
 {
     static class Extensions
     {
+        public static string ToSha1Hash(this string text)
+        {
+            if (String.IsNullOrEmpty(text))
+                return String.Empty;
+
+            using (var sha1 = new SHA1Managed())
+            {
+                byte[] textData = Encoding.UTF8.GetBytes(text);
+
+                byte[] hash = sha1.ComputeHash(textData);
+
+                return BitConverter.ToString(hash).Replace("-", String.Empty);
+            }
+        }
+
         private static readonly Regex _regex = new Regex(@"[?|&]([\w\.]+)=([^?|^&]+)", RegexOptions.Compiled);
 
         public static IReadOnlyDictionary<string, string> ParseQueryString(this Uri uri)
@@ -31,7 +47,7 @@ namespace MockHttp
 
         public static string ToFileName(this HttpRequestMessage request, string query)
         {
-            return string.Concat(request.Method.Method, ".", query.GetHashCode().ToString());
+            return string.Concat(request.Method.Method, ".", query.ToSha1Hash());
         }
 
         public static string ToShortFileName(this HttpRequestMessage request)
