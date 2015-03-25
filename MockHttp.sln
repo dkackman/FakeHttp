@@ -28,6 +28,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingGeoCoder.Client", "Exam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingGeoCoder.Client.UnitTests", "Examples\BingGeoCoder\BingGeoCoder.Client.UnitTests\BingGeoCoder.Client.UnitTests.csproj", "{55179FB2-B7BB-4456-B801-3A246D919040}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2F3C51BE-1A8E-408E-B3C3-376636C91053}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
