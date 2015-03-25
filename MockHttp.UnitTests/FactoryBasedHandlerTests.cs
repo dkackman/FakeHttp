@@ -35,7 +35,7 @@ namespace MockHttp.UnitTests
                 var response = await client.GetAsync("metadata/mn");
                 response.EnsureSuccessStatusCode();
 
-                dynamic result = await response.Deserialize<dynamic>();
+                dynamic result = await response.Content.Deserialize<dynamic>();
 
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Minnesota", result.name);

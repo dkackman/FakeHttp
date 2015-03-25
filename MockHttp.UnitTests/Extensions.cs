@@ -12,40 +12,40 @@ namespace MockHttp
 {
     static class HttpClientExtensions
     {
-        public async static Task<T> Deserialize<T>(this HttpResponseMessage response)
+        public async static Task<T> Deserialize<T>(this HttpContent content)
         {
             // if the client asked for a stream or byte array, return without serializing to a different type
             if (typeof(T) == typeof(Stream))
             {
-                var stream = await response.Content.ReadAsStreamAsync();
+                var stream = await content.ReadAsStreamAsync();
                 
                 return (T)(object)stream;
             }
 
             if (typeof(T) == typeof(byte[]))
             {
-                var bytes = await response.Content.ReadAsByteArrayAsync();
+                var bytes = await content.ReadAsByteArrayAsync();
                 return (T)(object)bytes;
             }
 
-            var content = await response.Content.ReadAsStringAsync();
+            var s = await content.ReadAsStringAsync();
 
-            if (!string.IsNullOrEmpty(content))
+            if (!string.IsNullOrEmpty(s))
             {
                 // return type is string, just return the content
                 if (typeof(T) == typeof(string))
                 {
-                    return (T)(object)content;
+                    return (T)(object)s;
                 }
 
                 // if the return type is object return a dynamic object
                 if (typeof(T) == typeof(object))
                 {
-                    return DeserializeToDynamic(content.Trim(), new JsonSerializerSettings());
+                    return DeserializeToDynamic(s.Trim(), new JsonSerializerSettings());
                 }
 
                 // otherwise deserialize to the return type
-                return JsonConvert.DeserializeObject<T>(content, new JsonSerializerSettings());
+                return JsonConvert.DeserializeObject<T>(s, new JsonSerializerSettings());
             }
 
             // no content - return default

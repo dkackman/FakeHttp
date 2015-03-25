@@ -34,7 +34,7 @@ namespace MockHttp.UnitTests
                 var response = await client.GetAsync("storage/v1/b/uspto-pair");
                 response.EnsureSuccessStatusCode();
 
-                dynamic metaData = await response.Deserialize<dynamic>();
+                dynamic metaData = await response.Content.Deserialize<dynamic>();
 
                 // we got a response and it looks like the one we want
                 Assert.IsNotNull(metaData);
@@ -69,8 +69,8 @@ namespace MockHttp.UnitTests
                 capturedResponse.EnsureSuccessStatusCode();
                 mockedResponse.EnsureSuccessStatusCode();
 
-                string captured = await capturedResponse.Deserialize<string>();
-                string mocked = await mockedResponse.Deserialize<string>();
+                string captured = await capturedResponse.Content.Deserialize<string>();
+                string mocked = await mockedResponse.Content.Deserialize<string>();
 
                 Assert.AreEqual(captured, mocked);
             }
@@ -109,8 +109,8 @@ namespace MockHttp.UnitTests
                 capturedResponse.EnsureSuccessStatusCode();
                 mockedResponse.EnsureSuccessStatusCode();
 
-                string captured = await capturedResponse.Deserialize<string>();
-                string mocked = await mockedResponse.Deserialize<string>();
+                string captured = await capturedResponse.Content.Deserialize<string>();
+                string mocked = await mockedResponse.Content.Deserialize<string>();
 
                 Assert.AreEqual(captured, mocked);
             }
