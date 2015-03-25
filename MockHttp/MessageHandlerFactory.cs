@@ -39,7 +39,7 @@ namespace MockHttp
         /// <returns>A <see cref="System.Net.Http.HttpMessageHandler"/></returns>
         public static HttpMessageHandler CreateMessageHandler(string mockResponseFolder, string captureFolder)
         {
-            return CreateMessageHandler(mockResponseFolder, captureFolder, (key, value) => false);
+            return CreateMessageHandler(mockResponseFolder, captureFolder, (name, value) => false);
         }
 
         /// <summary>

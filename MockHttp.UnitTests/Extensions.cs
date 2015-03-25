@@ -10,15 +10,14 @@ using Newtonsoft.Json.Converters;
 
 namespace MockHttp
 {
-    static class HttpClientExtensions
+    static class Extensions
     {
         public async static Task<T> Deserialize<T>(this HttpContent content)
         {
             // if the client asked for a stream or byte array, return without serializing to a different type
             if (typeof(T) == typeof(Stream))
             {
-                var stream = await content.ReadAsStreamAsync();
-                
+                var stream = await content.ReadAsStreamAsync();                
                 return (T)(object)stream;
             }
 

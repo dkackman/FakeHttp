@@ -45,6 +45,17 @@ namespace MockHttp
             return request.Method.Method;
         }
 
+        /// <summary>
+        /// The normalization algorthm is logically as follows
+        /// - ToLowerInvariant the query string
+        /// - split out each name value pair
+        /// - filter out unwanted paramaters
+        /// - order the remaining parameters alphabetically
+        /// - reassemble them into a query string (without leading '?')
+        /// </summary>
+        /// <param name="uri">The <see cref="System.Uri"/></param>
+        /// <param name="paramFilter">A callback to indicate which paramters to filter from the normalized query string</param>
+        /// <returns>The normalized query string</returns>
         public static string NormalizeQuery(this Uri uri, Func<string, string, bool> paramFilter)
         {
             var sortedParams = from p in GetParameters(uri, paramFilter)
