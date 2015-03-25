@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,15 +32,27 @@ namespace UnitTestHelpers
                 if (!y.ContainsKey(k))
                     return false;
 
+                // now check values
                 TValue vx = x[k];
                 TValue vy = y[k];
 
-                if (object.ReferenceEquals(vx, null))
+                // null checks
+                if (vx is IList && vy is IList) // values are both lists, same type and length
                 {
-                    if (!object.ReferenceEquals(vy, null))
+                    // both are lists, make sure they are lists of the same type
+                    if(vx.GetType() != vy.GetType())
+                    {
                         return false;
+                    }
+
+                    var lx = vx as IList;
+                    var ly = vy as IList;
+                    if(lx.Count != ly.Count)
+                    {
+                        return false;
+                    }
                 }
-                else if (!vx.Equals(vy))
+                else if (!EqualityComparer<TValue>.Default.Equals(vx, vy)) // then check equality
                 {
                     return false;
                 }

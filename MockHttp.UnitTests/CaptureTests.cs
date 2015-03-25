@@ -69,11 +69,50 @@ namespace MockHttp.UnitTests
                 capturedResponse.EnsureSuccessStatusCode();
                 mockedResponse.EnsureSuccessStatusCode();
 
-                dynamic captured = await capturedResponse.Deserialize<dynamic>();
-                dynamic mocked = await mockedResponse.Deserialize<dynamic>();
+                string captured = await capturedResponse.Deserialize<string>();
+                string mocked = await mockedResponse.Deserialize<string>();
 
-                var comparer = new DictionaryComparer<string, object>();
-                Assert.IsTrue(comparer.Equals(captured, mocked));
+                Assert.AreEqual(captured, mocked);
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("mock")]
+        public async Task FilteredQueryParametrIsIgnoredDuringMocking()
+        {
+            string key = CredentialStore.RetrieveObject("bing.key.json").Key;
+            // store the rest response in a subfolder of the solution directory for future use
+            var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\MockResponses\");
+
+            // when capturing the real response, we do not want to serialize things like api keys
+            // both because that is a possible infomration leak and also because it would
+            // bind the serialized resposne to the key, making successful mocking dependent on
+            // the key used when capturing the response. The mock response lookup will try to find
+            // a serialized response that matches a hash of all the query paramerters. The lambda in
+            // the response store constructor below allows us to ignore certain paramters for that lookup
+            // when capturing and mocking responses
+            //
+            // this test ensures that our mechansim to filter out those paramters we want to ignore works
+            //
+            var capturingHandler = new CapturingHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder, (name, value) => name == "key"));
+            var mockingHandler = new MockHttpMessageHandler(new FileSystemResponseStore(captureFolder, (name, value) => name == "key")); // point the mock to where the capture is stored
+
+            using (var capturingClient = new HttpClient(capturingHandler, true))
+            using (var mockingClient = new HttpClient(mockingHandler, true))
+            {
+                capturingClient.BaseAddress = new Uri("http://dev.virtualearth.net/");
+                mockingClient.BaseAddress = new Uri("http://dev.virtualearth.net/");
+
+                var capturedResponse = await capturingClient.GetAsync("REST/v1/Locations?c=en-us&countryregion=us&maxres=1&postalcode=55116&key=" + key);
+                var mockedResponse = await mockingClient.GetAsync("REST/v1/Locations?c=en-us&countryregion=us&maxres=1&postalcode=55116&key=THIS_SHOULD_NOT_MATTER");
+
+                capturedResponse.EnsureSuccessStatusCode();
+                mockedResponse.EnsureSuccessStatusCode();
+
+                string captured = await capturedResponse.Deserialize<string>();
+                string mocked = await mockedResponse.Deserialize<string>();
+
+                Assert.AreEqual(captured, mocked);
             }
         }
     }
