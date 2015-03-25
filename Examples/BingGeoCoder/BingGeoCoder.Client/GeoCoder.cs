@@ -164,7 +164,7 @@ namespace BingGeoCoder.Client
             return await GetGeoCodeResult(address.addressLine, address.locality, address.adminDistrict, address.postalCode, address.countryRegion, maxResults);
         }
 
-        private async Task<T> Get<T>(string endPoint, IDictionary<string, object> parms) where T : class
+        private async Task<T> Get<T>(string endPoint, IReadOnlyDictionary<string, object> parms) where T : class
         {
             Debug.Assert(parms != null);
 
