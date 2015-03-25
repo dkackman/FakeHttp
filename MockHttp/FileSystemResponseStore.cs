@@ -59,11 +59,11 @@ namespace MockHttp
         public async Task StoreResponse(HttpResponseMessage response)
         {
             var query = response.RequestMessage.RequestUri.NormalizeQuery(_paramFilter);
-
-            var path = Path.Combine(_captureFolder, response.RequestMessage.RequestUri.ToFilePath());
-            Directory.CreateDirectory(path);
-
+            var folderPath = Path.Combine(_captureFolder, response.RequestMessage.RequestUri.ToFilePath());
             var fileName = response.RequestMessage.ToFileName(query);
+            
+            Directory.CreateDirectory(folderPath);
+
             // this is the object that is serialized (response, normalized request query and pointer to the content file)
             var info = new ResponseInfo()
             {
@@ -73,13 +73,13 @@ namespace MockHttp
             };
 
             var content = await response.Content.ReadAsStringAsync();
-            using (var contentWriter = new StreamWriter(Path.Combine(path, info.ContentFileName), false))
+            using (var contentWriter = new StreamWriter(Path.Combine(folderPath, info.ContentFileName), false))
             {
                 contentWriter.Write(content);
             }
 
             var json = JsonConvert.SerializeObject(info, new HttpResponseMessageConverter());
-            using (var responseWriter = new StreamWriter(Path.Combine(path, fileName + ".response.json"), false))
+            using (var responseWriter = new StreamWriter(Path.Combine(folderPath, fileName + ".response.json"), false))
             {
                 responseWriter.Write(json);
             }

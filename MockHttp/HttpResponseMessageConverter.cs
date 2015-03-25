@@ -15,6 +15,7 @@ namespace MockHttp
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
+            // write null for those type we don't want serialized
             serializer.Serialize(writer, null);
         }
 

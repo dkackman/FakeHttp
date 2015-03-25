@@ -19,26 +19,11 @@ namespace MockHttp
             using (var sha1 = new SHA1Managed())
             {
                 byte[] textData = Encoding.UTF8.GetBytes(text);
-
                 byte[] hash = sha1.ComputeHash(textData);
 
                 return BitConverter.ToString(hash).Replace("-", String.Empty);
             }
-        }
-
-        private static readonly Regex _regex = new Regex(@"[?|&]([\w\.]+)=([^?|^&]+)", RegexOptions.Compiled);
-
-        public static IReadOnlyDictionary<string, string> ParseQueryString(this Uri uri)
-        {
-            var match = _regex.Match(uri.PathAndQuery);
-            var paramaters = new Dictionary<string, string>();
-            while (match.Success)
-            {
-                paramaters.Add(match.Groups[1].Value, match.Groups[2].Value);
-                match = match.NextMatch();
-            }
-            return paramaters;
-        }
+        }        
 
         public static string ToFilePath(this Uri uri)
         {
@@ -75,6 +60,20 @@ namespace MockHttp
             }
 
             return builder.ToString();
+        }
+
+        private static readonly Regex _regex = new Regex(@"[?|&]([\w\.]+)=([^?|^&]+)", RegexOptions.Compiled);
+
+        public static IReadOnlyDictionary<string, string> ParseQueryString(this Uri uri)
+        {
+            var match = _regex.Match(uri.PathAndQuery);
+            var paramaters = new Dictionary<string, string>();
+            while (match.Success)
+            {
+                paramaters.Add(match.Groups[1].Value, match.Groups[2].Value);
+                match = match.NextMatch();
+            }
+            return paramaters;
         }
 
         private static IEnumerable<string> GetParameters(Uri uri, Func<string, string, bool> paramFilter)
