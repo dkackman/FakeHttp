@@ -61,12 +61,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DynamicRestProxy.Portable\DynamicRestProxy.PortableHttpClient.csproj">
-      <Project>{11b51b4d-d60e-42e0-81d8-c9bcc08063ad}</Project>
-      <Name>DynamicRestProxy.PortableHttpClient</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>

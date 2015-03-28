@@ -6,9 +6,9 @@ namespace MockHttp
 {
     public sealed class MockHttpMessageHandler : HttpMessageHandler
     {
-        private readonly IResponseStore _store;
+        private readonly IReadonlyResponseStore _store;
 
-        public MockHttpMessageHandler(IResponseStore store)
+        public MockHttpMessageHandler(IReadonlyResponseStore store)
         {
             _store = store;
         }

@@ -8,7 +8,7 @@ using Windows.Storage;
 
 namespace MockHttp
 {
-    public sealed class StorageFolderResponseStore : IResponseStore
+    public sealed class StorageFolderResponseStore : IReadonlyResponseStore
     {
         private readonly IStorageFolder _folder;
 
@@ -18,11 +18,6 @@ namespace MockHttp
         }
 
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task StoreResponse(HttpResponseMessage response)
         {
             throw new NotImplementedException();
         }
