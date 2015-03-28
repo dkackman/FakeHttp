@@ -89,8 +89,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\MockHttp.Desktop\MockHttp.Desktop.csproj">
+      <Project>{821cc09a-e8fd-46db-8865-23c09c0aaa43}</Project>
+      <Name>MockHttp.Desktop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\MockHttp\MockHttp.csproj">
-      <Project>{7a88d444-64b6-456a-a5e8-f744a28991be}</Project>
+      <Project>{6a9365f5-0f44-40df-b49b-2eb33b2da6f5}</Project>
       <Name>MockHttp</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\UnitTestHelpers\UnitTestHelpers.csproj">

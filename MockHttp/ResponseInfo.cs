@@ -7,7 +7,7 @@ using System.Net.Http;
 
 namespace MockHttp
 {
-    class ResponseInfo
+    public sealed class ResponseInfo
     {
         public HttpResponseMessage Response { get; set; }
 

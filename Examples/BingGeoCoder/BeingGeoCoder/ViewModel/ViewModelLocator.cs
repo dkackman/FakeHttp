@@ -8,7 +8,7 @@
   In the View:
   DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
 */
-
+using System.Reflection;
 using System.Diagnostics.CodeAnalysis;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
@@ -16,6 +16,8 @@ using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
 using BeingGeoCoder.Design;
 using BeingGeoCoder.Model;
+
+using BingGeoCoder.Client;
 
 namespace BeingGeoCoder.ViewModel
 {
@@ -56,6 +58,9 @@ namespace BeingGeoCoder.ViewModel
             {
                 SimpleIoc.Default.Register<IDataService, DataService>();
             }
+            var path = Windows.ApplicationModel.Package.Current.InstalledLocation;
+
+            SimpleIoc.Default.Register<IGeoCoder, GeoCoder>();
 
             var nav = new NavigationService();
             nav.Configure(ViewModelLocator.SecondPageKey, typeof(SecondPage));

@@ -37,8 +37,9 @@ namespace GeoCoderTests
 
             // here we don't want to serialize or include our api key in response lookups so
             // pass a lambda that will indicate to the serialzier to filter that param out
-            SimpleIoc.Default.Register<HttpMessageHandler>(() =>
-                MessageHandlerFactory.CreateMessageHandler(mockFolder, captureFolder, (name, value) => name.Equals("key", StringComparison.InvariantCultureIgnoreCase)));
+            var store = new FileSystemResponseStore(mockFolder, captureFolder, (name, value) => name.Equals("key", StringComparison.InvariantCultureIgnoreCase));
+
+            SimpleIoc.Default.Register<HttpMessageHandler>(() => MessageHandlerFactory.CreateMessageHandler(store));
         }
 
         [AssemblyCleanup]

@@ -8,6 +8,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using UnitTestHelpers;
 
+using MockHttp;
+using MockHttp.Desktop;
+
 namespace MockHttp.UnitTests
 {
     [TestClass]

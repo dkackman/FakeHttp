@@ -5,26 +5,28 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
+
 using System.Security.Cryptography;
 
-namespace MockHttp
+namespace MockHttp.Desktop
 {
     static class Extensions
     {
-        public static string ToSha1Hash(this string text)
-        {
-            if (String.IsNullOrEmpty(text))
-                return String.Empty;
-
-            using (var sha1 = new SHA1Managed())
-            {
-                byte[] textData = Encoding.UTF8.GetBytes(text);
-                byte[] hash = sha1.ComputeHash(textData);
-
-                return BitConverter.ToString(hash).Replace("-", String.Empty);
-            }
-        }        
-
+         public static string ToSha1Hash(this string text) 
+         { 
+             if (String.IsNullOrEmpty(text)) 
+                 return String.Empty; 
+ 
+             using (var sha1 = new SHA1Managed()) 
+             { 
+                 byte[] textData = Encoding.UTF8.GetBytes(text); 
+                 byte[] hash = sha1.ComputeHash(textData); 
+ 
+ 
+                 return BitConverter.ToString(hash).Replace("-", String.Empty); 
+             } 
+         }           
+      
         public static string ToFilePath(this Uri uri)
         {
             return Path.Combine(uri.Host, uri.LocalPath.TrimStart('/').Replace('/', '\\'));

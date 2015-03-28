@@ -1,16 +1,21 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 
 using Newtonsoft.Json;
 
 namespace MockHttp
 {
-    class HttpResponseMessageConverter : JsonConverter
+    public sealed class HttpResponseMessageConverter : JsonConverter
     {
+        private static readonly Type[] _dontSerializeTypes = new Type[] { typeof(HttpRequestMessage), typeof(StringContent), typeof(StreamContent),
+                                                                            typeof(ByteArrayContent), typeof(MultipartContent), typeof(HttpContent)};
+
         public override bool CanConvert(Type objectType)
         {
             // the request message and the content do not get serialized as part of the response
-            return objectType == typeof(HttpRequestMessage) || objectType.IsSubclassOf(typeof(HttpContent));
+            return _dontSerializeTypes.Contains(objectType);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

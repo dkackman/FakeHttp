@@ -6,6 +6,8 @@ using GalaSoft.MvvmLight.Views;
 using BeingGeoCoder.Common;
 using BeingGeoCoder.Model;
 
+using BingGeoCoder.Client;
+
 namespace BeingGeoCoder.ViewModel
 {
     /// <summary>
@@ -21,7 +23,7 @@ namespace BeingGeoCoder.ViewModel
         /// </summary>
         public const string WelcomeTitlePropertyName = "WelcomeTitle";
 
-        private readonly IDataService _dataService;
+        private readonly IGeoCoder _geoCoder;
         private readonly INavigationService _navigationService;
 
         private RelayCommand _navigateCommand;
@@ -62,20 +64,21 @@ namespace BeingGeoCoder.ViewModel
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel(
-            IDataService dataService,
+            IGeoCoder geoCoder,
             INavigationService navigationService)
         {
-            _dataService = dataService;
+            _geoCoder = geoCoder;
             _navigationService = navigationService;
             Initialize();
         }
 
-        ////public override void Cleanup()
-        ////{
-        ////    // Clean up if needed
+        private string _address;
+        public string CurrentAddress
+        {
+            get { return _address; }
+            set { Set<String>(ref _address, value); }
+        }
 
-        ////    base.Cleanup();
-        ////}
         public void Load(DateTime lastVisit)
         {
             if (lastVisit > DateTime.MinValue)
@@ -91,9 +94,7 @@ namespace BeingGeoCoder.ViewModel
         {
             try
             {
-                var item = await _dataService.GetData();
-                _originalTitle = item.Title;
-                WelcomeTitle = item.Title;
+                WelcomeTitle = "Geo Coding";
             }
             catch (Exception ex)
             {

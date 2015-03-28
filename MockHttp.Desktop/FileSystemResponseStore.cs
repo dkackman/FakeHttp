@@ -6,6 +6,8 @@ using System.Net.Http;
 
 using Newtonsoft.Json;
 
+using MockHttp.Desktop;
+
 namespace MockHttp
 {
     public class FileSystemResponseStore : IResponseStore

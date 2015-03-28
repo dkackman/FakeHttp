@@ -34,30 +34,17 @@ namespace MockHttp
         /// <summary>
         /// Create an <see cref="System.Net.Http.HttpMessageHandler"/>.
         /// </summary>
-        /// <param name="mockResponseFolder">Path to the folder where mock response are stored (used when in Mock mode)</param>
-        /// <param name="captureFolder">Path to the folder to store captured responses (used when in capture mode)</param>
+        /// <param name="responseStore">Object that can store and retreive response messages</param>
         /// <returns>A <see cref="System.Net.Http.HttpMessageHandler"/></returns>
-        public static HttpMessageHandler CreateMessageHandler(string mockResponseFolder, string captureFolder)
-        {
-            return CreateMessageHandler(mockResponseFolder, captureFolder, (name, value) => false);
-        }
-
-        /// <summary>
-        /// Create an <see cref="System.Net.Http.HttpMessageHandler"/>.
-        /// </summary>
-        /// <param name="mockResponseFolder">Path to the folder where mock response are stored (used when in Mock mode)</param>
-        /// <param name="captureFolder">Path to the folder to store captured responses (used when in capture mode)</param>
-        /// <param name="paramFilter">A callback function that allows tests to filter query parameters out of serialization</param>
-        /// <returns>A <see cref="System.Net.Http.HttpMessageHandler"/></returns>
-        public static HttpMessageHandler CreateMessageHandler(string mockResponseFolder, string captureFolder, Func<string, string, bool> paramFilter)
+        public static HttpMessageHandler CreateMessageHandler(IResponseStore responseStore)
         {
             if (Mode == MessageHandlerMode.Mock)
             {
-                return new MockHttpMessageHandler(new FileSystemResponseStore(mockResponseFolder, paramFilter));
+                return new MockHttpMessageHandler(responseStore);
             }
 
             var clientHandler = Mode == MessageHandlerMode.Capture
-                ? new CapturingHttpClientHandler(new FileSystemResponseStore(mockResponseFolder, captureFolder, paramFilter)) : new HttpClientHandler();
+                ? new CapturingHttpClientHandler(responseStore) : new HttpClientHandler();
 
             if (clientHandler.SupportsAutomaticDecompression)
             {

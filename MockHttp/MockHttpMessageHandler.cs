@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace MockHttp
 {
-    public class MockHttpMessageHandler : HttpMessageHandler
+    public sealed class MockHttpMessageHandler : HttpMessageHandler
     {
         private readonly IResponseStore _store;
 

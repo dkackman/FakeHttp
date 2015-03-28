@@ -8,7 +8,9 @@ using System.Net.Http;
 
 using Newtonsoft.Json;
 
-namespace MockHttp
+using MockHttp;
+
+namespace MockHttp.Desktop
 {
     class ResponseDeserializer
     {

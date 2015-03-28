@@ -4,6 +4,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 
 using MockHttp;
+using MockHttp.Desktop;
+
 using UnitTestHelpers;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,7 +26,8 @@ namespace MockHttp.UnitTests
         [TestCategory("mock")]
         public async Task CanGetSimpleJsonResult()
         {
-            var handler = MessageHandlerFactory.CreateMessageHandler(TestContext.DeploymentDirectory, Path.Combine(TestContext.TestRunDirectory, @"..\..\MockResponses\"));
+            var store = new FileSystemResponseStore(TestContext.DeploymentDirectory, Path.Combine(TestContext.TestRunDirectory, @"..\..\MockResponses\"));
+            var handler = MessageHandlerFactory.CreateMessageHandler(store);
 
             using (var client = new HttpClient(handler, true))
             {
