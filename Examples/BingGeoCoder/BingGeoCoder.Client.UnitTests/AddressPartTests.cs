@@ -41,6 +41,15 @@ namespace GeoCoderTests
                 MessageHandlerFactory.CreateMessageHandler(mockFolder, captureFolder, (name, value) => name.Equals("key", StringComparison.InvariantCultureIgnoreCase)));
         }
 
+        [AssemblyCleanup]
+        public static void AssemblyCleanup()
+        {
+            if (SimpleIoc.Default.IsRegistered<HttpMessageHandler>())
+            {
+                SimpleIoc.Default.GetInstance<HttpMessageHandler>().Dispose();
+            }
+        }
+
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
