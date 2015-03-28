@@ -25,11 +25,14 @@ namespace GeoCoderTests
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext context)
         {
+            // set the http message handler factory to the mode we want for the entire assmebly test execution
             MessageHandlerFactory.Mode = MessageHandlerMode.Mock;
 
+            // setup IOC so test classes can get the shared message handler
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            var mockFolder = context.DeploymentDirectory; // thoe folder where the unit tests are running
+            // folders where mock responses are stored and where captured response should be saved
+            var mockFolder = context.DeploymentDirectory; // the folder where the unit tests are running
             var captureFolder = Path.Combine(context.TestRunDirectory, @"..\..\MockResponses\"); // kinda hacky but this should be the solution folder
 
             // here we don't want to serialize or include our api key in response lookups so
@@ -41,7 +44,9 @@ namespace GeoCoderTests
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            _service = new GeoCoder(CredentialStore.RetrieveObject("bing.key.json").Key, "Portable-Bing-GeoCoder-UnitTests/1.0");
+            var handler = SimpleIoc.Default.GetInstance<HttpMessageHandler>();
+
+            _service = new GeoCoder(handler, CredentialStore.RetrieveObject("bing.key.json").Key, "Portable-Bing-GeoCoder-UnitTests/1.0");
         }
 
         [ClassCleanup]

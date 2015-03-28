@@ -27,8 +27,8 @@ namespace BingGeoCoder.Client
         /// <param name="user_agent">User agnet string</param>
         /// <param name="culture">Culture of the requesting application</param>
         /// <param name="context">Optional ontext of the request</param>
-        public GeoCoder(string apiKey, string user_agent = "", string culture = "en-US", UserContext context = null)
-            : this(apiKey, 4, 1000, user_agent, culture, context)
+        public GeoCoder(HttpMessageHandler handler, string apiKey, string user_agent = "", string culture = "en-US", UserContext context = null)
+            : this(handler, apiKey, 4, 1000, user_agent, culture, context)
         {
         }
 
@@ -41,9 +41,9 @@ namespace BingGeoCoder.Client
         /// <param name="user_agent">User agnet string</param>
         /// <param name="culture">Culture of the requesting application</param>
         /// <param name="context">Optional ontext of the request</param>
-        public GeoCoder(string apiKey, int retryCount, int retryDelay, string user_agent = "", string culture = "en-US", UserContext context = null)
+        public GeoCoder(HttpMessageHandler handler, string apiKey, int retryCount, int retryDelay, string user_agent = "", string culture = "en-US", UserContext context = null)
         {
-            _httpClient = Factory.CreateClient(user_agent);
+            _httpClient = Factory.CreateClient(handler, user_agent);
             _defaultParameters = Factory.CreateDefaultParameters(apiKey, culture, context);
 
             _retryCount = retryCount;

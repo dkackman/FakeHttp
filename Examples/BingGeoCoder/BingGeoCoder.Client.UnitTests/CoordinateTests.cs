@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using BingGeoCoder.Client;
 
 using UnitTestHelpers;
+
+using GalaSoft.MvvmLight.Ioc;
 
 namespace GeoCoderTests
 {
@@ -18,7 +21,9 @@ namespace GeoCoderTests
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            _service = new GeoCoder(CredentialStore.RetrieveObject("bing.key.json").Key, "Portable-Bing-GeoCoder-UnitTests/1.0");
+            var handler = SimpleIoc.Default.GetInstance<HttpMessageHandler>();
+
+            _service = new GeoCoder(handler, CredentialStore.RetrieveObject("bing.key.json").Key, "Portable-Bing-GeoCoder-UnitTests/1.0");
         }
 
         [ClassCleanup]

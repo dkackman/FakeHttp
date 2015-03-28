@@ -9,39 +9,13 @@ using System.Linq;
 
 using Newtonsoft.Json;
 
-using Microsoft.Practices.ServiceLocation;
-
 namespace BingGeoCoder.Client
 {
     static class Factory
     {
-        private static HttpMessageHandler GetHandler(out bool dispose)
+        public static HttpClient CreateClient(HttpMessageHandler handler, string user_agent)
         {
-            if (ServiceLocator.IsLocationProviderSet)
-            {
-                var handler = ServiceLocator.Current.GetInstance<HttpMessageHandler>();
-                if (handler != null)
-                {
-                    dispose = false;
-                    return handler;
-                }
-            }
-
-            var clientHandler = new HttpClientHandler();
-            if (clientHandler.SupportsAutomaticDecompression)
-            {
-                clientHandler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-            }
-            dispose = true;
-            return clientHandler;
-        }
-
-        public static HttpClient CreateClient(string user_agent)
-        {
-            bool dispose;
-            var handler = GetHandler(out dispose);
-
-            var client = new HttpClient(handler, dispose);
+            var client = new HttpClient(handler, false);
 
             if (handler is HttpClientHandler && ((HttpClientHandler)handler).SupportsTransferEncodingChunked())
             {
