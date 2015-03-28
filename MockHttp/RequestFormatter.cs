@@ -6,43 +6,28 @@ using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using System.Security.Cryptography;
-
-namespace MockHttp.Desktop
+namespace MockHttp
 {
-    static class Extensions
+    public abstract class RequestFormatter
     {
-         public static string ToSha1Hash(this string text) 
-         { 
-             if (String.IsNullOrEmpty(text)) 
-                 return String.Empty; 
- 
-             using (var sha1 = new SHA1Managed()) 
-             { 
-                 byte[] textData = Encoding.UTF8.GetBytes(text); 
-                 byte[] hash = sha1.ComputeHash(textData); 
- 
- 
-                 return BitConverter.ToString(hash).Replace("-", String.Empty); 
-             } 
-         }           
-      
-        public static string ToFilePath(this Uri uri)
+        public abstract string ToSha1Hash(string text);
+
+        public string ToFilePath(Uri uri)
         {
             return Path.Combine(uri.Host, uri.LocalPath.TrimStart('/').Replace('/', '\\'));
         }
 
-        public static string ToFileName(this HttpRequestMessage request, string query)
+        public string ToFileName(HttpRequestMessage request, string query)
         {
             if (string.IsNullOrEmpty(query))
             {
-                return request.ToShortFileName();
+                return ToShortFileName(request);
             }
 
-            return string.Concat(request.Method.Method, ".", query.ToSha1Hash());
+            return string.Concat(request.Method.Method, ".", ToSha1Hash(query));
         }
 
-        public static string ToShortFileName(this HttpRequestMessage request)
+        public string ToShortFileName(HttpRequestMessage request)
         {
             return request.Method.Method;
         }
@@ -58,7 +43,7 @@ namespace MockHttp.Desktop
         /// <param name="uri">The <see cref="System.Uri"/></param>
         /// <param name="paramFilter">A callback to indicate which paramters to filter from the normalized query string</param>
         /// <returns>The normalized query string</returns>
-        public static string NormalizeQuery(this Uri uri, Func<string, string, bool> paramFilter)
+        public string NormalizeQuery(Uri uri, Func<string, string, bool> paramFilter)
         {
             var sortedParams = from p in GetParameters(uri, paramFilter)
                                orderby p
@@ -75,9 +60,9 @@ namespace MockHttp.Desktop
             return builder.ToString();
         }
 
-        private static readonly Regex _regex = new Regex(@"[?|&]([\w\.]+)=([^?|^&]+)", RegexOptions.Compiled);
+        private static readonly Regex _regex = new Regex(@"[?|&]([\w\.]+)=([^?|^&]+)");
 
-        public static IReadOnlyDictionary<string, string> ParseQueryString(this Uri uri)
+        private static IReadOnlyDictionary<string, string> ParseQueryString(Uri uri)
         {
             var match = _regex.Match(uri.PathAndQuery);
             var paramaters = new Dictionary<string, string>();
@@ -91,7 +76,7 @@ namespace MockHttp.Desktop
 
         private static IEnumerable<string> GetParameters(Uri uri, Func<string, string, bool> paramFilter)
         {
-            foreach (var param in uri.ParseQueryString())
+            foreach (var param in ParseQueryString(uri))
             {
                 var name = param.Key.ToLowerInvariant();
                 var value = param.Value != null ? param.Value.ToLowerInvariant() : "";

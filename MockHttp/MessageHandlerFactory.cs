@@ -36,6 +36,32 @@ namespace MockHttp
         /// </summary>
         /// <param name="responseStore">Object that can store and retreive response messages</param>
         /// <returns>A <see cref="System.Net.Http.HttpMessageHandler"/></returns>
+        public static HttpMessageHandler CreateMessageHandler(IReadonlyResponseStore responseStore)
+        {
+            if (Mode == MessageHandlerMode.Mock)
+            {
+                return new MockHttpMessageHandler(responseStore);
+            }
+
+            if (Mode == MessageHandlerMode.Capture)
+            {
+                throw new InvalidOperationException("Cannot use Capture mode with an IReadonlyResponseStore");
+            }
+
+            var clientHandler = new HttpClientHandler();
+
+            if (clientHandler.SupportsAutomaticDecompression)
+            {
+                clientHandler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+            }
+            return clientHandler;
+        }
+
+        /// <summary>
+        /// Create an <see cref="System.Net.Http.HttpMessageHandler"/>.
+        /// </summary>
+        /// <param name="responseStore">Object that can store and retreive response messages</param>
+        /// <returns>A <see cref="System.Net.Http.HttpMessageHandler"/></returns>
         public static HttpMessageHandler CreateMessageHandler(IResponseStore responseStore)
         {
             if (Mode == MessageHandlerMode.Mock)

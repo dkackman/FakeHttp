@@ -19,7 +19,8 @@ namespace MockHttp
 
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
         {
-            throw new NotImplementedException();
+            //_folder.GetFolderAsync(request.)
+            return null;
         }
     }
 }

@@ -12,6 +12,8 @@ namespace MockHttp
 {
     public class FileSystemResponseStore : IResponseStore
     {
+        private readonly DesktopResponseFormatter _formatter = new DesktopResponseFormatter();
+
         private readonly string _storeFolder;
         private readonly string _captureFolder;
         private readonly ResponseDeserializer _deserializer = new ResponseDeserializer();
@@ -47,23 +49,23 @@ namespace MockHttp
 
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
         {
-            var query = request.RequestUri.NormalizeQuery(_paramFilter);
-            var folderPath = Path.Combine(_storeFolder, request.RequestUri.ToFilePath());
+            var query = _formatter.NormalizeQuery(request.RequestUri, _paramFilter);
+            var folderPath = Path.Combine(_storeFolder, _formatter.ToFilePath(request.RequestUri));
 
             // first try to find a file keyed to the request method and query
-            return await _deserializer.DeserializeResponse(folderPath, request.ToFileName(query))
+            return await _deserializer.DeserializeResponse(folderPath, _formatter.ToFileName(request, query))
                 // next just look for a default response based on just the http method
-                ?? await _deserializer.DeserializeResponse(folderPath, request.ToShortFileName())
+                ?? await _deserializer.DeserializeResponse(folderPath, _formatter.ToShortFileName(request))
                 // otherwise return 404            
                 ?? new HttpResponseMessage(HttpStatusCode.NotFound) { RequestMessage = request };
         }
 
         public async Task StoreResponse(HttpResponseMessage response)
         {
-            var query = response.RequestMessage.RequestUri.NormalizeQuery(_paramFilter);
-            var folderPath = Path.Combine(_captureFolder, response.RequestMessage.RequestUri.ToFilePath());
-            var fileName = response.RequestMessage.ToFileName(query);
-            
+            var query = _formatter.NormalizeQuery(response.RequestMessage.RequestUri, _paramFilter);
+            var folderPath = Path.Combine(_captureFolder, _formatter.ToFilePath(response.RequestMessage.RequestUri));
+            var fileName = _formatter.ToFileName(response.RequestMessage, query);
+
             Directory.CreateDirectory(folderPath);
 
             // this is the object that is serialized (response, normalized request query and pointer to the content file)
