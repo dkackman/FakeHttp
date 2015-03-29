@@ -44,7 +44,7 @@ namespace MockHttp.UnitTests
                 Assert.AreEqual("https://www.googleapis.com/storage/v1/b/uspto-pair", metaData.selfLink);
 
                 // assert we stored it where we want it to go
-                var formatter = new DesktopResponseFormatter();
+                var formatter = new DesktopRequestFormatter();
                 var folderPath = Path.Combine(captureFolder, formatter.ToFilePath(response.RequestMessage.RequestUri), response.RequestMessage.Method.Method);
                 Assert.IsTrue(File.Exists(folderPath + ".response.json"));
                 Assert.IsTrue(File.Exists(folderPath + ".content.json"));

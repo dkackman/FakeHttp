@@ -116,7 +116,6 @@
     <Compile Include="Common\PageOrientations.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Common\UserControlBase.cs" />
-    <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="SecondPage.xaml.cs">
       <DependentUpon>SecondPage.xaml</DependentUpon>
     </Compile>
@@ -124,9 +123,6 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\OrientationStateBehavior.cs" />
-    <Compile Include="Model\DataItem.cs" />
-    <Compile Include="Model\DataService.cs" />
-    <Compile Include="Model\IDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestUserControl.xaml.cs">
       <DependentUpon>TestUserControl.xaml</DependentUpon>
@@ -138,96 +134,96 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.237E01B29A5EBCB0473E054FA1D1037B53B1538A.content.json">
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.237E01B29A5EBCB0473E054FA1D1037B53B1538A.content.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.237E01B29A5EBCB0473E054FA1D1037B53B1538A.response.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.237E01B29A5EBCB0473E054FA1D1037B53B1538A.response.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.42117911B2AE2B50EA127EC26A4BB48411E35ED9.content.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.42117911B2AE2B50EA127EC26A4BB48411E35ED9.content.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.42117911B2AE2B50EA127EC26A4BB48411E35ED9.response.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.42117911B2AE2B50EA127EC26A4BB48411E35ED9.response.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.8C3B78EFB1B3E2D6CB68430E40CF90B140E767E0.content.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.8C3B78EFB1B3E2D6CB68430E40CF90B140E767E0.content.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.8C3B78EFB1B3E2D6CB68430E40CF90B140E767E0.response.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.8C3B78EFB1B3E2D6CB68430E40CF90B140E767E0.response.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.A3019B650E4BF12DD7B88FA0EB7C5A2ECA78872B.content.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.A3019B650E4BF12DD7B88FA0EB7C5A2ECA78872B.content.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.A3019B650E4BF12DD7B88FA0EB7C5A2ECA78872B.response.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.A3019B650E4BF12DD7B88FA0EB7C5A2ECA78872B.response.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.D18373B4AE73BD45C33825C5B249C2EA6D177904.content.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.D18373B4AE73BD45C33825C5B249C2EA6D177904.content.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.D18373B4AE73BD45C33825C5B249C2EA6D177904.response.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.D18373B4AE73BD45C33825C5B249C2EA6D177904.response.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.E2AE9A4187A5709EAB7C79EE8D8F30815F633DBD.content.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.E2AE9A4187A5709EAB7C79EE8D8F30815F633DBD.content.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.E2AE9A4187A5709EAB7C79EE8D8F30815F633DBD.response.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.E2AE9A4187A5709EAB7C79EE8D8F30815F633DBD.response.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.E2E4A6B63AB0AC89C012E504240509C26D4762B0.content.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.E2E4A6B63AB0AC89C012E504240509C26D4762B0.content.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.E2E4A6B63AB0AC89C012E504240509C26D4762B0.response.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.E2E4A6B63AB0AC89C012E504240509C26D4762B0.response.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.E86AF997E66B4E2C2D07CABCB90759CEBA234F09.content.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.E86AF997E66B4E2C2D07CABCB90759CEBA234F09.content.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.E86AF997E66B4E2C2D07CABCB90759CEBA234F09.response.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.E86AF997E66B4E2C2D07CABCB90759CEBA234F09.response.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.EB9E71810CD3F9B6036A9D2D71005F73DE3FE668.content.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.EB9E71810CD3F9B6036A9D2D71005F73DE3FE668.content.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.EB9E71810CD3F9B6036A9D2D71005F73DE3FE668.response.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\44.9108238220215,-93.1702041625977\GET.EB9E71810CD3F9B6036A9D2D71005F73DE3FE668.response.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\Eiffel Tower\GET.9FEB6202ACBEA27D725B25B72593557B92450F0E.content.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\Eiffel Tower\GET.9FEB6202ACBEA27D725B25B72593557B92450F0E.content.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\Eiffel Tower\GET.9FEB6202ACBEA27D725B25B72593557B92450F0E.response.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\Eiffel Tower\GET.9FEB6202ACBEA27D725B25B72593557B92450F0E.response.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\GET.8F8BE39FAED23347CB3B40A0053E1EA46644AB9C.content.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\GET.8F8BE39FAED23347CB3B40A0053E1EA46644AB9C.content.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\GET.8F8BE39FAED23347CB3B40A0053E1EA46644AB9C.response.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\GET.8F8BE39FAED23347CB3B40A0053E1EA46644AB9C.response.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\GET.CEF68A2402660B98422529EEC72A1205030578C5.content.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\GET.CEF68A2402660B98422529EEC72A1205030578C5.content.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\GET.CEF68A2402660B98422529EEC72A1205030578C5.response.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\GET.CEF68A2402660B98422529EEC72A1205030578C5.response.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\GET.D0E90CDC2F2849C6E600876D46057CD84B6B4883.content.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\GET.D0E90CDC2F2849C6E600876D46057CD84B6B4883.content.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\GET.D0E90CDC2F2849C6E600876D46057CD84B6B4883.response.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\GET.D0E90CDC2F2849C6E600876D46057CD84B6B4883.response.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\GET.DA7CB6193401874ACE49D7A4D401122514A782A8.content.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\GET.DA7CB6193401874ACE49D7A4D401122514A782A8.content.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\GET.DA7CB6193401874ACE49D7A4D401122514A782A8.response.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\GET.DA7CB6193401874ACE49D7A4D401122514A782A8.response.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\GET.DECF13E8E2A38DD8ADF81838BF47808F541DB403.content.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\GET.DECF13E8E2A38DD8ADF81838BF47808F541DB403.content.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="MockResponses\dev.virtualearth.net\REST\v1\Locations\GET.DECF13E8E2A38DD8ADF81838BF47808F541DB403.response.json">
+    </Content>
+    <Content Include="dev.virtualearth.net\REST\v1\Locations\GET.DECF13E8E2A38DD8ADF81838BF47808F541DB403.response.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="MvvmLight.Win81_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
@@ -281,6 +277,10 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.8\lib\netcore45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\Microsoft.Net.Http.2.2.29\lib\win8\System.Net.Http.Extensions.dll</HintPath>
@@ -290,10 +290,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\MockHttp.Store\MockHttp.Store.csproj">
+      <Project>{7072fb0f-27fa-4583-baf7-13087d77560b}</Project>
+      <Name>MockHttp.Store</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MockHttp\MockHttp.csproj">
+      <Project>{6a9365f5-0f44-40df-b49b-2eb33b2da6f5}</Project>
+      <Name>MockHttp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BingGeoCoder.Client\BingGeoCoder.Client.csproj">
       <Project>{c68d630b-deb6-452b-bdbc-47ea3cd84bef}</Project>
       <Name>BingGeoCoder.Client</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Design\" />
+    <Folder Include="Model\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

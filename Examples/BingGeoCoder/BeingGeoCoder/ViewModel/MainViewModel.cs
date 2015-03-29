@@ -4,7 +4,6 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using BeingGeoCoder.Common;
-using BeingGeoCoder.Model;
 
 using BingGeoCoder.Client;
 
@@ -27,8 +26,18 @@ namespace BeingGeoCoder.ViewModel
         private readonly INavigationService _navigationService;
 
         private RelayCommand _navigateCommand;
-        private string _originalTitle;
+
         private string _welcomeTitle = string.Empty;
+
+        /// <summary>
+        /// Initializes a new instance of the MainViewModel class.
+        /// </summary>
+        public MainViewModel(IGeoCoder geoCoder, INavigationService navigationService)
+        {
+            _geoCoder = geoCoder;
+            _navigationService = navigationService;
+            Initialize();
+        }
 
         /// <summary>
         /// Gets the NavigateCommand.
@@ -38,8 +47,7 @@ namespace BeingGeoCoder.ViewModel
             get
             {
                 return _navigateCommand
-                       ?? (_navigateCommand = new RelayCommand(
-                           () => _navigationService.NavigateTo(ViewModelLocator.SecondPageKey)));
+                       ?? (_navigateCommand = new RelayCommand(() => _navigationService.NavigateTo(ViewModelLocator.SecondPageKey)));
             }
         }
 
@@ -60,18 +68,6 @@ namespace BeingGeoCoder.ViewModel
             }
         }
 
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
-        public MainViewModel(
-            IGeoCoder geoCoder,
-            INavigationService navigationService)
-        {
-            _geoCoder = geoCoder;
-            _navigationService = navigationService;
-            Initialize();
-        }
-
         private string _address;
         public string CurrentAddress
         {
@@ -81,13 +77,6 @@ namespace BeingGeoCoder.ViewModel
 
         public void Load(DateTime lastVisit)
         {
-            if (lastVisit > DateTime.MinValue)
-            {
-                WelcomeTitle = string.Format(
-                    "{0} (last visit on the {1})",
-                    _originalTitle,
-                    lastVisit);
-            }
         }
 
         private async Task Initialize()
@@ -95,6 +84,7 @@ namespace BeingGeoCoder.ViewModel
             try
             {
                 WelcomeTitle = "Geo Coding";
+                CurrentAddress = await _geoCoder.GetFormattedAddress(44.9108238220215, -93.1702041625977);
             }
             catch (Exception ex)
             {

@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 
 namespace MockHttp.Desktop
 {
-    class DesktopResponseFormatter : RequestFormatter
+    class DesktopRequestFormatter : RequestFormatter
     {
          public override string ToSha1Hash( string text) 
          {

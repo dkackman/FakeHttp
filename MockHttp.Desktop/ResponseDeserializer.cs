@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
 
 using Newtonsoft.Json;
-
-using MockHttp;
 
 namespace MockHttp.Desktop
 {
@@ -26,6 +21,11 @@ namespace MockHttp.Desktop
                     var json = await reader.ReadToEndAsync();
 
                     var info = JsonConvert.DeserializeObject<ResponseInfo>(json);
+                    if (info == null)
+                    {
+                        return null;
+                    }
+
                     if (!string.IsNullOrEmpty(info.ContentFileName))
                     {
                         info.Response.Content = await DeserializeContent(Path.Combine(folder, info.ContentFileName));

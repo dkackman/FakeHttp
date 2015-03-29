@@ -12,7 +12,7 @@ namespace MockHttp
 {
     public class FileSystemResponseStore : IResponseStore
     {
-        private readonly DesktopResponseFormatter _formatter = new DesktopResponseFormatter();
+        private readonly DesktopRequestFormatter _formatter = new DesktopRequestFormatter();
 
         private readonly string _storeFolder;
         private readonly string _captureFolder;

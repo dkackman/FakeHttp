@@ -197,6 +197,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="140" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid>
@@ -247,12 +248,8 @@
                    FontWeight="Light"
                    TextWrapping="WrapWholeWords" />
 
-        <local:TestUserControl x:Name="Bottom"
-                               HorizontalAlignment="Left"
-                               Height="100"
-                               VerticalAlignment="Bottom"
-                               Width="790"
-                               Grid.Row="1"
+        <TextBlock Text="{Binding CurrentAddress}"
+                               Grid.Row="2"
                                Margin="120,0,0,80" />
 
         <Button Content="Second page"

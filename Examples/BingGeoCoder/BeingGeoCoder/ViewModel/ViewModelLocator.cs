@@ -8,16 +8,20 @@
   In the View:
   DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
 */
+using System;
 using System.Reflection;
 using System.Diagnostics.CodeAnalysis;
+using System.Net.Http;
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
+
 using Microsoft.Practices.ServiceLocation;
-using BeingGeoCoder.Design;
-using BeingGeoCoder.Model;
 
 using BingGeoCoder.Client;
+
+using MockHttp;
 
 namespace BeingGeoCoder.ViewModel
 {
@@ -52,15 +56,17 @@ namespace BeingGeoCoder.ViewModel
 
             if (ViewModelBase.IsInDesignModeStatic)
             {
-                SimpleIoc.Default.Register<IDataService, DesignDataService>();
+                MessageHandlerFactory.Mode = MessageHandlerMode.Mock;                
             }
             else
             {
-                SimpleIoc.Default.Register<IDataService, DataService>();
+                MessageHandlerFactory.Mode = MessageHandlerMode.Mock;
             }
-            var path = Windows.ApplicationModel.Package.Current.InstalledLocation;
 
-            SimpleIoc.Default.Register<IGeoCoder, GeoCoder>();
+            var mockFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            var store = new StorageFolderResponseStore(mockFolder, (name, value) => name == "key");
+            SimpleIoc.Default.Register<HttpMessageHandler>(() => MessageHandlerFactory.CreateMessageHandler(store));
+            SimpleIoc.Default.Register<IGeoCoder>(() => new GeoCoder(SimpleIoc.Default.GetInstance<HttpMessageHandler>(), "key"));
 
             var nav = new NavigationService();
             nav.Configure(ViewModelLocator.SecondPageKey, typeof(SecondPage));
