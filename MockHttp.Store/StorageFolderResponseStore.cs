@@ -12,7 +12,7 @@ namespace MockHttp
     public sealed class StorageFolderResponseStore : IReadonlyResponseStore
     {
         private readonly StoreRequestFormatter _formatter = new StoreRequestFormatter();
-        private readonly ResponseDeserializer _deserializer = new ResponseDeserializer();
+        private readonly StoreResponseLoader _deserializer;
         private readonly IStorageFolder _storeFolder;
 
         private readonly Func<string, string, bool> _paramFilter;
@@ -26,12 +26,14 @@ namespace MockHttp
         {
             _storeFolder = storeFolder;
             _paramFilter = paramFilter;
+
+            _deserializer = new StoreResponseLoader(_storeFolder);
         }
 
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
         {
             var query = _formatter.NormalizeQuery(request.RequestUri, _paramFilter);
-            var folder = await _storeFolder.GetFolderAsync(_formatter.ToFilePath(request.RequestUri));
+            var folder = _formatter.ToFilePath(request.RequestUri);
 
             // first try to find a file keyed to the request method and query
             return await _deserializer.DeserializeResponse(folder, _formatter.ToFileName(request, query))

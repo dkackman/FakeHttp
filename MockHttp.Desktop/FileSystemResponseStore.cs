@@ -13,10 +13,10 @@ namespace MockHttp
     public class FileSystemResponseStore : IResponseStore
     {
         private readonly DesktopRequestFormatter _formatter = new DesktopRequestFormatter();
+        private readonly DesktopResponseLoader _responseLoader = new DesktopResponseLoader();
 
         private readonly string _storeFolder;
         private readonly string _captureFolder;
-        private readonly ResponseDeserializer _deserializer = new ResponseDeserializer();
         private readonly Func<string, string, bool> _paramFilter;
 
         public FileSystemResponseStore(string storeFolder)
@@ -53,9 +53,9 @@ namespace MockHttp
             var folderPath = Path.Combine(_storeFolder, _formatter.ToFilePath(request.RequestUri));
 
             // first try to find a file keyed to the request method and query
-            return await _deserializer.DeserializeResponse(folderPath, _formatter.ToFileName(request, query))
+            return await _responseLoader.DeserializeResponse(folderPath, _formatter.ToFileName(request, query))
                 // next just look for a default response based on just the http method
-                ?? await _deserializer.DeserializeResponse(folderPath, _formatter.ToShortFileName(request))
+                ?? await _responseLoader.DeserializeResponse(folderPath, _formatter.ToShortFileName(request))
                 // otherwise return 404            
                 ?? new HttpResponseMessage(HttpStatusCode.NotFound) { RequestMessage = request };
         }
