@@ -60,13 +60,12 @@ namespace BeingGeoCoder.ViewModel
             }
             else
             {
-                MessageHandlerFactory.Mode = MessageHandlerMode.Mock;
+                MessageHandlerFactory.Mode = MessageHandlerMode.Online;
             }
 
             var mockFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
             var store = new StorageFolderResponseStore(mockFolder, (name, value) => name == "key");
-            SimpleIoc.Default.Register<HttpMessageHandler>(() => MessageHandlerFactory.CreateMessageHandler(store));
-            SimpleIoc.Default.Register<IGeoCoder>(() => new GeoCoder(SimpleIoc.Default.GetInstance<HttpMessageHandler>(), "key"));
+            SimpleIoc.Default.Register<IGeoCoder>(() => new GeoCoder(MessageHandlerFactory.CreateMessageHandler(store), "apikey"));
 
             var nav = new NavigationService();
             nav.Configure(ViewModelLocator.SecondPageKey, typeof(SecondPage));
