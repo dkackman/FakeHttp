@@ -1,1 +1,81 @@
-{"Response":{"Version":{"Major":1,"Minor":1,"Build":-1,"Revision":-1,"MajorRevision":-1,"MinorRevision":-1},"Content":null,"StatusCode":200,"ReasonPhrase":"OK","Headers":[{"Key":"Transfer-Encoding","Value":["chunked"]},{"Key":"Vary","Value":["Accept-Encoding"]},{"Key":"X-BM-TraceID","Value":["065550e9b0a44315b6224b71c54398db"]},{"Key":"X-BM-Srv","Value":["CH10043742, CH1SCH060043944, CH1SCH060053144"]},{"Key":"X-MS-BM-WS-INFO","Value":["0"]},{"Key":"Cache-Control","Value":["no-cache"]},{"Key":"Date","Value":["Sat, 28 Mar 2015 13:06:19 GMT"]},{"Key":"Server","Value":["Microsoft-IIS/8.0"]},{"Key":"X-AspNet-Version","Value":["4.0.30319"]},{"Key":"X-Powered-By","Value":["ASP.NET"]}],"RequestMessage":null,"IsSuccessStatusCode":true},"ContentFileName":"GET.EB9E71810CD3F9B6036A9D2D71005F73DE3FE668.content.json","Query":"c=en-us&includeentitytypes=admindivision1"}
+{
+  "Response": {
+    "Version": {
+      "Major": 1,
+      "Minor": 1,
+      "Build": -1,
+      "Revision": -1,
+      "MajorRevision": -1,
+      "MinorRevision": -1
+    },
+    "Content": null,
+    "StatusCode": 200,
+    "ReasonPhrase": "OK",
+    "Headers": [
+      {
+        "Key": "Transfer-Encoding",
+        "Value": [
+          "chunked"
+        ]
+      },
+      {
+        "Key": "Vary",
+        "Value": [
+          "Accept-Encoding"
+        ]
+      },
+      {
+        "Key": "X-BM-TraceID",
+        "Value": [
+          "a71a592ee6994742ba70789ffb8acc8e"
+        ]
+      },
+      {
+        "Key": "X-BM-Srv",
+        "Value": [
+          "CH10043639, CH1SCH050110320, CH1SCH060052944"
+        ]
+      },
+      {
+        "Key": "X-MS-BM-WS-INFO",
+        "Value": [
+          "0"
+        ]
+      },
+      {
+        "Key": "Cache-Control",
+        "Value": [
+          "no-cache"
+        ]
+      },
+      {
+        "Key": "Date",
+        "Value": [
+          "Sun, 26 Apr 2015 23:22:09 GMT"
+        ]
+      },
+      {
+        "Key": "Server",
+        "Value": [
+          "Microsoft-IIS/8.0"
+        ]
+      },
+      {
+        "Key": "X-AspNet-Version",
+        "Value": [
+          "4.0.30319"
+        ]
+      },
+      {
+        "Key": "X-Powered-By",
+        "Value": [
+          "ASP.NET"
+        ]
+      }
+    ],
+    "RequestMessage": null,
+    "IsSuccessStatusCode": true
+  },
+  "ContentFileName": "GET.EB9E71810CD3F9B6036A9D2D71005F73DE3FE668.content.json",
+  "Query": "c=en-us&includeentitytypes=admindivision1"
+}

@@ -82,7 +82,7 @@ namespace MockHttp
                 contentWriter.Write(content);
             }
 
-            var json = JsonConvert.SerializeObject(info, new HttpResponseMessageConverter());
+            var json = JsonConvert.SerializeObject(info, Formatting.Indented, new HttpResponseMessageConverter());
             using (var responseWriter = new StreamWriter(Path.Combine(folderPath, fileName + ".response.json"), false))
             {
                 responseWriter.Write(json);

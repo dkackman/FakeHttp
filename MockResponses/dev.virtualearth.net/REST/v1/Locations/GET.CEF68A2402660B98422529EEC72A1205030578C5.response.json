@@ -1,1 +1,81 @@
-{"Response":{"Version":{"Major":1,"Minor":1,"Build":-1,"Revision":-1,"MajorRevision":-1,"MinorRevision":-1},"Content":null,"StatusCode":200,"ReasonPhrase":"OK","Headers":[{"Key":"Transfer-Encoding","Value":["chunked"]},{"Key":"Vary","Value":["Accept-Encoding"]},{"Key":"X-BM-TraceID","Value":["5ec376ac11644abf881da8668a7c53ac"]},{"Key":"X-BM-Srv","Value":["CH10043742, CH1SCH060051144, CH1SCH060051843, CH1SCH060100242, CH1SCH060063239"]},{"Key":"X-MS-BM-WS-INFO","Value":["0"]},{"Key":"Cache-Control","Value":["no-cache"]},{"Key":"Date","Value":["Sat, 28 Mar 2015 13:06:22 GMT"]},{"Key":"Server","Value":["Microsoft-IIS/8.0"]},{"Key":"X-AspNet-Version","Value":["4.0.30319"]},{"Key":"X-Powered-By","Value":["ASP.NET"]}],"RequestMessage":null,"IsSuccessStatusCode":true},"ContentFileName":"GET.CEF68A2402660B98422529EEC72A1205030578C5.content.json","Query":"c=en-us&maxres=1&q=one+microsoft+way%2c+redmond%2c+wa+98052"}
+{
+  "Response": {
+    "Version": {
+      "Major": 1,
+      "Minor": 1,
+      "Build": -1,
+      "Revision": -1,
+      "MajorRevision": -1,
+      "MinorRevision": -1
+    },
+    "Content": null,
+    "StatusCode": 200,
+    "ReasonPhrase": "OK",
+    "Headers": [
+      {
+        "Key": "Transfer-Encoding",
+        "Value": [
+          "chunked"
+        ]
+      },
+      {
+        "Key": "Vary",
+        "Value": [
+          "Accept-Encoding"
+        ]
+      },
+      {
+        "Key": "X-BM-TraceID",
+        "Value": [
+          "bd76ccd956684d8aaebbd502dc6c93fd"
+        ]
+      },
+      {
+        "Key": "X-BM-Srv",
+        "Value": [
+          "CH10043639, CH1SCH050110320, CH1SCH060051643, CH1SCH060073520, CH1SCH060062939"
+        ]
+      },
+      {
+        "Key": "X-MS-BM-WS-INFO",
+        "Value": [
+          "0"
+        ]
+      },
+      {
+        "Key": "Cache-Control",
+        "Value": [
+          "no-cache"
+        ]
+      },
+      {
+        "Key": "Date",
+        "Value": [
+          "Sun, 26 Apr 2015 23:22:19 GMT"
+        ]
+      },
+      {
+        "Key": "Server",
+        "Value": [
+          "Microsoft-IIS/8.0"
+        ]
+      },
+      {
+        "Key": "X-AspNet-Version",
+        "Value": [
+          "4.0.30319"
+        ]
+      },
+      {
+        "Key": "X-Powered-By",
+        "Value": [
+          "ASP.NET"
+        ]
+      }
+    ],
+    "RequestMessage": null,
+    "IsSuccessStatusCode": true
+  },
+  "ContentFileName": "GET.CEF68A2402660B98422529EEC72A1205030578C5.content.json",
+  "Query": "c=en-us&maxres=1&q=one+microsoft+way%2c+redmond%2c+wa+98052"
+}

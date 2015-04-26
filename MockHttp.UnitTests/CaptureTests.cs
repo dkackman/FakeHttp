@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.IO;
@@ -8,7 +7,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using UnitTestHelpers;
 
-using MockHttp;
 using MockHttp.Desktop;
 
 namespace MockHttp.UnitTests
