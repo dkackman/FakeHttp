@@ -75,13 +75,16 @@ namespace MockHttp
                 Query = query,
                 ContentFileName = fileName + ".content.json"
             };
-
+            
+            // just read the entire content stream as a string and serialize it 
+            // we are assuming all content is json for the time being
             var content = await response.Content.ReadAsStringAsync();
             using (var contentWriter = new StreamWriter(Path.Combine(folderPath, info.ContentFileName), false))
             {
                 contentWriter.Write(content);
             }
 
+            // now serialize the response object and its meta-data
             var json = JsonConvert.SerializeObject(info, Formatting.Indented, new HttpResponseMessageConverter());
             using (var responseWriter = new StreamWriter(Path.Combine(folderPath, fileName + ".response.json"), false))
             {
