@@ -52,7 +52,7 @@
       {
         "Key": "Date",
         "Value": [
-          "Mon, 27 Apr 2015 00:01:51 GMT"
+          "Sun, 03 May 2015 12:34:22 GMT"
         ]
       },
       {
@@ -71,6 +71,8 @@
     "RequestMessage": null,
     "IsSuccessStatusCode": true
   },
+  "Query": "",
   "ContentFileName": "GET.content.json",
-  "Query": ""
+  "ContentType": null,
+  "ContentSerializationFormat": 0
 }

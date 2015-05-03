@@ -10,6 +10,18 @@ namespace MockHttp
 {
     public abstract class RequestFormatter
     {
+        private readonly Func<string, string, bool> _paramFilter;
+
+        protected RequestFormatter(Func<string, string, bool> paramFilter)
+        {
+            if (paramFilter == null)
+            {
+                throw new ArgumentNullException("paramFilter");
+            }
+
+            _paramFilter = paramFilter;
+        }
+
         public abstract string ToSha1Hash(string text);
 
         public string ToFilePath(Uri uri)
@@ -43,9 +55,9 @@ namespace MockHttp
         /// <param name="uri">The <see cref="System.Uri"/></param>
         /// <param name="paramFilter">A callback to indicate which paramters to filter from the normalized query string</param>
         /// <returns>The normalized query string</returns>
-        public string NormalizeQuery(Uri uri, Func<string, string, bool> paramFilter)
+        public string NormalizeQuery(Uri uri)
         {
-            var sortedParams = from p in GetParameters(uri, paramFilter)
+            var sortedParams = from p in GetParameters(uri, _paramFilter)
                                orderby p
                                select p;
 

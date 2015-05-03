@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
-using System.Reflection;
 
 using Newtonsoft.Json;
 
@@ -9,6 +8,9 @@ namespace MockHttp
 {
     public sealed class HttpResponseMessageConverter : JsonConverter
     {
+        // these are the types that we do not want to serialize as part of the repsonse
+        // we don't serialize the request because we don't need it and because it may have things like access tokens
+        // the content property of the response is serialized seperately so we can capture the entire content stream
         private static readonly Type[] _dontSerializeTypes = new Type[] { typeof(HttpRequestMessage), typeof(StringContent), typeof(StreamContent),
                                                                             typeof(ByteArrayContent), typeof(MultipartContent), typeof(HttpContent)};
 

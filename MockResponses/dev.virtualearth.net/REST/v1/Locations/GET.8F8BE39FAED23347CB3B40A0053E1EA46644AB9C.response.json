@@ -21,13 +21,13 @@
       {
         "Key": "X-BM-TraceID",
         "Value": [
-          "7a4ef703c0044982972ee1a54ba11159"
+          "bcddf0e158344650b358d074bd25cd10"
         ]
       },
       {
         "Key": "X-BM-Srv",
         "Value": [
-          "CH10043645, CH1SCH050110320"
+          "CH10043840, CH1SCH050110611"
         ]
       },
       {
@@ -45,7 +45,7 @@
       {
         "Key": "Date",
         "Value": [
-          "Mon, 27 Apr 2015 00:01:50 GMT"
+          "Sun, 03 May 2015 12:34:22 GMT"
         ]
       },
       {
@@ -70,6 +70,8 @@
     "RequestMessage": null,
     "IsSuccessStatusCode": true
   },
+  "Query": "c=en-us&countryregion=us&maxres=1&postalcode=55116",
   "ContentFileName": "GET.8F8BE39FAED23347CB3B40A0053E1EA46644AB9C.content.json",
-  "Query": "c=en-us&countryregion=us&maxres=1&postalcode=55116"
+  "ContentType": null,
+  "ContentSerializationFormat": 0
 }

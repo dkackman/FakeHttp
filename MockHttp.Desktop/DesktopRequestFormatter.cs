@@ -7,6 +7,16 @@ namespace MockHttp.Desktop
 {
     class DesktopRequestFormatter : RequestFormatter
     {
+        public DesktopRequestFormatter()
+            : this((name, value) => false) // by default do filter any qquery paramters
+        {
+        }
+
+        public DesktopRequestFormatter(Func<string, string, bool> paramFilter)
+            : base(paramFilter)
+        {
+        }
+
         public override string ToSha1Hash(string text)
         {
             if (string.IsNullOrEmpty(text))

@@ -12,12 +12,11 @@ namespace MockHttp
 {
     public class FileSystemResponseStore : IResponseStore
     {
-        private readonly DesktopRequestFormatter _formatter = new DesktopRequestFormatter();
-        private readonly DesktopResponseLoader _responseLoader = new DesktopResponseLoader();
+        private readonly RequestFormatter _formatter;
+        private readonly ResponseLoader _responseLoader = new DesktopResponseLoader();
 
         private readonly string _storeFolder;
         private readonly string _captureFolder;
-        private readonly Func<string, string, bool> _paramFilter;
 
         public FileSystemResponseStore(string storeFolder)
             : this(storeFolder, storeFolder)
@@ -37,19 +36,14 @@ namespace MockHttp
 
         public FileSystemResponseStore(string storeFolder, string captureFolder, Func<string, string, bool> paramFilter)
         {
-            if (paramFilter == null)
-            {
-                throw new ArgumentNullException("paramFilter");
-            }
-
             _storeFolder = storeFolder;
             _captureFolder = captureFolder;
-            _paramFilter = paramFilter;
+            _formatter = new DesktopRequestFormatter(paramFilter);
         }
 
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
         {
-            var query = _formatter.NormalizeQuery(request.RequestUri, _paramFilter);
+            var query = _formatter.NormalizeQuery(request.RequestUri);
             var folderPath = Path.Combine(_storeFolder, _formatter.ToFilePath(request.RequestUri));
 
             // first try to find a file keyed to the request method and query
@@ -62,7 +56,7 @@ namespace MockHttp
 
         public async Task StoreResponse(HttpResponseMessage response)
         {
-            var query = _formatter.NormalizeQuery(response.RequestMessage.RequestUri, _paramFilter);
+            var query = _formatter.NormalizeQuery(response.RequestMessage.RequestUri);
             var folderPath = Path.Combine(_captureFolder, _formatter.ToFilePath(response.RequestMessage.RequestUri));
             var fileName = _formatter.ToFileName(response.RequestMessage, query);
 
