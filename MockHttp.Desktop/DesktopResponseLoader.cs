@@ -19,7 +19,7 @@ namespace MockHttp.Desktop
                 });
         }
 
-        protected override async Task<string> LoadJson(string folder, string fileName)
+        protected override async Task<string> LoadAsString(string folder, string fileName)
         {
             var path = Path.Combine(folder, fileName);
             using (var reader = new StreamReader(path))
@@ -28,7 +28,7 @@ namespace MockHttp.Desktop
             }
         }
 
-        protected override async Task<Stream> GetContentStream(string folder, string fileName)
+        protected override async Task<Stream> LoadAsStream(string folder, string fileName)
         {
             return await Task.Run(() =>
                  new FileStream(Path.Combine(folder, fileName), FileMode.Open, FileAccess.Read, FileShare.Read));

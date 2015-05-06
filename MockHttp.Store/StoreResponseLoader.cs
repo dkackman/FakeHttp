@@ -30,7 +30,7 @@ namespace MockHttp.Store
             }
         }
 
-        protected override async Task<string> LoadJson(string folder, string fileName)
+        protected override async Task<string> LoadAsString(string folder, string fileName)
         {
             var subFolder = await _folder.GetFolderAsync(folder);
             var file = await subFolder.GetFileAsync(fileName);
@@ -42,7 +42,7 @@ namespace MockHttp.Store
             }
         }
 
-        protected override async Task<Stream> GetContentStream(string folder, string fileName)
+        protected override async Task<Stream> LoadAsStream(string folder, string fileName)
         {
             var subFolder = await _folder.GetFolderAsync(folder);
             var file = await subFolder.GetFileAsync(fileName);
