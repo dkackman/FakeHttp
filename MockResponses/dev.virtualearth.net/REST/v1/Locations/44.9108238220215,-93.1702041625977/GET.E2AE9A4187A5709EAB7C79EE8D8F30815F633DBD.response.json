@@ -1,81 +1,42 @@
 {
-  "Response": {
-    "Version": {
-      "Major": 1,
-      "Minor": 1,
-      "Build": -1,
-      "Revision": -1,
-      "MajorRevision": -1,
-      "MinorRevision": -1
-    },
-    "Content": null,
-    "StatusCode": 200,
-    "ReasonPhrase": "OK",
-    "Headers": [
-      {
-        "Key": "Transfer-Encoding",
-        "Value": [
-          "chunked"
-        ]
-      },
-      {
-        "Key": "Vary",
-        "Value": [
-          "Accept-Encoding"
-        ]
-      },
-      {
-        "Key": "X-BM-TraceID",
-        "Value": [
-          "c070413bbec848e1a42f3112dcd8cff6"
-        ]
-      },
-      {
-        "Key": "X-BM-Srv",
-        "Value": [
-          "CH10043745, CH1SCH060032901, CH1SCH060052345"
-        ]
-      },
-      {
-        "Key": "X-MS-BM-WS-INFO",
-        "Value": [
-          "0"
-        ]
-      },
-      {
-        "Key": "Cache-Control",
-        "Value": [
-          "no-cache"
-        ]
-      },
-      {
-        "Key": "Date",
-        "Value": [
-          "Sun, 26 Apr 2015 23:58:35 GMT"
-        ]
-      },
-      {
-        "Key": "Server",
-        "Value": [
-          "Microsoft-IIS/8.0"
-        ]
-      },
-      {
-        "Key": "X-AspNet-Version",
-        "Value": [
-          "4.0.30319"
-        ]
-      },
-      {
-        "Key": "X-Powered-By",
-        "Value": [
-          "ASP.NET"
-        ]
-      }
-    ],
-    "RequestMessage": null,
-    "IsSuccessStatusCode": true
-  },
+  "StatusCode": 200,
+  "Query": "c=en-us&includeentitytypes=countryregion",
   "ContentFileName": "GET.E2AE9A4187A5709EAB7C79EE8D8F30815F633DBD.content.json",
-  "Query": "c=en-us&includeentitytypes=countryregion"
+  "ResponseHeaders": {
+    "Transfer-Encoding": [
+      "chunked"
+    ],
+    "Vary": [
+      "Accept-Encoding"
+    ],
+    "X-BM-TraceID": [
+      "e03a916e778a45259ab24150553ac6f5"
+    ],
+    "X-BM-Srv": [
+      "BN20130620, BN2SCH020131433, BN2SCH010001441"
+    ],
+    "X-MS-BM-WS-INFO": [
+      "0"
+    ],
+    "Cache-Control": [
+      "no-cache"
+    ],
+    "Date": [
+      "Wed, 06 May 2015 01:36:09 GMT"
+    ],
+    "Server": [
+      "Microsoft-IIS/8.0"
+    ],
+    "X-AspNet-Version": [
+      "4.0.30319"
+    ],
+    "X-Powered-By": [
+      "ASP.NET"
+    ]
+  },
+  "ContentHeaders": {
+    "Content-Type": [
+      "application/json; charset=utf-8"
+    ]
+  }
 }

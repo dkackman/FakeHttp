@@ -1,8 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
 using System.Net;
 using System.Net.Http;
-
-using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace MockHttp
 {
@@ -17,7 +16,9 @@ namespace MockHttp
 
         protected abstract Task<bool> Exists(string folder, string fileName);
 
-        protected abstract Task<string> Load(string folder, string fileName);
+        protected abstract Task<string> LoadJson(string folder, string fileName);
+
+        protected abstract Task<Stream> GetContentStream(string folder, string fileName);
 
         public async Task<HttpResponseMessage> DeserializeResponse(string folder, string baseName)
         {
@@ -25,7 +26,7 @@ namespace MockHttp
             // first look for a completely serialized response
             if (await Exists(folder, fileName))
             {               
-                var json = await Load(folder, fileName);
+                var json = await LoadJson(folder, fileName);
                 var info = _serializer.Deserialize(json);
                 if (info == null)
                 {
@@ -63,9 +64,8 @@ namespace MockHttp
         {
             if (await Exists(folder, fileName))
             {
-                var content = await Load(folder, fileName);
-
-                return new StringContent(content);
+                var stream = await GetContentStream(folder, fileName);
+                return new StreamContent(stream);
             }
 
             return null;
