@@ -13,6 +13,7 @@ namespace MockHttp.UnitTests
     public class SerializationTests
     {
         [TestMethod]
+        [TestCategory("mock")]
         public async Task ResponseInfoPackedCorrectly()
         {            
             using (var client = new HttpClient(new HttpClientHandler(), true))
@@ -32,6 +33,7 @@ namespace MockHttp.UnitTests
         }
 
         [TestMethod]
+        [TestCategory("mock")]
         public async Task RoundTripResponseInfo()
         {
             using (var client = new HttpClient(new HttpClientHandler(), true))
@@ -53,6 +55,7 @@ namespace MockHttp.UnitTests
         }
 
         [TestMethod]
+        [TestCategory("mock")]
         public async Task CreateContentFromSerializedResponse()
         {
             using (var client = new HttpClient(new HttpClientHandler(), true))

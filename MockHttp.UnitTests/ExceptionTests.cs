@@ -4,8 +4,6 @@ using System.Net.Http;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using MockHttp;
-
 namespace MockHttp.UnitTests
 {
     [TestClass]
