@@ -38,8 +38,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CapturingHttpClientHandler.cs" />
+    <Compile Include="MimeMap.cs" />
     <Compile Include="RequestFormatter.cs" />
-    <Compile Include="HttpResponseMessageConverter.cs" />
     <Compile Include="IReadonlyResponseStore.cs" />
     <Compile Include="IResponseStore.cs" />
     <Compile Include="MessageHandlerFactory.cs" />

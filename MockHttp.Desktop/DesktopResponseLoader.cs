@@ -5,6 +5,11 @@ namespace MockHttp.Desktop
 {
     class DesktopResponseLoader : ResponseLoader
     {
+        public DesktopResponseLoader(ResponseSerializer serializer)
+            : base(serializer)
+        {
+        }
+
         protected override async Task<bool> Exists(string folder, string fileName)
         {
             return await Task.Run<bool>(() =>

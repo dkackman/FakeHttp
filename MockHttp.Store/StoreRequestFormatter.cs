@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 
@@ -7,6 +6,11 @@ namespace MockHttp.Store
 {
     class StoreRequestFormatter : RequestFormatter
     {
+        public StoreRequestFormatter()
+            : this((name, value) => false)
+        {
+        }
+
         public StoreRequestFormatter(Func<string, string, bool> paramFilter)
             : base(paramFilter)
         {
@@ -20,7 +24,6 @@ namespace MockHttp.Store
             }
 
             var buffer = CryptographicBuffer.ConvertStringToBinary(text, BinaryStringEncoding.Utf8);
-
             var hashAlgorithmProvider = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Sha1);
             var bufferHash = hashAlgorithmProvider.HashData(buffer);
 

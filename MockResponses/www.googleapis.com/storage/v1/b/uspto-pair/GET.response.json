@@ -1,78 +1,46 @@
 {
-  "Response": {
-    "Version": {
-      "Major": 1,
-      "Minor": 1,
-      "Build": -1,
-      "Revision": -1,
-      "MajorRevision": -1,
-      "MinorRevision": -1
-    },
-    "Content": null,
-    "StatusCode": 200,
-    "ReasonPhrase": "OK",
-    "Headers": [
-      {
-        "Key": "Vary",
-        "Value": [
-          "Origin",
-          "X-Origin"
-        ]
-      },
-      {
-        "Key": "X-Content-Type-Options",
-        "Value": [
-          "nosniff"
-        ]
-      },
-      {
-        "Key": "X-Frame-Options",
-        "Value": [
-          "SAMEORIGIN"
-        ]
-      },
-      {
-        "Key": "X-XSS-Protection",
-        "Value": [
-          "1; mode=block"
-        ]
-      },
-      {
-        "Key": "Alternate-Protocol",
-        "Value": [
-          "443:quic,p=1"
-        ]
-      },
-      {
-        "Key": "Cache-Control",
-        "Value": [
-          "no-transform, must-revalidate, max-age=0, private"
-        ]
-      },
-      {
-        "Key": "Date",
-        "Value": [
-          "Sun, 03 May 2015 12:34:22 GMT"
-        ]
-      },
-      {
-        "Key": "ETag",
-        "Value": [
-          "CAE="
-        ]
-      },
-      {
-        "Key": "Server",
-        "Value": [
-          "GSE"
-        ]
-      }
-    ],
-    "RequestMessage": null,
-    "IsSuccessStatusCode": true
-  },
+  "StatusCode": 200,
   "Query": "",
   "ContentFileName": "GET.content.json",
-  "ContentType": null,
-  "ContentSerializationFormat": 0
+  "ResponseHeaders": {
+    "Vary": [
+      "Origin",
+      "X-Origin"
+    ],
+    "X-Content-Type-Options": [
+      "nosniff"
+    ],
+    "X-Frame-Options": [
+      "SAMEORIGIN"
+    ],
+    "X-XSS-Protection": [
+      "1; mode=block"
+    ],
+    "Alternate-Protocol": [
+      "443:quic,p=1"
+    ],
+    "Cache-Control": [
+      "no-transform, must-revalidate, max-age=0, private"
+    ],
+    "Date": [
+      "Wed, 06 May 2015 00:44:55 GMT"
+    ],
+    "ETag": [
+      "CAE="
+    ],
+    "Server": [
+      "GSE"
+    ]
+  },
+  "ContentHeaders": {
+    "Content-Length": [
+      "274"
+    ],
+    "Content-Type": [
+      "application/json; charset=UTF-8"
+    ],
+    "Expires": [
+      "Wed, 06 May 2015 00:44:55 GMT"
+    ]
+  }
 }

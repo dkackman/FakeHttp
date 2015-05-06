@@ -24,7 +24,7 @@ namespace MockHttp
         {
             _storeFolder = storeFolder;
             _formatter = new StoreRequestFormatter(paramFilter);
-            _deserializer = new StoreResponseLoader(_storeFolder);
+            _deserializer = new StoreResponseLoader(_storeFolder, new ResponseSerializer(_formatter));
         }
 
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)

@@ -8,6 +8,13 @@ namespace MockHttp
 {
     public abstract class ResponseLoader
     {
+        private readonly ResponseSerializer _serializer;
+
+        protected ResponseLoader(ResponseSerializer serializer)
+        {
+            _serializer = serializer;
+        }
+
         protected abstract Task<bool> Exists(string folder, string fileName);
 
         protected abstract Task<string> Load(string folder, string fileName);
@@ -17,20 +24,20 @@ namespace MockHttp
             var fileName = baseName + ".response.json";
             // first look for a completely serialized response
             if (await Exists(folder, fileName))
-            {
+            {               
                 var json = await Load(folder, fileName);
-
-                var info = JsonConvert.DeserializeObject<ResponseInfo>(json);
+                var info = _serializer.Deserialize(json);
                 if (info == null)
                 {
                     return null;
                 }
 
+                var response = info.CreateResponse();
                 if (!string.IsNullOrEmpty(info.ContentFileName))
                 {
-                    info.Response.Content = await DeserializeContent(folder, baseName + ".content.json");
+                    response.Content = await DeserializeContent(folder, baseName + ".content.json");
                 }
-                return info.Response;
+                return response;
             }
 
             // no fully serialized response exists just look for a content file
