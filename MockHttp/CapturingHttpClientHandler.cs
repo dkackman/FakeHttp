@@ -16,6 +16,8 @@ namespace MockHttp
         protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var response = await base.SendAsync(request, cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+
             await _store.StoreResponse(response);
 
             return response;

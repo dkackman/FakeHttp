@@ -36,31 +36,32 @@ namespace MockHttp
                 var response = info.CreateResponse();
                 if (!string.IsNullOrEmpty(info.ContentFileName))
                 {
-                    response.Content = await DeserializeContent(folder, baseName + ".content.json");
+                    response.Content = await LoadContent(folder, info.ContentFileName);
                 }
                 return response;
             }
 
             // no fully serialized response exists just look for a content file
-            return await DeserializeFromContent(folder, fileName);
+            return await CreateResponseFromContent(folder, baseName);
         }
 
-        private async Task<HttpResponseMessage> DeserializeFromContent(string folder, string fileName)
+        private async Task<HttpResponseMessage> CreateResponseFromContent(string folder, string baseName)
         {
+            var fileName = baseName + ".content.json"; // only json supported as raw content right now
             if (await Exists(folder, fileName))
             {
                 // no serialized response but we have serialized content
                 // craft a response and attach content
                 return new HttpResponseMessage(HttpStatusCode.OK)
                 {
-                    Content = await DeserializeContent(folder, fileName)
+                    Content = await LoadContent(folder, fileName)
                 };
             }
 
             return null;
         }
 
-        private async Task<HttpContent> DeserializeContent(string folder, string fileName)
+        private async Task<HttpContent> LoadContent(string folder, string fileName)
         {
             if (await Exists(folder, fileName))
             {
