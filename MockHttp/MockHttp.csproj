@@ -35,8 +35,12 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\MockHttp.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\PackageInfo.cs">
+      <Link>Properties\PackageInfo.cs</Link>
+    </Compile>
     <Compile Include="CapturingHttpClientHandler.cs" />
     <Compile Include="MimeMap.cs" />
     <Compile Include="RequestFormatter.cs" />
