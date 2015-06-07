@@ -62,8 +62,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="content\" />
-    <Folder Include="lib\net451\" />
-    <Folder Include="lib\portable-netcore451+wpa81\" />
+    <Folder Include="lib\net45\" />
+    <Folder Include="lib\portable-netcore45+wpa81\" />
     <Folder Include="src\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

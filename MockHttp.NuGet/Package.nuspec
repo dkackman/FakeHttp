@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>MockHttp</id>
-    <version>0.1.0-alpha</version>
+    <id>Dkackman.MockHttp</id>
+    <version>1.0.0</version>
     <title>MockHttp</title>
     <authors>dkackman</authors>
     <owners>dkackman</owners>
@@ -27,15 +27,15 @@
   </metadata>
   <files>
     <!-- desktop files -->
-    <file src="..\MockHttp\bin\Release\MockHttp.dll" target="lib\net451" />
-    <file src="..\MockHttp\bin\Release\MockHttp.xml" target="lib\net451" />
-    <file src="..\MockHttp.Desktop\bin\Release\MockHttp.Desktop.dll" target="lib\net451" />
-    <file src="..\MockHttp.Desktop\bin\Release\MockHttp.Desktop.xml" target="lib\net451" />
+    <file src="..\MockHttp\bin\Release\MockHttp.dll" target="lib\net45" />
+    <file src="..\MockHttp\bin\Release\MockHttp.xml" target="lib\net45" />
+    <file src="..\MockHttp.Desktop\bin\Release\MockHttp.Desktop.dll" target="lib\net45" />
+    <file src="..\MockHttp.Desktop\bin\Release\MockHttp.Desktop.xml" target="lib\net45" />
 
     <!-- store files -->
-    <file src="..\MockHttp\bin\Release\MockHttp.dll" target="lib\portable-netcore451+wpa81" />
-    <file src="..\MockHttp\bin\Release\MockHttp.xml" target="lib\portable-netcore451+wpa81" />
-    <file src="..\MockHttp.Store\bin\Release\MockHttp.Store.dll" target="lib\portable-netcore451+wpa81" />
-    <file src="..\MockHttp.Store\bin\Release\MockHttp.Store.xml" target="lib\portable-netcore451+wpa81" />
+    <file src="..\MockHttp\bin\Release\MockHttp.dll" target="lib\portable-netcore45+wpa81" />
+    <file src="..\MockHttp\bin\Release\MockHttp.xml" target="lib\portable-netcore45+wpa81" />
+    <file src="..\MockHttp.Store\bin\Release\MockHttp.Store.dll" target="lib\portable-netcore45+wpa81" />
+    <file src="..\MockHttp.Store\bin\Release\MockHttp.Store.xml" target="lib\portable-netcore45+wpa81" />
   </files>
 </package>
