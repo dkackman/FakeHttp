@@ -18,7 +18,11 @@ namespace MockHttp
         {
             var query = _formatter.NormalizeQuery(response.RequestMessage.RequestUri);
             var fileName = _formatter.ToFileName(response.RequestMessage, query);
-            var fileExtension = MimeMap.GetFileExtension(response.Content.Headers.ContentType.MediaType);
+            var fileExtension = "";
+            if (response.Content.Headers.ContentType != null)
+            {
+                fileExtension = MimeMap.GetFileExtension(response.Content.Headers.ContentType.MediaType);
+            }
 
             // since HttpHeaders is not a creatable object, store the headers off to the side
             var headers = response.Headers.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
@@ -28,7 +32,7 @@ namespace MockHttp
             {
                 StatusCode = response.StatusCode,
                 Query = query,
-                ContentFileName = string.Concat(fileName, ".content", fileExtension),
+                ContentFileName = !string.IsNullOrEmpty(fileExtension) ? string.Concat(fileName, ".content", fileExtension) : null,
                 ResponseHeaders = headers,
                 ContentHeaders = contentHeaders
             };
