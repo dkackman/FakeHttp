@@ -140,7 +140,7 @@
   <Import Project="..\..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <PropertyGroup>
     <PostBuildEvent>del /f /s /q "$(TargetDir)MockResponses\"
-xcopy /Y /S /Q "$(SolutionDir)MockResponses\*" "$(TargetDir)MockResponses\"
+rem xcopy /Y /S /Q "$(SolutionDir)MockResponses\*" "$(TargetDir)MockResponses\"
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

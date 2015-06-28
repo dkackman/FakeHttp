@@ -29,7 +29,7 @@ namespace MockHttp
         }
 
         /// <summary>
-        /// 
+        /// ctor
         /// </summary>
         /// <param name="storeFolder">root folder for storage</param>
         /// <param name="captureFolder">folder to store captued response messages</param>
@@ -40,7 +40,7 @@ namespace MockHttp
         }
 
         /// <summary>
-        /// 
+        /// ctor
         /// </summary>
         /// <param name="storeFolder">root folder for storage</param>
         /// <param name="paramFilter">call back used to determine if a given query paramters should be excluded from serialziation</param>
@@ -50,7 +50,7 @@ namespace MockHttp
         }
 
         /// <summary>
-        /// 
+        /// ctor
         /// </summary>
         /// <param name="storeFolder">root folder for storage</param>
         /// <param name="captureFolder">folder to store captued response messages</param>
@@ -59,7 +59,7 @@ namespace MockHttp
         {
             _captureFolder = captureFolder;
             _formatter = new DesktopMessagetFormatter(paramFilter);
-            _responseLoader = new DesktopResponseLoader(storeFolder,_formatter);
+            _responseLoader = new DesktopResponseLoader(storeFolder, _formatter);
         }
 
         /// <summary>
@@ -87,16 +87,12 @@ namespace MockHttp
 
             // this is the object that is serialized (response, normalized request query and pointer to the content file)
             var info = _formatter.PackageResponse(response);
-            
-            // just read the entire content stream as a string and serialize it 
-            // we are assuming all content is json for the time being
-            var content = await response.Content.ReadAsStringAsync();
-            if (!string.IsNullOrEmpty(content))
+
+            // just read the entire content stream serialize it 
+            using (var file = File.Create(Path.Combine(folderPath, info.ContentFileName)))
             {
-                using (var contentWriter = new StreamWriter(Path.Combine(folderPath, info.ContentFileName), false))
-                {
-                    contentWriter.Write(content);
-                }
+                var bytes = await response.Content.ReadAsByteArrayAsync();
+                file.Write(bytes, 0, bytes.Length);
             }
 
             // now serialize the response object and its meta-data
