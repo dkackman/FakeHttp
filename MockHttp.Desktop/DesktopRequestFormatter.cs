@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 
 namespace MockHttp.Desktop
 {
-    class DesktopRequestFormatter : RequestFormatter
+    class DesktopRequestFormatter : MessageFormatter
     {
         public DesktopRequestFormatter()
             : this((name, value) => false) // by default do filter any qquery paramters

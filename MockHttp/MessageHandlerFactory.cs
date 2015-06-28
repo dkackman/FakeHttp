@@ -10,8 +10,19 @@ namespace MockHttp
     /// </summary>
     public enum MessageHandlerMode
     {
+        /// <summary>
+        /// Create a handler that will retreive messages from endpoint and store for future use
+        /// </summary>
         Capture,
+
+        /// <summary>
+        /// Create a handler that will retreive message from mocking storage
+        /// </summary>
         Mock,
+
+        /// <summary>
+        /// Create the default HttpMessage handler
+        /// </summary>
         Online
     }
 

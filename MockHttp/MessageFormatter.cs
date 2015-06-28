@@ -8,11 +8,18 @@ using System.Text.RegularExpressions;
 
 namespace MockHttp
 {
-    public abstract class RequestFormatter
+    /// <summary>
+    /// Base class that formats http request and response message data prior to serialization
+    /// </summary>
+    public abstract class MessageFormatter
     {
         private readonly Func<string, string, bool> _paramFilter;
 
-        protected RequestFormatter(Func<string, string, bool> paramFilter)
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="paramFilter">call back used to determine if a given query paramters should be excluded from serialziation</param>
+        protected MessageFormatter(Func<string, string, bool> paramFilter)
         {
             if (paramFilter == null)
             {
@@ -23,10 +30,10 @@ namespace MockHttp
         }
 
         /// <summary>
-        /// Convert the <see cref="System.Net.Http.HttpResonseMessage"/> into an object
+        /// Convert the <see cref="System.Net.Http.HttpResponseMessage"/> into an object
         /// that is more serialization friendly
         /// </summary>
-        /// <param name="response">The <see cref="System.Net.Http.HttpResonseMessage"/></param>
+        /// <param name="response">The <see cref="System.Net.Http.HttpResponseMessage"/></param>
         /// <returns>A serializable object</returns>
         public ResponseInfo PackageResponse(HttpResponseMessage response)
         {
@@ -52,13 +59,29 @@ namespace MockHttp
             };
         }
 
+        /// <summary>
+        /// Genearate a SHA1 hash of a given text. Allows for platform specific implementation
+        /// </summary>
+        /// <param name="text">The string to hash</param>
+        /// <returns>The hash</returns>
         public abstract string ToSha1Hash(string text);
 
+        /// <summary>
+        /// Retreive folder friendly representation of a Uri
+        /// </summary>
+        /// <param name="uri">The uri</param>
+        /// <returns>Folder path</returns>
         public string ToFilePath(Uri uri)
         {
             return Path.Combine(uri.Host, uri.LocalPath.TrimStart('/').Replace('/', '\\'));
         }
 
+        /// <summary>
+        /// Determinaisatally generated file name for a request message
+        /// </summary>
+        /// <param name="request">The request</param>
+        /// <param name="query">Nomralized query string</param>
+        /// <returns>Filename</returns>
         public string ToFileName(HttpRequestMessage request, string query)
         {
             if (string.IsNullOrEmpty(query))
@@ -69,6 +92,11 @@ namespace MockHttp
             return string.Concat(request.Method.Method, ".", ToSha1Hash(query));
         }
 
+        /// <summary>
+        /// Determinaisatally generated file name for a request message
+        /// </summary>
+        /// <param name="request">The request</param>
+        /// <returns>Filename</returns>
         public string ToShortFileName(HttpRequestMessage request)
         {
             return request.Method.Method;
@@ -83,7 +111,6 @@ namespace MockHttp
         /// - reassemble them into a query string (without leading '?')
         /// </summary>
         /// <param name="uri">The <see cref="System.Uri"/></param>
-        /// <param name="paramFilter">A callback to indicate which paramters to filter from the normalized query string</param>
         /// <returns>The normalized query string</returns>
         public string NormalizeQuery(Uri uri)
         {

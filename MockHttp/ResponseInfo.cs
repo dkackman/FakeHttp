@@ -6,24 +6,49 @@ using System.Net.Http;
 
 namespace MockHttp
 {
+    /// <summary>
+    /// A serializatoin frie3ndly wrapper around <see cref="System.Net.Http.HttpResponseMessage"/>
+    /// </summary>
     public sealed class ResponseInfo
     {
+        /// <summary>
+        /// ctor
+        /// </summary>
         public ResponseInfo()
         {
             ResponseHeaders = new Dictionary<string, IEnumerable<string>>(StringComparer.OrdinalIgnoreCase);
             ContentHeaders = new Dictionary<string, IEnumerable<string>>(StringComparer.OrdinalIgnoreCase);
         }
 
+        /// <summary>
+        /// The response status code
+        /// </summary>
         public HttpStatusCode StatusCode { get; set; }
 
+        /// <summary>
+        /// The query string from the request that generated the response (used to key the response for future reference)
+        /// </summary>
         public string Query { get; set; }
 
+        /// <summary>
+        /// The name of the associated serialized content file
+        /// </summary>
         public string ContentFileName { get; set; }
 
+        /// <summary>
+        /// The response headers
+        /// </summary>
         public Dictionary<string, IEnumerable<string>> ResponseHeaders { get; set; }
 
+        /// <summary>
+        /// The content headers
+        /// </summary>
         public Dictionary<string, IEnumerable<string>> ContentHeaders { get; set; }
 
+        /// <summary>
+        /// Create an <see cref="System.Net.Http.HttpResponseMessage"/> from the object's state
+        /// </summary>
+        /// <returns>The <see cref="System.Net.Http.HttpResponseMessage"/></returns>
         public HttpResponseMessage CreateResponse()
         {
             var response = new HttpResponseMessage(StatusCode);
@@ -35,6 +60,11 @@ namespace MockHttp
             return response;
         }
 
+        /// <summary>
+        /// Creates an <see cref="System.Net.Http.HttpContent"/> object from a stream, setting content headers
+        /// </summary>
+        /// <param name="stream">The content stream</param>
+        /// <returns>The conent object</returns>
         public HttpContent CreateContent(Stream stream)
         {
             var content = new StreamContent(stream);
@@ -44,31 +74,6 @@ namespace MockHttp
             }
 
             return content;
-        }
-
-        public override int GetHashCode()
-        {
-            return StatusCode.GetHashCode()
-                ^ GetHashCode(Query)
-                ^ GetHashCode(ContentFileName);
-        }
-
-        private static int GetHashCode(object o)
-        {
-            return o != null ? o.GetHashCode() : 0;
-        }
-
-        public override bool Equals(object obj)
-        {
-            ResponseInfo info = obj as ResponseInfo;
-            if (info == null)
-            {
-                return false;
-            }
-
-            return this.StatusCode == info.StatusCode
-                && this.Query == info.Query
-                && this.ContentFileName == info.ContentFileName;
         }
     }
 }

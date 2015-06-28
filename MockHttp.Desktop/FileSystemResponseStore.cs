@@ -10,30 +10,53 @@ using MockHttp.Desktop;
 
 namespace MockHttp
 {
+    /// <summary>
+    /// Class that can store and retreive response messages in a win32 runtime environment
+    /// </summary>
     public class FileSystemResponseStore : IResponseStore
     {
-        private readonly RequestFormatter _formatter;
+        private readonly MessageFormatter _formatter;
         private readonly ResponseLoader _responseLoader;
 
         private readonly string _storeFolder;
         private readonly string _captureFolder;
 
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="storeFolder">root folder for storage</param>
         public FileSystemResponseStore(string storeFolder)
             : this(storeFolder, storeFolder)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="storeFolder">root folder for storage</param>
+        /// <param name="captureFolder">folder to store captued response messages</param>
         public FileSystemResponseStore(string storeFolder, string captureFolder)
             : this(storeFolder, captureFolder, (key, value) => false)
         {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="storeFolder">root folder for storage</param>
+        /// <param name="paramFilter">call back used to determine if a given query paramters should be excluded from serialziation</param>
         public FileSystemResponseStore(string storeFolder, Func<string, string, bool> paramFilter)
             : this(storeFolder, storeFolder, paramFilter)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="storeFolder">root folder for storage</param>
+        /// <param name="captureFolder">folder to store captued response messages</param>
+        /// <param name="paramFilter">call back used to determine if a given query paramters should be excluded from serialziation</param>
         public FileSystemResponseStore(string storeFolder, string captureFolder, Func<string, string, bool> paramFilter)
         {
             _storeFolder = storeFolder;
@@ -42,6 +65,11 @@ namespace MockHttp
             _responseLoader = new DesktopResponseLoader(_formatter);
         }
 
+        /// <summary>
+        /// Retreive response message from storage based on the a request message
+        /// </summary>
+        /// <param name="request">The request message</param>
+        /// <returns>The response messsage</returns>
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
         {
             var query = _formatter.NormalizeQuery(request.RequestUri);
@@ -55,6 +83,11 @@ namespace MockHttp
                 ?? new HttpResponseMessage(HttpStatusCode.NotFound) { RequestMessage = request };
         }
 
+        /// <summary>
+        /// Stores a response message for later retreival
+        /// </summary>
+        /// <param name="response">The response message to store</param>
+        /// <returns>Task</returns>
         public async Task StoreResponse(HttpResponseMessage response)
         {
             var query = _formatter.NormalizeQuery(response.RequestMessage.RequestUri);

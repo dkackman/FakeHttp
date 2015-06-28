@@ -11,7 +11,7 @@ namespace MockHttp.Store
     {
         private IStorageFolder _folder;
 
-        public StoreResponseLoader(IStorageFolder folder, RequestFormatter formatter)
+        public StoreResponseLoader(IStorageFolder folder, MessageFormatter formatter)
             : base(formatter)
         {
             _folder = folder;

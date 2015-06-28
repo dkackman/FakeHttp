@@ -17,7 +17,7 @@ namespace MockHttp.UnitTests
         [TestMethod]
         [TestCategory("mock")]
         public async Task ResponseInfoPackedCorrectly()
-        {            
+        {
             using (var client = new HttpClient(new HttpClientHandler(), true))
             {
                 client.BaseAddress = new Uri("https://www.googleapis.com/");
@@ -52,7 +52,9 @@ namespace MockHttp.UnitTests
                 var json = JsonConvert.SerializeObject(info, Formatting.Indented);
                 var newInfo = JsonConvert.DeserializeObject<ResponseInfo>(json);
 
-                Assert.AreEqual(info, newInfo);
+                Assert.AreEqual(info.StatusCode, newInfo.StatusCode);
+                Assert.AreEqual(info.Query, newInfo.Query);
+                Assert.AreEqual(info.ContentFileName, newInfo.ContentFileName);
             }
         }
 

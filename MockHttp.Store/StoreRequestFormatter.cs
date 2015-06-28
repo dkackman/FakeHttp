@@ -4,7 +4,7 @@ using Windows.Security.Cryptography.Core;
 
 namespace MockHttp.Store
 {
-    class StoreRequestFormatter : RequestFormatter
+    class StoreRequestFormatter : MessageFormatter
     {
         public StoreRequestFormatter()
             : this((name, value) => false)

@@ -7,21 +7,53 @@ using Newtonsoft.Json;
 
 namespace MockHttp
 {
+    /// <summary>
+    /// Base calss for file based response message retreival that allows 
+    /// separation between desktop and universal app machanisms for file api
+    /// </summary>
     public abstract class ResponseLoader
     {
-        private readonly RequestFormatter _formatter;
+        private readonly MessageFormatter _formatter;
 
-        protected ResponseLoader(RequestFormatter serializer)
+        /// <summary>
+        /// ctor 
+        /// </summary>
+        /// <param name="formatter">PLatofrma specific formatter object</param>
+        protected ResponseLoader(MessageFormatter formatter)
         {
-            _formatter = serializer;
+            _formatter = formatter;
         }
 
+        /// <summary>
+        /// Checks whether the specified file exists
+        /// </summary>
+        /// <param name="folder">The folder name</param>
+        /// <param name="fileName">The file name</param>
+        /// <returns>Flag indicating whether file exists</returns>
         protected abstract Task<bool> Exists(string folder, string fileName);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="folder">The folder name</param>
+        /// <param name="fileName">The file name</param>
+        /// <returns></returns>
         protected abstract Task<string> LoadAsString(string folder, string fileName);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="folder">The folder name</param>
+        /// <param name="fileName">The file name</param>
+        /// <returns></returns>
         protected abstract Task<Stream> LoadAsStream(string folder, string fileName);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="folder"></param>
+        /// <param name="baseName"></param>
+        /// <returns></returns>
         public async Task<HttpResponseMessage> DeserializeResponse(string folder, string baseName)
         {
             var fileName = baseName + ".response.json";

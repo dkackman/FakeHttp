@@ -5,7 +5,7 @@ namespace MockHttp.Desktop
 {
     class DesktopResponseLoader : ResponseLoader
     {
-        public DesktopResponseLoader(RequestFormatter formatter)
+        public DesktopResponseLoader(MessageFormatter formatter)
             : base(formatter)
         {
         }
