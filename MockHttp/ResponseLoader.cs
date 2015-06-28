@@ -33,28 +33,40 @@ namespace MockHttp
         protected abstract Task<bool> Exists(string folder, string fileName);
 
         /// <summary>
-        /// 
+        /// Loads a given file as a string
         /// </summary>
         /// <param name="folder">The folder name</param>
         /// <param name="fileName">The file name</param>
-        /// <returns></returns>
+        /// <returns>The file's contents as a string</returns>
         protected abstract Task<string> LoadAsString(string folder, string fileName);
 
         /// <summary>
-        /// 
+        /// Loads a given file as a stream
         /// </summary>
         /// <param name="folder">The folder name</param>
         /// <param name="fileName">The file name</param>
-        /// <returns></returns>
+        /// <returns>File's contents as a stream</returns>
         protected abstract Task<Stream> LoadAsStream(string folder, string fileName);
 
         /// <summary>
-        /// 
+        /// Finds the response message keyed to a request message
         /// </summary>
-        /// <param name="folder"></param>
-        /// <param name="baseName"></param>
-        /// <returns></returns>
-        public async Task<HttpResponseMessage> DeserializeResponse(string folder, string baseName)
+        /// <param name="request">The request message</param>
+        /// <returns>The response message or a 404 message if not found</returns>
+        public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
+        {
+            var query = _formatter.NormalizeQuery(request.RequestUri);
+            var folderPath = _formatter.ToFolderPath(request.RequestUri);
+
+            // first try to find a file keyed to the request method and query
+            return await DeserializeResponse(folderPath, _formatter.ToFileName(request, query))
+                // next just look for a default response based on just the http method
+                ?? await DeserializeResponse(folderPath, _formatter.ToShortFileName(request))
+                // otherwise return 404            
+                ?? new HttpResponseMessage(HttpStatusCode.NotFound) { RequestMessage = request };
+        }
+
+        private async Task<HttpResponseMessage> DeserializeResponse(string folder, string baseName)
         {
             var fileName = baseName + ".response.json";
             // first look for a completely serialized response

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -15,7 +14,7 @@ namespace MockHttp
     public sealed class StorageFolderResponseStore : IReadonlyResponseStore
     {
         private readonly MessageFormatter _formatter;
-        private readonly ResponseLoader _deserializer;
+        private readonly ResponseLoader _responseLoader;
 
         /// <summary>
         /// ctor
@@ -34,7 +33,7 @@ namespace MockHttp
         public StorageFolderResponseStore(IStorageFolder storeFolder, Func<string, string, bool> paramFilter)
         {
             _formatter = new StoreMessageFormatter(paramFilter);
-            _deserializer = new StoreResponseLoader(storeFolder, _formatter);
+            _responseLoader = new StoreResponseLoader(storeFolder, _formatter);
         }
 
         /// <summary>
@@ -44,15 +43,7 @@ namespace MockHttp
         /// <returns>The response messsage</returns>
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
         {
-            var query = _formatter.NormalizeQuery(request.RequestUri);
-            var folder = _formatter.ToFolderPath(request.RequestUri);
-
-            // first try to find a file keyed to the request method and query
-            return await _deserializer.DeserializeResponse(folder, _formatter.ToFileName(request, query))
-                // next just look for a default response based on just the http method
-                ?? await _deserializer.DeserializeResponse(folder, _formatter.ToShortFileName(request))
-                // otherwise return 404            
-                ?? new HttpResponseMessage(HttpStatusCode.NotFound) { RequestMessage = request };
+            return await _responseLoader.FindResponse(request);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.IO;
-using System.Net;
 using System.Net.Http;
 
 using Newtonsoft.Json;
@@ -70,15 +69,7 @@ namespace MockHttp
         /// <returns>The response messsage</returns>
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
         {
-            var query = _formatter.NormalizeQuery(request.RequestUri);
-            var folderPath = _formatter.ToFolderPath(request.RequestUri);
-
-            // first try to find a file keyed to the request method and query
-            return await _responseLoader.DeserializeResponse(folderPath, _formatter.ToFileName(request, query))
-                // next just look for a default response based on just the http method
-                ?? await _responseLoader.DeserializeResponse(folderPath, _formatter.ToShortFileName(request))
-                // otherwise return 404            
-                ?? new HttpResponseMessage(HttpStatusCode.NotFound) { RequestMessage = request };
+            return await _responseLoader.FindResponse(request);
         }
 
         /// <summary>
