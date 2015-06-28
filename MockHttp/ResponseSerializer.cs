@@ -5,15 +5,28 @@ using Newtonsoft.Json;
 
 namespace MockHttp
 {
+    /// <summary>
+    /// Class responsible for the serialization of <see cref="System.Net.Http.HttpResonseMessage"/> objects
+    /// </summary>
     public sealed class ResponseSerializer
     {
         private readonly RequestFormatter _formatter;
 
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="formatter"></param>
         public ResponseSerializer(RequestFormatter formatter)
         {
             _formatter = formatter;
         }
 
+        /// <summary>
+        /// Convert the <see cref="System.Net.Http.HttpResonseMessage"/> into an object
+        /// that is more serialization friendly
+        /// </summary>
+        /// <param name="response">The <see cref="System.Net.Http.HttpResonseMessage"/></param>
+        /// <returns>A serializable object</returns>
         public ResponseInfo PackageResponse(HttpResponseMessage response)
         {
             var query = _formatter.NormalizeQuery(response.RequestMessage.RequestUri);
@@ -38,11 +51,21 @@ namespace MockHttp
             };
         }
 
+        /// <summary>
+        /// Serialize a <see cref="ResponseInfo"/> object to a Json
+        /// </summary>
+        /// <param name="info">The <see cref="ResponseInfo"/></param>
+        /// <returns>Json representation of the <see cref="ResponseInfo"/></returns>
         public string Serialize(ResponseInfo info)
         {
             return JsonConvert.SerializeObject(info, Formatting.Indented);
         }
 
+        /// <summary>
+        /// Deserialize a Json string to a <see cref="ResponseInfo"/>
+        /// </summary>
+        /// <param name="json">The Json</param>
+        /// <returns>A <see cref="ResponseInfo"/></returns>
         public ResponseInfo Deserialize(string json)
         {
             return JsonConvert.DeserializeObject<ResponseInfo>(json);
