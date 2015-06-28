@@ -18,7 +18,6 @@ namespace MockHttp
         private readonly MessageFormatter _formatter;
         private readonly ResponseLoader _responseLoader;
 
-        private readonly string _storeFolder;
         private readonly string _captureFolder;
 
         /// <summary>
@@ -59,10 +58,9 @@ namespace MockHttp
         /// <param name="paramFilter">call back used to determine if a given query paramters should be excluded from serialziation</param>
         public FileSystemResponseStore(string storeFolder, string captureFolder, Func<string, string, bool> paramFilter)
         {
-            _storeFolder = storeFolder;
             _captureFolder = captureFolder;
-            _formatter = new DesktopRequestFormatter(paramFilter);
-            _responseLoader = new DesktopResponseLoader(_formatter);
+            _formatter = new DesktopMessagetFormatter(paramFilter);
+            _responseLoader = new DesktopResponseLoader(storeFolder,_formatter);
         }
 
         /// <summary>
@@ -73,7 +71,7 @@ namespace MockHttp
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
         {
             var query = _formatter.NormalizeQuery(request.RequestUri);
-            var folderPath = Path.Combine(_storeFolder, _formatter.ToFilePath(request.RequestUri));
+            var folderPath = _formatter.ToFolderPath(request.RequestUri);
 
             // first try to find a file keyed to the request method and query
             return await _responseLoader.DeserializeResponse(folderPath, _formatter.ToFileName(request, query))
@@ -91,7 +89,7 @@ namespace MockHttp
         public async Task StoreResponse(HttpResponseMessage response)
         {
             var query = _formatter.NormalizeQuery(response.RequestMessage.RequestUri);
-            var folderPath = Path.Combine(_captureFolder, _formatter.ToFilePath(response.RequestMessage.RequestUri));
+            var folderPath = Path.Combine(_captureFolder, _formatter.ToFolderPath(response.RequestMessage.RequestUri));
             var fileName = _formatter.ToFileName(response.RequestMessage, query);
 
             Directory.CreateDirectory(folderPath);

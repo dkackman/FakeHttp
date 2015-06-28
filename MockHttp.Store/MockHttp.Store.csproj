@@ -54,7 +54,7 @@
     </Compile>
     <Compile Include="Extensions.cs" />
     <Compile Include="StoreResponseLoader.cs" />
-    <Compile Include="StoreRequestFormatter.cs" />
+    <Compile Include="StoreMessageFormatter.cs" />
     <Compile Include="StorageFolderResponseStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

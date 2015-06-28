@@ -71,7 +71,7 @@ namespace MockHttp
         /// </summary>
         /// <param name="uri">The uri</param>
         /// <returns>Folder path</returns>
-        public string ToFilePath(Uri uri)
+        public string ToFolderPath(Uri uri)
         {
             return Path.Combine(uri.Host, uri.LocalPath.TrimStart('/').Replace('/', '\\'));
         }

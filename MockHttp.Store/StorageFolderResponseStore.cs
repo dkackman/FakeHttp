@@ -14,9 +14,8 @@ namespace MockHttp
     /// </summary>
     public sealed class StorageFolderResponseStore : IReadonlyResponseStore
     {
-        private readonly StoreRequestFormatter _formatter;
-        private readonly StoreResponseLoader _deserializer;
-        private readonly IStorageFolder _storeFolder;
+        private readonly MessageFormatter _formatter;
+        private readonly ResponseLoader _deserializer;
 
         /// <summary>
         /// ctor
@@ -34,9 +33,8 @@ namespace MockHttp
         /// <param name="paramFilter">call back used to determine if a given query paramters should be excluded from serialziation</param>
         public StorageFolderResponseStore(IStorageFolder storeFolder, Func<string, string, bool> paramFilter)
         {
-            _storeFolder = storeFolder;
-            _formatter = new StoreRequestFormatter(paramFilter);
-            _deserializer = new StoreResponseLoader(_storeFolder, _formatter);
+            _formatter = new StoreMessageFormatter(paramFilter);
+            _deserializer = new StoreResponseLoader(storeFolder, _formatter);
         }
 
         /// <summary>
@@ -47,7 +45,7 @@ namespace MockHttp
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
         {
             var query = _formatter.NormalizeQuery(request.RequestUri);
-            var folder = _formatter.ToFilePath(request.RequestUri);
+            var folder = _formatter.ToFolderPath(request.RequestUri);
 
             // first try to find a file keyed to the request method and query
             return await _deserializer.DeserializeResponse(folder, _formatter.ToFileName(request, query))

@@ -4,14 +4,14 @@ using Windows.Security.Cryptography.Core;
 
 namespace MockHttp.Store
 {
-    class StoreRequestFormatter : MessageFormatter
+    class StoreMessageFormatter : MessageFormatter
     {
-        public StoreRequestFormatter()
+        public StoreMessageFormatter()
             : this((name, value) => false)
         {
         }
 
-        public StoreRequestFormatter(Func<string, string, bool> paramFilter)
+        public StoreMessageFormatter(Func<string, string, bool> paramFilter)
             : base(paramFilter)
         {
         }

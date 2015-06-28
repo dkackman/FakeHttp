@@ -59,7 +59,7 @@
     <Compile Include="..\PackageInfo.cs">
       <Link>Properties\PackageInfo.cs</Link>
     </Compile>
-    <Compile Include="DesktopRequestFormatter.cs" />
+    <Compile Include="DesktopMessagetFormatter.cs" />
     <Compile Include="FileSystemResponseStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DesktopResponseLoader.cs" />

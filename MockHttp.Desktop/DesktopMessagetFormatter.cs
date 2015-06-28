@@ -4,14 +4,14 @@ using System.Security.Cryptography;
 
 namespace MockHttp.Desktop
 {
-    class DesktopRequestFormatter : MessageFormatter
+    class DesktopMessagetFormatter : MessageFormatter
     {
-        public DesktopRequestFormatter()
+        public DesktopMessagetFormatter()
             : this((name, value) => false) // by default do filter any qquery paramters
         {
         }
 
-        public DesktopRequestFormatter(Func<string, string, bool> paramFilter)
+        public DesktopMessagetFormatter(Func<string, string, bool> paramFilter)
             : base(paramFilter)
         {
         }
