@@ -24,10 +24,10 @@ namespace MockHttp.UnitTests
                 var response = await client.GetAsync("storage/v1/b/uspto-pair");
                 response.EnsureSuccessStatusCode();
 
-                var serializer = new ResponseSerializer(new DesktopRequestFormatter());
+                var formatter = new DesktopRequestFormatter();
 
                 // this is the object that is serialized (response, normalized request query and pointer to the content file)
-                var info = serializer.PackageResponse(response);
+                var info = formatter.PackageResponse(response);
 
                 Assert.IsNotNull(info);
                 Assert.IsTrue(info.ContentFileName.EndsWith("json"));
@@ -44,12 +44,12 @@ namespace MockHttp.UnitTests
                 var response = await client.GetAsync("storage/v1/b/uspto-pair");
                 response.EnsureSuccessStatusCode();
 
-                var serializer = new ResponseSerializer(new DesktopRequestFormatter());
+                var formatter = new DesktopRequestFormatter();
 
                 // this is the object that is serialized (response, normalized request query and pointer to the content file)
-                var info = serializer.PackageResponse(response);
-                var json = JsonConvert.SerializeObject(info, Formatting.Indented);
+                var info = formatter.PackageResponse(response);
 
+                var json = JsonConvert.SerializeObject(info, Formatting.Indented);
                 var newInfo = JsonConvert.DeserializeObject<ResponseInfo>(json);
 
                 Assert.AreEqual(info, newInfo);
@@ -66,10 +66,10 @@ namespace MockHttp.UnitTests
                 var response = await client.GetAsync("storage/v1/b/uspto-pair");
                 response.EnsureSuccessStatusCode();
 
-                var serializer = new ResponseSerializer(new DesktopRequestFormatter());
+                var formatter = new DesktopRequestFormatter();
 
                 // this is the object that is serialized (response, normalized request query and pointer to the content file)
-                var info = serializer.PackageResponse(response);
+                var info = formatter.PackageResponse(response);
                 var json = JsonConvert.SerializeObject(info, Formatting.Indented);
 
                 var newInfo = JsonConvert.DeserializeObject<ResponseInfo>(json);

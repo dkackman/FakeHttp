@@ -9,11 +9,11 @@ namespace MockHttp
 {
     public abstract class ResponseLoader
     {
-        private readonly ResponseSerializer _serializer;
+        private readonly RequestFormatter _formatter;
 
-        protected ResponseLoader(ResponseSerializer serializer)
+        protected ResponseLoader(RequestFormatter serializer)
         {
-            _serializer = serializer;
+            _formatter = serializer;
         }
 
         protected abstract Task<bool> Exists(string folder, string fileName);

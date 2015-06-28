@@ -22,6 +22,36 @@ namespace MockHttp
             _paramFilter = paramFilter;
         }
 
+        /// <summary>
+        /// Convert the <see cref="System.Net.Http.HttpResonseMessage"/> into an object
+        /// that is more serialization friendly
+        /// </summary>
+        /// <param name="response">The <see cref="System.Net.Http.HttpResonseMessage"/></param>
+        /// <returns>A serializable object</returns>
+        public ResponseInfo PackageResponse(HttpResponseMessage response)
+        {
+            var query = NormalizeQuery(response.RequestMessage.RequestUri);
+            var fileName = ToFileName(response.RequestMessage, query);
+            var fileExtension = "";
+            if (response.Content.Headers.ContentType != null)
+            {
+                fileExtension = MimeMap.GetFileExtension(response.Content.Headers.ContentType.MediaType);
+            }
+
+            // since HttpHeaders is not a creatable object, store the headers off to the side
+            var headers = response.Headers.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            var contentHeaders = response.Content.Headers.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+            return new ResponseInfo()
+            {
+                StatusCode = response.StatusCode,
+                Query = query,
+                ContentFileName = !string.IsNullOrEmpty(fileExtension) ? string.Concat(fileName, ".content", fileExtension) : null,
+                ResponseHeaders = headers,
+                ContentHeaders = contentHeaders
+            };
+        }
+
         public abstract string ToSha1Hash(string text);
 
         public string ToFilePath(Uri uri)

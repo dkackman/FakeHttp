@@ -12,7 +12,6 @@ namespace MockHttp
 {
     public class FileSystemResponseStore : IResponseStore
     {
-        private readonly ResponseSerializer _serializer;
         private readonly RequestFormatter _formatter;
         private readonly ResponseLoader _responseLoader;
 
@@ -40,8 +39,7 @@ namespace MockHttp
             _storeFolder = storeFolder;
             _captureFolder = captureFolder;
             _formatter = new DesktopRequestFormatter(paramFilter);
-            _serializer = new ResponseSerializer(_formatter);
-            _responseLoader = new DesktopResponseLoader(_serializer);
+            _responseLoader = new DesktopResponseLoader(_formatter);
         }
 
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
@@ -66,7 +64,7 @@ namespace MockHttp
             Directory.CreateDirectory(folderPath);
 
             // this is the object that is serialized (response, normalized request query and pointer to the content file)
-            var info = _serializer.PackageResponse(response);
+            var info = _formatter.PackageResponse(response);
             
             // just read the entire content stream as a string and serialize it 
             // we are assuming all content is json for the time being
