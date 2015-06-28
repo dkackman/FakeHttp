@@ -50,25 +50,5 @@ namespace MockHttp
                 ContentHeaders = contentHeaders
             };
         }
-
-        /// <summary>
-        /// Serialize a <see cref="ResponseInfo"/> object to a Json
-        /// </summary>
-        /// <param name="info">The <see cref="ResponseInfo"/></param>
-        /// <returns>Json representation of the <see cref="ResponseInfo"/></returns>
-        public string Serialize(ResponseInfo info)
-        {
-            return JsonConvert.SerializeObject(info, Formatting.Indented);
-        }
-
-        /// <summary>
-        /// Deserialize a Json string to a <see cref="ResponseInfo"/>
-        /// </summary>
-        /// <param name="json">The Json</param>
-        /// <returns>A <see cref="ResponseInfo"/></returns>
-        public ResponseInfo Deserialize(string json)
-        {
-            return JsonConvert.DeserializeObject<ResponseInfo>(json);
-        }
     }
 }

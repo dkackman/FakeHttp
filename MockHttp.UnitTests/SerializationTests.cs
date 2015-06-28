@@ -7,6 +7,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using MockHttp.Desktop;
 
+using Newtonsoft.Json;
+
 namespace MockHttp.UnitTests
 {
     [TestClass]
@@ -46,9 +48,9 @@ namespace MockHttp.UnitTests
 
                 // this is the object that is serialized (response, normalized request query and pointer to the content file)
                 var info = serializer.PackageResponse(response);
-                var json = serializer.Serialize(info);
+                var json = JsonConvert.SerializeObject(info, Formatting.Indented);
 
-                var newInfo = serializer.Deserialize(json);
+                var newInfo = JsonConvert.DeserializeObject<ResponseInfo>(json);
 
                 Assert.AreEqual(info, newInfo);
             }
@@ -68,9 +70,9 @@ namespace MockHttp.UnitTests
 
                 // this is the object that is serialized (response, normalized request query and pointer to the content file)
                 var info = serializer.PackageResponse(response);
-                var json = serializer.Serialize(info);
+                var json = JsonConvert.SerializeObject(info, Formatting.Indented);
 
-                var newInfo = serializer.Deserialize(json);
+                var newInfo = JsonConvert.DeserializeObject<ResponseInfo>(json);
                 var content = newInfo.CreateContent(new MemoryStream());
 
                 Assert.AreEqual("UTF-8", content.Headers.ContentType.CharSet);

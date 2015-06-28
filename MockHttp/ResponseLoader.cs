@@ -3,6 +3,8 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
+using Newtonsoft.Json;
+
 namespace MockHttp
 {
     public abstract class ResponseLoader
@@ -25,9 +27,10 @@ namespace MockHttp
             var fileName = baseName + ".response.json";
             // first look for a completely serialized response
             if (await Exists(folder, fileName))
-            {               
+            {
                 var json = await LoadAsString(folder, fileName);
-                var info = _serializer.Deserialize(json);
+                var info = JsonConvert.DeserializeObject<ResponseInfo>(json);
+
                 if (info == null)
                 {
                     return null;
