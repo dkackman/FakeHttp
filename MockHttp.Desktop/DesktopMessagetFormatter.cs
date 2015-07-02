@@ -7,7 +7,7 @@ namespace MockHttp.Desktop
     class DesktopMessagetFormatter : MessageFormatter
     {
         public DesktopMessagetFormatter()
-            : this((name, value) => false) // by default do filter any qquery paramters
+            : this((name, value) => false) // by default do not filter any query parameters
         {
         }
 

@@ -1,4 +1,4 @@
-{
+﻿{
   "StatusCode": 200,
   "Query": "c=en-us&countryregion=us&maxres=1&postalcode=55116",
   "ContentFileName": "GET.8F8BE39FAED23347CB3B40A0053E1EA46644AB9C.content.json",
@@ -7,10 +7,10 @@
       "chunked"
     ],
     "X-BM-TraceID": [
-      "a67df8f7d6d34df482bc711964d17ccd"
+      "2d78bcb9b1224217ab3c325c6a3f3bf6"
     ],
     "X-BM-Srv": [
-      "CH10043744, CH1SCH060032334"
+      "BN20130522, BN2SCH020131330"
     ],
     "X-MS-BM-WS-INFO": [
       "0"
@@ -19,7 +19,7 @@
       "no-cache"
     ],
     "Date": [
-      "Sun, 28 Jun 2015 21:00:40 GMT"
+      "Thu, 02 Jul 2015 02:08:58 GMT"
     ],
     "Server": [
       "Microsoft-IIS/8.0"

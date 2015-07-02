@@ -11,7 +11,6 @@ namespace MockHttp.Desktop
             : base(formatter)
         {
             _storeFolder = storeFolder;
-
         }
 
         protected override async Task<bool> Exists(string folder, string fileName)

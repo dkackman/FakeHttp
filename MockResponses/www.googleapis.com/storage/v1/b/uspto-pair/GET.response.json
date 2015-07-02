@@ -1,4 +1,4 @@
-{
+﻿{
   "StatusCode": 200,
   "Query": "",
   "ContentFileName": "GET.content.json",
@@ -23,7 +23,7 @@
       "no-transform, must-revalidate, max-age=0, private"
     ],
     "Date": [
-      "Sun, 28 Jun 2015 21:00:40 GMT"
+      "Thu, 02 Jul 2015 02:08:59 GMT"
     ],
     "ETag": [
       "CAE="
@@ -40,7 +40,7 @@
       "application/json; charset=UTF-8"
     ],
     "Expires": [
-      "Sun, 28 Jun 2015 21:00:40 GMT"
+      "Thu, 02 Jul 2015 02:08:59 GMT"
     ]
   }
 }

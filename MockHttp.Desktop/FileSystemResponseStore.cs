@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.IO;
 using System.Net.Http;
+using System.Text;
 
 using Newtonsoft.Json;
 
@@ -88,7 +89,7 @@ namespace MockHttp
             // this is the object that is serialized (response, normalized request query and pointer to the content file)
             var info = _formatter.PackageResponse(response);
 
-            // just read the entire content stream serialize it 
+            // just read the entire content stream and serialize it 
             using (var file = File.Create(Path.Combine(folderPath, info.ContentFileName)))
             {
                 var bytes = await response.Content.ReadAsByteArrayAsync();
@@ -97,7 +98,7 @@ namespace MockHttp
 
             // now serialize the response object and its meta-data
             var json = JsonConvert.SerializeObject(info, Formatting.Indented);
-            using (var responseWriter = new StreamWriter(Path.Combine(folderPath, fileName + ".response.json"), false))
+            using (var responseWriter = new StreamWriter(Path.Combine(folderPath, fileName + ".response.json"), false, Encoding.UTF8))
             {
                 responseWriter.Write(json);
             }
