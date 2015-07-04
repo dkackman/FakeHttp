@@ -126,7 +126,7 @@ namespace MockHttp
                 seperator = "&";
             }
 
-            return builder.ToString();
+            return builder.ToString().ToLowerInvariant();
         }
 
         private static readonly Regex _regex = new Regex(@"[?|&]([\w\.]+)=([^?|^&]+)");
@@ -147,8 +147,8 @@ namespace MockHttp
         {
             foreach (var param in ParseQueryString(uri))
             {
-                var name = param.Key.ToLowerInvariant();
-                var value = param.Value != null ? param.Value.ToLowerInvariant() : "";
+                var name = param.Key;
+                var value = param.Value != null ? param.Value : "";
 
                 if (!paramFilter(name, value))
                 {
