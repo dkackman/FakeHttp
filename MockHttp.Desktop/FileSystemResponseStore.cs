@@ -90,10 +90,11 @@ namespace MockHttp
             var info = _formatter.PackageResponse(response);
 
             // just read the entire content stream and serialize it 
-            using (var file = File.Create(Path.Combine(folderPath, info.ContentFileName)))
+            using (var file = new FileStream(Path.Combine(folderPath, info.ContentFileName), FileMode.Create, FileAccess.Write, FileShare.Read))
             {
                 var bytes = await response.Content.ReadAsByteArrayAsync();
                 file.Write(bytes, 0, bytes.Length);
+                file.Flush();
             }
 
             // now serialize the response object and its meta-data

@@ -65,16 +65,17 @@ namespace MockHttp.UnitTests
                 capturingClient.BaseAddress = new Uri("https://www.googleapis.com/");
                 mockingClient.BaseAddress = new Uri("https://www.googleapis.com/");
 
-                var capturedResponse = await capturingClient.GetAsync("storage/v1/b/uspto-pair");
-                var mockedResponse = await mockingClient.GetAsync("storage/v1/b/uspto-pair");
+                using (var capturedResponse = await capturingClient.GetAsync("storage/v1/b/uspto-pair"))
+                using (var mockedResponse = await mockingClient.GetAsync("storage/v1/b/uspto-pair"))
+                {
+                    capturedResponse.EnsureSuccessStatusCode();
+                    mockedResponse.EnsureSuccessStatusCode();
 
-                capturedResponse.EnsureSuccessStatusCode();
-                mockedResponse.EnsureSuccessStatusCode();
+                    string captured = await capturedResponse.Content.Deserialize<string>();
+                    string mocked = await mockedResponse.Content.Deserialize<string>();
 
-                string captured = await capturedResponse.Content.Deserialize<string>();
-                string mocked = await mockedResponse.Content.Deserialize<string>();
-
-                Assert.AreEqual(captured, mocked);
+                    Assert.AreEqual(captured, mocked);
+                }
             }
         }
 
@@ -105,16 +106,17 @@ namespace MockHttp.UnitTests
                 capturingClient.BaseAddress = new Uri("http://dev.virtualearth.net/");
                 mockingClient.BaseAddress = new Uri("http://dev.virtualearth.net/");
 
-                var capturedResponse = await capturingClient.GetAsync("REST/v1/Locations?c=en-us&countryregion=us&maxres=1&postalcode=55116&key=" + key);
-                var mockedResponse = await mockingClient.GetAsync("REST/v1/Locations?c=en-us&countryregion=us&maxres=1&postalcode=55116&key=THIS_SHOULD_NOT_MATTER");
+                using (var capturedResponse = await capturingClient.GetAsync("REST/v1/Locations?c=en-us&countryregion=us&maxres=1&postalcode=55116&key=" + key))
+                using (var mockedResponse = await mockingClient.GetAsync("REST/v1/Locations?c=en-us&countryregion=us&maxres=1&postalcode=55116&key=THIS_SHOULD_NOT_MATTER"))
+                {
+                    capturedResponse.EnsureSuccessStatusCode();
+                    mockedResponse.EnsureSuccessStatusCode();
 
-                capturedResponse.EnsureSuccessStatusCode();
-                mockedResponse.EnsureSuccessStatusCode();
+                    string captured = await capturedResponse.Content.Deserialize<string>();
+                    string mocked = await mockedResponse.Content.Deserialize<string>();
 
-                string captured = await capturedResponse.Content.Deserialize<string>();
-                string mocked = await mockedResponse.Content.Deserialize<string>();
-
-                Assert.AreEqual(captured, mocked);
+                    Assert.AreEqual(captured, mocked);
+                }
             }
         }
     }

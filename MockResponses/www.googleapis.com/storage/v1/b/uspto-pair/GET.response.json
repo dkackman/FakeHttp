@@ -23,7 +23,7 @@
       "no-transform, must-revalidate, max-age=0, private"
     ],
     "Date": [
-      "Sat, 04 Jul 2015 13:12:12 GMT"
+      "Sat, 04 Jul 2015 13:28:02 GMT"
     ],
     "ETag": [
       "CAE="
@@ -40,7 +40,7 @@
       "application/json; charset=UTF-8"
     ],
     "Expires": [
-      "Sat, 04 Jul 2015 13:12:12 GMT"
+      "Sat, 04 Jul 2015 13:28:02 GMT"
     ]
   }
 }
