@@ -8,8 +8,8 @@
     <ProjectGuid>{7072FB0F-27FA-4583-BAF7-13087D77560B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MockHttp.Store</RootNamespace>
-    <AssemblyName>MockHttp.Store</AssemblyName>
+    <RootNamespace>FakeHttp.Store</RootNamespace>
+    <AssemblyName>FakeHttp.Store</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,7 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\MockHttp.Store.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\FakeHttp.Store.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->

@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 using Windows.Storage;
 
-using MockHttp.Store;
+using FakeHttp.Store;
 
-namespace MockHttp
+namespace FakeHttp
 {
     /// <summary>
     /// Class that can retreive stored response messages in a windows store app runtime environment

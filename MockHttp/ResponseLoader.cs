@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-namespace MockHttp
+namespace FakeHttp
 {
     /// <summary>
     /// Base calss for file based response message retreival that allows 

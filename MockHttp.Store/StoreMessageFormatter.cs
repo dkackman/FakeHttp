@@ -2,7 +2,7 @@
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 
-namespace MockHttp.Store
+namespace FakeHttp.Store
 {
     class StoreMessageFormatter : MessageFormatter
     {

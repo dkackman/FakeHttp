@@ -3,17 +3,17 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-using MockHttp;
-using MockHttp.Desktop;
+using FakeHttp;
+using FakeHttp.Desktop;
 
 using UnitTestHelpers;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MockHttp.UnitTests
+namespace FakeHttp.UnitTests
 {
     [TestClass]
-    [DeploymentItem(@"MockResponses\")]
+    [DeploymentItem(@"FakeResponses\")]
     public class FactoryBasedHandlerTests
     {
         /// <summary>
@@ -23,10 +23,10 @@ namespace MockHttp.UnitTests
         public TestContext TestContext { get; set; }
 
         [TestMethod]
-        [TestCategory("mock")]
+        [TestCategory("fake")]
         public async Task CanGetSimpleJsonResult()
         {
-            var store = new FileSystemResponseStore(TestContext.DeploymentDirectory, Path.Combine(TestContext.TestRunDirectory, @"..\..\MockResponses\"));
+            var store = new FileSystemResponseStore(TestContext.DeploymentDirectory, Path.Combine(TestContext.TestRunDirectory, @"..\..\FakeResponses\"));
             var handler = MessageHandlerFactory.CreateMessageHandler(store);
 
             using (var client = new HttpClient(handler, true))

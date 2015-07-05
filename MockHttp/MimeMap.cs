@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MockHttp
+namespace FakeHttp
 {
     static class MimeMap
     {

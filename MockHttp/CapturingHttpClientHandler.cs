@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading;
 
-namespace MockHttp
+namespace FakeHttp
 {
     /// <summary>
     /// A <see cref="System.Net.Http.HttpMessageHandler"/> that retrieves http resonse messages from

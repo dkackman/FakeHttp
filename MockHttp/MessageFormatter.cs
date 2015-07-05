@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace MockHttp
+namespace FakeHttp
 {
     /// <summary>
     /// Base class that formats http request and response message data prior to serialization

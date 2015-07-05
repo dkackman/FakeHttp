@@ -8,7 +8,7 @@ using System.IO;
 using Windows.Storage;
 using Windows.Storage.Streams;
 
-namespace MockHttp.Store
+namespace FakeHttp.Store
 {
     static class Extensions
     {

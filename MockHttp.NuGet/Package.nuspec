@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>Dkackman.MockHttp</id>
+    <id>Dkackman.FakeHttp</id>
     <version>1.0.1</version>
-    <title>MockHttp</title>
+    <title>FakeHttp</title>
     <authors>dkackman</authors>
     <owners>dkackman</owners>
     <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
-    <projectUrl>https://github.com/dkackman/MockHttp</projectUrl>
+    <projectUrl>https://github.com/dkackman/FakeHttp</projectUrl>
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
@@ -30,15 +30,15 @@
   </metadata>
   <files>
     <!-- desktop files -->
-    <file src="..\MockHttp\bin\Release\MockHttp.dll" target="lib\net45" />
-    <file src="..\MockHttp\bin\Release\MockHttp.xml" target="lib\net45" />
-    <file src="..\MockHttp.Desktop\bin\Release\MockHttp.Desktop.dll" target="lib\net45" />
-    <file src="..\MockHttp.Desktop\bin\Release\MockHttp.Desktop.xml" target="lib\net45" />
+    <file src="..\FakeHttp\bin\Release\FakeHttp.dll" target="lib\net45" />
+    <file src="..\FakeHttp\bin\Release\FakeHttp.xml" target="lib\net45" />
+    <file src="..\FakeHttp.Desktop\bin\Release\FakeHttp.Desktop.dll" target="lib\net45" />
+    <file src="..\FakeHttp.Desktop\bin\Release\FakeHttp.Desktop.xml" target="lib\net45" />
 
     <!-- store files -->
-    <file src="..\MockHttp\bin\Release\MockHttp.dll" target="lib\portable-netcore45+wpa81" />
-    <file src="..\MockHttp\bin\Release\MockHttp.xml" target="lib\portable-netcore45+wpa81" />
-    <file src="..\MockHttp.Store\bin\Release\MockHttp.Store.dll" target="lib\portable-netcore45+wpa81" />
-    <file src="..\MockHttp.Store\bin\Release\MockHttp.Store.xml" target="lib\portable-netcore45+wpa81" />
+    <file src="..\FakeHttp\bin\Release\FakeHttp.dll" target="lib\portable-netcore45+wpa81" />
+    <file src="..\FakeHttp\bin\Release\FakeHttp.xml" target="lib\portable-netcore45+wpa81" />
+    <file src="..\FakeHttp.Store\bin\Release\FakeHttp.Store.dll" target="lib\portable-netcore45+wpa81" />
+    <file src="..\FakeHttp.Store\bin\Release\FakeHttp.Store.xml" target="lib\portable-netcore45+wpa81" />
   </files>
 </package>

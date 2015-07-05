@@ -7,12 +7,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using UnitTestHelpers;
 
-using MockHttp.Desktop;
+using FakeHttp.Desktop;
 
-namespace MockHttp.UnitTests
+namespace FakeHttp.UnitTests
 {
     [TestClass]
-    [DeploymentItem(@"MockResponses\")]
+    [DeploymentItem(@"FakeResponses\")]
     public class CaptureTests
     {
         /// <summary>
@@ -22,11 +22,11 @@ namespace MockHttp.UnitTests
         public TestContext TestContext { get; set; }
 
         [TestMethod]
-        [TestCategory("mock")]
+        [TestCategory("fake")]
         public async Task CaptureResponse()
         {
             // store the rest response in a subfolder of the solution directory for future use
-            var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\MockResponses\");
+            var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\FakeResponses\");
             var handler = new CapturingHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder));
 
             using (var client = new HttpClient(handler, true))
@@ -50,14 +50,14 @@ namespace MockHttp.UnitTests
         }
 
         [TestMethod]
-        [TestCategory("mock")]
+        [TestCategory("fake")]
         public async Task CaptureAndMockResponsesMatch()
         {
             // store the rest response in a subfolder of the solution directory for future use
-            var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\MockResponses\");
+            var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\FakeResponses\");
 
             var capturingHandler = new CapturingHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder));
-            var mockingHandler = new MockHttpMessageHandler(new FileSystemResponseStore(captureFolder)); // point the mock to where the capture is stored
+            var mockingHandler = new FakeHttpMessageHandler(new FileSystemResponseStore(captureFolder)); // point the mock to where the capture is stored
 
             using (var capturingClient = new HttpClient(capturingHandler, true))
             using (var mockingClient = new HttpClient(mockingHandler, true))
@@ -80,12 +80,12 @@ namespace MockHttp.UnitTests
         }
 
         [TestMethod]
-        [TestCategory("mock")]
+        [TestCategory("fake")]
         public async Task FilteredQueryParametrIsIgnoredDuringMocking()
         {
             string key = CredentialStore.RetrieveObject("bing.key.json").Key;
             // store the rest response in a subfolder of the solution directory for future use
-            var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\MockResponses\");
+            var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\FakeResponses\");
 
             // when capturing the real response, we do not want to serialize things like api keys
             // both because that is a possible infomration leak and also because it would
@@ -98,7 +98,7 @@ namespace MockHttp.UnitTests
             // this test ensures that our mechansim to filter out those paramters we want to ignore works
             //
             var capturingHandler = new CapturingHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder, (name, value) => name == "key"));
-            var mockingHandler = new MockHttpMessageHandler(new FileSystemResponseStore(captureFolder, (name, value) => name == "key")); // point the mock to where the capture is stored
+            var mockingHandler = new FakeHttpMessageHandler(new FileSystemResponseStore(captureFolder, (name, value) => name == "key")); // point the mock to where the capture is stored
 
             using (var capturingClient = new HttpClient(capturingHandler, true))
             using (var mockingClient = new HttpClient(mockingHandler, true))

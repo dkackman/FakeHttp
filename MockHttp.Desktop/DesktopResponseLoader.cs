@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace MockHttp.Desktop
+namespace FakeHttp.Desktop
 {
     class DesktopResponseLoader : ResponseLoader
     {

@@ -12,12 +12,12 @@ using BingGeoCoder.Client;
 
 using UnitTestHelpers;
 
-using MockHttp;
+using FakeHttp;
 
 namespace GeoCoderTests
 {
     [TestClass]
-    [DeploymentItem(@"MockResponses\")]
+    [DeploymentItem(@"FakeResponses\")]
     public class AddressPartTests
     {
         private static IGeoCoder _service;
@@ -33,7 +33,7 @@ namespace GeoCoderTests
 
             // folders where mock responses are stored and where captured response should be saved
             var mockFolder = context.DeploymentDirectory; // the folder where the unit tests are running
-            var captureFolder = Path.Combine(context.TestRunDirectory, @"..\..\MockResponses\"); // kinda hacky but this should be the solution folder
+            var captureFolder = Path.Combine(context.TestRunDirectory, @"..\..\FakeResponses\"); // kinda hacky but this should be the solution folder
 
             // here we don't want to serialize or include our api key in response lookups so
             // pass a lambda that will indicate to the serialzier to filter that param out

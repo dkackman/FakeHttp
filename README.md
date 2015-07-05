@@ -1,6 +1,6 @@
 # FakeHttp
 
-[Nuget Package](https://www.nuget.org/packages/Dkackman.MockHttp/)
+[Nuget Package](https://www.nuget.org/packages/Dkackman.FakeHttp/)
 
 A library for faking http Rest client communication using System.Net.Http.
 
@@ -25,11 +25,11 @@ Recorded Http Response messages and content can be edited to create test conditi
     }
 
     [TestMethod]
-    [TestCategory("mock")]
-    [DeploymentItem(@"MockResponses\")]
+    [TestCategory("fake")]
+    [DeploymentItem(@"FakeResponses\")]
     public async Task CanGetSimpleJsonResult()
     {
-        var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\MockResponses\");
+        var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\FakeResponses\");
         var handler = MessageHandlerFactory.CreateMessageHandler(TestContext.DeploymentDirectory, captureFolder);
 
         using (var client = new HttpClient(handler, true))

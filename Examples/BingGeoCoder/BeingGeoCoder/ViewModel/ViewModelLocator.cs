@@ -21,7 +21,7 @@ using Microsoft.Practices.ServiceLocation;
 
 using BingGeoCoder.Client;
 
-using MockHttp;
+using FakeHttp;
 
 namespace BeingGeoCoder.ViewModel
 {

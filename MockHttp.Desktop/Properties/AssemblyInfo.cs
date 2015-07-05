@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MockHttp.Desktop")]
+[assembly: AssemblyTitle("FakeHttp.Desktop")]
 
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -17,4 +17,4 @@ using System.Runtime.InteropServices;
 [assembly: Guid("168febf0-486a-4d47-ba63-67f1d2a96498")]
 
 
-[assembly: InternalsVisibleTo("MockHttp.UnitTests")]
+[assembly: InternalsVisibleTo("FakeHttp.UnitTests")]

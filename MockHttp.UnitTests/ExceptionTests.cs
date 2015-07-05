@@ -4,20 +4,20 @@ using System.Net.Http;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MockHttp.UnitTests
+namespace FakeHttp.UnitTests
 {
     [TestClass]
-    [DeploymentItem(@"MockResponses\")]
+    [DeploymentItem(@"FakeResponses\")]
     public class ExceptionTests
     {
         public TestContext TestContext { get; set; }
 
         [TestMethod]
-        [TestCategory("mock")]
+        [TestCategory("fake")]
         [ExpectedException(typeof(HttpRequestException))]
         public async Task ThrowWhenNoStaticResponseFound()
         {
-            var handler = new MockHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
+            var handler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
 
             using (var client = new HttpClient(handler, true))
             {
@@ -30,11 +30,11 @@ namespace MockHttp.UnitTests
         }
 
         [TestMethod]
-        [TestCategory("mock")]
+        [TestCategory("fake")]
         [ExpectedException(typeof(HttpRequestException))]
         public async Task ThrowWhenNoStaticResponseFoundByParameterLookup()
         {
-            var handler = new MockHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
+            var handler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
 
             using (var mockingClient = new HttpClient(handler, true))
             {
@@ -47,10 +47,10 @@ namespace MockHttp.UnitTests
         }
 
         [TestMethod]
-        [TestCategory("mock")]
+        [TestCategory("fake")]
         public async Task ThrowWhenStaticallySimulateFailure()
         {
-            var handler = new MockHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
+            var handler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
 
             using (var client = new HttpClient(handler, true))
             {

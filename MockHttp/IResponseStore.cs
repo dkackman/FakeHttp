@@ -2,7 +2,7 @@
 
 using System.Net.Http;
 
-namespace MockHttp
+namespace FakeHttp
 {
     /// <summary>
     /// Interface to abstract storage and retrevial of <see cref="System.Net.Http.HttpResponseMessage"/> instances

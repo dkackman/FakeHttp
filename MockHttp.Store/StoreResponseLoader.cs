@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using Windows.Storage;
 
-namespace MockHttp.Store
+namespace FakeHttp.Store
 {
     class StoreResponseLoader : ResponseLoader
     {

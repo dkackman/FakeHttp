@@ -13,7 +13,7 @@ using GalaSoft.MvvmLight.Ioc;
 namespace GeoCoderTests
 {
     [TestClass]
-    [DeploymentItem(@"MockResponses\")]
+    [DeploymentItem(@"FakeResponses\")]
     public class AddressTests
     {
         private static IGeoCoder _service;

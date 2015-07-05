@@ -5,17 +5,17 @@ using System.Net.Http;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using MockHttp.Desktop;
+using FakeHttp.Desktop;
 
 using Newtonsoft.Json;
 
-namespace MockHttp.UnitTests
+namespace FakeHttp.UnitTests
 {
     [TestClass]
     public class SerializationTests
     {
         [TestMethod]
-        [TestCategory("mock")]
+        [TestCategory("fake")]
         public async Task ResponseInfoPackedCorrectly()
         {
             using (var client = new HttpClient(new HttpClientHandler(), true))
@@ -35,7 +35,7 @@ namespace MockHttp.UnitTests
         }
 
         [TestMethod]
-        [TestCategory("mock")]
+        [TestCategory("fake")]
         public async Task RoundTripResponseInfo()
         {
             using (var client = new HttpClient(new HttpClientHandler(), true))
@@ -59,7 +59,7 @@ namespace MockHttp.UnitTests
         }
 
         [TestMethod]
-        [TestCategory("mock")]
+        [TestCategory("fake")]
         public async Task CreateContentFromSerializedResponse()
         {
             using (var client = new HttpClient(new HttpClientHandler(), true))

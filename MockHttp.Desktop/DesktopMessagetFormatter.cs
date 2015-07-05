@@ -2,7 +2,7 @@
 using System.Text;
 using System.Security.Cryptography;
 
-namespace MockHttp.Desktop
+namespace FakeHttp.Desktop
 {
     class DesktopMessagetFormatter : MessageFormatter
     {

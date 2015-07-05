@@ -6,9 +6,9 @@ using System.Text;
 
 using Newtonsoft.Json;
 
-using MockHttp.Desktop;
+using FakeHttp.Desktop;
 
-namespace MockHttp
+namespace FakeHttp
 {
     /// <summary>
     /// Class that can store and retreive response messages in a win32 runtime environment

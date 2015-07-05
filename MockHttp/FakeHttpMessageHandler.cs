@@ -2,13 +2,13 @@
 using System.Net.Http;
 using System.Threading;
 
-namespace MockHttp
+namespace FakeHttp
 {
     /// <summary>
     /// A <see cref="System.Net.Http.HttpMessageHandler"/> that retrieves http resonse messages from
     /// an alternate storage rather than from a given http endpoint
     /// </summary>
-    public sealed class MockHttpMessageHandler : HttpMessageHandler
+    public sealed class FakeHttpMessageHandler : HttpMessageHandler
     {
         private readonly IReadonlyResponseStore _store;
 
@@ -16,7 +16,7 @@ namespace MockHttp
         /// ctor
         /// </summary>
         /// <param name="store">The storage meachansim for responses</param>
-        public MockHttpMessageHandler(IReadonlyResponseStore store)
+        public FakeHttpMessageHandler(IReadonlyResponseStore store)
         {
             _store = store;
         }

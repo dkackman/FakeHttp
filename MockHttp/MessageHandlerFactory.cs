@@ -2,11 +2,11 @@
 using System.Net;
 using System.Net.Http;
 
-namespace MockHttp
+namespace FakeHttp
 {
     /// <summary>
     /// Flag indicating what type of <see cref="System.Net.Http.HttpMessageHandler"/> the 
-    /// <see cref="MockHttp.MessageHandlerFactory"/> will create by default
+    /// <see cref="FakeHttp.MessageHandlerFactory"/> will create by default
     /// </summary>
     public enum MessageHandlerMode
     {
@@ -51,7 +51,7 @@ namespace MockHttp
         {
             if (Mode == MessageHandlerMode.Mock)
             {
-                return new MockHttpMessageHandler(responseStore);
+                return new FakeHttpMessageHandler(responseStore);
             }
 
             if (Mode == MessageHandlerMode.Capture)
@@ -77,7 +77,7 @@ namespace MockHttp
         {
             if (Mode == MessageHandlerMode.Mock)
             {
-                return new MockHttpMessageHandler(responseStore);
+                return new FakeHttpMessageHandler(responseStore);
             }
 
             var clientHandler = Mode == MessageHandlerMode.Capture

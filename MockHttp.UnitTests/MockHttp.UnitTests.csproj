@@ -6,8 +6,8 @@
     <ProjectGuid>{2617C307-009D-4291-BCE2-A8433E46D92F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MockHttp.UnitTests</RootNamespace>
-    <AssemblyName>MockHttp.UnitTests</AssemblyName>
+    <RootNamespace>FakeHttp.UnitTests</RootNamespace>
+    <AssemblyName>FakeHttp.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -120,8 +120,8 @@
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
   </Target>
   <PropertyGroup>
-    <PreBuildEvent>del /f /s /q "$(TargetDir)MockResponses\"
-xcopy /Y /S /Q "$(SolutionDir)MockResponses\*" "$(TargetDir)MockResponses\"
+    <PreBuildEvent>del /f /s /q "$(TargetDir)FakeResponses\"
+xcopy /Y /S /Q "$(SolutionDir)FakeResponses\*" "$(TargetDir)FakeResponses\"
 </PreBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
