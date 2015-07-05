@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MockHttp")]
+[assembly: AssemblyProduct("FakeHttp")]
 [assembly: AssemblyCopyright("Copyright © Don Kackman 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
