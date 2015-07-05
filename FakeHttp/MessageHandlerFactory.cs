@@ -16,9 +16,9 @@ namespace FakeHttp
         Capture,
 
         /// <summary>
-        /// Create a handler that will retreive message from mocking storage
+        /// Create a handler that will retreive message from faking storage
         /// </summary>
-        Mock,
+        Fake,
 
         /// <summary>
         /// Create the default HttpMessage handler
@@ -49,7 +49,7 @@ namespace FakeHttp
         /// <returns>A <see cref="System.Net.Http.HttpMessageHandler"/></returns>
         public static HttpMessageHandler CreateMessageHandler(IReadonlyResponseStore responseStore)
         {
-            if (Mode == MessageHandlerMode.Mock)
+            if (Mode == MessageHandlerMode.Fake)
             {
                 return new FakeHttpMessageHandler(responseStore);
             }
@@ -75,7 +75,7 @@ namespace FakeHttp
         /// <returns>A <see cref="System.Net.Http.HttpMessageHandler"/></returns>
         public static HttpMessageHandler CreateMessageHandler(IResponseStore responseStore)
         {
-            if (Mode == MessageHandlerMode.Mock)
+            if (Mode == MessageHandlerMode.Fake)
             {
                 return new FakeHttpMessageHandler(responseStore);
             }

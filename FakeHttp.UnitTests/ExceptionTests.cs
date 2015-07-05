@@ -36,13 +36,13 @@ namespace FakeHttp.UnitTests
         {
             var handler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
 
-            using (var mockingClient = new HttpClient(handler, true))
+            using (var fakingClient = new HttpClient(handler, true))
             {
-                mockingClient.BaseAddress = new Uri("http://dev.virtualearth.net/");
+                fakingClient.BaseAddress = new Uri("http://dev.virtualearth.net/");
 
-                var mockedResponse = await mockingClient.GetAsync("REST/v1/Locations?c=en-us&countryregion=us&maxres=1&postalcode=NON_EXISTENT_POSTAL_CODE");
+                var fakedResponse = await fakingClient.GetAsync("REST/v1/Locations?c=en-us&countryregion=us&maxres=1&postalcode=NON_EXISTENT_POSTAL_CODE");
 
-                mockedResponse.EnsureSuccessStatusCode();
+                fakedResponse.EnsureSuccessStatusCode();
             }
         }
 

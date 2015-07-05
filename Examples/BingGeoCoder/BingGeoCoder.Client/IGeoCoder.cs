@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace BingGeoCoder.Client
 {
     /// <summary>
-    /// GeoCoder interface in case mocking is needed
+    /// GeoCoder interface in case faking is needed
     /// </summary>
     public interface IGeoCoder : IDisposable
     {

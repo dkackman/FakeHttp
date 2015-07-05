@@ -56,15 +56,15 @@ namespace BeingGeoCoder.ViewModel
 
             if (ViewModelBase.IsInDesignModeStatic)
             {
-                MessageHandlerFactory.Mode = MessageHandlerMode.Mock;                
+                MessageHandlerFactory.Mode = MessageHandlerMode.Fake;                
             }
             else
             {
                 MessageHandlerFactory.Mode = MessageHandlerMode.Online;
             }
 
-            var mockFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            var store = new StorageFolderResponseStore(mockFolder, (name, value) => name == "key");
+            var fakeFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            var store = new StorageFolderResponseStore(fakeFolder, (name, value) => name == "key");
             SimpleIoc.Default.Register<IGeoCoder>(() => new GeoCoder(MessageHandlerFactory.CreateMessageHandler(store), "apikey"));
 
             var nav = new NavigationService();

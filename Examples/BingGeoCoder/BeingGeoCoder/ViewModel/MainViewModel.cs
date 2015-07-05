@@ -83,7 +83,7 @@ namespace BeingGeoCoder.ViewModel
         {
             try
             {
-                WelcomeTitle = "Mock Http Geo Coding";
+                WelcomeTitle = "Fake Http Geo Coding";
                 CurrentAddress = await _geoCoder.GetFormattedAddress(44.9108238220215, -93.1702041625977);
             }
             catch (Exception ex)

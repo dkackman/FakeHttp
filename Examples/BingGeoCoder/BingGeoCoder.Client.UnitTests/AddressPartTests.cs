@@ -26,18 +26,18 @@ namespace GeoCoderTests
         public static void AssemblyInitialize(TestContext context)
         {
             // set the http message handler factory to the mode we want for the entire assmebly test execution
-            MessageHandlerFactory.Mode = MessageHandlerMode.Mock;
+            MessageHandlerFactory.Mode = MessageHandlerMode.Fake;
 
             // setup IOC so test classes can get the shared message handler
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            // folders where mock responses are stored and where captured response should be saved
-            var mockFolder = context.DeploymentDirectory; // the folder where the unit tests are running
+            // folders where fake responses are stored and where captured response should be saved
+            var fakeFolder = context.DeploymentDirectory; // the folder where the unit tests are running
             var captureFolder = Path.Combine(context.TestRunDirectory, @"..\..\FakeResponses\"); // kinda hacky but this should be the solution folder
 
             // here we don't want to serialize or include our api key in response lookups so
             // pass a lambda that will indicate to the serialzier to filter that param out
-            var store = new FileSystemResponseStore(mockFolder, captureFolder, (name, value) => name.Equals("key", StringComparison.InvariantCultureIgnoreCase));
+            var store = new FileSystemResponseStore(fakeFolder, captureFolder, (name, value) => name.Equals("key", StringComparison.InvariantCultureIgnoreCase));
 
             SimpleIoc.Default.Register<HttpMessageHandler>(() => MessageHandlerFactory.CreateMessageHandler(store));
         }

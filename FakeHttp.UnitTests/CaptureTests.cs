@@ -51,37 +51,37 @@ namespace FakeHttp.UnitTests
 
         [TestMethod]
         [TestCategory("fake")]
-        public async Task CaptureAndMockResponsesMatch()
+        public async Task CaptureAndFakeResponsesMatch()
         {
             // store the rest response in a subfolder of the solution directory for future use
             var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\FakeResponses\");
 
             var capturingHandler = new CapturingHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder));
-            var mockingHandler = new FakeHttpMessageHandler(new FileSystemResponseStore(captureFolder)); // point the mock to where the capture is stored
+            var fakingHandler = new FakeHttpMessageHandler(new FileSystemResponseStore(captureFolder)); // point the fake to where the capture is stored
 
             using (var capturingClient = new HttpClient(capturingHandler, true))
-            using (var mockingClient = new HttpClient(mockingHandler, true))
+            using (var fakingClient = new HttpClient(fakingHandler, true))
             {
                 capturingClient.BaseAddress = new Uri("https://www.googleapis.com/");
-                mockingClient.BaseAddress = new Uri("https://www.googleapis.com/");
+                fakingClient.BaseAddress = new Uri("https://www.googleapis.com/");
 
                 using (var capturedResponse = await capturingClient.GetAsync("storage/v1/b/uspto-pair"))
-                using (var mockedResponse = await mockingClient.GetAsync("storage/v1/b/uspto-pair"))
+                using (var fakedResponse = await fakingClient.GetAsync("storage/v1/b/uspto-pair"))
                 {
                     capturedResponse.EnsureSuccessStatusCode();
-                    mockedResponse.EnsureSuccessStatusCode();
+                    fakedResponse.EnsureSuccessStatusCode();
 
                     string captured = await capturedResponse.Content.Deserialize<string>();
-                    string mocked = await mockedResponse.Content.Deserialize<string>();
+                    string faked = await fakedResponse.Content.Deserialize<string>();
 
-                    Assert.AreEqual(captured, mocked);
+                    Assert.AreEqual(captured, faked);
                 }
             }
         }
 
         [TestMethod]
         [TestCategory("fake")]
-        public async Task FilteredQueryParametrIsIgnoredDuringMocking()
+        public async Task FilteredQueryParametrIsIgnoredDuringFaking()
         {
             string key = CredentialStore.RetrieveObject("bing.key.json").Key;
             // store the rest response in a subfolder of the solution directory for future use
@@ -89,33 +89,33 @@ namespace FakeHttp.UnitTests
 
             // when capturing the real response, we do not want to serialize things like api keys
             // both because that is a possible infomration leak and also because it would
-            // bind the serialized resposne to the key, making successful mocking dependent on
-            // the key used when capturing the response. The mock response lookup will try to find
+            // bind the serialized resposne to the key, making successful faking dependent on
+            // the key used when capturing the response. The fake response lookup will try to find
             // a serialized response that matches a hash of all the query paramerters. The lambda in
             // the response store constructor below allows us to ignore certain paramters for that lookup
-            // when capturing and mocking responses
+            // when capturing and faking responses
             //
             // this test ensures that our mechansim to filter out those paramters we want to ignore works
             //
             var capturingHandler = new CapturingHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder, (name, value) => name == "key"));
-            var mockingHandler = new FakeHttpMessageHandler(new FileSystemResponseStore(captureFolder, (name, value) => name == "key")); // point the mock to where the capture is stored
+            var fakingHandler = new FakeHttpMessageHandler(new FileSystemResponseStore(captureFolder, (name, value) => name == "key")); // point the fake to where the capture is stored
 
             using (var capturingClient = new HttpClient(capturingHandler, true))
-            using (var mockingClient = new HttpClient(mockingHandler, true))
+            using (var fakingClient = new HttpClient(fakingHandler, true))
             {
                 capturingClient.BaseAddress = new Uri("http://dev.virtualearth.net/");
-                mockingClient.BaseAddress = new Uri("http://dev.virtualearth.net/");
+                fakingClient.BaseAddress = new Uri("http://dev.virtualearth.net/");
 
                 using (var capturedResponse = await capturingClient.GetAsync("REST/v1/Locations?c=en-us&countryregion=us&maxres=1&postalcode=55116&key=" + key))
-                using (var mockedResponse = await mockingClient.GetAsync("REST/v1/Locations?c=en-us&countryregion=us&maxres=1&postalcode=55116&key=THIS_SHOULD_NOT_MATTER"))
+                using (var fakedResponse = await fakingClient.GetAsync("REST/v1/Locations?c=en-us&countryregion=us&maxres=1&postalcode=55116&key=THIS_SHOULD_NOT_MATTER"))
                 {
                     capturedResponse.EnsureSuccessStatusCode();
-                    mockedResponse.EnsureSuccessStatusCode();
+                    fakedResponse.EnsureSuccessStatusCode();
 
                     string captured = await capturedResponse.Content.Deserialize<string>();
-                    string mocked = await mockedResponse.Content.Deserialize<string>();
+                    string faked = await fakedResponse.Content.Deserialize<string>();
 
-                    Assert.AreEqual(captured, mocked);
+                    Assert.AreEqual(captured, faked);
                 }
             }
         }

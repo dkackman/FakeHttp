@@ -286,13 +286,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\MockHttp.Store\MockHttp.Store.csproj">
+    <ProjectReference Include="..\..\..\FakeHttp.Store\FakeHttp.Store.csproj">
       <Project>{7072fb0f-27fa-4583-baf7-13087d77560b}</Project>
-      <Name>MockHttp.Store</Name>
+      <Name>FakeHttp.Store</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\MockHttp\MockHttp.csproj">
+    <ProjectReference Include="..\..\..\FakeHttp\FakeHttp.csproj">
       <Project>{6a9365f5-0f44-40df-b49b-2eb33b2da6f5}</Project>
-      <Name>MockHttp</Name>
+      <Name>FakeHttp</Name>
     </ProjectReference>
     <ProjectReference Include="..\BingGeoCoder.Client\BingGeoCoder.Client.csproj">
       <Project>{c68d630b-deb6-452b-bdbc-47ea3cd84bef}</Project>

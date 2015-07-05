@@ -89,13 +89,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\MockHttp.Desktop\MockHttp.Desktop.csproj">
+    <ProjectReference Include="..\..\..\FakeHttp.Desktop\FakeHttp.Desktop.csproj">
       <Project>{821cc09a-e8fd-46db-8865-23c09c0aaa43}</Project>
-      <Name>MockHttp.Desktop</Name>
+      <Name>FakeHttp.Desktop</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\MockHttp\MockHttp.csproj">
+    <ProjectReference Include="..\..\..\FakeHttp\FakeHttp.csproj">
       <Project>{6a9365f5-0f44-40df-b49b-2eb33b2da6f5}</Project>
-      <Name>MockHttp</Name>
+      <Name>FakeHttp</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\UnitTestHelpers\UnitTestHelpers.csproj">
       <Project>{a589a7ba-9e16-4ae4-b01c-8d6b0aa9cff8}</Project>

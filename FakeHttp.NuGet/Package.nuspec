@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Dkackman.FakeHttp</id>
-    <version>1.0.1</version>
+    <version>1.0.0</version>
     <title>FakeHttp</title>
     <authors>dkackman</authors>
     <owners>dkackman</owners>
@@ -11,16 +11,15 @@
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
-      A library to allow mocking of client http logic with System.Net.Http. Supports recording and playback of responses. Particularly useful for separating client-side unit tests from web services.
+      A library to allow faking of client http logic with System.Net.Http. Supports recording and playback of responses. Particularly useful for separating client-side unit tests from web services.
     </description>
     <summary></summary>
     <releaseNotes>
-    1.0.0 - Initial release
-    1.0.1 - Fix bug when response has no content type
+    1.0.0 - Initial release renamed to FakeHttp
     </releaseNotes>
     <copyright>Copyright Don Kackman 2015</copyright>
     <language>en-US</language>
-    <tags>PCL http REST mock unit testing</tags>
+    <tags>PCL http REST mock fake stub unit test testing</tags>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="7.0.1" />
       <dependency id="Microsoft.Net.Http" version="2.2.29" />
