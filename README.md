@@ -4,6 +4,8 @@
 
 A library for faking http Rest client communication using System.Net.Http.
 
+Codeproject article with background: http://www.codeproject.com/Articles/1006722/MockHttp 
+
 Allows for writing unit tests to handle http response scenarios from a RESTful service, without needing access to the network or service at test execution time. 
 Responses are stored statically on the local file system in a directory strucutre that can mapped onto a specific rest endpoint, set of query parameters and http verb.
 
