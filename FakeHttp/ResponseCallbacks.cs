@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -16,11 +15,19 @@ namespace FakeHttp
         /// This ctor is only meant for backwards compatiblity with the use of the paramFilter constructors
         /// </summary>
         /// <param name="paramFilter"></param>
-        internal ResponseCallbacks(Func<string, string, bool> paramFilter)
+        [Obsolete("Use constructor that takes IResponseCallbacks instead")]
+        public ResponseCallbacks(Func<string, string, bool> paramFilter)
         {
             if (paramFilter == null) throw new ArgumentNullException("paramFilter");
 
             _paramFilter = paramFilter;
+        }
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        public ResponseCallbacks()
+        {
         }
 
         /// <summary>
@@ -52,10 +59,10 @@ namespace FakeHttp
         /// Called after content is retrieved from the actual service and before it is is saved to disk.
         /// Primarily allows for response content to mask sensitive data (ex. SSN or other PII) before it is saved to storage
         /// </summary>
-        /// <param name="response"></param>
-        /// <param name="content"></param>
-        /// <returns>The original stream</returns>
-        public virtual async Task<Stream> Serializing(HttpResponseMessage response, Stream content)
+        /// <param name="response">The response the describes the content</param>
+        /// <param name="content">The content as a byte array</param>
+        /// <returns>The original cintent byte array</returns>
+        public virtual async Task<byte[]> Serializing(HttpResponseMessage response, byte[] content)
         {
             return await Task.Run(() => content);
         }

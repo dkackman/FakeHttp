@@ -45,6 +45,8 @@ namespace FakeHttp
         /// </summary>
         /// <param name="storeFolder">root folder for storage</param>
         /// <param name="paramFilter">call back used to determine if a given query paramters should be excluded from serialziation</param>
+        [Obsolete("Use constructor that takes IResponseCallbacks instead")]
+
         public FileSystemResponseStore(string storeFolder, Func<string, string, bool> paramFilter)
             : this(storeFolder, storeFolder, paramFilter)
         {
@@ -56,13 +58,19 @@ namespace FakeHttp
         /// <param name="storeFolder">root folder for storage</param>
         /// <param name="captureFolder">folder to store captued response messages</param>
         /// <param name="paramFilter">call back used to determine if a given query paramters should be excluded from serialziation</param>
+        [Obsolete("Use constructor that takes IResponseCallbacks instead")]
         public FileSystemResponseStore(string storeFolder, string captureFolder, Func<string, string, bool> paramFilter)
+            : this(storeFolder, captureFolder, new ResponseCallbacks(paramFilter))
+        {
+        }
+
+        public FileSystemResponseStore(string storeFolder, string captureFolder, IResponseCallbacks callbacks)
         {
             if (string.IsNullOrEmpty(storeFolder)) throw new ArgumentException("storeFolder cannot be empty", "storeFolder");
             if (string.IsNullOrEmpty(storeFolder)) throw new ArgumentException("captureFolder cannot be empty", "captureFolder");
 
             _captureFolder = captureFolder;
-            _formatter = new DesktopMessagetFormatter(paramFilter);
+            _formatter = new DesktopMessagetFormatter(callbacks);
             _responseLoader = new DesktopResponseLoader(storeFolder, _formatter);
         }
 
@@ -98,6 +106,8 @@ namespace FakeHttp
             using (var file = new FileStream(Path.Combine(folderPath, info.ContentFileName), FileMode.Create, FileAccess.Write, FileShare.Read))
             {
                 var bytes = await response.Content.ReadAsByteArrayAsync();
+                bytes = await _formatter.RepsonseCallbacks.Serializing(response, bytes);
+
                 file.Write(bytes, 0, bytes.Length);
                 file.Flush();
             }

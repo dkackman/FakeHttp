@@ -7,12 +7,12 @@ namespace FakeHttp.Desktop
     class DesktopMessagetFormatter : MessageFormatter
     {
         public DesktopMessagetFormatter()
-            : this((name, value) => false) // by default do not filter any query parameters
+            : this(new ResponseCallbacks()) // by default do not filter any query parameters
         {
         }
 
-        public DesktopMessagetFormatter(Func<string, string, bool> paramFilter)
-            : base(paramFilter)
+        public DesktopMessagetFormatter(IResponseCallbacks callbacks)
+            : base(callbacks)
         {
         }
 

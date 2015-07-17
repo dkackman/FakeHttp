@@ -38,6 +38,11 @@ namespace FakeHttp
         }
 
         /// <summary>
+        /// A <see cref="IResponseCallbacks"/> to manage resposne handling at runtime
+        /// </summary>
+        public IResponseCallbacks RepsonseCallbacks { get { return _responseCallbacks; } }
+
+        /// <summary>
         /// Convert the <see cref="System.Net.Http.HttpResponseMessage"/> into an object
         /// that is more serialization friendly
         /// </summary>
