@@ -15,17 +15,12 @@ namespace FakeHttp.UnitTests
     [DeploymentItem(@"FakeResponses\")]
     public class ExampleTests
     {
-        /// <summary>
-        /// Gets or sets the test context which provides
-        /// information about and functionality for the current test run.
-        /// </summary>
         public TestContext TestContext { get; set; }
 
         [TestMethod]
-        public async Task ContentFileOnly()
+        public async Task MinimalExampleTest()
         {
             var handler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
-
             using (var client = new HttpClient(handler, true))
             {
                 client.BaseAddress = new Uri("https://www.example.com/");
@@ -34,7 +29,6 @@ namespace FakeHttp.UnitTests
 
                 dynamic content = await response.Content.Deserialize<dynamic>();
 
-                // we got a response and it looks like the one we want
                 Assert.IsNotNull(content);
                 Assert.AreEqual("Hello World", content.Message);
             }
