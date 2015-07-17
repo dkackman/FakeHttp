@@ -73,6 +73,7 @@
     <Compile Include="FactoryBasedHandlerTests.cs" />
     <Compile Include="ExceptionTests.cs" />
     <Compile Include="SerializationTests.cs" />
+    <Compile Include="ExampleTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FakeHttp.Desktop\FakeHttp.Desktop.csproj">
