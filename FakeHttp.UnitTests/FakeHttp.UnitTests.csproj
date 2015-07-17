@@ -74,6 +74,7 @@
     <Compile Include="ExceptionTests.cs" />
     <Compile Include="SerializationTests.cs" />
     <Compile Include="ExampleTests.cs" />
+    <Compile Include="CallbackTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FakeHttp.Desktop\FakeHttp.Desktop.csproj">

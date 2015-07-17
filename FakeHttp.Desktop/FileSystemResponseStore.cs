@@ -64,6 +64,22 @@ namespace FakeHttp
         {
         }
 
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="storeFolder">root folder for storage</param>
+        /// <param name="callbacks">Object to manage responses at runtime</param>
+        public FileSystemResponseStore(string storeFolder, IResponseCallbacks callbacks)
+            : this(storeFolder, storeFolder, callbacks)
+        {
+        }
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="storeFolder">root folder for storage</param>
+        /// <param name="captureFolder">folder to store captued response messages</param>
+        /// <param name="callbacks">Object to manage responses at runtime</param>
         public FileSystemResponseStore(string storeFolder, string captureFolder, IResponseCallbacks callbacks)
         {
             if (string.IsNullOrEmpty(storeFolder)) throw new ArgumentException("storeFolder cannot be empty", "storeFolder");
