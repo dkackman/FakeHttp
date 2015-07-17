@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 using Newtonsoft.Json;
 
@@ -63,12 +64,23 @@ namespace FakeHttp
             var query = _formatter.NormalizeQuery(request.RequestUri);
             var folderPath = _formatter.ToFolderPath(request.RequestUri);
 
+            var longName = _formatter.ToFileName(request, query);
+            var shortName = _formatter.ToShortFileName(request);
+
             // first try to find a file keyed to the request method and query
-            return await DeserializeResponse(folderPath, _formatter.ToFileName(request, query))
+            return await DeserializeResponse(folderPath, longName)
                 // next just look for a default response based on just the http method
-                ?? await DeserializeResponse(folderPath, _formatter.ToShortFileName(request))
+                ?? await DeserializeResponse(folderPath, shortName)
                 // otherwise return 404            
-                ?? new HttpResponseMessage(HttpStatusCode.NotFound) { RequestMessage = request };
+                ?? await Create404(request, folderPath, longName, shortName);
+        }
+
+        private static async Task<HttpResponseMessage> Create404(HttpRequestMessage request, string folderPath, string longName, string shortName)
+        {
+            Debug.WriteLine("Did not find response for verb {0} and uri {1} in folder {2}.", request.Method, request.RequestUri, folderPath);
+            Debug.WriteLine("\tTried content and response files with bases names {0} and {1}.\n\tCheck that fake responses are copied to unit test location.", longName, shortName);
+
+            return await Task.Run(() => new HttpResponseMessage(HttpStatusCode.NotFound) { RequestMessage = request });
         }
 
         private async Task<HttpResponseMessage> DeserializeResponse(string folder, string baseName)
