@@ -58,6 +58,9 @@ namespace FakeHttp
         /// <param name="paramFilter">call back used to determine if a given query paramters should be excluded from serialziation</param>
         public FileSystemResponseStore(string storeFolder, string captureFolder, Func<string, string, bool> paramFilter)
         {
+            if (string.IsNullOrEmpty(storeFolder)) throw new ArgumentException("storeFolder cannot be empty", "storeFolder");
+            if (string.IsNullOrEmpty(storeFolder)) throw new ArgumentException("captureFolder cannot be empty", "captureFolder");
+
             _captureFolder = captureFolder;
             _formatter = new DesktopMessagetFormatter(paramFilter);
             _responseLoader = new DesktopResponseLoader(storeFolder, _formatter);
@@ -80,6 +83,8 @@ namespace FakeHttp
         /// <returns>Task</returns>
         public async Task StoreResponse(HttpResponseMessage response)
         {
+            if (response == null) throw new ArgumentNullException("response");
+
             var query = _formatter.NormalizeQuery(response.RequestMessage.RequestUri);
             var folderPath = Path.Combine(_captureFolder, _formatter.ToFolderPath(response.RequestMessage.RequestUri));
             var fileName = _formatter.ToFileName(response.RequestMessage, query);

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -21,6 +22,8 @@ namespace FakeHttp
         /// <param name="formatter">PLatofrma specific formatter object</param>
         protected ResponseLoader(MessageFormatter formatter)
         {
+            if (formatter == null) throw new ArgumentNullException("formatter");
+
             _formatter = formatter;
         }
 
@@ -55,6 +58,8 @@ namespace FakeHttp
         /// <returns>The response message or a 404 message if not found</returns>
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
         {
+            if (request == null) throw new ArgumentNullException("request");
+
             var query = _formatter.NormalizeQuery(request.RequestUri);
             var folderPath = _formatter.ToFolderPath(request.RequestUri);
 

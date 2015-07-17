@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Net.Http;
 using System.Threading;
 
@@ -18,6 +19,8 @@ namespace FakeHttp
         /// <param name="store">The storage meachansim for responses</param>
         public FakeHttpMessageHandler(IReadonlyResponseStore store)
         {
+            if (store == null) throw new ArgumentNullException("store");
+
             _store = store;
         }
 
