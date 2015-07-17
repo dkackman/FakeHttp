@@ -1,4 +1,4 @@
-{
+﻿{
   "StatusCode": 200,
   "Query": "addressline=one+microsoft+way&admindistrict=wa&c=en-us&countryregion=us&locality=redmond&maxres=1&postalcode=98052",
   "ContentFileName": "GET.D0E90CDC2F2849C6E600876D46057CD84B6B4883.content.json",
@@ -10,10 +10,10 @@
       "Accept-Encoding"
     ],
     "X-BM-TraceID": [
-      "111459e42f604f8abc6d0b9829b0c9b1"
+      "6e64cce99d6a4ce1b97a4c8873ef4a90"
     ],
     "X-BM-Srv": [
-      "BN20130620, BN2SCH020180731, BN2SCH030290432, BN2SCH020181132"
+      "BN20130523, BN2SCH020131330, BN2SCH020181132"
     ],
     "X-MS-BM-WS-INFO": [
       "0"
@@ -22,7 +22,7 @@
       "no-cache"
     ],
     "Date": [
-      "Wed, 06 May 2015 01:36:16 GMT"
+      "Fri, 17 Jul 2015 02:54:52 GMT"
     ],
     "Server": [
       "Microsoft-IIS/8.0"

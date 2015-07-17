@@ -73,7 +73,7 @@ namespace FakeHttp
         /// <returns>Folder path</returns>
         public string ToFolderPath(Uri uri)
         {
-            return Path.Combine(uri.Host, uri.LocalPath.TrimStart('/').Replace('/', '\\'));
+            return Path.Combine(uri.Host, uri.LocalPath.TrimStart('/'));
         }
 
         /// <summary>

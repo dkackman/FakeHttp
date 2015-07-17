@@ -1,4 +1,4 @@
-{
+﻿{
   "StatusCode": 200,
   "Query": "c=en-us&includeentitytypes=address%2cpopulatedplace%2cpostcode1%2cadmindivision1%2ccountryregion",
   "ContentFileName": "GET.E86AF997E66B4E2C2D07CABCB90759CEBA234F09.content.json",
@@ -10,10 +10,10 @@
       "Accept-Encoding"
     ],
     "X-BM-TraceID": [
-      "29aed17791014b67972dcaafc0b3f809"
+      "cea972d4f2ad46aba69e50d293299286"
     ],
     "X-BM-Srv": [
-      "BN20130620, BN2SCH020180720, BN2SCH020190520"
+      "BN20130533, BN2SCH020180856, BN2SCH020190843"
     ],
     "X-MS-BM-WS-INFO": [
       "0"
@@ -22,7 +22,7 @@
       "no-cache"
     ],
     "Date": [
-      "Wed, 06 May 2015 01:36:12 GMT"
+      "Fri, 17 Jul 2015 02:55:52 GMT"
     ],
     "Server": [
       "Microsoft-IIS/8.0"

@@ -1,4 +1,4 @@
-{
+﻿{
   "StatusCode": 200,
   "Query": "c=en-us&includeentitytypes=countryregion",
   "ContentFileName": "GET.E2AE9A4187A5709EAB7C79EE8D8F30815F633DBD.content.json",
@@ -10,10 +10,10 @@
       "Accept-Encoding"
     ],
     "X-BM-TraceID": [
-      "e03a916e778a45259ab24150553ac6f5"
+      "ddfea39c231b475a844b1358ba76c401"
     ],
     "X-BM-Srv": [
-      "BN20130620, BN2SCH020131433, BN2SCH010001441"
+      "BN20130621, BN2SCH020131433, BN2SCH020230433"
     ],
     "X-MS-BM-WS-INFO": [
       "0"
@@ -22,7 +22,7 @@
       "no-cache"
     ],
     "Date": [
-      "Wed, 06 May 2015 01:36:09 GMT"
+      "Fri, 17 Jul 2015 02:55:41 GMT"
     ],
     "Server": [
       "Microsoft-IIS/8.0"
