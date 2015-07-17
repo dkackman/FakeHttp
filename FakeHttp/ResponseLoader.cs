@@ -97,6 +97,8 @@ namespace FakeHttp
                     return null;
                 }
 
+                _formatter.RepsonseCallbacks.Deserialized(info);
+
                 var response = info.CreateResponse();
                 if (!string.IsNullOrEmpty(info.ContentFileName))
                 {
