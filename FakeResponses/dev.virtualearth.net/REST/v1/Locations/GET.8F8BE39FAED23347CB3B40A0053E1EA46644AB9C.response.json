@@ -1,5 +1,6 @@
 ﻿{
   "StatusCode": 200,
+  "BaseUri": "dev.virtualearth.net/REST/v1/Locations",
   "Query": "c=en-us&countryregion=us&maxres=1&postalcode=55116",
   "ContentFileName": "GET.8F8BE39FAED23347CB3B40A0053E1EA46644AB9C.content.json",
   "ResponseHeaders": {
@@ -7,19 +8,19 @@
       "chunked"
     ],
     "X-BM-TraceID": [
-      "17470b41c2a44338ae901463f10867d0"
+      "702269b3968e4e2ea70141f1ce2db4e0"
     ],
     "X-BM-Srv": [
-      "BN20130521, BN2SCH020131432"
+      "BN20130533, BN2SCH020180739"
     ],
     "X-MS-BM-WS-INFO": [
-      "1"
+      "0"
     ],
     "Cache-Control": [
       "no-cache"
     ],
     "Date": [
-      "Fri, 17 Jul 2015 03:17:07 GMT"
+      "Fri, 17 Jul 2015 22:26:25 GMT"
     ],
     "Server": [
       "Microsoft-IIS/8.0"

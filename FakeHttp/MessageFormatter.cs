@@ -13,20 +13,28 @@ namespace FakeHttp
     /// </summary>
     public abstract class MessageFormatter
     {
-        private readonly Func<string, string, bool> _paramFilter;
+        private readonly IResponseCallbacks _responseCallbacks;
 
         /// <summary>
         /// ctor
         /// </summary>
         /// <param name="paramFilter">call back used to determine if a given query paramters should be excluded from serialziation</param>
+        /// 
+        [Obsolete("Use constructor that takes IResponseCallbacks instead")]
         protected MessageFormatter(Func<string, string, bool> paramFilter)
+            : this(new ResponseCallbacks(paramFilter))
         {
-            if (paramFilter == null)
-            {
-                throw new ArgumentNullException("paramFilter");
-            }
+        }
 
-            _paramFilter = paramFilter;
+        /// <summary>
+        /// ctor
+        /// </summary>
+        /// <param name="callbacks">call back object to manage resposnes at runtime</param>
+        protected MessageFormatter(IResponseCallbacks callbacks)
+        {
+            if (callbacks == null) throw new ArgumentNullException("callbacks");
+
+            _responseCallbacks = callbacks;
         }
 
         /// <summary>
@@ -37,7 +45,8 @@ namespace FakeHttp
         /// <returns>A serializable object</returns>
         public ResponseInfo PackageResponse(HttpResponseMessage response)
         {
-            var query = NormalizeQuery(response.RequestMessage.RequestUri);
+            var uri = response.RequestMessage.RequestUri;
+            var query = NormalizeQuery(uri);
             var fileName = ToFileName(response.RequestMessage, query);
             var fileExtension = "";
             if (response.Content.Headers.ContentType != null)
@@ -52,7 +61,9 @@ namespace FakeHttp
             return new ResponseInfo()
             {
                 StatusCode = response.StatusCode,
+                BaseUri = uri.GetComponents(UriComponents.NormalizedHost | UriComponents.Path, UriFormat.Unescaped),
                 Query = query,
+                // if file extension is null we have no content
                 ContentFileName = !string.IsNullOrEmpty(fileExtension) ? string.Concat(fileName, ".content", fileExtension) : null,
                 ResponseHeaders = headers,
                 ContentHeaders = contentHeaders
@@ -114,7 +125,7 @@ namespace FakeHttp
         /// <returns>The normalized query string</returns>
         public string NormalizeQuery(Uri uri)
         {
-            var sortedParams = from p in GetParameters(uri, _paramFilter)
+            var sortedParams = from p in GetParameters(uri)
                                orderby p
                                select p;
 
@@ -143,14 +154,14 @@ namespace FakeHttp
             return paramaters;
         }
 
-        private static IEnumerable<string> GetParameters(Uri uri, Func<string, string, bool> paramFilter)
+        private IEnumerable<string> GetParameters(Uri uri)
         {
             foreach (var param in ParseQueryString(uri))
             {
                 var name = param.Key;
                 var value = param.Value != null ? param.Value : "";
 
-                if (!paramFilter(name, value))
+                if (!_responseCallbacks.FilterParameter(name, value))
                 {
                     yield return string.Format("{0}={1}", name, value);
                 }

@@ -26,6 +26,11 @@ namespace FakeHttp
         public HttpStatusCode StatusCode { get; set; }
 
         /// <summary>
+        /// The host and path of the request that originally created this response
+        /// </summary>
+        public string BaseUri { get; set; }
+
+        /// <summary>
         /// The query string from the request that generated the response (used to key the response for future reference)
         /// </summary>
         public string Query { get; set; }

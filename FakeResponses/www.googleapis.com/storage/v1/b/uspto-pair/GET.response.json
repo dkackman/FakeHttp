@@ -1,5 +1,6 @@
 ﻿{
   "StatusCode": 200,
+  "BaseUri": "www.googleapis.com/storage/v1/b/uspto-pair",
   "Query": "",
   "ContentFileName": "GET.content.json",
   "ResponseHeaders": {
@@ -23,7 +24,7 @@
       "no-transform, must-revalidate, max-age=0, private"
     ],
     "Date": [
-      "Fri, 17 Jul 2015 03:17:07 GMT"
+      "Fri, 17 Jul 2015 22:26:25 GMT"
     ],
     "ETag": [
       "CAE="
@@ -40,7 +41,7 @@
       "application/json; charset=UTF-8"
     ],
     "Expires": [
-      "Fri, 17 Jul 2015 03:17:07 GMT"
+      "Fri, 17 Jul 2015 22:26:25 GMT"
     ]
   }
 }
