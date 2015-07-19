@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.IO;
@@ -12,6 +13,7 @@ using FakeHttp.Desktop;
 namespace FakeHttp.UnitTests
 {
     [TestClass]
+    [DeploymentItem(@"FakeResponses\")]
     public class CallbackTest
     {
         class TestCallbacks : ResponseCallbacks
@@ -19,6 +21,14 @@ namespace FakeHttp.UnitTests
             public override bool FilterParameter(string name, string value)
             {
                 return name == "key";
+            }
+
+            public override void Deserialized(ResponseInfo info)
+            {
+                if(info.ResponseHeaders.ContainsKey("Date"))
+                {
+                    info.ResponseHeaders["Date"] = new List<string>() { DateTimeOffset.UtcNow.ToString("r") };
+                }
             }
         }
 
@@ -107,6 +117,27 @@ namespace FakeHttp.UnitTests
 
                     Assert.AreEqual(captured, faked);
                 }
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("fake")]
+        public async Task SetHeaderTimestampViaResponseCallback()
+        {
+            var handler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, new TestCallbacks()));
+            using (var client = new HttpClient(handler, true))
+            {
+                client.BaseAddress = new Uri("https://dev.virtualearth.net/");
+                var response = await client.GetAsync("REST/v1/Locations/?c=en-us&countryregion=us&maxres=1&postalcode=55116");
+                response.EnsureSuccessStatusCode();
+                Assert.IsTrue(response.Headers.Contains("Date"));
+
+                var stamp = response.Headers.Date;
+                Assert.IsTrue(stamp.HasValue);
+
+                var diff = DateTimeOffset.UtcNow - stamp;
+                Assert.IsTrue(diff.HasValue);
+                Assert.IsTrue(diff.Value.Seconds < 5); // assert we set the saved date stamp to something close to the current time
             }
         }
     }
