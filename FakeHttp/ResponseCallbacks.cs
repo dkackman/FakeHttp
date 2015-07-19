@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -62,7 +63,7 @@ namespace FakeHttp
         /// <param name="response">The response the describes the content</param>
         /// <param name="content">The content as a byte array</param>
         /// <returns>The original cintent byte array</returns>
-        public virtual async Task<byte[]> Serializing(HttpResponseMessage response, byte[] content)
+        public virtual async Task<Stream> Serializing(HttpResponseMessage response, Stream content)
         {
             return await Task.Run(() => content);
         }

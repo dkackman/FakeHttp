@@ -8,8 +8,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using UnitTestHelpers;
 
-using FakeHttp.Desktop;
-
 namespace FakeHttp.UnitTests
 {
     [TestClass]
@@ -25,7 +23,7 @@ namespace FakeHttp.UnitTests
 
             public override void Deserialized(ResponseInfo info)
             {
-                if(info.ResponseHeaders.ContainsKey("Date"))
+                if (info.ResponseHeaders.ContainsKey("Date"))
                 {
                     info.ResponseHeaders["Date"] = new List<string>() { DateTimeOffset.UtcNow.ToString("r") };
                 }
@@ -99,7 +97,7 @@ namespace FakeHttp.UnitTests
             //
             var capturingHandler = new CapturingHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder, new TestCallbacks()));
             var fakingHandler = new FakeHttpMessageHandler(new FileSystemResponseStore(captureFolder, new TestCallbacks())); // point the fake to where the capture is stored
-            
+
             using (var capturingClient = new HttpClient(capturingHandler, true))
             using (var fakingClient = new HttpClient(fakingHandler, true))
             {
@@ -137,7 +135,8 @@ namespace FakeHttp.UnitTests
 
                 var diff = DateTimeOffset.UtcNow - stamp;
                 Assert.IsTrue(diff.HasValue);
-                Assert.IsTrue(diff.Value.Seconds < 5); // assert we set the saved date stamp to something close to the current time
+                Assert.IsTrue(diff.Value.Seconds < 5);  // assert that date stamp to something close to the current time
+                                                        // regardless of when it was actually serialzied to disk
             }
         }
     }

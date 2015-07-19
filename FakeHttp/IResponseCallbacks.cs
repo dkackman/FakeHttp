@@ -23,7 +23,7 @@ namespace FakeHttp
         /// <param name="response">The response the describes the content</param>
         /// <param name="content">The content as a byte array</param>
         /// <returns>The original byte array or a modified byte array to save to storage</returns>
-        Task<byte[]> Serializing(HttpResponseMessage response, byte[] content);
+        Task<Stream> Serializing(HttpResponseMessage response, Stream content);
 
         /// <summary>
         /// Determines if a given query paramter should be excluded from serialziation
