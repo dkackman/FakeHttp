@@ -60,12 +60,11 @@ namespace FakeHttp
         /// Called after content is retrieved from the actual service and before it is is saved to disk.
         /// Primarily allows for response content to mask sensitive data (ex. SSN or other PII) before it is saved to storage
         /// </summary>
-        /// <param name="response">The response the describes the content</param>
-        /// <param name="content">The content as a byte array</param>
-        /// <returns>The original cintent byte array</returns>
-        public virtual async Task<Stream> Serializing(HttpResponseMessage response, Stream content)
+        /// <param name="response">The response</param>
+        /// <returns>The original content stream</returns>
+        public virtual async Task<Stream> Serializing(HttpResponseMessage response)
         {
-            return await Task.Run(() => content);
+            return await response.Content.ReadAsStreamAsync();
         }
     }
 }

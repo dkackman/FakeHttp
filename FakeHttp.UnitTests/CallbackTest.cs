@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.IO;
+using System.Text;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using UnitTestHelpers;
+
+using Newtonsoft.Json;
 
 namespace FakeHttp.UnitTests
 {
@@ -27,6 +30,24 @@ namespace FakeHttp.UnitTests
                 {
                     info.ResponseHeaders["Date"] = new List<string>() { DateTimeOffset.UtcNow.ToString("r") };
                 }
+            }
+
+            public async override Task<Stream> Serializing(HttpResponseMessage response)
+            {
+                if (response.RequestMessage.RequestUri.Host == "www.googleapis.com")
+                {
+                    // get the service content
+                    var result = await response.Content.Deserialize<dynamic>();
+
+                    // modify it
+                    result.storageClass = "THIS VALUE MASKED";
+
+                    // serialize and return a new stream which will be written to disk
+                    var json = JsonConvert.SerializeObject(result);
+                    return new MemoryStream(Encoding.UTF8.GetBytes(json));
+                }
+
+                return await base.Serializing(response);
             }
         }
 
@@ -137,6 +158,34 @@ namespace FakeHttp.UnitTests
                 Assert.IsTrue(diff.HasValue);
                 Assert.IsTrue(diff.Value.Seconds < 5);  // assert that date stamp to something close to the current time
                                                         // regardless of when it was actually serialzied to disk
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("fake")]
+        public async Task MaskContentFieldDuringCapture()
+        {
+            // capture the response from an enpoiint - TestCallBacks instance will mask a value
+            var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\FakeResponses\");
+            var capturingHandler = new CapturingHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder, new TestCallbacks()));
+            using (var client = new HttpClient(capturingHandler, true))
+            {
+                client.BaseAddress = new Uri("https://www.googleapis.com/");
+                var response = await client.GetAsync("storage/v1/b/uspto-pair");
+                response.EnsureSuccessStatusCode();
+            }
+
+            // now use a fake handler and get the captured response, ensure that value is masked
+            var fakeHandler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
+            using (var client = new HttpClient(fakeHandler, true))
+            {
+                client.BaseAddress = new Uri("https://www.googleapis.com/");
+                var response = await client.GetAsync("storage/v1/b/uspto-pair");
+                response.EnsureSuccessStatusCode();
+
+                dynamic result = await response.Content.Deserialize<dynamic>();
+
+                Assert.AreEqual("THIS VALUE MASKED", result.storageClass);
             }
         }
     }

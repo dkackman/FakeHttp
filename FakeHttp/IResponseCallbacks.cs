@@ -21,9 +21,8 @@ namespace FakeHttp
         /// Primarily allows for response content to mask sensitive data (ex SSN or other PII) before it is saved to storage
         /// </summary>
         /// <param name="response">The response the describes the content</param>
-        /// <param name="content">The content as a byte array</param>
-        /// <returns>The original byte array or a modified byte array to save to storage</returns>
-        Task<Stream> Serializing(HttpResponseMessage response, Stream content);
+        /// <returns>The original content or a modified content stream to save to storage</returns>
+        Task<Stream> Serializing(HttpResponseMessage response);
 
         /// <summary>
         /// Determines if a given query paramter should be excluded from serialziation

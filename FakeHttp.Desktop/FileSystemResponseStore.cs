@@ -122,11 +122,10 @@ namespace FakeHttp
             using (var file = new FileStream(Path.Combine(folderPath, info.ContentFileName), FileMode.Create, FileAccess.Write, FileShare.Read))
             {
                 await response.Content.LoadIntoBufferAsync();
+                
+                var content = await _formatter.RepsonseCallbacks.Serializing(response);
 
-                var content = await response.Content.ReadAsStreamAsync();
-                var modifiedContent = await _formatter.RepsonseCallbacks.Serializing(response, content);
-
-                await modifiedContent.CopyToAsync(file);
+                await content.CopyToAsync(file);
             }
 
             // now serialize the response object and its meta-data
