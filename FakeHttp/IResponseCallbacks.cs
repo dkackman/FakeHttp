@@ -17,10 +17,10 @@ namespace FakeHttp
         void Deserialized(ResponseInfo info);
 
         /// <summary>
-        /// Called after content is retrieved from the actual serive and before it is is saved to disk.
+        /// Called after content is retrieved from the actual service during capturing and before it is saved to disk.
         /// Primarily allows for response content to mask sensitive data (ex SSN or other PII) before it is saved to storage
         /// </summary>
-        /// <param name="response">The response the describes the content</param>
+        /// <param name="response">The service response</param>
         /// <returns>The original content or a modified content stream to save to storage</returns>
         Task<Stream> Serializing(HttpResponseMessage response);
 

@@ -86,7 +86,7 @@ namespace FakeHttp
             if (string.IsNullOrEmpty(storeFolder)) throw new ArgumentException("captureFolder cannot be empty", "captureFolder");
 
             _captureFolder = captureFolder;
-            _formatter = new DesktopMessagetFormatter(callbacks);
+            _formatter = new DesktopMessageFormatter(callbacks);
             _responseLoader = new DesktopResponseLoader(storeFolder, _formatter);
         }
 
