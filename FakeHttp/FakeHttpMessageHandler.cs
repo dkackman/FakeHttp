@@ -16,7 +16,7 @@ namespace FakeHttp
         /// <summary>
         /// ctor
         /// </summary>
-        /// <param name="store">The storage meachansim for responses</param>
+        /// <param name="store">The storage mechansim for responses</param>
         public FakeHttpMessageHandler(IReadonlyResponseStore store)
         {
             if (store == null) throw new ArgumentNullException("store");
