@@ -35,13 +35,16 @@ namespace FakeHttp
         /// Called just before the response is returned. Update deserialized values as necessary
         /// Primarily for cases where time based header values (like content expiration) need up to date values
         /// </summary>
-        /// <param name="info">The deserialized <see cref="ResponseInfo"/></param>
-        public virtual void Deserialized(ResponseInfo info)
+        /// <param name="info">Desrialized response data. Header collections can be modified. Might be null if content file but no response file is present</param>
+        /// <param name="content">The deserialized content stream. Might be null if response has no content</param>
+        /// <returns>The original content or a modified content stream to attach to the <see cref="HttpResponseMessage"/></returns>
+        public async virtual Task<Stream> Deserialized(ResponseInfo info, Stream content)
         {
+            return await Task.Run(() => content); 
         }
 
         /// <summary>
-        /// Determines if a given query paramter should be excluded from serialziation
+        /// Determines if a given query parameter should be excluded from serialization
         /// </summary>
         /// <param name="name">The name of the Uri query parameter</param>
         /// <param name="value">The value of the uri query parameter</param>

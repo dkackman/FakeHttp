@@ -1,13 +1,10 @@
 ﻿using System;
-using System.IO;
 using System.Threading.Tasks;
 using System.Net.Http;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using FakeHttp.Desktop;
-
-using Newtonsoft.Json;
+using UnitTestHelpers;
 
 namespace FakeHttp.UnitTests
 {
@@ -31,6 +28,29 @@ namespace FakeHttp.UnitTests
 
                 Assert.IsNotNull(content);
                 Assert.AreEqual("Hello World", content.Message);
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("fake")]
+        public async Task CanGetSimpleJsonResult()
+        {
+            var store = new FileSystemResponseStore(TestContext.DeploymentDirectory);
+            var handler = new FakeHttpMessageHandler(store);
+
+            using (var client = new HttpClient(handler, true))
+            {
+                client.BaseAddress = new Uri("http://openstates.org/api/v1/");
+                string key = CredentialStore.RetrieveObject("sunlight.key.json").Key;
+                client.DefaultRequestHeaders.Add("X-APIKEY", key);
+
+                var response = await client.GetAsync("metadata/mn");
+                response.EnsureSuccessStatusCode();
+
+                dynamic result = await response.Content.Deserialize<dynamic>();
+
+                Assert.IsNotNull(result);
+                Assert.AreEqual("Minnesota", result.name);
             }
         }
     }

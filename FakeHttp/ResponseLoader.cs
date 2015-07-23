@@ -97,12 +97,12 @@ namespace FakeHttp
                     return null;
                 }
 
-                _formatter.RepsonseCallbacks.Deserialized(info);
+                var content = await _formatter.RepsonseCallbacks.Deserialized(info, await LoadContentStream(folder, info.ContentFileName));
 
                 var response = info.CreateResponse();
-                if (!string.IsNullOrEmpty(info.ContentFileName))
+                if (content != null)
                 {
-                    response.Content = await LoadContent(folder, info.ContentFileName);
+                    response.Content = new StreamContent(content);
                 }
                 return response;
             }
@@ -114,28 +114,42 @@ namespace FakeHttp
         private async Task<HttpResponseMessage> CreateResponseFromContent(string folder, string baseName)
         {
             var fileName = baseName + ".content.json"; // only json supported as raw content right now
-            if (await Exists(folder, fileName))
+
+            var stream = await LoadContentStream(folder, fileName);
+            if (stream != null)
             {
+                var content = await _formatter.RepsonseCallbacks.Deserialized(null, stream);
+
                 // no serialized response but we have serialized content
                 // craft a response and attach content
                 return new HttpResponseMessage(HttpStatusCode.OK)
                 {
-                    Content = await LoadContent(folder, fileName)
+                    Content = new StreamContent(content)
                 };
             }
 
             return null;
         }
 
-        private async Task<HttpContent> LoadContent(string folder, string fileName)
+        private async Task<Stream> LoadContentStream(string folder, string fileName)
         {
-            if (await Exists(folder, fileName))
+            if (!string.IsNullOrEmpty(folder) && !string.IsNullOrEmpty(fileName) && await Exists(folder, fileName))
             {
-                var stream = await LoadAsStream(folder, fileName);
-                return new StreamContent(stream);
+                return await LoadAsStream(folder, fileName);
             }
 
             return null;
         }
+
+        //private async Task<HttpContent> LoadContent(string folder, string fileName)
+        //{
+        //    if (await Exists(folder, fileName))
+        //    {
+        //        var stream = await LoadAsStream(folder, fileName);
+        //        return new StreamContent(stream);
+        //    }
+
+        //    return null;
+        //}
     }
 }

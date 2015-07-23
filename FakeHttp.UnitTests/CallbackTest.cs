@@ -24,12 +24,13 @@ namespace FakeHttp.UnitTests
                 return name == "key";
             }
 
-            public override void Deserialized(ResponseInfo info)
+            public async override Task<Stream> Deserialized(ResponseInfo info, Stream content)
             {
                 if (info.ResponseHeaders.ContainsKey("Date"))
                 {
                     info.ResponseHeaders["Date"] = new List<string>() { DateTimeOffset.UtcNow.ToString("r") };
                 }
+                return await base.Deserialized(info, content);
             }
 
             public async override Task<Stream> Serializing(HttpResponseMessage response)
