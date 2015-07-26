@@ -140,16 +140,5 @@ namespace FakeHttp
 
             return null;
         }
-
-        //private async Task<HttpContent> LoadContent(string folder, string fileName)
-        //{
-        //    if (await Exists(folder, fileName))
-        //    {
-        //        var stream = await LoadAsStream(folder, fileName);
-        //        return new StreamContent(stream);
-        //    }
-
-        //    return null;
-        //}
     }
 }
