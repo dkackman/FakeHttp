@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace FakeHttp
 {
@@ -32,6 +33,11 @@ namespace FakeHttp
         }
 
         /// <summary>
+        /// Flag indicating whether to automatically set the Date header to the current date/time on deserialization
+        /// </summary>
+        public bool SetHeaderDate { get; set; } = true;
+
+        /// <summary>
         /// Called just before the response is returned. Update deserialized values as necessary
         /// Primarily for cases where time based header values (like content expiration) need up to date values
         /// </summary>
@@ -40,6 +46,11 @@ namespace FakeHttp
         /// <returns>The original content or a modified content stream to attach to the <see cref="HttpResponseMessage"/></returns>
         public async virtual Task<Stream> Deserialized(ResponseInfo info, Stream content)
         {
+            if (SetHeaderDate && (info?.ResponseHeaders?.ContainsKey("Date") == true))
+            {
+                info.ResponseHeaders["Date"] = Enumerable.Repeat(DateTimeOffset.UtcNow.ToString("r"), 1);
+            }
+
             return await Task.Run(() => content); 
         }
 

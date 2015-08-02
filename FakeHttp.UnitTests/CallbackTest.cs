@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.IO;
@@ -26,10 +26,11 @@ namespace FakeHttp.UnitTests
 
             public async override Task<Stream> Deserialized(ResponseInfo info, Stream content)
             {
-                if (info.ResponseHeaders.ContainsKey("Date"))
+                if (info != null)
                 {
-                    info.ResponseHeaders["Date"] = new List<string>() { DateTimeOffset.UtcNow.ToString("r") };
+                    info.ResponseHeaders.Add("FAKE_HEADER", Enumerable.Repeat("FAKE", 1));
                 }
+
                 return await base.Deserialized(info, content);
             }
 
@@ -60,7 +61,7 @@ namespace FakeHttp.UnitTests
 
         [TestMethod]
         [TestCategory("fake")]
-        public async Task FilteredQueryParametrIsIgnoredDuringFakingObsoleteMetthod()
+        public async Task FilteredQueryParametrIsIgnoredDuringFakingObsoleteMethod()
         {
             string key = CredentialStore.RetrieveObject("bing.key.json").Key;
             // store the rest response in a subfolder of the solution directory for future use
@@ -144,7 +145,7 @@ namespace FakeHttp.UnitTests
         [TestCategory("fake")]
         public async Task SetHeaderTimestampViaResponseCallback()
         {
-            var handler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, new TestCallbacks()));
+            var handler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
             using (var client = new HttpClient(handler, true))
             {
                 client.BaseAddress = new Uri("https://dev.virtualearth.net/");
@@ -159,6 +160,20 @@ namespace FakeHttp.UnitTests
                 Assert.IsTrue(diff.HasValue);
                 Assert.IsTrue(diff.Value.Seconds < 5);  // assert that date stamp to something close to the current time
                                                         // regardless of when it was actually serialzied to disk
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("fake")]
+        public async Task SetHeaderValueDuringCallback()
+        {
+            var handler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, new TestCallbacks()));
+            using (var client = new HttpClient(handler, true))
+            {
+                client.BaseAddress = new Uri("https://dev.virtualearth.net/");
+                var response = await client.GetAsync("REST/v1/Locations/?c=en-us&countryregion=us&maxres=1&postalcode=55116");
+                response.EnsureSuccessStatusCode();
+                Assert.IsTrue(response.Headers.Contains("FAKE_HEADER"));
             }
         }
 

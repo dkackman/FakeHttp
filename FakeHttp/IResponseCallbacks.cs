@@ -33,5 +33,10 @@ namespace FakeHttp
         /// <param name="value">The value of the uri query parameter</param>
         /// <returns>True to filter the parameter. False to include in serialization and hashing</returns>
         bool FilterParameter(string name, string value);
+
+        /// <summary>
+        /// Flag indicating whether to automatically set the Date header to the current date/time on deserialization
+        /// </summary>
+        bool SetHeaderDate { get; set; }
     }
 }
