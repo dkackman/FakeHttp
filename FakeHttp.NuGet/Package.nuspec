@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Dkackman.FakeHttp</id>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <title>FakeHttp</title>
     <authors>dkackman</authors>
     <owners>dkackman</owners>
@@ -16,10 +16,11 @@
     </description>
     <summary></summary>
     <releaseNotes>
-    1.0.0 - Initial release renamed to FakeHttp
-    1.1.0 - Bug fixes
-            Add ability to control response serializaion and deserialization via IResponseCallbacks
-    1.2.0 - Set Date header automatically by default            
+1.0.0 - Initial release renamed to FakeHttp
+1.1.0 - Bug fixes
+  Add ability to control response serializaion and deserialization via IResponseCallbacks
+1.2.0 - Set Date header automatically by default
+  - bug fix https://github.com/dkackman/FakeHttp/issues/1
     </releaseNotes>
     <copyright>Copyright Don Kackman 2015</copyright>
     <language>en-US</language>
