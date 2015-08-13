@@ -68,9 +68,9 @@ namespace FakeHttp
             var shortName = _formatter.ToShortFileName(request);
 
             // first try to find a file keyed to the request method and query
-            return await DeserializeResponse(folderPath, longName)
+            return await DeserializeResponse(request, folderPath, longName)
                 // next just look for a default response based on just the http method
-                ?? await DeserializeResponse(folderPath, shortName)
+                ?? await DeserializeResponse(request, folderPath, shortName)
                 // otherwise return 404            
                 ?? await Create404(request, folderPath, longName, shortName);
         }
@@ -83,7 +83,7 @@ namespace FakeHttp
             return await Task.Run(() => new HttpResponseMessage(HttpStatusCode.NotFound) { RequestMessage = request });
         }
 
-        private async Task<HttpResponseMessage> DeserializeResponse(string folder, string baseName)
+        private async Task<HttpResponseMessage> DeserializeResponse(HttpRequestMessage request, string folder, string baseName)
         {
             var fileName = baseName + ".response.json";
             // first look for a completely serialized response
@@ -104,14 +104,16 @@ namespace FakeHttp
                 {
                     response.Content = new StreamContent(content);
                 }
+
+                response.RequestMessage = request;
                 return response;
             }
 
             // no fully serialized response exists just look for a content file
-            return await CreateResponseFromContent(folder, baseName);
+            return await CreateResponseFromContent(request, folder, baseName);
         }
 
-        private async Task<HttpResponseMessage> CreateResponseFromContent(string folder, string baseName)
+        private async Task<HttpResponseMessage> CreateResponseFromContent(HttpRequestMessage request, string folder, string baseName)
         {
             var fileName = baseName + ".content.json"; // only json supported as raw content right now
 
@@ -124,7 +126,8 @@ namespace FakeHttp
                 // craft a response and attach content
                 return new HttpResponseMessage(HttpStatusCode.OK)
                 {
-                    Content = new StreamContent(content)
+                    Content = new StreamContent(content),
+                    RequestMessage = request
                 };
             }
 

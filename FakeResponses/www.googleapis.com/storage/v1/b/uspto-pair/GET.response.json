@@ -20,11 +20,14 @@
     "Alternate-Protocol": [
       "443:quic,p=1"
     ],
+    "Alt-Svc": [
+      "quic=\":443\"; p=\"1\"; ma=604800"
+    ],
     "Cache-Control": [
       "no-transform, must-revalidate, max-age=0, private"
     ],
     "Date": [
-      "Sun, 02 Aug 2015 13:54:31 GMT"
+      "Thu, 13 Aug 2015 23:32:49 GMT"
     ],
     "ETag": [
       "CAE="
@@ -41,7 +44,7 @@
       "application/json; charset=UTF-8"
     ],
     "Expires": [
-      "Sun, 02 Aug 2015 13:54:31 GMT"
+      "Thu, 13 Aug 2015 23:32:49 GMT"
     ]
   }
 }
