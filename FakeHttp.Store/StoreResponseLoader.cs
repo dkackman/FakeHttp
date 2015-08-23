@@ -35,10 +35,10 @@ namespace FakeHttp.Store
             var subFolder = await _folder.GetFolderAsync(folder);
             var file = await subFolder.GetFileAsync(fileName);
 
-            using (var stream = await file.OpenSequentialReadAsync())
-            using (var reader = new DataReader(stream))
+            using (var stream = await file.OpenStreamForReadAsync())
+            using (var reader = new StreamReader(stream))
             {
-                return await reader.ReadToEndAsync();
+                return reader.ReadToEnd();
             }
         }
 
