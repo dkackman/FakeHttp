@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C31FD192-2550-4CD1-90B5-143D61D83F8A}"
 	ProjectSection(SolutionItems) = preProject
@@ -37,6 +37,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeHttp.Store", "FakeHttp.Store\FakeHttp.Store.csproj", "{7072FB0F-27FA-4583-BAF7-13087D77560B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeHttp.UnitTests", "FakeHttp.UnitTests\FakeHttp.UnitTests.csproj", "{2617C307-009D-4291-BCE2-A8433E46D92F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeHttp.Portable.UnitTests", "FakeHttp.Portable.UnitTests\FakeHttp.Portable.UnitTests.csproj", "{EA732CA8-0336-4F20-8126-BAD2DB59755C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -158,6 +160,26 @@ Global
 		{2617C307-009D-4291-BCE2-A8433E46D92F}.Release|x64.Build.0 = Release|Any CPU
 		{2617C307-009D-4291-BCE2-A8433E46D92F}.Release|x86.ActiveCfg = Release|Any CPU
 		{2617C307-009D-4291-BCE2-A8433E46D92F}.Release|x86.Build.0 = Release|Any CPU
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Debug|ARM.ActiveCfg = Debug|ARM
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Debug|ARM.Build.0 = Debug|ARM
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Debug|ARM.Deploy.0 = Debug|ARM
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Debug|x64.ActiveCfg = Debug|x64
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Debug|x64.Build.0 = Debug|x64
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Debug|x64.Deploy.0 = Debug|x64
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Debug|x86.ActiveCfg = Debug|x86
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Debug|x86.Build.0 = Debug|x86
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Debug|x86.Deploy.0 = Debug|x86
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Release|Any CPU.ActiveCfg = Release|x86
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Release|ARM.ActiveCfg = Release|ARM
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Release|ARM.Build.0 = Release|ARM
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Release|ARM.Deploy.0 = Release|ARM
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Release|x64.ActiveCfg = Release|x64
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Release|x64.Build.0 = Release|x64
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Release|x64.Deploy.0 = Release|x64
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Release|x86.ActiveCfg = Release|x86
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Release|x86.Build.0 = Release|x86
+		{EA732CA8-0336-4F20-8126-BAD2DB59755C}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
