@@ -2,13 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Dkackman.FakeHttp</id>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <title>FakeHttp</title>
     <authors>dkackman</authors>
     <owners>dkackman</owners>
     <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
     <projectUrl>https://github.com/dkackman/FakeHttp</projectUrl>
-    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/dkackman/DynamicRestProxy/master/nugeticon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
       A library to allow faking of client http logic with System.Net.Http. Supports recording and playback of responses. 
@@ -21,6 +21,7 @@
   Add ability to control response serializaion and deserialization via IResponseCallbacks
 1.2.0 - Set Date header automatically by default
   - bug fix https://github.com/dkackman/FakeHttp/issues/1
+1.2.1 - Add Universal support
     </releaseNotes>
     <copyright>Copyright Don Kackman 2015</copyright>
     <language>en-US</language>
@@ -40,9 +41,9 @@
     <file src="..\FakeHttp.Desktop\bin\Release\FakeHttp.Desktop.xml" target="lib\net45" />
 
     <!-- store files -->
-    <file src="..\FakeHttp\bin\Release\FakeHttp.dll" target="lib\portable-netcore45+wpa81" />
-    <file src="..\FakeHttp\bin\Release\FakeHttp.xml" target="lib\portable-netcore45+wpa81" />
-    <file src="..\FakeHttp.Store\bin\Release\FakeHttp.Store.dll" target="lib\portable-netcore45+wpa81" />
-    <file src="..\FakeHttp.Store\bin\Release\FakeHttp.Store.xml" target="lib\portable-netcore45+wpa81" />
+    <file src="..\FakeHttp\bin\Release\FakeHttp.dll" target="lib\portable-netcore451+wpa81" />
+    <file src="..\FakeHttp\bin\Release\FakeHttp.xml" target="lib\portable-netcore451+wpa81" />
+    <file src="..\FakeHttp.Store\bin\Release\FakeHttp.Store.dll" target="lib\portable-netcore451+wpa81" />
+    <file src="..\FakeHttp.Store\bin\Release\FakeHttp.Store.xml" target="lib\portable-netcore451+wpa81" />
   </files>
 </package>
