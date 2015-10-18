@@ -9,7 +9,10 @@ namespace UnitTestHelpers
 
         public TempFolder(string root)
         {
+            // since we're about to recursively delete a folder lets make sure it's in the temp folder
             if (string.IsNullOrEmpty(root)) throw new InvalidOperationException("Cannot create folder with empty name");
+            if (root.Contains("..")) throw new InvalidOperationException("root cannot contain relative portion");
+            if (Path.IsPathRooted(root)) throw new InvalidOperationException("root cannot be an absolute path");
 
             _root = Path.Combine(Path.GetTempPath(), root);
 

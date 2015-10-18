@@ -26,23 +26,25 @@ namespace FakeHttp.UnitTests
             using (var client = new HttpClient(new AutomaticHttpClientHandler(new FileSystemResponseStore(temp.RootPath, temp.RootPath)), true))
             {
                 client.BaseAddress = new Uri("https://www.googleapis.com/");
-                var response = await client.GetAsync("storage/v1/b/uspto-pair");
-                response.EnsureSuccessStatusCode();
+                using (var response = await client.GetAsync("storage/v1/b/uspto-pair"))
+                {
+                    response.EnsureSuccessStatusCode();
 
-                dynamic metaData = await response.Content.Deserialize<dynamic>();
+                    dynamic metaData = await response.Content.Deserialize<dynamic>();
 
-                // we got a response and it looks like the one we want
-                Assert.IsNotNull(metaData);
-                Assert.AreEqual("https://www.googleapis.com/storage/v1/b/uspto-pair", metaData.selfLink);
+                    // we got a response and it looks like the one we want
+                    Assert.IsNotNull(metaData);
+                    Assert.AreEqual("https://www.googleapis.com/storage/v1/b/uspto-pair", metaData.selfLink);
 
-                var responseFolder = Path.Combine(temp.RootPath, @"www.googleapis.com\storage\v1\b\uspto-pair");
+                    var responseFolder = Path.Combine(temp.RootPath, @"www.googleapis.com\storage\v1\b\uspto-pair");
 
-                // assert we that a response file was stored in the expected folder strcutre
-                Assert.IsTrue(Directory.Exists(responseFolder));
+                    // assert we that a response file was stored in the expected folder strcutre
+                    Assert.IsTrue(Directory.Exists(responseFolder));
 
-                // assert the response and content were stored in that folder
-                Assert.IsTrue(File.Exists(Path.Combine(responseFolder, "get.response.json")));
-                Assert.IsTrue(File.Exists(Path.Combine(responseFolder, "get.content.json")));
+                    // assert the response and content were stored in that folder
+                    Assert.IsTrue(File.Exists(Path.Combine(responseFolder, "get.response.json")));
+                    Assert.IsTrue(File.Exists(Path.Combine(responseFolder, "get.content.json")));
+                }
             }
         }
 
@@ -60,15 +62,16 @@ namespace FakeHttp.UnitTests
 
                 // now call the http client and make sure we get the response from the file system, not google
                 client.BaseAddress = new Uri("https://www.googleapis.com/");
-                var response = await client.GetAsync("storage/v1/b/uspto-pair");
-                response.EnsureSuccessStatusCode();
+                using (var response = await client.GetAsync("storage/v1/b/uspto-pair"))
+                {
+                    response.EnsureSuccessStatusCode();
 
-                dynamic metaData = await response.Content.Deserialize<dynamic>();
-                response.Content.Dispose();
+                    dynamic metaData = await response.Content.Deserialize<dynamic>();
 
-                // we got a response and it looks like the one we want
-                Assert.IsNotNull(metaData);
-                Assert.AreEqual("THIS_IS_THE_FAKE_ONE", metaData.etag); // our embedded resource has this value to differentiate from what google returns
+                    // we got a response and it looks like the one we want
+                    Assert.IsNotNull(metaData);
+                    Assert.AreEqual("THIS_IS_THE_FAKE_ONE", metaData.etag); // our embedded resource has this value to differentiate from what google returns
+                }
             }
         }
 
