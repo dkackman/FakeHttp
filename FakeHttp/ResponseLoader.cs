@@ -66,7 +66,7 @@ namespace FakeHttp
             var longName = _formatter.ToFileName(request, query);
             var shortName = _formatter.ToShortFileName(request);
 
-            return await Exists(folderPath, longName) || await Exists(folderPath, shortName);
+            return await Exists(folderPath, longName + ".response.json") || await Exists(folderPath, shortName + ".response.json");
         }
 
         /// <summary>

@@ -2,8 +2,11 @@
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.IO;
+using System.Reflection;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using UnitTestHelpers;
 
 namespace FakeHttp.UnitTests
 {
@@ -19,44 +22,62 @@ namespace FakeHttp.UnitTests
         [TestMethod]
         public async Task ResponseIsStoredWhenNotPresent()
         {
-            var captureFolder = Path.Combine(Path.GetTempPath(), "FakeHttp_UnitTests");
-
-            var handler = new AutomaticHttpClientHandler(new FileSystemResponseStore(captureFolder, captureFolder));
-
-            var responseFolder = Path.Combine(captureFolder, @"www.googleapis.com\storage\v1\b\uspto-pair");
-
-            // make sure the target folder doesn't exist when we start
-            if (Directory.Exists(captureFolder))
+            using (var temp = new TempFolder("FakeHttp_UnitTests"))
+            using (var client = new HttpClient(new AutomaticHttpClientHandler(new FileSystemResponseStore(temp.RootPath, temp.RootPath)), true))
             {
-                Directory.Delete(captureFolder, true);
+                client.BaseAddress = new Uri("https://www.googleapis.com/");
+                var response = await client.GetAsync("storage/v1/b/uspto-pair");
+                response.EnsureSuccessStatusCode();
+
+                dynamic metaData = await response.Content.Deserialize<dynamic>();
+
+                // we got a response and it looks like the one we want
+                Assert.IsNotNull(metaData);
+                Assert.AreEqual("https://www.googleapis.com/storage/v1/b/uspto-pair", metaData.selfLink);
+
+                var responseFolder = Path.Combine(temp.RootPath, @"www.googleapis.com\storage\v1\b\uspto-pair");
+
+                // assert we that a response file was stored in the expected folder strcutre
+                Assert.IsTrue(Directory.Exists(responseFolder));
+
+                // assert the response and content were stored in that folder
+                Assert.IsTrue(File.Exists(Path.Combine(responseFolder, "get.response.json")));
+                Assert.IsTrue(File.Exists(Path.Combine(responseFolder, "get.content.json")));
             }
+        }
 
-            try
+        [TestMethod]
+        public async Task StoredResponseIsReturnedWhenPresent()
+        {
+            using (var temp = new TempFolder("FakeHttp_UnitTests"))
+            using (var client = new HttpClient(new AutomaticHttpClientHandler(new FileSystemResponseStore(temp.RootPath, temp.RootPath)), true))
             {
-                using (var client = new HttpClient(handler, true))
-                {
-                    client.BaseAddress = new Uri("https://www.googleapis.com/");
-                    var response = await client.GetAsync("storage/v1/b/uspto-pair");
-                    response.EnsureSuccessStatusCode();
+                // create the correct folder and place the response files there
+                var responseFolder = Path.Combine(temp.RootPath, @"www.googleapis.com\storage\v1\b\uspto-pair");
+                Directory.CreateDirectory(responseFolder);
+                CopyResourse(responseFolder, "GET.response.json");
+                CopyResourse(responseFolder, "GET.content.json");
 
-                    dynamic metaData = await response.Content.Deserialize<dynamic>();
+                // now call the http client and make sure we get the response from the file system, not google
+                client.BaseAddress = new Uri("https://www.googleapis.com/");
+                var response = await client.GetAsync("storage/v1/b/uspto-pair");
+                response.EnsureSuccessStatusCode();
 
-                    // we got a response and it looks like the one we want
-                    Assert.IsNotNull(metaData);
-                    Assert.AreEqual("https://www.googleapis.com/storage/v1/b/uspto-pair", metaData.selfLink);
+                dynamic metaData = await response.Content.Deserialize<dynamic>();
+                response.Content.Dispose();
 
-                    // assert we that a response file was stored in teh expected folder strcutre
-                    Assert.IsTrue(Directory.Exists(responseFolder));
-
-                    // assert the response and content were stored in that folder
-                    Assert.IsTrue(File.Exists(Path.Combine(responseFolder, "get.response.json")));
-                    Assert.IsTrue(File.Exists(Path.Combine(responseFolder, "get.content.json")));
-                }
+                // we got a response and it looks like the one we want
+                Assert.IsNotNull(metaData);
+                Assert.AreEqual("THIS_IS_THE_FAKE_ONE", metaData.etag); // our embedded resource has this value to differentiate from what google returns
             }
-            finally
+        }
+
+        static void CopyResourse(string folder, string resourceName)
+        {
+            using (var reader = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("FakeHttp.UnitTests." + resourceName)))
+            using (var writer = new StreamWriter(Path.Combine(folder, resourceName)))
             {
-                // remove our temp folders
-                Directory.Delete(captureFolder, true);
+                writer.Write(reader.ReadToEnd());
             }
         }
     }

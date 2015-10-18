@@ -94,6 +94,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="GET.content.json" />
+    <EmbeddedResource Include="GET.response.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>

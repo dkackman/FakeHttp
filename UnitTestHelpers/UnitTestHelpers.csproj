@@ -59,6 +59,7 @@
     <Compile Include="CredentialStore.cs" />
     <Compile Include="DictionaryComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TempFolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
