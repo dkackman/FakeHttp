@@ -37,6 +37,17 @@ namespace FakeHttp
         }
 
         /// <summary>
+        /// Determines if a <see cref="HttpResponseMessage"/> exists for the 
+        /// <see cref="HttpRequestMessage"/>
+        /// </summary>
+        /// <param name="request">The <see cref="HttpRequestMessage"/></param>
+        /// <returns>True if a response exists for the request. Otherwise false</returns>
+        public async Task<bool> ResponseExists(HttpRequestMessage request)
+        {
+            return await _responseLoader.Exists(request);
+        }
+
+        /// <summary>
         /// Retreive response message from storage based on the a request message
         /// </summary>
         /// <param name="request">The request message</param>

@@ -4,7 +4,7 @@ using Windows.Security.Cryptography.Core;
 
 namespace FakeHttp.Store
 {
-    class StoreMessageFormatter : MessageFormatter
+    sealed class StoreMessageFormatter : MessageFormatter
     {
         public StoreMessageFormatter()
             : this((name, value) => false)

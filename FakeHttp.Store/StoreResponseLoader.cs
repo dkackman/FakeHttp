@@ -7,7 +7,7 @@ using Windows.Storage;
 
 namespace FakeHttp.Store
 {
-    class StoreResponseLoader : ResponseLoader
+    sealed class StoreResponseLoader : ResponseLoader
     {
         private IStorageFolder _folder;
 

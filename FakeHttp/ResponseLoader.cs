@@ -53,6 +53,23 @@ namespace FakeHttp
         protected abstract Task<Stream> LoadAsStream(string folder, string fileName);
 
         /// <summary>
+        /// Determines if a <see cref="HttpResponseMessage"/> exists for the 
+        /// <see cref="HttpRequestMessage"/>
+        /// </summary>
+        /// <param name="request">The <see cref="HttpRequestMessage"/></param>
+        /// <returns>True if a response exists for the request. Otherwise false</returns>
+        public async Task<bool> Exists(HttpRequestMessage request)
+        {
+            var query = _formatter.NormalizeQuery(request.RequestUri);
+            var folderPath = _formatter.ToFolderPath(request.RequestUri);
+
+            var longName = _formatter.ToFileName(request, query);
+            var shortName = _formatter.ToShortFileName(request);
+
+            return await Exists(folderPath, longName) || await Exists(folderPath, shortName);
+        }
+
+        /// <summary>
         /// Finds the response message keyed to a request message
         /// </summary>
         /// <param name="request">The request message</param>

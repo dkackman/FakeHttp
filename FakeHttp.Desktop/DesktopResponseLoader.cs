@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace FakeHttp.Desktop
 {
-    class DesktopResponseLoader : ResponseLoader
+    sealed class DesktopResponseLoader : ResponseLoader
     {
         private readonly string _storeFolder;
 

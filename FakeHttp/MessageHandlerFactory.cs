@@ -23,7 +23,13 @@ namespace FakeHttp
         /// <summary>
         /// Create the default HttpMessage handler
         /// </summary>
-        Online
+        Online,
+
+        /// <summary>
+        /// Create a handler that will use stored responses if they exist. 
+        /// If they do ot exist the handler will retreive them from the online endpoint and store for future use
+        /// </summary>
+        Automatic
     }
 
     /// <summary>
@@ -54,11 +60,12 @@ namespace FakeHttp
                 return new FakeHttpMessageHandler(responseStore);
             }
 
-            if (Mode == MessageHandlerMode.Capture)
+            if (Mode == MessageHandlerMode.Capture || Mode == MessageHandlerMode.Automatic)
             {
-                throw new InvalidOperationException("Cannot use Capture mode with an IReadonlyResponseStore");
+                throw new InvalidOperationException("Cannot use Capture or Automatic mode with an IReadonlyResponseStore");
             }
 
+            // else online
             var clientHandler = new HttpClientHandler();
 
             if (clientHandler.SupportsAutomaticDecompression)
@@ -80,8 +87,10 @@ namespace FakeHttp
                 return new FakeHttpMessageHandler(responseStore);
             }
 
-            var clientHandler = Mode == MessageHandlerMode.Capture
-                ? new CapturingHttpClientHandler(responseStore) : new HttpClientHandler();
+            var clientHandler =
+                Mode == MessageHandlerMode.Capture ? new CapturingHttpClientHandler(responseStore) :
+                Mode == MessageHandlerMode.Automatic ? new AutomaticHttpClientHandler(responseStore) :
+                new HttpClientHandler();
 
             if (clientHandler.SupportsAutomaticDecompression)
             {

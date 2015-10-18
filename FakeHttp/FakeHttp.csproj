@@ -42,6 +42,7 @@
     <Compile Include="..\PackageInfo.cs">
       <Link>Properties\PackageInfo.cs</Link>
     </Compile>
+    <Compile Include="AutomaticHttpClientHandler.cs" />
     <Compile Include="CapturingHttpClientHandler.cs" />
     <Compile Include="IResponseCallbacks.cs" />
     <Compile Include="MimeMap.cs" />

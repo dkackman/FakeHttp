@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 
 namespace FakeHttp.Desktop
 {
-    class DesktopMessageFormatter : MessageFormatter
+    sealed class DesktopMessageFormatter : MessageFormatter
     {
         public DesktopMessageFormatter()
             : this(new ResponseCallbacks()) // by default do not filter any query parameters

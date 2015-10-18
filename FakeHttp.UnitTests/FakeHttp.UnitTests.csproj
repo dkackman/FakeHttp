@@ -77,6 +77,7 @@
     <Compile Include="ExampleTests.cs" />
     <Compile Include="CallbackTest.cs" />
     <Compile Include="BugTests.cs" />
+    <Compile Include="AutomaticTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FakeHttp.Desktop\FakeHttp.Desktop.csproj">
