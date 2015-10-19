@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 namespace FakeHttp
 {
     /// <summary>
-    /// Base calss for file based response message retreival that allows 
+    /// Base class for file based response message retrieval that allows 
     /// separation between desktop and universal app machanisms for file api
     /// </summary>
     public abstract class ResponseLoader

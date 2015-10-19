@@ -25,7 +25,7 @@ namespace FakeHttp
         }
 
         /// <summary>
-        /// Override the base class to skip http and retreive message from storage
+        /// Override the base class to skip http and retrieve message from storage
         /// </summary>
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>

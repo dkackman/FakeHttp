@@ -5,7 +5,7 @@ using System.Net.Http;
 namespace FakeHttp
 {
     /// <summary>
-    /// Interface to abstract storage and retrevial of <see cref="System.Net.Http.HttpResponseMessage"/> instances
+    /// Interface to abstract storage and retrieval of <see cref="System.Net.Http.HttpResponseMessage"/> instances
     /// </summary>
     public interface IResponseStore : IReadonlyResponseStore
     {

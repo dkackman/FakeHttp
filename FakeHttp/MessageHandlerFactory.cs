@@ -11,12 +11,12 @@ namespace FakeHttp
     public enum MessageHandlerMode
     {
         /// <summary>
-        /// Create a handler that will retreive messages from endpoint and store for future use
+        /// Create a handler that will retrieve messages from endpoint and store for future use
         /// </summary>
         Capture,
 
         /// <summary>
-        /// Create a handler that will retreive message from faking storage
+        /// Create a handler that will retrieve message from faking storage
         /// </summary>
         Fake,
 
@@ -27,8 +27,8 @@ namespace FakeHttp
 
         /// <summary>
         /// Create a handler that will use stored responses if they exist. 
-        /// If they do ot exist the handler will retreive them from the online endpoint and store for future use
-        /// </summary>
+        /// If they do not exist the handler will retrieve them from the online endpoint and store for future use
+        /// </summary>                
         Automatic
     }
 
@@ -40,7 +40,7 @@ namespace FakeHttp
     {
         static MessageHandlerFactory()
         {
-            Mode = MessageHandlerMode.Online;
+            Mode = MessageHandlerMode.Automatic;
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace FakeHttp
         /// <summary>
         /// Create an <see cref="System.Net.Http.HttpMessageHandler"/>.
         /// </summary>
-        /// <param name="responseStore">Object that can store and retreive response messages</param>
+        /// <param name="responseStore">Object that can store and retrieve response messages</param>
         /// <returns>A <see cref="System.Net.Http.HttpMessageHandler"/></returns>
         public static HttpMessageHandler CreateMessageHandler(IReadonlyResponseStore responseStore)
         {
@@ -78,7 +78,7 @@ namespace FakeHttp
         /// <summary>
         /// Create an <see cref="System.Net.Http.HttpMessageHandler"/>.
         /// </summary>
-        /// <param name="responseStore">Object that can store and retreive response messages</param>
+        /// <param name="responseStore">Object that can store and retrieve response messages</param>
         /// <returns>A <see cref="System.Net.Http.HttpMessageHandler"/></returns>
         public static HttpMessageHandler CreateMessageHandler(IResponseStore responseStore)
         {

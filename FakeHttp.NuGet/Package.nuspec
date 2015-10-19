@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Dkackman.FakeHttp</id>
-    <version>1.2.1</version>
+    <version>1.3.0</version>
     <title>FakeHttp</title>
     <authors>dkackman</authors>
     <owners>dkackman</owners>
@@ -22,10 +22,11 @@
 1.2.0 - Set Date header automatically by default
   - bug fix https://github.com/dkackman/FakeHttp/issues/1
 1.2.1 - Add Universal support
+1.3.0 - Add Automatic mode
     </releaseNotes>
     <copyright>Copyright Don Kackman 2015</copyright>
     <language>en-US</language>
-    <tags>PCL http REST mock fake stub unit test testing</tags>
+    <tags>PCL http REST mock fake stub unit test testing .net</tags>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="7.0.1" />
       <dependency id="Microsoft.Net.Http" version="2.2.29" />

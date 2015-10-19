@@ -11,7 +11,7 @@ using FakeHttp.Desktop;
 namespace FakeHttp
 {
     /// <summary>
-    /// Class that can store and retreive response messages in a win32 runtime environment
+    /// Class that can store and retrieve response messages in a win32 runtime environment
     /// </summary>
     public sealed class FileSystemResponseStore : IResponseStore
     {
@@ -44,7 +44,7 @@ namespace FakeHttp
         /// ctor
         /// </summary>
         /// <param name="storeFolder">root folder for storage</param>
-        /// <param name="paramFilter">call back used to determine if a given query paramters should be excluded from serialziation</param>
+        /// <param name="paramFilter">call back used to determine if a given query parameters should be excluded from serialziation</param>
         [Obsolete("Use constructor that takes IResponseCallbacks instead")]
 
         public FileSystemResponseStore(string storeFolder, Func<string, string, bool> paramFilter)
@@ -57,7 +57,7 @@ namespace FakeHttp
         /// </summary>
         /// <param name="storeFolder">root folder for storage</param>
         /// <param name="captureFolder">folder to store captued response messages</param>
-        /// <param name="paramFilter">call back used to determine if a given query paramters should be excluded from serialziation</param>
+        /// <param name="paramFilter">call back used to determine if a given query parameters should be excluded from serialization</param>
         [Obsolete("Use constructor that takes IResponseCallbacks instead")]
         public FileSystemResponseStore(string storeFolder, string captureFolder, Func<string, string, bool> paramFilter)
             : this(storeFolder, captureFolder, new ResponseCallbacks(paramFilter))
@@ -112,7 +112,7 @@ namespace FakeHttp
         }
 
         /// <summary>
-        /// Stores a response message for later retreival
+        /// Stores a response message for later retrieval
         /// </summary>
         /// <param name="response">The response message to store</param>
         /// <returns>Task</returns>

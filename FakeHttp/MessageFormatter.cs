@@ -18,7 +18,7 @@ namespace FakeHttp
         /// <summary>
         /// ctor
         /// </summary>
-        /// <param name="paramFilter">call back used to determine if a given query paramters should be excluded from serialziation</param>
+        /// <param name="paramFilter">call back used to determine if a given query parameters should be excluded from serialziation</param>
         /// 
         [Obsolete("Use constructor that takes IResponseCallbacks instead")]
         protected MessageFormatter(Func<string, string, bool> paramFilter)
@@ -38,7 +38,7 @@ namespace FakeHttp
         }
 
         /// <summary>
-        /// A <see cref="IResponseCallbacks"/> to manage resposne handling at runtime
+        /// A <see cref="IResponseCallbacks"/> to manage response handling at runtime
         /// </summary>
         public IResponseCallbacks RepsonseCallbacks { get { return _responseCallbacks; } }
 

@@ -7,7 +7,7 @@ namespace FakeHttp
 {
     /// <summary>
     /// A <see cref="System.Net.Http.HttpMessageHandler"/> that retrieves http resonse messages from
-    /// from teh http endpoint and then stores them for future retrieval
+    /// from the http endpoint and then stores them for future retrieval
     /// </summary>
     public sealed class CapturingHttpClientHandler : HttpClientHandler
     {
@@ -16,7 +16,7 @@ namespace FakeHttp
         /// <summary>
         /// ctor
         /// </summary>
-        /// <param name="store">The storage meachansim for responses</param>
+        /// <param name="store">The storage mechanism for responses</param>
         public CapturingHttpClientHandler(IResponseStore store)
         {
             if (store == null) throw new ArgumentNullException("store");

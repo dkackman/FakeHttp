@@ -69,13 +69,13 @@ namespace FakeHttp.UnitTests
 
             // when capturing the real response, we do not want to serialize things like api keys
             // both because that is a possible infomration leak and also because it would
-            // bind the serialized resposne to the key, making successful faking dependent on
+            // bind the serialized response to the key, making successful faking dependent on
             // the key used when capturing the response. The fake response lookup will try to find
             // a serialized response that matches a hash of all the query paramerters. The lambda in
-            // the response store constructor below allows us to ignore certain paramters for that lookup
+            // the response store constructor below allows us to ignore certain parameters for that lookup
             // when capturing and faking responses
             //
-            // this test ensures that our mechansim to filter out those paramters we want to ignore works
+            // this test ensures that our mechansim to filter out those parameters we want to ignore works
             //
             var capturingHandler = new CapturingHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder, (name, value) => name == "key"));
             var fakingHandler = new FakeHttpMessageHandler(new FileSystemResponseStore(captureFolder, (name, value) => name == "key")); // point the fake to where the capture is stored
@@ -110,13 +110,13 @@ namespace FakeHttp.UnitTests
 
             // when capturing the real response, we do not want to serialize things like api keys
             // both because that is a possible infomration leak and also because it would
-            // bind the serialized resposne to the key, making successful faking dependent on
+            // bind the serialized response to the key, making successful faking dependent on
             // the key used when capturing the response. The fake response lookup will try to find
             // a serialized response that matches a hash of all the query paramerters. The lambda in
-            // the response store constructor below allows us to ignore certain paramters for that lookup
+            // the response store constructor below allows us to ignore certain parameters for that lookup
             // when capturing and faking responses
             //
-            // this test ensures that our mechansim to filter out those paramters we want to ignore works
+            // this test ensures that our mechansim to filter out those parameters we want to ignore works
             //
             var capturingHandler = new CapturingHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder, new TestCallbacks()));
             var fakingHandler = new FakeHttpMessageHandler(new FileSystemResponseStore(captureFolder, new TestCallbacks())); // point the fake to where the capture is stored

@@ -9,7 +9,7 @@ using FakeHttp.Store;
 namespace FakeHttp
 {
     /// <summary>
-    /// Class that can retreive stored response messages in a windows store app runtime environment
+    /// Class that can retrieve stored response messages in a windows store app runtime environment
     /// </summary>
     public sealed class StorageFolderResponseStore : IReadonlyResponseStore
     {
@@ -29,7 +29,7 @@ namespace FakeHttp
         /// ctor
         /// </summary>
         /// <param name="storeFolder">Root folder where message are kept</param>
-        /// <param name="paramFilter">call back used to determine if a given query paramters should be excluded from serialziation</param>
+        /// <param name="paramFilter">call back used to determine if a given query parameters should be excluded from serialization</param>
         public StorageFolderResponseStore(IStorageFolder storeFolder, Func<string, string, bool> paramFilter)
         {
             _formatter = new StoreMessageFormatter(paramFilter);
