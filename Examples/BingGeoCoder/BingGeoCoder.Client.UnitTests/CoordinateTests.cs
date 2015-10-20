@@ -41,8 +41,8 @@ namespace GeoCoderTests
         {
             var coord = await _service.GetCoordinate(null, null, null, "55116", "US");
 
-            Assert.IsTrue(coord.Item1.AboutEqual(44.9108238220215));
-            Assert.IsTrue(coord.Item2.AboutEqual(-93.1702041625977));
+            Assert.IsTrue(coord.Item1.AboutEqual(44.910392761230469));
+            Assert.IsTrue(coord.Item2.AboutEqual(-93.171073913574219));
         }
 
         [TestMethod]
