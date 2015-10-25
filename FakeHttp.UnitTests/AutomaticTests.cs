@@ -20,6 +20,30 @@ namespace FakeHttp.UnitTests
         public TestContext TestContext { get; set; }
 
         [TestMethod]
+        public async Task CanAccessGoogleStorageBucket()
+        {
+            // this is the path where responses will be stored for future use
+            var path = Path.Combine(Path.GetTempPath(), "FakeHttp_UnitTests_");
+
+            var handler = new AutomaticHttpClientHandler(new FileSystemResponseStore(path));
+
+            using (var client = new HttpClient(handler, true))
+            {
+                client.BaseAddress = new Uri("https://www.googleapis.com/");
+                using (var response = await client.GetAsync("storage/v1/b/uspto-pair"))
+                {
+                    response.EnsureSuccessStatusCode();
+
+                    dynamic metaData = await response.Content.Deserialize<dynamic>();
+
+                    // we got a response and it looks like the one we want
+                    Assert.IsNotNull(metaData);
+                    Assert.AreEqual("https://www.googleapis.com/storage/v1/b/uspto-pair", metaData.selfLink);
+                }
+            }
+        }
+
+        [TestMethod]
         public async Task ResponseIsStoredWhenNotPresent()
         {
             using (var temp = new TempFolder("FakeHttp_UnitTests"))
