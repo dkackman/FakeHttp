@@ -14,11 +14,13 @@ This allows service data access layer code to be unit tested without regard to t
 The quickest way to get started is to use an AutomaticHttpClientHandler anywhere you instatniate an System.Net.HttpClient. The automatic handler will first check the local file system for a saved response. If one is not found it will access the live http endpoint, and save the response. Future calls to the same endpoint with identical paramters will return the stored response and content.
 
     [TestMethod]
-    public async Task ResponseIsStoredWhenNotPresent()
+    public async Task CanAccessGoogleStorageBucket()
     {
-        // this is the path where response will be stored for future use
-        var temp = Path.Combine(Path.GetTempPath(), "FakeHttp_UnitTests");
-        var handler = new AutomaticHttpClientHandler(new FileSystemResponseStore(temp, temp));
+        // this is the path where responses will be stored for future use
+        var path = Path.Combine(Path.GetTempPath(), "FakeHttp_UnitTests");
+
+        var handler = new AutomaticHttpClientHandler(new FileSystemResponseStore(path));
+
         using (var client = new HttpClient(handler, true))
         {
             client.BaseAddress = new Uri("https://www.googleapis.com/");
@@ -31,15 +33,6 @@ The quickest way to get started is to use an AutomaticHttpClientHandler anywhere
                 // we got a response and it looks like the one we want
                 Assert.IsNotNull(metaData);
                 Assert.AreEqual("https://www.googleapis.com/storage/v1/b/uspto-pair", metaData.selfLink);
-
-                var responseFolder = Path.Combine(temp, @"www.googleapis.com\storage\v1\b\uspto-pair");
-
-                // assert we that a response file was stored in the expected folder strcutre
-                Assert.IsTrue(Directory.Exists(responseFolder));
-
-                // assert the response and content were stored in that folder
-                Assert.IsTrue(File.Exists(Path.Combine(responseFolder, "get.response.json")));
-                Assert.IsTrue(File.Exists(Path.Combine(responseFolder, "get.content.json")));
             }
         }
     }
