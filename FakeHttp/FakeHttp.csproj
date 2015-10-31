@@ -55,6 +55,7 @@
     <Compile Include="ResponseCallbacks.cs" />
     <Compile Include="ResponseInfo.cs" />
     <Compile Include="ResponseLoader.cs" />
+    <Compile Include="VersionConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

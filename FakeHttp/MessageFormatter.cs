@@ -65,6 +65,7 @@ namespace FakeHttp
 
             return new ResponseInfo()
             {
+                HttpVersion = response.Version,
                 StatusCode = response.StatusCode,
                 BaseUri = uri.GetComponents(UriComponents.NormalizedHost | UriComponents.Path, UriFormat.Unescaped),
                 Query = query,

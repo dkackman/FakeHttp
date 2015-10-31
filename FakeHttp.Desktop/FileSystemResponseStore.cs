@@ -140,7 +140,7 @@ namespace FakeHttp
             }
 
             // now serialize the response object and its meta-data
-            var json = JsonConvert.SerializeObject(info, Formatting.Indented);
+            var json = JsonConvert.SerializeObject(info, Formatting.Indented, new VersionConverter());
             using (var responseWriter = new StreamWriter(Path.Combine(folderPath, fileName + ".response.json"), false, Encoding.UTF8))
             {
                 responseWriter.Write(json);

@@ -16,9 +16,15 @@ namespace FakeHttp
         /// </summary>
         public ResponseInfo()
         {
+            HttpVersion = new Version(1, 1);
             ResponseHeaders = new Dictionary<string, IEnumerable<string>>(StringComparer.OrdinalIgnoreCase);
             ContentHeaders = new Dictionary<string, IEnumerable<string>>(StringComparer.OrdinalIgnoreCase);
         }
+
+        /// <summary>
+        /// <see cref="HttpResponseMessage.Version"/>
+        /// </summary>
+        public Version HttpVersion { get; set; }
 
         /// <summary>
         /// The response status code
@@ -57,6 +63,8 @@ namespace FakeHttp
         public HttpResponseMessage CreateResponse()
         {
             var response = new HttpResponseMessage(StatusCode);
+            response.Version = HttpVersion;
+
             foreach (var kvp in ResponseHeaders)
             {
                 response.Headers.TryAddWithoutValidation(kvp.Key, kvp.Value);
