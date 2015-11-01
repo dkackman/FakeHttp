@@ -11,7 +11,33 @@ Responses are stored statically on the local file system in a directory strucutr
 
 This allows service data access layer code to be unit tested without regard to the actual availability of the tart service. This also ensures that response details and data returned to the test can be controlled.
 
-It supports this basic workflow without the need to change the service client layer or unit test code:
+The quickest way to get started is to use an AutomaticHttpClientHandler anywhere you instatniate an System.Net.HttpClient. The automatic handler will first check the local file system for a saved response. If one is not found it will access the live http endpoint, and save the response. Future calls to the same endpoint with identical paramters will return the stored response and content.
+
+    [TestMethod]
+    public async Task CanAccessGoogleStorageBucket()
+    {
+        // this is the path where responses will be stored for future use
+        var path = Path.Combine(Path.GetTempPath(), "FakeHttp_UnitTests");
+
+        var handler = new AutomaticHttpClientHandler(new FileSystemResponseStore(path));
+
+        using (var client = new HttpClient(handler, true))
+        {
+            client.BaseAddress = new Uri("https://www.googleapis.com/");
+            using (var response = await client.GetAsync("storage/v1/b/uspto-pair"))
+            {
+                response.EnsureSuccessStatusCode();
+
+                dynamic metaData = await response.Content.Deserialize<dynamic>();
+
+                // we got a response and it looks like the one we want
+                Assert.IsNotNull(metaData);
+                Assert.AreEqual("https://www.googleapis.com/storage/v1/b/uspto-pair", metaData.selfLink);
+            }
+        }
+    }
+
+If more fine grained control is needed over the handler, this workflow can be used without the need to change the service client layer or unit test code:
 - Write unit tests that interacts with a live RESTful service that executes the specific client data access functionality under test
 - Refine the live tests until they pass
 - Execute the test in "capture" mode to record the response of the Rest service
