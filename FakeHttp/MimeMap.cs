@@ -7,6 +7,11 @@ namespace FakeHttp
     {
         public static string GetFileExtension(string mimeType)
         {
+            if (string.IsNullOrEmpty(mimeType))
+            {
+                return "";
+            }
+
             string ret;
             if (types.TryGetValue(mimeType, out ret))
             {

@@ -4,6 +4,7 @@ using System.Dynamic;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Reflection;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -62,6 +63,15 @@ namespace FakeHttp
             }
 
             return JsonConvert.DeserializeObject<ExpandoObject>(content, settings);
+        }
+
+        public static void CopyResourse(string folder, string resourceName)
+        {
+            using (var reader = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("FakeHttp.UnitTests." + resourceName)))
+            using (var writer = new StreamWriter(Path.Combine(folder, resourceName)))
+            {
+                writer.Write(reader.ReadToEnd());
+            }
         }
     }
 }

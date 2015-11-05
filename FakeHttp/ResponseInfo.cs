@@ -59,15 +59,22 @@ namespace FakeHttp
         /// <summary>
         /// Create an <see cref="System.Net.Http.HttpResponseMessage"/> from the object's state
         /// </summary>
+        /// <param name="content">The content stream</param>
         /// <returns>The <see cref="System.Net.Http.HttpResponseMessage"/></returns>
-        public HttpResponseMessage CreateResponse()
+        public HttpResponseMessage CreateResponse(HttpRequestMessage request, Stream content)
         {
             var response = new HttpResponseMessage(StatusCode);
             response.Version = HttpVersion;
+            response.RequestMessage = request;
 
             foreach (var kvp in ResponseHeaders)
             {
                 response.Headers.TryAddWithoutValidation(kvp.Key, kvp.Value);
+            }
+
+            if (content != null)
+            {
+                response.Content = CreateContent(content);
             }
 
             return response;

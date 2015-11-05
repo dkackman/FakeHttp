@@ -53,11 +53,7 @@ namespace FakeHttp
             var uri = response.RequestMessage.RequestUri;
             var query = NormalizeQuery(uri);
             var fileName = ToFileName(response.RequestMessage, query);
-            var fileExtension = "";
-            if (response.Content.Headers.ContentType != null)
-            {
-                fileExtension = MimeMap.GetFileExtension(response.Content.Headers.ContentType.MediaType);
-            }
+            var fileExtension = MimeMap.GetFileExtension(response?.Content?.Headers?.ContentType?.MediaType);            
 
             // since HttpHeaders is not a creatable object, store the headers off to the side
             var headers = response.Headers.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);

@@ -116,13 +116,8 @@ namespace FakeHttp
 
                 var content = await _formatter.RepsonseCallbacks.Deserialized(info, await LoadContentStream(folder, info.ContentFileName));
 
-                var response = info.CreateResponse();
-                if (content != null)
-                {
-                    response.Content = new StreamContent(content);
-                }
+                var response = info.CreateResponse(request, content);
 
-                response.RequestMessage = request;
                 return response;
             }
 

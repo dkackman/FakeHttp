@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.IO;
-using System.Reflection;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -81,8 +80,8 @@ namespace FakeHttp.UnitTests
                 // create the correct folder and place the response files there
                 var responseFolder = Path.Combine(temp.RootPath, @"www.googleapis.com\storage\v1\b\uspto-pair");
                 Directory.CreateDirectory(responseFolder);
-                CopyResourse(responseFolder, "GET.response.json");
-                CopyResourse(responseFolder, "GET.content.json");
+                Extensions.CopyResourse(responseFolder, "GET.response.json");
+                Extensions.CopyResourse(responseFolder, "GET.content.json");
 
                 // now call the http client and make sure we get the response from the file system, not google
                 client.BaseAddress = new Uri("https://www.googleapis.com/");
@@ -96,15 +95,6 @@ namespace FakeHttp.UnitTests
                     Assert.IsNotNull(metaData);
                     Assert.AreEqual("THIS_IS_THE_FAKE_ONE", metaData.etag); // our embedded resource has this value to differentiate from what google returns
                 }
-            }
-        }
-
-        static void CopyResourse(string folder, string resourceName)
-        {
-            using (var reader = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("FakeHttp.UnitTests." + resourceName)))
-            using (var writer = new StreamWriter(Path.Combine(folder, resourceName)))
-            {
-                writer.Write(reader.ReadToEnd());
             }
         }
     }
