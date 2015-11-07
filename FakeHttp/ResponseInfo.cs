@@ -7,7 +7,7 @@ using System.Net.Http;
 namespace FakeHttp
 {
     /// <summary>
-    /// A serializatoin friendly wrapper around <see cref="System.Net.Http.HttpResponseMessage"/>
+    /// A serialization friendly wrapper around <see cref="System.Net.Http.HttpResponseMessage"/>
     /// </summary>
     public sealed class ResponseInfo
     {
