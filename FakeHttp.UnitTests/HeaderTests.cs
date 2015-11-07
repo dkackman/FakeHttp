@@ -7,10 +7,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using UnitTestHelpers;
 
-using FakeHttp.Desktop;
-
-using Newtonsoft.Json;
-
 namespace FakeHttp.UnitTests
 {
     [TestClass]

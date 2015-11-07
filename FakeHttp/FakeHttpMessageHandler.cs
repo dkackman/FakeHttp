@@ -6,7 +6,7 @@ using System.Threading;
 namespace FakeHttp
 {
     /// <summary>
-    /// A <see cref="System.Net.Http.HttpMessageHandler"/> that retrieves http resonse messages from
+    /// A <see cref="System.Net.Http.HttpMessageHandler"/> that retrieves http response messages from
     /// an alternate storage rather than from a given http endpoint
     /// </summary>
     public sealed class FakeHttpMessageHandler : HttpMessageHandler
