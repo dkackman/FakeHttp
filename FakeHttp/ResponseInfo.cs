@@ -59,6 +59,7 @@ namespace FakeHttp
         /// <summary>
         /// Create an <see cref="System.Net.Http.HttpResponseMessage"/> from the object's state
         /// </summary>
+        /// <param name="request">The <see cref="HttpRequestMessage"/> the initiates the response</param>
         /// <param name="content">The content stream</param>
         /// <returns>The <see cref="System.Net.Http.HttpResponseMessage"/></returns>
         public HttpResponseMessage CreateResponse(HttpRequestMessage request, Stream content)
