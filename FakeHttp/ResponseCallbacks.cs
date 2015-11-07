@@ -41,7 +41,7 @@ namespace FakeHttp
         /// Called just before the response is returned. Update deserialized values as necessary
         /// Primarily for cases where time based header values (like content expiration) need up to date values
         /// </summary>
-        /// <param name="info">Desrialized response data. Header collections can be modified. Might be null if content file but no response file is present</param>
+        /// <param name="info">Deserialized response data. Header collections can be modified. Might be null if content file but no response file is present</param>
         /// <param name="content">The deserialized content stream. Might be null if response has no content</param>
         /// <returns>The original content or a modified content stream to attach to the <see cref="HttpResponseMessage"/></returns>
         public async virtual Task<Stream> Deserialized(ResponseInfo info, Stream content)

@@ -44,7 +44,7 @@ namespace FakeHttp
         /// ctor
         /// </summary>
         /// <param name="storeFolder">root folder for storage</param>
-        /// <param name="paramFilter">call back used to determine if a given query parameters should be excluded from serialziation</param>
+        /// <param name="paramFilter">call back used to determine if a given query parameter should be excluded from serialziation</param>
         [Obsolete("Use constructor that takes IResponseCallbacks instead")]
 
         public FileSystemResponseStore(string storeFolder, Func<string, string, bool> paramFilter)
@@ -57,7 +57,7 @@ namespace FakeHttp
         /// </summary>
         /// <param name="storeFolder">root folder for storage</param>
         /// <param name="captureFolder">folder to store captued response messages</param>
-        /// <param name="paramFilter">call back used to determine if a given query parameters should be excluded from serialization</param>
+        /// <param name="paramFilter">call back used to determine if a given query parameter should be excluded from serialization</param>
         [Obsolete("Use constructor that takes IResponseCallbacks instead")]
         public FileSystemResponseStore(string storeFolder, string captureFolder, Func<string, string, bool> paramFilter)
             : this(storeFolder, captureFolder, new ResponseCallbacks(paramFilter))
@@ -102,7 +102,7 @@ namespace FakeHttp
         }
 
         /// <summary>
-        /// Retrieve response message from storage based on the a request message
+        /// Retrieve response message from storage based on a request message
         /// </summary>
         /// <param name="request">The request message</param>
         /// <returns>The response messsage</returns>

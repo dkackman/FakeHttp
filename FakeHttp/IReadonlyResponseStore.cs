@@ -4,7 +4,7 @@ using System.Net.Http;
 namespace FakeHttp
 {
     /// <summary>
-    /// Interface to abstract retrevial of <see cref="HttpResponseMessage"/> instances
+    /// Interface to abstract retrieval of <see cref="HttpResponseMessage"/> instances
     /// </summary>
     public interface IReadonlyResponseStore
     {
