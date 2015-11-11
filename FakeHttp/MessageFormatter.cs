@@ -80,7 +80,7 @@ namespace FakeHttp
         public abstract string ToSha1Hash(string text);
 
         /// <summary>
-        /// Retreive folder friendly representation of a Uri
+        /// Retrieve folder friendly representation of a Uri
         /// </summary>
         /// <param name="uri">The uri</param>
         /// <returns>Folder path</returns>
@@ -90,7 +90,7 @@ namespace FakeHttp
         }
 
         /// <summary>
-        /// Determinaisatally generated file name for a request message
+        /// Deterministically generated file name for a request message
         /// </summary>
         /// <param name="request">The request</param>
         /// <param name="query">Nomralized query string</param>
@@ -106,7 +106,7 @@ namespace FakeHttp
         }
 
         /// <summary>
-        /// Determinaisatally generated file name for a request message
+        /// Deterministically generated file name for a request message
         /// </summary>
         /// <param name="request">The request</param>
         /// <returns>Filename</returns>
@@ -161,7 +161,7 @@ namespace FakeHttp
             foreach (var param in ParseQueryString(uri))
             {
                 var name = param.Key;
-                var value = param.Value != null ? param.Value : "";
+                var value = param.Value ?? "";
 
                 if (!_responseCallbacks.FilterParameter(name, value))
                 {

@@ -28,8 +28,8 @@ namespace FakeHttp
         /// <summary>
         /// ctor
         /// </summary>
-        /// <param name="storeFolder">Root folder where message are kept</param>
-        /// <param name="paramFilter">call back used to determine if a given query parameter should be excluded from serialization</param>
+        /// <param name="storeFolder">Root folder where messages are kept</param>
+        /// <param name="paramFilter">Call back used to determine if a given query parameter should be excluded from serialization</param>
         public StorageFolderResponseStore(IStorageFolder storeFolder, Func<string, string, bool> paramFilter)
         {
             _formatter = new StoreMessageFormatter(paramFilter);
@@ -48,7 +48,7 @@ namespace FakeHttp
         }
 
         /// <summary>
-        /// Retreive response message from storage based on a request message
+        /// Retrieve response message from storage based on a request message
         /// </summary>
         /// <param name="request">The request message</param>
         /// <returns>The response messsage</returns>
