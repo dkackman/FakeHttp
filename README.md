@@ -7,11 +7,11 @@ A library for faking http Rest client communication using System.Net.Http.
 Codeproject article with background: http://www.codeproject.com/Articles/1006722/MockHttp 
 
 Allows for writing unit tests to handle http response scenarios from a RESTful service, without needing access to the network or service at test execution time. 
-Responses are stored statically on the local file system in a directory strucutre that can mapped onto a specific rest endpoint, set of query parameters and http verb.
+Responses are stored statically on the local file system, in a directory strucutre that can mapped onto a specific rest endpoint, set of query parameters and http verb.
 
 This allows service data access layer code to be unit tested without regard to the actual availability of the tart service. This also ensures that response details and data returned to the test can be controlled.
 
-The quickest way to get started is to use an AutomaticHttpClientHandler anywhere you instatniate an System.Net.HttpClient. The automatic handler will first check the local file system for a saved response. If one is not found it will access the live http endpoint, and save the response. Future calls to the same endpoint with identical paramters will return the stored response and content.
+The quickest way to get started is to use an AutomaticHttpClientHandler anywhere you instantiate an System.Net.HttpClient. The automatic handler will first check the local file system for a saved response. If one is not found it will access the live http endpoint, and save the response. Future calls to the same endpoint with identical parameters will return the stored response and content.
 
     [TestMethod]
     public async Task CanAccessGoogleStorageBucket()
