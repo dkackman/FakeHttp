@@ -17,11 +17,6 @@ namespace BingGeoCoder.Client
         {
             var client = new HttpClient(handler, false);
 
-            if (handler is HttpClientHandler && ((HttpClientHandler)handler).SupportsTransferEncodingChunked())
-            {
-                client.DefaultRequestHeaders.TransferEncodingChunked = true;
-            }
-
             client.BaseAddress = new Uri("http://dev.virtualearth.net/REST/v1/", UriKind.Absolute);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
