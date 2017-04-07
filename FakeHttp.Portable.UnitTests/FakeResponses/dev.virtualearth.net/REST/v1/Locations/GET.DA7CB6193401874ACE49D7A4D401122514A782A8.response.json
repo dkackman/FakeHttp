@@ -1,0 +1,42 @@
+﻿{
+  "StatusCode": 200,
+  "Query": "c=en-ca&incl=queryparse&maxres=1&q=1950+meadowvale+blvd.%2c+mississauga%2c+on+l5n+8l9&ul=62.8329086303711%2c-95.9133224487305",
+  "ContentFileName": "GET.DA7CB6193401874ACE49D7A4D401122514A782A8.content.json",
+  "ResponseHeaders": {
+    "Transfer-Encoding": [
+      "chunked"
+    ],
+    "Vary": [
+      "Accept-Encoding"
+    ],
+    "X-BM-TraceID": [
+      "f93c18cf65d8477aa3b9b05e0eb00b44"
+    ],
+    "X-BM-Srv": [
+      "BN20130523, BN2SCH020170836, i-8803535b.us-east-1c"
+    ],
+    "X-MS-BM-WS-INFO": [
+      "0"
+    ],
+    "Cache-Control": [
+      "no-cache"
+    ],
+    "Date": [
+      "Fri, 17 Jul 2015 02:55:02 GMT"
+    ],
+    "Server": [
+      "Microsoft-IIS/8.0"
+    ],
+    "X-AspNet-Version": [
+      "4.0.30319"
+    ],
+    "X-Powered-By": [
+      "ASP.NET"
+    ]
+  },
+  "ContentHeaders": {
+    "Content-Type": [
+      "application/json; charset=utf-8"
+    ]
+  }
+}

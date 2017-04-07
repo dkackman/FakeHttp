@@ -17,12 +17,9 @@ namespace FakeHttp
         /// This ctor is only meant for backwards compatiblity with the use of the paramFilter constructors
         /// </summary>
         /// <param name="paramFilter"></param>
-        [Obsolete("For backwards compatibility only. Implement IResponseCallbacks or derive from this class instead of using this constructor.")]
         public ResponseCallbacks(Func<string, string, bool> paramFilter)
         {
-            if (paramFilter == null) throw new ArgumentNullException("paramFilter");
-
-            _paramFilter = paramFilter;
+            _paramFilter = paramFilter ?? throw new ArgumentNullException("paramFilter");
         }
 
         /// <summary>

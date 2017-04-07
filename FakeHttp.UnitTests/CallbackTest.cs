@@ -77,8 +77,9 @@ namespace FakeHttp.UnitTests
             //
             // this test ensures that our mechanism to filter out those parameters we want to ignore works
             //
-            var capturingHandler = new CapturingHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder, (name, value) => name == "key"));
-            var fakingHandler = new FakeHttpMessageHandler(new FileSystemResponseStore(captureFolder, (name, value) => name == "key")); // point the fake to where the capture is stored
+            var callbacks = new ResponseCallbacks((name, value) => name == "key");
+            var capturingHandler = new CapturingHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder, callbacks));
+            var fakingHandler = new FakeHttpMessageHandler(new FileSystemResponseStore(captureFolder, callbacks)); // point the fake to where the capture is stored
 
             using (var capturingClient = new HttpClient(capturingHandler, true))
             using (var fakingClient = new HttpClient(fakingHandler, true))

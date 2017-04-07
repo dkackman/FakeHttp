@@ -79,6 +79,7 @@
     <Compile Include="BugTests.cs" />
     <Compile Include="AutomaticTests.cs" />
     <Compile Include="HeaderTests.cs" />
+    <Compile Include="HashingTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FakeHttp.Desktop\FakeHttp.Desktop.csproj">

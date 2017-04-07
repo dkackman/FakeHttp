@@ -23,9 +23,7 @@ namespace FakeHttp
         /// <param name="formatter">PLatofrma specific formatter object</param>
         protected ResponseLoader(MessageFormatter formatter)
         {
-            if (formatter == null) throw new ArgumentNullException("formatter");
-
-            _formatter = formatter;
+            _formatter = formatter ?? throw new ArgumentNullException("formatter");
         }
 
         /// <summary>
@@ -60,10 +58,9 @@ namespace FakeHttp
         /// <returns>True if a response exists for the request. Otherwise false</returns>
         public async Task<bool> Exists(HttpRequestMessage request)
         {
-            var query = _formatter.NormalizeQuery(request.RequestUri);
             var folderPath = _formatter.ToFolderPath(request.RequestUri);
 
-            var longName = _formatter.ToFileName(request, query);
+            var longName = _formatter.ToFileName(request);
             var shortName = _formatter.ToShortFileName(request);
 
             return await Exists(folderPath, longName + ".response.json") || await Exists(folderPath, shortName + ".response.json");
@@ -78,18 +75,19 @@ namespace FakeHttp
         {
             if (request == null) throw new ArgumentNullException("request");
 
-            var query = _formatter.NormalizeQuery(request.RequestUri);
             var folderPath = _formatter.ToFolderPath(request.RequestUri);
 
-            var longName = _formatter.ToFileName(request, query);
+            var longName = _formatter.ToFileName(request);
             var shortName = _formatter.ToShortFileName(request);
 
             // first try to find a file keyed to the request method and query
-            return await DeserializeResponse(request, folderPath, longName)
+            var response = await DeserializeResponse(request, folderPath, longName)
                 // next just look for a default response based on just the http method
                 ?? await DeserializeResponse(request, folderPath, shortName)
                 // otherwise return 404            
                 ?? await Create404(request, folderPath, longName, shortName);
+
+            return response.PrepareResponse();
         }
 
         private static async Task<HttpResponseMessage> Create404(HttpRequestMessage request, string folderPath, string longName, string shortName)
@@ -106,6 +104,8 @@ namespace FakeHttp
             // first look for a completely serialized response
             if (await Exists(folder, fileName))
             {
+                Debug.WriteLine($"Creating response from {Path.Combine(folder, fileName)}");
+
                 var json = await LoadAsString(folder, fileName);
                 var info = JsonConvert.DeserializeObject<ResponseInfo>(json);
 
@@ -116,9 +116,7 @@ namespace FakeHttp
 
                 var content = await _formatter.RepsonseCallbacks.Deserialized(info, await LoadContentStream(folder, info.ContentFileName));
 
-                var response = info.CreateResponse(request, content);
-
-                return response;
+                return info.CreateResponse(request, content);
             }
 
             // no fully serialized response exists just look for a content file
@@ -132,6 +130,8 @@ namespace FakeHttp
             var stream = await LoadContentStream(folder, fileName);
             if (stream != null)
             {
+                Debug.WriteLine($"Creating response from {Path.Combine(folder, fileName)}");
+
                 var content = await _formatter.RepsonseCallbacks.Deserialized(null, stream);
 
                 // no serialized response but we have serialized content
@@ -143,6 +143,7 @@ namespace FakeHttp
                 };
             }
 
+            Debug.WriteLine($"No response found for {Path.Combine(folder, baseName)}");
             return null;
         }
 

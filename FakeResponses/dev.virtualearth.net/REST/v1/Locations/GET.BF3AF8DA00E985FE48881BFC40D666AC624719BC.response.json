@@ -1,0 +1,53 @@
+﻿{
+  "HttpVersion": {
+    "Major": 1,
+    "Minor": 1
+  },
+  "StatusCode": 200,
+  "BaseUri": "dev.virtualearth.net/REST/v1/Locations",
+  "Query": "c=en-ca&incl=queryparse&maxres=1&q=1950 meadowvale blvd., mississauga, on l5n 8l9&ul=62.8329086303711,-95.9133224487305",
+  "ContentFileName": "GET.BF3AF8DA00E985FE48881BFC40D666AC624719BC.content.json",
+  "ResponseHeaders": {
+    "Transfer-Encoding": [
+      "chunked"
+    ],
+    "Vary": [
+      "Accept-Encoding"
+    ],
+    "X-BM-TraceID": [
+      "07bd54dc89664dd8a140df9bd1e2e7b5"
+    ],
+    "X-BM-BE-Elapsed": [
+      "143"
+    ],
+    "X-BM-FE-Elapsed": [
+      "150"
+    ],
+    "X-BM-Srv": [
+      "BN20240423"
+    ],
+    "X-MS-BM-WS-INFO": [
+      "0"
+    ],
+    "Cache-Control": [
+      "no-cache"
+    ],
+    "Date": [
+      "Thu, 06 Apr 2017 02:13:40 GMT"
+    ],
+    "Server": [
+      "Microsoft-IIS/8.0"
+    ],
+    "X-AspNet-Version": [
+      "4.0.30319"
+    ],
+    "X-Powered-By": [
+      "ASP.NET"
+    ]
+  },
+  "ContentHeaders": {
+    "Content-Type": [
+      "application/json; charset=utf-8"
+    ]
+  }
+}

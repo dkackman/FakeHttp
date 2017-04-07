@@ -19,9 +19,7 @@ namespace FakeHttp
         /// <param name="store">The storage mechanism for responses</param>
         public CapturingHttpClientHandler(IResponseStore store)
         {
-            if (store == null) throw new ArgumentNullException("store");
-
-            _store = store;
+            _store = store ?? throw new ArgumentNullException("store");
         }
 
         /// <summary>

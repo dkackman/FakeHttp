@@ -20,12 +20,14 @@ namespace FakeHttp
         /// <param name="serializer"></param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var version = value as Version;
-            if (version != null)
+            if (value is Version version)
             {
-                var j = new JObject();
-                j.Add("Major", JToken.FromObject(version.Major));
-                j.Add("Minor", JToken.FromObject(version.Minor));
+                var j = new JObject()
+                {
+                    { "Major", JToken.FromObject(version.Major) },
+                    { "Minor", JToken.FromObject(version.Minor) }
+                };
+
                 j.WriteTo(writer);
             }
             else
@@ -50,22 +52,13 @@ namespace FakeHttp
         /// <summary>
         /// We only need to cusotmize writing, not reading as the two field version will desrialize just fine with default behavior
         /// </summary>
-        public override bool CanRead
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool CanRead => false;
 
         /// <summary>
         /// <see cref="JsonConverter.CanConvert(Type)"/>
         /// </summary>
         /// <param name="objectType"></param>
         /// <returns></returns>
-        public override bool CanConvert(Type objectType)
-        {
-            return typeof(Version) == objectType;
-        }
+        public override bool CanConvert(Type objectType) => typeof(Version) == objectType;
     }
 }

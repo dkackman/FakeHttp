@@ -1,0 +1,42 @@
+﻿{
+  "StatusCode": 200,
+  "Query": "c=en-us&includeentitytypes=countryregion",
+  "ContentFileName": "GET.E2AE9A4187A5709EAB7C79EE8D8F30815F633DBD.content.json",
+  "ResponseHeaders": {
+    "Transfer-Encoding": [
+      "chunked"
+    ],
+    "Vary": [
+      "Accept-Encoding"
+    ],
+    "X-BM-TraceID": [
+      "ddfea39c231b475a844b1358ba76c401"
+    ],
+    "X-BM-Srv": [
+      "BN20130621, BN2SCH020131433, BN2SCH020230433"
+    ],
+    "X-MS-BM-WS-INFO": [
+      "0"
+    ],
+    "Cache-Control": [
+      "no-cache"
+    ],
+    "Date": [
+      "Fri, 17 Jul 2015 02:55:41 GMT"
+    ],
+    "Server": [
+      "Microsoft-IIS/8.0"
+    ],
+    "X-AspNet-Version": [
+      "4.0.30319"
+    ],
+    "X-Powered-By": [
+      "ASP.NET"
+    ]
+  },
+  "ContentHeaders": {
+    "Content-Type": [
+      "application/json; charset=utf-8"
+    ]
+  }
+}

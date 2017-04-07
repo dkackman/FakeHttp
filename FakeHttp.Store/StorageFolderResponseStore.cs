@@ -21,7 +21,7 @@ namespace FakeHttp
         /// </summary>
         /// <param name="storeFolder">Root folder where message are kept</param>
         public StorageFolderResponseStore(IStorageFolder storeFolder)
-            : this(storeFolder, (name, value) => false)
+            : this(storeFolder, new ResponseCallbacks())
         {
         }
 
@@ -29,10 +29,10 @@ namespace FakeHttp
         /// ctor
         /// </summary>
         /// <param name="storeFolder">Root folder where messages are kept</param>
-        /// <param name="paramFilter">Call back used to determine if a given query parameter should be excluded from serialization</param>
-        public StorageFolderResponseStore(IStorageFolder storeFolder, Func<string, string, bool> paramFilter)
+        /// <param name="paramFilter">Call back used to control serialization</param>
+        public StorageFolderResponseStore(IStorageFolder storeFolder, IResponseCallbacks callbacks)
         {
-            _formatter = new StoreMessageFormatter(paramFilter);
+            _formatter = new StoreMessageFormatter(callbacks);
             _responseLoader = new StoreResponseLoader(storeFolder, _formatter);
         }
 

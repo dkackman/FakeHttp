@@ -12,6 +12,8 @@ namespace FakeHttp.UnitTests
     [TestClass]
     public class HeaderTests
     {
+        public TestContext TestContext { get; set; }
+
         [TestMethod]
         public async Task ContentHeaderAreRestored()
         {
@@ -32,6 +34,19 @@ namespace FakeHttp.UnitTests
 
                     Assert.IsTrue(response.Content.Headers.Contains("Fake"));
                 }
+            }
+        }
+
+        [TestMethod]
+        public async Task FakeHttpHeaderIsPresentIn404()
+        {
+            var handler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
+            using (var client = new HttpClient(handler, true))
+            {
+                client.BaseAddress = new Uri("https://www.example.com/");
+                var response = await client.GetAsync("HelloWorldService");
+
+                Assert.IsTrue(response.Headers.Contains("FAKEHTTP"));
             }
         }
     }

@@ -1,0 +1,53 @@
+﻿{
+  "HttpVersion": {
+    "Major": 1,
+    "Minor": 1
+  },
+  "StatusCode": 200,
+  "BaseUri": "dev.virtualearth.net/REST/v1/Locations/44.9108238220215,-93.1702041625977",
+  "Query": "c=en-us&inclnb=0&includeentitytypes=address,neighborhood,populatedplace,postcode1,admindivision1,admindivision2,countryregion",
+  "ContentFileName": "GET.8277CD82EEA240E37401E9722690EA4AF2939F69.content.json",
+  "ResponseHeaders": {
+    "Transfer-Encoding": [
+      "chunked"
+    ],
+    "Vary": [
+      "Accept-Encoding"
+    ],
+    "X-BM-TraceID": [
+      "3c09c176651a465fbde9fb79a50a5787"
+    ],
+    "X-BM-BE-Elapsed": [
+      "14"
+    ],
+    "X-BM-FE-Elapsed": [
+      "21"
+    ],
+    "X-BM-Srv": [
+      "BN20240423, BN1AAP13654FC6E"
+    ],
+    "X-MS-BM-WS-INFO": [
+      "0"
+    ],
+    "Cache-Control": [
+      "no-cache"
+    ],
+    "Date": [
+      "Thu, 06 Apr 2017 02:13:39 GMT"
+    ],
+    "Server": [
+      "Microsoft-IIS/8.0"
+    ],
+    "X-AspNet-Version": [
+      "4.0.30319"
+    ],
+    "X-Powered-By": [
+      "ASP.NET"
+    ]
+  },
+  "ContentHeaders": {
+    "Content-Type": [
+      "application/json; charset=utf-8"
+    ]
+  }
+}

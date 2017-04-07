@@ -8,47 +8,38 @@
   "Query": "",
   "ContentFileName": "GET.content.json",
   "ResponseHeaders": {
+    "X-GUploader-UploadID": [
+      "AEnB2Upi-KySkPDRNquuGEpHGTnR7PMDkkwkvmj8xE4THLHLaCRs5ORL_YsKasKskeF8VeGyVuB2PNaPgx24mib0Ug4QR4c_Bg"
+    ],
     "Vary": [
       "Origin",
       "X-Origin"
     ],
-    "X-Content-Type-Options": [
-      "nosniff"
-    ],
-    "X-Frame-Options": [
-      "SAMEORIGIN"
-    ],
-    "X-XSS-Protection": [
-      "1; mode=block"
-    ],
-    "Alternate-Protocol": [
-      "443:quic,p=1"
-    ],
     "Alt-Svc": [
-      "quic=\":443\"; p=\"1\"; ma=604800"
+      "quic=\":443\"; ma=2592000; v=\"37,36,35\""
     ],
     "Cache-Control": [
       "no-transform, must-revalidate, max-age=0, private"
     ],
     "Date": [
-      "Sat, 07 Nov 2015 02:05:23 GMT"
+      "Fri, 07 Apr 2017 10:24:07 GMT"
     ],
     "ETag": [
       "CAE="
     ],
     "Server": [
-      "GSE"
+      "UploadServer"
     ]
   },
   "ContentHeaders": {
     "Content-Length": [
-      "314"
+      "348"
     ],
     "Content-Type": [
       "application/json; charset=UTF-8"
     ],
     "Expires": [
-      "Sat, 07 Nov 2015 02:05:23 GMT"
+      "Fri, 07 Apr 2017 10:24:07 GMT"
     ]
   }
 }

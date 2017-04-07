@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Net.Http;
 using System.Text;
-using System.Text.RegularExpressions;
+using Microsoft.QueryStringDotNET;
 
 namespace FakeHttp
 {
@@ -18,29 +17,16 @@ namespace FakeHttp
         /// <summary>
         /// ctor
         /// </summary>
-        /// <param name="paramFilter">call back used to determine if a given query parameters should be excluded from serialziation</param>
-        /// 
-        [Obsolete("Use constructor that takes IResponseCallbacks instead")]
-        protected MessageFormatter(Func<string, string, bool> paramFilter)
-            : this(new ResponseCallbacks(paramFilter))
-        {
-        }
-
-        /// <summary>
-        /// ctor
-        /// </summary>
         /// <param name="callbacks">call back object to manage resposnes at runtime</param>
         protected MessageFormatter(IResponseCallbacks callbacks)
         {
-            if (callbacks == null) throw new ArgumentNullException("callbacks");
-
-            _responseCallbacks = callbacks;
+            _responseCallbacks = callbacks ?? throw new ArgumentNullException("callbacks");
         }
 
         /// <summary>
         /// A <see cref="IResponseCallbacks"/> to manage response handling at runtime
         /// </summary>
-        public IResponseCallbacks RepsonseCallbacks { get { return _responseCallbacks; } }
+        public IResponseCallbacks RepsonseCallbacks => _responseCallbacks; 
 
         /// <summary>
         /// Convert the <see cref="System.Net.Http.HttpResponseMessage"/> into an object
@@ -51,12 +37,12 @@ namespace FakeHttp
         public ResponseInfo PackageResponse(HttpResponseMessage response)
         {
             var uri = response.RequestMessage.RequestUri;
-            var query = NormalizeQuery(uri);
-            var fileName = ToFileName(response.RequestMessage, query);
+            var fileName = ToFileName(response.RequestMessage);
             var fileExtension = MimeMap.GetFileExtension(response?.Content?.Headers?.ContentType?.MediaType);            
 
             // since HttpHeaders is not a creatable object, store the headers off to the side
-            var headers = response.Headers.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            // also never put our FAKEHTTP header in the serializable object
+            var headers = response.Headers.Where(h => h.Key != "FAKEHTTP").ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
             var contentHeaders = response.Content.Headers.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
             return new ResponseInfo()
@@ -64,7 +50,7 @@ namespace FakeHttp
                 HttpVersion = response.Version,
                 StatusCode = response.StatusCode,
                 BaseUri = uri.GetComponents(UriComponents.NormalizedHost | UriComponents.Path, UriFormat.Unescaped),
-                Query = query,
+                Query = NormalizeQuery(uri),
                 // if file extension is null we have no content
                 ContentFileName = !string.IsNullOrEmpty(fileExtension) ? string.Concat(fileName, ".content", fileExtension) : null,
                 ResponseHeaders = headers,
@@ -95,8 +81,9 @@ namespace FakeHttp
         /// <param name="request">The request</param>
         /// <param name="query">Nomralized query string</param>
         /// <returns>Filename</returns>
-        public string ToFileName(HttpRequestMessage request, string query)
+        public string ToFileName(HttpRequestMessage request)
         {
+            var query = NormalizeQuery(request.RequestUri);
             if (string.IsNullOrEmpty(query))
             {
                 return ToShortFileName(request);
@@ -125,49 +112,23 @@ namespace FakeHttp
         /// </summary>
         /// <param name="uri">The <see cref="System.Uri"/></param>
         /// <returns>The normalized query string</returns>
-        public string NormalizeQuery(Uri uri)
+        private string NormalizeQuery(Uri uri)
         {
-            var sortedParams = from p in GetParameters(uri)
-                               orderby p
+            // QueryString leaves the '?' on the first parameter - make sure to trim it out
+            var sortedParams = from p in QueryString.Parse(uri.Query.TrimStart('?'))
+                               where !_responseCallbacks.FilterParameter(p.Name, p.Value)
+                               orderby p.Name
                                select p;
 
             var builder = new StringBuilder();
             var seperator = "";
             foreach (var param in sortedParams)
             {
-                builder.AppendFormat("{0}{1}", seperator, param);
+                builder.Append($"{seperator}{param.Name}={param.Value}");
                 seperator = "&";
             }
 
             return builder.ToString().ToLowerInvariant();
-        }
-
-        private static readonly Regex _regex = new Regex(@"[?|&]([\w\.]+)=([^?|^&]+)");
-
-        private static IReadOnlyDictionary<string, string> ParseQueryString(Uri uri)
-        {
-            var match = _regex.Match(uri.PathAndQuery);
-            var paramaters = new Dictionary<string, string>();
-            while (match.Success)
-            {
-                paramaters.Add(match.Groups[1].Value, match.Groups[2].Value);
-                match = match.NextMatch();
-            }
-            return paramaters;
-        }
-
-        private IEnumerable<string> GetParameters(Uri uri)
-        {
-            foreach (var param in ParseQueryString(uri))
-            {
-                var name = param.Key;
-                var value = param.Value ?? "";
-
-                if (!_responseCallbacks.FilterParameter(name, value))
-                {
-                    yield return string.Format("{0}={1}", name, value);
-                }
-            }
         }
     }
 }

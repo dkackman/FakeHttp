@@ -41,8 +41,8 @@ namespace GeoCoderTests
         {
             var coord = await _service.GetCoordinate(null, null, null, "55116", "US");
 
-            Assert.IsTrue(coord.Item1.AboutEqual(44.910392761230469));
-            Assert.IsTrue(coord.Item2.AboutEqual(-93.171073913574219));
+            Assert.IsTrue(coord.Item1.AboutEqual(44.9025726318359));
+            Assert.IsTrue(coord.Item2.AboutEqual(-93.1686477661133));
         }
 
         [TestMethod]
@@ -60,8 +60,8 @@ namespace GeoCoderTests
         {
             var coord = await _service.GetCoordinate("One Microsoft Way", "Redmond", "WA", "98052", "US");
 
-            Assert.IsTrue(coord.Item1.AboutEqual(47.640049383044243));
-            Assert.IsTrue(coord.Item2.AboutEqual(-122.12979689240456));
+            Assert.IsTrue(coord.Item1.AboutEqual(47.63909));
+            Assert.IsTrue(coord.Item2.AboutEqual(-122.1306));
         }
 
         [TestMethod]
@@ -78,8 +78,8 @@ namespace GeoCoderTests
             };
             var coord = await _service.GetCoordinate(address);
 
-            Assert.IsTrue(coord.Item1.AboutEqual(47.640049383044243));
-            Assert.IsTrue(coord.Item2.AboutEqual(-122.12979689240456));
+            Assert.IsTrue(coord.Item1.AboutEqual(47.63909));
+            Assert.IsTrue(coord.Item2.AboutEqual(-122.1306));
         }
 
         [TestMethod]
@@ -88,8 +88,8 @@ namespace GeoCoderTests
         {
             var coord = await _service.QueryCoordinate("One Microsoft Way, Redmond, WA 98052");
 
-            Assert.IsTrue(coord.Item1.AboutEqual(47.640049383044243));
-            Assert.IsTrue(coord.Item2.AboutEqual(-122.12979689240456));
+            Assert.IsTrue(coord.Item1.AboutEqual(47.63909));
+            Assert.IsTrue(coord.Item2.AboutEqual(-122.1306));
         }
 
         [TestMethod]

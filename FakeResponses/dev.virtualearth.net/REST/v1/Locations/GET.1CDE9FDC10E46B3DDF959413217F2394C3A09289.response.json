@@ -1,0 +1,53 @@
+﻿{
+  "HttpVersion": {
+    "Major": 1,
+    "Minor": 1
+  },
+  "StatusCode": 200,
+  "BaseUri": "dev.virtualearth.net/REST/v1/Locations",
+  "Query": "addressline=one microsoft way&admindistrict=wa&c=en-us&countryregion=us&key=ah3kbto3omxnc0teittbdbthwiilxoyk6iizyz2z-_jfydm826rc8vhovz8pj3qz&locality=redmond&maxres=1&postalcode=98052",
+  "ContentFileName": "GET.1CDE9FDC10E46B3DDF959413217F2394C3A09289.content.json",
+  "ResponseHeaders": {
+    "Transfer-Encoding": [
+      "chunked"
+    ],
+    "Vary": [
+      "Accept-Encoding"
+    ],
+    "X-BM-TraceID": [
+      "9b3b9aa3b25243ca8cb8556448abc68d"
+    ],
+    "X-BM-BE-Elapsed": [
+      "135"
+    ],
+    "X-BM-FE-Elapsed": [
+      "143"
+    ],
+    "X-BM-Srv": [
+      "BN20130523"
+    ],
+    "X-MS-BM-WS-INFO": [
+      "0"
+    ],
+    "Cache-Control": [
+      "no-cache"
+    ],
+    "Date": [
+      "Thu, 06 Apr 2017 01:55:26 GMT"
+    ],
+    "Server": [
+      "Microsoft-IIS/8.0"
+    ],
+    "X-AspNet-Version": [
+      "4.0.30319"
+    ],
+    "X-Powered-By": [
+      "ASP.NET"
+    ]
+  },
+  "ContentHeaders": {
+    "Content-Type": [
+      "application/json; charset=utf-8"
+    ]
+  }
+}

@@ -12,8 +12,7 @@ namespace FakeHttp
                 return "";
             }
 
-            string ret;
-            if (types.TryGetValue(mimeType, out ret))
+            if (types.TryGetValue(mimeType, out string ret))
             {
                 return ret;
             }

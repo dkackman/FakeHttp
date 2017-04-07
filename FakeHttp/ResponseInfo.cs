@@ -16,15 +16,12 @@ namespace FakeHttp
         /// </summary>
         public ResponseInfo()
         {
-            HttpVersion = new Version(1, 1);
-            ResponseHeaders = new Dictionary<string, IEnumerable<string>>(StringComparer.OrdinalIgnoreCase);
-            ContentHeaders = new Dictionary<string, IEnumerable<string>>(StringComparer.OrdinalIgnoreCase);
         }
 
         /// <summary>
         /// <see cref="HttpResponseMessage.Version"/>
         /// </summary>
-        public Version HttpVersion { get; set; }
+        public Version HttpVersion { get; set; } = new Version(1, 1);
 
         /// <summary>
         /// The response status code
@@ -49,12 +46,12 @@ namespace FakeHttp
         /// <summary>
         /// The response headers
         /// </summary>
-        public Dictionary<string, IEnumerable<string>> ResponseHeaders { get; set; }
+        public Dictionary<string, IEnumerable<string>> ResponseHeaders { get; set; } = new Dictionary<string, IEnumerable<string>>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// The content headers
         /// </summary>
-        public Dictionary<string, IEnumerable<string>> ContentHeaders { get; set; }
+        public Dictionary<string, IEnumerable<string>> ContentHeaders { get; set; } = new Dictionary<string, IEnumerable<string>>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// Create an <see cref="System.Net.Http.HttpResponseMessage"/> from the object's state
@@ -64,9 +61,11 @@ namespace FakeHttp
         /// <returns>The <see cref="System.Net.Http.HttpResponseMessage"/></returns>
         public HttpResponseMessage CreateResponse(HttpRequestMessage request, Stream content)
         {
-            var response = new HttpResponseMessage(StatusCode);
-            response.Version = HttpVersion;
-            response.RequestMessage = request;
+            var response = new HttpResponseMessage(StatusCode)
+            {
+                Version = HttpVersion,
+                RequestMessage = request
+            };
 
             foreach (var kvp in ResponseHeaders)
             {

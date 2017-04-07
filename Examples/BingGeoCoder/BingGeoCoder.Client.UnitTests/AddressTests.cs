@@ -60,7 +60,7 @@ namespace GeoCoderTests
         {
             var address = await _service.ParseAddress("One Microsoft Way, Redmond, WA 98052");
 
-            Assert.AreEqual("1 Microsoft Way", address.addressLine);
+            Assert.AreEqual("Microsoft Way", address.addressLine);
             Assert.AreEqual("Redmond", address.locality);
             Assert.AreEqual("WA", address.adminDistrict);
             Assert.AreEqual("98052", address.postalCode);

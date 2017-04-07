@@ -9,7 +9,7 @@ using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace FakeHttp
+namespace FakeHttp.UnitTests
 {
     static class Extensions
     {

@@ -7,12 +7,12 @@ namespace FakeHttp.Store
     sealed class StoreMessageFormatter : MessageFormatter
     {
         public StoreMessageFormatter()
-            : this((name, value) => false)
+            : this(new ResponseCallbacks())
         {
         }
 
-        public StoreMessageFormatter(Func<string, string, bool> paramFilter)
-            : base(paramFilter)
+        public StoreMessageFormatter(IResponseCallbacks callbacks)
+            : base(callbacks)
         {
         }
 

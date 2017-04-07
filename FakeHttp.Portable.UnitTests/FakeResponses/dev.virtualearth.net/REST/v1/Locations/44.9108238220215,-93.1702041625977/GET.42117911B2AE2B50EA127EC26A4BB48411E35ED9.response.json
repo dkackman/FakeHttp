@@ -1,0 +1,42 @@
+﻿{
+  "StatusCode": 200,
+  "Query": "c=en-us&inclnb=1&includeentitytypes=neighborhood",
+  "ContentFileName": "GET.42117911B2AE2B50EA127EC26A4BB48411E35ED9.content.json",
+  "ResponseHeaders": {
+    "Transfer-Encoding": [
+      "chunked"
+    ],
+    "Vary": [
+      "Accept-Encoding"
+    ],
+    "X-BM-TraceID": [
+      "667b29a5b73d4c66b10acf7f18326bce"
+    ],
+    "X-BM-Srv": [
+      "BN20130523, BN2SCH020180821, BN2SCH020220733"
+    ],
+    "X-MS-BM-WS-INFO": [
+      "0"
+    ],
+    "Cache-Control": [
+      "no-cache"
+    ],
+    "Date": [
+      "Fri, 17 Jul 2015 02:54:50 GMT"
+    ],
+    "Server": [
+      "Microsoft-IIS/8.0"
+    ],
+    "X-AspNet-Version": [
+      "4.0.30319"
+    ],
+    "X-Powered-By": [
+      "ASP.NET"
+    ]
+  },
+  "ContentHeaders": {
+    "Content-Type": [
+      "application/json; charset=utf-8"
+    ]
+  }
+}
