@@ -48,7 +48,6 @@ namespace FakeHttp
         public async Task<bool> Exists(HttpRequestMessage request)
         {
             var folderPath = _formatter.ToResourcePath(request.RequestUri);
-
             var longName = _formatter.ToName(request, _callbacks.FilterParameter);
             var shortName = _formatter.ToShortName(request);
 
@@ -65,7 +64,6 @@ namespace FakeHttp
             if (request == null) throw new ArgumentNullException("request");
 
             var folderPath = _formatter.ToResourcePath(request.RequestUri);
-
             var longName = _formatter.ToName(request, _callbacks.FilterParameter);
             var shortName = _formatter.ToShortName(request);
 
@@ -96,12 +94,7 @@ namespace FakeHttp
                 Debug.WriteLine($"Creating response from {Path.Combine(folder, fileName)}");
 
                 var json = await _resources.LoadAsString(folder, fileName);
-                var info = JsonConvert.DeserializeObject<ResponseInfo>(json);
-
-                if (info == null)
-                {
-                    return null;
-                }
+                var info = JsonConvert.DeserializeObject<ResponseInfo>(json) ?? throw new InvalidDataException("The response exists but could not be deserialized");
 
                 var content = await _callbacks.Deserialized(info, await _resources.LoadAsStream(folder, info.ContentFileName));
 

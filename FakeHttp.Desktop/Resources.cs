@@ -24,7 +24,7 @@ namespace FakeHttp.Desktop
 
         public async Task<string> LoadAsString(string folder, string fileName)
         {
-            if (! await Exists(folder, fileName)) return null;
+            if (!await Exists(folder, fileName)) return null;
 
             using (var reader = new StreamReader(FullPath(folder, fileName)))
             {
