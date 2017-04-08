@@ -15,7 +15,6 @@ namespace FakeHttp
     /// </summary>
     public sealed class FileSystemResponseStore : IResponseStore
     {
-        private readonly MessageFormatter _formatter;
         private readonly ResponseLoader _responseLoader;
 
         private readonly string _captureFolder;
@@ -59,11 +58,11 @@ namespace FakeHttp
         public FileSystemResponseStore(string storeFolder, string captureFolder, IResponseCallbacks callbacks)
         {
             if (string.IsNullOrEmpty(storeFolder)) throw new ArgumentException("storeFolder cannot be empty", "storeFolder");
-            if (string.IsNullOrEmpty(storeFolder)) throw new ArgumentException("captureFolder cannot be empty", "captureFolder");
+            if (string.IsNullOrEmpty(captureFolder)) throw new ArgumentException("captureFolder cannot be empty", "captureFolder");
+            if (callbacks == null) throw new ArgumentNullException("callbacks");
 
             _captureFolder = captureFolder;
-            _formatter = new MessageFormatter(callbacks);
-            _responseLoader = new DesktopResponseLoader(storeFolder, _formatter);
+            _responseLoader = new ResponseLoader(callbacks, new Resources(storeFolder));
         }
 
         /// <summary>
@@ -74,6 +73,8 @@ namespace FakeHttp
         /// <returns>True if a response exists for the request. Otherwise false</returns>
         public async Task<bool> ResponseExists(HttpRequestMessage request)
         {
+            if (request == null) throw new ArgumentNullException("request");
+
             return await _responseLoader.Exists(request);
         }
 
@@ -84,6 +85,8 @@ namespace FakeHttp
         /// <returns>The response messsage</returns>
         public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
         {
+            if (request == null) throw new ArgumentNullException("request");
+
             return await _responseLoader.FindResponse(request);
         }
 
@@ -96,20 +99,19 @@ namespace FakeHttp
         {
             if (response == null) throw new ArgumentNullException("response");
 
-            var folderPath = Path.Combine(_captureFolder, _formatter.ToFolderPath(response.RequestMessage.RequestUri));
-            var fileName = _formatter.ToFileName(response.RequestMessage);
-
-            Directory.CreateDirectory(folderPath);
+            var folderPath = Path.Combine(_captureFolder, _responseLoader.Formatter.ToResourcePath(response.RequestMessage.RequestUri));
+            var fileName = _responseLoader.Formatter.ToName(response.RequestMessage, _responseLoader.RepsonseCallbacks.FilterParameter );
 
             // this is the object that is serialized (response, normalized request query and pointer to the content file)
-            var info = _formatter.PackageResponse(response);
+            var info = _responseLoader.Formatter.PackageResponse(response, _responseLoader.RepsonseCallbacks.FilterParameter);
 
+            Directory.CreateDirectory(folderPath);
             // just read the entire content stream and serialize it 
             using (var file = new FileStream(Path.Combine(folderPath, info.ContentFileName), FileMode.Create, FileAccess.Write, FileShare.Read))
             {
                 await response.Content.LoadIntoBufferAsync();
-                
-                var content = await _formatter.RepsonseCallbacks.Serializing(response);
+
+                var content = await _responseLoader.RepsonseCallbacks.Serializing(response);
 
                 await content.CopyToAsync(file);
             }

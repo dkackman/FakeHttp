@@ -43,7 +43,7 @@ namespace FakeHttp.UnitTests
 
                 // assert we stored it where we want it to go
                 var formatter = new MessageFormatter();
-                var folderPath = Path.Combine(captureFolder, formatter.ToFolderPath(response.RequestMessage.RequestUri), response.RequestMessage.Method.Method);
+                var folderPath = Path.Combine(captureFolder, formatter.ToResourcePath(response.RequestMessage.RequestUri), response.RequestMessage.Method.Method);
                 Assert.IsTrue(File.Exists(folderPath + ".response.json"));
                 Assert.IsTrue(File.Exists(folderPath + ".content.json"));
             }

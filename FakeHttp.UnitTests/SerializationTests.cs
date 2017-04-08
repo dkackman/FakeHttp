@@ -27,7 +27,7 @@ namespace FakeHttp.UnitTests
                 var formatter = new MessageFormatter();
 
                 // this is the object that is serialized (response, normalized request query and pointer to the content file)
-                var info = formatter.PackageResponse(response);
+                var info = formatter.PackageResponse(response, (s1, s2) => false);
 
                 Assert.IsNotNull(info);
                 Assert.IsTrue(info.ContentFileName.EndsWith("json"));
@@ -47,7 +47,7 @@ namespace FakeHttp.UnitTests
                 var formatter = new MessageFormatter();
 
                 // this is the object that is serialized (response, normalized request query and pointer to the content file)
-                var info = formatter.PackageResponse(response);
+                var info = formatter.PackageResponse(response, (s1, s2) => false);
 
                 var json = JsonConvert.SerializeObject(info, Formatting.Indented);
                 var newInfo = JsonConvert.DeserializeObject<ResponseInfo>(json);
@@ -71,7 +71,7 @@ namespace FakeHttp.UnitTests
                 var formatter = new MessageFormatter();
 
                 // this is the object that is serialized (response, normalized request query and pointer to the content file)
-                var info = formatter.PackageResponse(response);
+                var info = formatter.PackageResponse(response, (s1, s2) => false);
                 var json = JsonConvert.SerializeObject(info, Formatting.Indented);
 
                 var newInfo = JsonConvert.DeserializeObject<ResponseInfo>(json);

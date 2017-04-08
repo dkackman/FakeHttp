@@ -3,17 +3,16 @@ using System.Threading.Tasks;
 
 namespace FakeHttp.Desktop
 {
-    sealed class DesktopResponseLoader : ResponseLoader
+    sealed class Resources : IResources
     {
         private readonly string _storeFolder;
 
-        public DesktopResponseLoader(string storeFolder, MessageFormatter formatter)
-            : base(formatter)
+        public Resources(string storeFolder)
         {
             _storeFolder = storeFolder;
         }
 
-        protected override async Task<bool> Exists(string folder, string fileName)
+        public async Task<bool> Exists(string folder, string fileName)
         {
             return await Task.Run<bool>(() =>
                 {
@@ -21,7 +20,7 @@ namespace FakeHttp.Desktop
                 });
         }
 
-        protected override async Task<string> LoadAsString(string folder, string fileName)
+        public async Task<string> LoadAsString(string folder, string fileName)
         {
             using (var reader = new StreamReader(FullPath(folder, fileName)))
             {
@@ -29,7 +28,7 @@ namespace FakeHttp.Desktop
             }
         }
 
-        protected override async Task<Stream> LoadAsStream(string folder, string fileName)
+        public async Task<Stream> LoadAsStream(string folder, string fileName)
         {
             return await Task.Run(() =>
                  new FileStream(FullPath(folder, fileName), FileMode.Open, FileAccess.Read, FileShare.Read));

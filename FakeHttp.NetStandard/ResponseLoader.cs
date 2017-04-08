@@ -13,42 +13,32 @@ namespace FakeHttp
     /// Base class for file based response message retrieval that allows 
     /// separation between desktop and universal app machanisms for file api
     /// </summary>
-    public abstract class ResponseLoader
+    public sealed class ResponseLoader
     {
-        private readonly MessageFormatter _formatter;
+        private readonly MessageFormatter _formatter = new MessageFormatter();
+        private readonly IResponseCallbacks _callbacks;
+        private readonly IResources _resources;
 
         /// <summary>
-        /// ctor 
+        /// 
         /// </summary>
-        /// <param name="formatter">PLatofrma specific formatter object</param>
-        protected ResponseLoader(MessageFormatter formatter)
+        /// <param name="callbacks"></param>
+        /// <param name="resources"></param>
+        public ResponseLoader(IResponseCallbacks callbacks, IResources resources)
         {
-            _formatter = formatter ?? throw new ArgumentNullException("formatter");
+            _callbacks = callbacks ?? throw new ArgumentNullException("callbacks");
+            _resources = resources ?? throw new ArgumentNullException("loader");
         }
 
         /// <summary>
-        /// Checks whether the specified file exists
+        /// 
         /// </summary>
-        /// <param name="folder">The folder name</param>
-        /// <param name="fileName">The file name</param>
-        /// <returns>Flag indicating whether file exists</returns>
-        protected abstract Task<bool> Exists(string folder, string fileName);
+        public IResponseCallbacks RepsonseCallbacks => _callbacks;
 
         /// <summary>
-        /// Loads a given file as a string
+        /// 
         /// </summary>
-        /// <param name="folder">The folder name</param>
-        /// <param name="fileName">The file name</param>
-        /// <returns>The file's contents as a string</returns>
-        protected abstract Task<string> LoadAsString(string folder, string fileName);
-
-        /// <summary>
-        /// Loads a given file as a stream
-        /// </summary>
-        /// <param name="folder">The folder name</param>
-        /// <param name="fileName">The file name</param>
-        /// <returns>File's contents as a stream</returns>
-        protected abstract Task<Stream> LoadAsStream(string folder, string fileName);
+        public MessageFormatter Formatter => _formatter;
 
         /// <summary>
         /// Determines if a <see cref="HttpResponseMessage"/> exists for the 
@@ -58,12 +48,12 @@ namespace FakeHttp
         /// <returns>True if a response exists for the request. Otherwise false</returns>
         public async Task<bool> Exists(HttpRequestMessage request)
         {
-            var folderPath = _formatter.ToFolderPath(request.RequestUri);
+            var folderPath = _formatter.ToResourcePath(request.RequestUri);
 
-            var longName = _formatter.ToFileName(request);
-            var shortName = _formatter.ToShortFileName(request);
+            var longName = _formatter.ToName(request, _callbacks.FilterParameter);
+            var shortName = _formatter.ToShortName(request);
 
-            return await Exists(folderPath, longName + ".response.json") || await Exists(folderPath, shortName + ".response.json");
+            return await _resources.Exists(folderPath, longName + ".response.json") || await _resources.Exists(folderPath, shortName + ".response.json");
         }
 
         /// <summary>
@@ -75,10 +65,10 @@ namespace FakeHttp
         {
             if (request == null) throw new ArgumentNullException("request");
 
-            var folderPath = _formatter.ToFolderPath(request.RequestUri);
+            var folderPath = _formatter.ToResourcePath(request.RequestUri);
 
-            var longName = _formatter.ToFileName(request);
-            var shortName = _formatter.ToShortFileName(request);
+            var longName = _formatter.ToName(request, _callbacks.FilterParameter);
+            var shortName = _formatter.ToShortName(request);
 
             // first try to find a file keyed to the request method and query
             var response = await DeserializeResponse(request, folderPath, longName)
@@ -102,11 +92,11 @@ namespace FakeHttp
         {
             var fileName = baseName + ".response.json";
             // first look for a completely serialized response
-            if (await Exists(folder, fileName))
+            if (await _resources.Exists(folder, fileName))
             {
                 Debug.WriteLine($"Creating response from {Path.Combine(folder, fileName)}");
 
-                var json = await LoadAsString(folder, fileName);
+                var json = await _resources.LoadAsString(folder, fileName);
                 var info = JsonConvert.DeserializeObject<ResponseInfo>(json);
 
                 if (info == null)
@@ -114,7 +104,7 @@ namespace FakeHttp
                     return null;
                 }
 
-                var content = await _formatter.RepsonseCallbacks.Deserialized(info, await LoadContentStream(folder, info.ContentFileName));
+                var content = await _callbacks.Deserialized(info, await LoadContentStream(folder, info.ContentFileName));
 
                 return info.CreateResponse(request, content);
             }
@@ -132,7 +122,7 @@ namespace FakeHttp
             {
                 Debug.WriteLine($"Creating response from {Path.Combine(folder, fileName)}");
 
-                var content = await _formatter.RepsonseCallbacks.Deserialized(null, stream);
+                var content = await _callbacks.Deserialized(null, stream);
 
                 // no serialized response but we have serialized content
                 // craft a response and attach content
@@ -149,9 +139,9 @@ namespace FakeHttp
 
         private async Task<Stream> LoadContentStream(string folder, string fileName)
         {
-            if (!string.IsNullOrEmpty(folder) && !string.IsNullOrEmpty(fileName) && await Exists(folder, fileName))
+            if (!string.IsNullOrEmpty(folder) && !string.IsNullOrEmpty(fileName) && await _resources.Exists(folder, fileName))
             {
-                return await LoadAsStream(folder, fileName);
+                return await _resources.LoadAsStream(folder, fileName);
             }
 
             return null;
