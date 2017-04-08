@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Diagnostics;
 
 namespace FakeHttp
 {
@@ -6,10 +7,10 @@ namespace FakeHttp
     {
         public static HttpResponseMessage PrepareResponse(this HttpResponseMessage response)
         {
-            if (response != null)
-            {
-                response.Headers.TryAddWithoutValidation("FAKEHTTP", "1");
-            }
+            Debug.Assert(response != null);
+
+            response.Headers.TryAddWithoutValidation("FAKEHTTP", "1");
+
             return response;
         }
     }
