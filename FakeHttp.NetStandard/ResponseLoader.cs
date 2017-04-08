@@ -77,7 +77,7 @@ namespace FakeHttp
                 // otherwise return 404            
                 ?? await Create404(request, folderPath, longName, shortName);
 
-            return response.PrepareResponse();
+            return response.Prepare();
         }
 
         private static async Task<HttpResponseMessage> Create404(HttpRequestMessage request, string folderPath, string longName, string shortName)

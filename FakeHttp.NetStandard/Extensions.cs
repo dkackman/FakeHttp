@@ -11,7 +11,7 @@ namespace FakeHttp
 {
     static class Extensions
     {
-        public static HttpResponseMessage PrepareResponse(this HttpResponseMessage response)
+        public static HttpResponseMessage Prepare(this HttpResponseMessage response)
         {
             Debug.Assert(response != null);
 

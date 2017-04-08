@@ -51,7 +51,7 @@ namespace FakeHttp
         /// Retrieve folder friendly representation of a Uri
         /// </summary>
         /// <param name="uri">The uri</param>
-        /// <returns>Folder path</returns>
+        /// <returns>Resource path</returns>
         public string ToResourcePath(Uri uri)
         {
             return Path.Combine(uri.Host, uri.LocalPath.TrimStart('/')).Replace("/", "\\");
@@ -61,7 +61,6 @@ namespace FakeHttp
         /// Deterministically generated file name for a request message
         /// </summary>
         /// <param name="request">The request</param>
-        /// <param name="query">Nomralized query string</param>
         /// <returns>Filename</returns>
         public string ToName(HttpRequestMessage request, Func<string, string, bool> filter)
         {
