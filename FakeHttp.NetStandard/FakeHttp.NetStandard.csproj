@@ -24,6 +24,7 @@
     <RepositoryUrl>https://github.com/dkackman/FakeHttp</RepositoryUrl>
     <PackageTags>PCL http REST mock fake stub unit test testing .net</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RootNamespace>FakeHttp</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
