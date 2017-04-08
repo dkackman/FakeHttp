@@ -15,7 +15,7 @@ namespace FakeHttp
     /// </summary>
     public sealed class FileSystemResponseStore : IResponseStore
     {
-        private readonly ResponseLoader _responseLoader;
+        private readonly ResponseAdapter _responseAdapter;
 
         private readonly string _captureFolder;
 
@@ -62,7 +62,7 @@ namespace FakeHttp
             if (callbacks == null) throw new ArgumentNullException("callbacks");
 
             _captureFolder = captureFolder;
-            _responseLoader = new ResponseLoader(callbacks, new Resources(storeFolder));
+            _responseAdapter = new ResponseAdapter(new Resources(storeFolder), callbacks);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace FakeHttp
         {
             if (request == null) throw new ArgumentNullException("request");
 
-            return await _responseLoader.Exists(request);
+            return await _responseAdapter.Exists(request);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace FakeHttp
         {
             if (request == null) throw new ArgumentNullException("request");
 
-            return await _responseLoader.FindResponse(request);
+            return await _responseAdapter.FindResponse(request);
         }
 
         /// <summary>
@@ -99,11 +99,11 @@ namespace FakeHttp
         {
             if (response == null) throw new ArgumentNullException("response");
 
-            var folderPath = Path.Combine(_captureFolder, _responseLoader.Formatter.ToResourcePath(response.RequestMessage.RequestUri));
-            var fileName = _responseLoader.Formatter.ToName(response.RequestMessage, _responseLoader.RepsonseCallbacks.FilterParameter );
+            var folderPath = Path.Combine(_captureFolder, _responseAdapter.Formatter.ToResourcePath(response.RequestMessage.RequestUri));
+            var fileName = _responseAdapter.Formatter.ToName(response.RequestMessage, _responseAdapter.RepsonseCallbacks.FilterParameter );
 
             // this is the object that is serialized (response, normalized request query and pointer to the content file)
-            var info = _responseLoader.Formatter.PackageResponse(response, _responseLoader.RepsonseCallbacks.FilterParameter);
+            var info = _responseAdapter.Formatter.PackageResponse(response, _responseAdapter.RepsonseCallbacks.FilterParameter);
 
             Directory.CreateDirectory(folderPath);
             // just read the entire content stream and serialize it 
@@ -111,7 +111,7 @@ namespace FakeHttp
             {
                 await response.Content.LoadIntoBufferAsync();
 
-                var content = await _responseLoader.RepsonseCallbacks.Serializing(response);
+                var content = await _responseAdapter.RepsonseCallbacks.Serializing(response);
 
                 await content.CopyToAsync(file);
             }

@@ -10,24 +10,23 @@ using Newtonsoft.Json;
 namespace FakeHttp
 {
     /// <summary>
-    /// Base class for file based response message retrieval that allows 
-    /// separation between desktop and universal app machanisms for file api
+    /// Adapts an <see cref="HttpResponseMessage"/> to a <see cref="IResources"/>
     /// </summary>
-    public sealed class ResponseLoader
+    public sealed class ResponseAdapter
     {
         private readonly MessageFormatter _formatter = new MessageFormatter();
-        private readonly IResponseCallbacks _callbacks;
         private readonly IResources _resources;
+        private readonly IResponseCallbacks _callbacks;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="callbacks"></param>
         /// <param name="resources"></param>
-        public ResponseLoader(IResponseCallbacks callbacks, IResources resources)
+        public ResponseAdapter(IResources resources, IResponseCallbacks callbacks)
         {
-            _callbacks = callbacks ?? throw new ArgumentNullException("callbacks");
             _resources = resources ?? throw new ArgumentNullException("loader");
+            _callbacks = callbacks ?? throw new ArgumentNullException("callbacks");
         }
 
         /// <summary>
@@ -104,7 +103,7 @@ namespace FakeHttp
                     return null;
                 }
 
-                var content = await _callbacks.Deserialized(info, await LoadContentStream(folder, info.ContentFileName));
+                var content = await _callbacks.Deserialized(info, await _resources.LoadAsStream(folder, info.ContentFileName));
 
                 return info.CreateResponse(request, content);
             }
@@ -117,7 +116,7 @@ namespace FakeHttp
         {
             var fileName = baseName + ".content.json"; // only json supported as raw content right now
 
-            var stream = await LoadContentStream(folder, fileName);
+            var stream = await _resources.LoadAsStream(folder, fileName);
             if (stream != null)
             {
                 Debug.WriteLine($"Creating response from {Path.Combine(folder, fileName)}");
@@ -134,16 +133,6 @@ namespace FakeHttp
             }
 
             Debug.WriteLine($"No response found for {Path.Combine(folder, baseName)}");
-            return null;
-        }
-
-        private async Task<Stream> LoadContentStream(string folder, string fileName)
-        {
-            if (!string.IsNullOrEmpty(folder) && !string.IsNullOrEmpty(fileName) && await _resources.Exists(folder, fileName))
-            {
-                return await _resources.LoadAsStream(folder, fileName);
-            }
-
             return null;
         }
     }
