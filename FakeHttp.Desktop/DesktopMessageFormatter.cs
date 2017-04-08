@@ -23,7 +23,7 @@ namespace FakeHttp.Desktop
                 return string.Empty;
             }
 
-            using (var sha1 = new SHA1Managed())
+            using (var sha1 = SHA1.Create())
             {
                 byte[] textData = Encoding.UTF8.GetBytes(text);
                 byte[] hash = sha1.ComputeHash(textData);
