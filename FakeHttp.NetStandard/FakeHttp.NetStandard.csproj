@@ -2,6 +2,28 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
+    <PackageId>Dkackman.FakeHttp</PackageId>
+    <Authors>dkackman</Authors>
+    <Version>2.0.0</Version>
+    <Company>kackman.net</Company>
+    <Product>FakeHttp</Product>
+    <Description>A library to allow faking of client http logic with System.Net.Http. Supports recording and playback of responses. 
+      Particularly useful for separating client-side unit tests from web services.</Description>
+    <PackageReleaseNotes>1.0.0 - Initial release renamed to FakeHttp
+1.1.0 - Bug fixes
+  Add ability to control response serializaion and deserialization via IResponseCallbacks
+1.2.0 - Set Date header automatically by default
+  - bug fix https://github.com/dkackman/FakeHttp/issues/1
+1.2.1 - Add Universal support
+1.3.0 - Add Automatic mode</PackageReleaseNotes>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Copyright>Copyright Don Kackman 2015</Copyright>
+    <PackageLicenseUrl>http://opensource.org/licenses/Apache-2.0</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/dkackman/FakeHttp</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/dkackman/DynamicRestProxy/master/nugeticon.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/dkackman/FakeHttp</RepositoryUrl>
+    <PackageTags>PCL http REST mock fake stub unit test testing .net</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
