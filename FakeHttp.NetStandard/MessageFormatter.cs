@@ -3,6 +3,8 @@ using System.Linq;
 using System.IO;
 using System.Net.Http;
 using System.Text;
+using System.Security.Cryptography;
+
 using Microsoft.QueryStringDotNET;
 
 namespace FakeHttp
@@ -10,15 +12,19 @@ namespace FakeHttp
     /// <summary>
     /// Base class that formats http request and response message data prior to serialization
     /// </summary>
-    public abstract class MessageFormatter
+    public sealed class MessageFormatter
     {
         private readonly IResponseCallbacks _responseCallbacks;
+        public MessageFormatter()
+            :this(new ResponseCallbacks())
+        {
+        }
 
         /// <summary>
         /// ctor
         /// </summary>
         /// <param name="callbacks">call back object to manage resposnes at runtime</param>
-        protected MessageFormatter(IResponseCallbacks callbacks)
+        public MessageFormatter(IResponseCallbacks callbacks)
         {
             _responseCallbacks = callbacks ?? throw new ArgumentNullException("callbacks");
         }
@@ -63,8 +69,21 @@ namespace FakeHttp
         /// </summary>
         /// <param name="text">The string to hash</param>
         /// <returns>The hash</returns>
-        public abstract string ToSha1Hash(string text);
+        public string ToSha1Hash(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.Empty;
+            }
 
+            using (var sha1 = SHA1.Create())
+            {
+                byte[] textData = Encoding.UTF8.GetBytes(text);
+                byte[] hash = sha1.ComputeHash(textData);
+
+                return BitConverter.ToString(hash).Replace("-", string.Empty);
+            }
+        }
         /// <summary>
         /// Retrieve folder friendly representation of a Uri
         /// </summary>

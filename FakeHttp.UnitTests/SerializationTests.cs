@@ -24,7 +24,7 @@ namespace FakeHttp.UnitTests
                 var response = await client.GetAsync("storage/v1/b/uspto-pair");
                 response.EnsureSuccessStatusCode();
 
-                var formatter = new DesktopMessageFormatter();
+                var formatter = new MessageFormatter();
 
                 // this is the object that is serialized (response, normalized request query and pointer to the content file)
                 var info = formatter.PackageResponse(response);
@@ -44,7 +44,7 @@ namespace FakeHttp.UnitTests
                 var response = await client.GetAsync("storage/v1/b/uspto-pair");
                 response.EnsureSuccessStatusCode();
 
-                var formatter = new DesktopMessageFormatter();
+                var formatter = new MessageFormatter();
 
                 // this is the object that is serialized (response, normalized request query and pointer to the content file)
                 var info = formatter.PackageResponse(response);
@@ -68,7 +68,7 @@ namespace FakeHttp.UnitTests
                 var response = await client.GetAsync("storage/v1/b/uspto-pair");
                 response.EnsureSuccessStatusCode();
 
-                var formatter = new DesktopMessageFormatter();
+                var formatter = new MessageFormatter();
 
                 // this is the object that is serialized (response, normalized request query and pointer to the content file)
                 var info = formatter.PackageResponse(response);

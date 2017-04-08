@@ -11,7 +11,7 @@ namespace FakeHttp.UnitTests
         [TestMethod]
         public void HashIsOrderIndependant()
         {
-            var formatter = new Desktop.DesktopMessageFormatter();
+            var formatter = new MessageFormatter();
 
             var request1 = new HttpRequestMessage(HttpMethod.Get, "http://www.example.com?a=1&b=2&c=3");
             var fileName1 = formatter.ToFileName(request1);
@@ -25,7 +25,7 @@ namespace FakeHttp.UnitTests
         [TestMethod]
         public void HashIsCaseInsensitive()
         {
-            var formatter = new Desktop.DesktopMessageFormatter();
+            var formatter = new MessageFormatter();
 
             var request1 = new HttpRequestMessage(HttpMethod.Get, "http://www.example.com?hi=there");
             var fileName1 = formatter.ToFileName(request1);
