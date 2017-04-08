@@ -5,8 +5,8 @@ using System.Linq;
 
 /// <summary>
 /// All this is from here: https://github.com/WindowsNotifications/QueryString.NET
+/// including form source because the nuget package wouldn't install into a netstandard project
 /// </summary>
-/// 
 namespace Microsoft.QueryStringDotNET
 {
     internal static class ListExtensions
