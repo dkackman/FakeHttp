@@ -11,7 +11,7 @@ using UnitTestHelpers;
 
 using Newtonsoft.Json;
 
-using FakeHttp.FileSystem;
+using FakeHttp.Stores;
 
 namespace FakeHttp.UnitTests
 {

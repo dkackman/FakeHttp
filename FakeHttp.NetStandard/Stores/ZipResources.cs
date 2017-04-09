@@ -1,13 +1,13 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace FakeHttp.FileSystem
+namespace FakeHttp.Stores
 {
-    sealed class FileSystemResources : IResources
+    sealed class ZipResources : IResources
     {
         private readonly string _storeFolder;
 
-        public FileSystemResources(string storeFolder)
+        public ZipResources(string storeFolder)
         {
             _storeFolder = storeFolder;
         }

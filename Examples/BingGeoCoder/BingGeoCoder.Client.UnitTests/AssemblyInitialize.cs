@@ -8,7 +8,7 @@ using Microsoft.Practices.ServiceLocation;
 using GalaSoft.MvvmLight.Ioc;
 
 using FakeHttp;
-using FakeHttp.FileSystem;
+using FakeHttp.Stores;
 
 namespace BingGeoCoder.Client.UnitTests
 {

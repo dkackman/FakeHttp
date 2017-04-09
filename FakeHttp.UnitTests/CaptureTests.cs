@@ -5,7 +5,7 @@ using System.IO;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using FakeHttp.FileSystem;
+using FakeHttp.Stores;
 
 namespace FakeHttp.UnitTests
 {
