@@ -17,7 +17,7 @@
 1.2.1 - Add Universal support
 1.3.0 - Add Automatic mode</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
-    <Copyright>Copyright Don Kackman 2015</Copyright>
+    <Copyright>Copyright Don Kackman 2015, 2017</Copyright>
     <PackageLicenseUrl>http://opensource.org/licenses/Apache-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/dkackman/FakeHttp</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/dkackman/DynamicRestProxy/master/nugeticon.png</PackageIconUrl>
