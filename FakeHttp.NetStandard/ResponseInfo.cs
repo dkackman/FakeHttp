@@ -10,13 +10,6 @@ namespace FakeHttp
     public sealed class ResponseInfo
     {
         /// <summary>
-        /// ctor
-        /// </summary>
-        public ResponseInfo()
-        {
-        }
-
-        /// <summary>
         /// <see cref="System.Net.Http.HttpResponseMessage.Version"/>
         /// </summary>
         public Version HttpVersion { get; set; } = new Version(1, 1);

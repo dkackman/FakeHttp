@@ -15,6 +15,8 @@ namespace FakeHttp
         {
             Debug.Assert(response != null);
 
+            // this header value is never serialized it is 
+            // used for debugging that the response was loaded from storage not retrieved from a live service
             response.Headers.TryAddWithoutValidation("FAKEHTTP", "1");
 
             return response;
@@ -22,15 +24,11 @@ namespace FakeHttp
 
         public static string Hash(this string text)
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                return string.Empty;
-            }
+            if (string.IsNullOrEmpty(text)) return string.Empty;
 
             using (var sha1 = SHA1.Create())
             {
-                byte[] textData = Encoding.UTF8.GetBytes(text);
-                byte[] hash = sha1.ComputeHash(textData);
+                byte[] hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(text));
 
                 return BitConverter.ToString(hash).Replace("-", string.Empty);
             }
