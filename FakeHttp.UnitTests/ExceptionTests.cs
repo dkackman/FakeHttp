@@ -4,6 +4,8 @@ using System.Net.Http;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+using FakeHttp.FileSystem;
+
 namespace FakeHttp.UnitTests
 {
     [TestClass]

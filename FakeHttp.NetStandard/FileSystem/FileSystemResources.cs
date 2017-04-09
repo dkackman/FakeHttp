@@ -1,13 +1,13 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace FakeHttp.Desktop
+namespace FakeHttp.FileSystem
 {
-    sealed class Resources : IResources
+    sealed class FileSystemResources : IResources
     {
         private readonly string _storeFolder;
 
-        public Resources(string storeFolder)
+        public FileSystemResources(string storeFolder)
         {
             _storeFolder = storeFolder;
         }
@@ -26,7 +26,7 @@ namespace FakeHttp.Desktop
         {
             if (!await Exists(folder, fileName)) return null;
 
-            using (var reader = new StreamReader(FullPath(folder, fileName)))
+            using (var reader = new StreamReader(await LoadAsStream(folder, fileName)))
             {
                 return await reader.ReadToEndAsync();
             }

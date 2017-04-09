@@ -11,6 +11,8 @@ using UnitTestHelpers;
 
 using Newtonsoft.Json;
 
+using FakeHttp.FileSystem;
+
 namespace FakeHttp.UnitTests
 {
     [TestClass]

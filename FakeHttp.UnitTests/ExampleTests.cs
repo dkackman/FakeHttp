@@ -6,6 +6,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using UnitTestHelpers;
 
+using FakeHttp.FileSystem;
+
 namespace FakeHttp.UnitTests
 {
     [TestClass]

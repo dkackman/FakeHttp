@@ -5,9 +5,7 @@ using System.IO;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using UnitTestHelpers;
-
-using FakeHttp.Desktop;
+using FakeHttp.FileSystem;
 
 namespace FakeHttp.UnitTests
 {

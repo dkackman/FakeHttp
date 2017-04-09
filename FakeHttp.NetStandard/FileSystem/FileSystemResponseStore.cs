@@ -6,9 +6,7 @@ using System.Text;
 
 using Newtonsoft.Json;
 
-using FakeHttp.Desktop;
-
-namespace FakeHttp
+namespace FakeHttp.FileSystem
 {
     /// <summary>
     /// Class that can store and retrieve response messages in a win32 runtime environment
@@ -62,7 +60,7 @@ namespace FakeHttp
             if (callbacks == null) throw new ArgumentNullException("callbacks");
 
             _captureFolder = captureFolder;
-            _responseAdapter = new ResponseAdapter(new Resources(storeFolder), callbacks);
+            _responseAdapter = new ResponseAdapter(new FileSystemResources(storeFolder), callbacks);
         }
 
         /// <summary>
@@ -100,7 +98,7 @@ namespace FakeHttp
             if (response == null) throw new ArgumentNullException("response");
 
             var folderPath = Path.Combine(_captureFolder, _responseAdapter.Formatter.ToResourcePath(response.RequestMessage.RequestUri));
-            var fileName = _responseAdapter.Formatter.ToName(response.RequestMessage, _responseAdapter.RepsonseCallbacks.FilterParameter );
+            var fileName = _responseAdapter.Formatter.ToName(response.RequestMessage, _responseAdapter.RepsonseCallbacks.FilterParameter);
 
             // this is the object that is serialized (response, normalized request query and pointer to the content file)
             var info = _responseAdapter.Formatter.PackageResponse(response, _responseAdapter.RepsonseCallbacks.FilterParameter);
@@ -118,7 +116,8 @@ namespace FakeHttp
 
             // now serialize the response object and its meta-data
             var json = JsonConvert.SerializeObject(info, Formatting.Indented, new VersionConverter());
-            using (var responseWriter = new StreamWriter(Path.Combine(folderPath, fileName + ".response.json"), false, Encoding.UTF8))
+            using (var stream = new FileStream(Path.Combine(folderPath, fileName + ".response.json"), FileMode.Create, FileAccess.Write, FileShare.Read))
+            using (var responseWriter = new StreamWriter(stream, Encoding.UTF8))
             {
                 responseWriter.Write(json);
             }

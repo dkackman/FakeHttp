@@ -25,6 +25,7 @@
     <PackageTags>PCL http REST mock fake stub unit test testing .net</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RootNamespace>FakeHttp</RootNamespace>
+    <AssemblyName>FakeHttp</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

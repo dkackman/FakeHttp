@@ -5,8 +5,6 @@ using System.Net.Http;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using FakeHttp.Desktop;
-
 using Newtonsoft.Json;
 
 namespace FakeHttp.UnitTests
