@@ -17,7 +17,7 @@ namespace FakeHttp
         }
 
         /// <summary>
-        /// <see cref="HttpResponseMessage.Version"/>
+        /// <see cref="System.Net.Http.HttpResponseMessage.Version"/>
         /// </summary>
         public Version HttpVersion { get; set; } = new Version(1, 1);
 

@@ -45,6 +45,7 @@ namespace FakeHttp
         /// - reassemble them into a query string (without leading '?')
         /// </summary>
         /// <param name="uri">The <see cref="System.Uri"/></param>
+        /// <param name="filter"></param>
         /// <returns>The normalized query string</returns>
         public static string NormalizeQuery(this Uri uri, Func<string, string, bool> filter)
         {

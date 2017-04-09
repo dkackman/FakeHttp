@@ -4,6 +4,9 @@ using System.Net.Http;
 
 namespace FakeHttp.Stores
 {
+    /// <summary>
+    /// A store that can serve responses from an <see cref="IResources"/> instance
+    /// </summary>
     public class ReadonlyResponseStore : IReadonlyResponseStore
     {
         private readonly ResponseAdapter _responseAdapter;
@@ -27,6 +30,9 @@ namespace FakeHttp.Stores
             _responseAdapter = new ResponseAdapter(resources, callbacks);
         }
 
+        /// <summary>
+        /// Used by derived classes to adapt <see cref="HttpResponseMessage"/>s to <see cref="IResources"/>
+        /// </summary>
         protected internal ResponseAdapter Adapter => _responseAdapter;
 
         /// <summary>

@@ -5,8 +5,12 @@ using System.Threading.Tasks;
 
 namespace FakeHttp
 {
+    /// <summary>
+    /// Interface to retrieve named resources that exist in a named container.
+    /// </summary>
     public interface IResources
-    {   /// <summary>
+    {   
+        /// <summary>
         /// Checks whether the specified file exists
         /// </summary>
         /// <param name="folder">The folder name</param>

@@ -10,6 +10,7 @@ namespace FakeHttp
         /// <summary>
         /// Create an <see cref="System.Net.Http.HttpResponseMessage"/> from the object's state
         /// </summary>
+        /// <param name="info"></param>
         /// <param name="request">The <see cref="HttpRequestMessage"/> the initiates the response</param>
         /// <param name="content">The content stream</param>
         /// <returns>The <see cref="System.Net.Http.HttpResponseMessage"/></returns>
@@ -37,9 +38,10 @@ namespace FakeHttp
         /// <summary>
         /// Creates an <see cref="System.Net.Http.HttpContent"/> object from a stream, setting content headers
         /// </summary>
+        /// <param name="info">T<see cref="ResponseInfo"/></param>
         /// <param name="stream">The content stream</param>
-        /// <returns>The conent object</returns>
-        public static HttpContent CreateContent(this ResponseInfo info,Stream stream)
+        /// <returns>The <see cref="HttpContent"/> object</returns>
+        public static HttpContent CreateContent(this ResponseInfo info, Stream stream)
         {
             var content = new StreamContent(stream);
             foreach (var kvp in info.ContentHeaders)

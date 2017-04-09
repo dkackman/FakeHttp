@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-/// <summary>
-/// All this is from here: https://github.com/WindowsNotifications/QueryString.NET
-/// including form source because the nuget package wouldn't install into a netstandard project
-/// </summary>
+// <summary>
+// All this is from here: https://github.com/WindowsNotifications/QueryString.NET
+// including form source because the nuget package wouldn't install into a netstandard project
+// </summary>
 namespace Microsoft.QueryStringDotNET
 {
     internal static class ListExtensions
@@ -29,7 +29,7 @@ namespace Microsoft.QueryStringDotNET
     /// <summary>
     /// A single query string parameter (name and value pair).
     /// </summary>
-    public sealed class QueryStringParameter
+    internal sealed class QueryStringParameter
     {
         private string _name;
 
@@ -41,10 +41,7 @@ namespace Microsoft.QueryStringDotNET
             get { return _name; }
             set
             {
-                if (value == null)
-                    throw new ArgumentNullException("Name");
-
-                _name = value;
+                _name = value ?? throw new ArgumentNullException("Name");
             }
         }
 
@@ -60,10 +57,7 @@ namespace Microsoft.QueryStringDotNET
         /// <param name="value">The optional value of the parameter.</param>
         internal QueryStringParameter(string name, string value = null)
         {
-            if (name == null)
-                throw new ArgumentNullException("name");
-
-            Name = name;
+            Name = name ?? throw new ArgumentNullException("name");
             Value = value;
         }
     }
@@ -71,7 +65,7 @@ namespace Microsoft.QueryStringDotNET
     /// <summary>
     /// Specifies the separator to be used between query string parameters.
     /// </summary>
-    public enum QueryStringSeparator
+    internal enum QueryStringSeparator
     {
         /// <summary>
         /// The default separator for query string parameters. Generated query string is like "a=1&b=5".
@@ -87,7 +81,7 @@ namespace Microsoft.QueryStringDotNET
     /// <summary>
     /// A portable string serializer/deserializer for .NET.
     /// </summary>
-    public class QueryString : IEnumerable<QueryStringParameter>, IEquatable<QueryString>
+    internal class QueryString : IEnumerable<QueryStringParameter>, IEquatable<QueryString>
     {
         private Dictionary<string, List<string>> _dictionary = new Dictionary<string, List<string>>();
 
@@ -111,9 +105,7 @@ namespace Microsoft.QueryStringDotNET
                 if (name == null)
                     throw new ArgumentNullException("name");
 
-                string value;
-
-                if (TryGetValue(name, out value))
+                if (TryGetValue(name, out string value ))
                     return value;
 
                 throw new KeyNotFoundException($"A parameter with name '{name}' could not be found.");
@@ -452,6 +444,13 @@ namespace Microsoft.QueryStringDotNET
             return this.Equals(other, default(StringComparison), default(StringComparison));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <param name="nameComparisonType"></param>
+        /// <param name="valueComparisonType"></param>
+        /// <returns></returns>
         public bool Equals(QueryString other, StringComparison nameComparisonType, StringComparison valueComparisonType)
         {
             // If they have a different count of keys

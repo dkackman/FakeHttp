@@ -22,6 +22,7 @@ namespace FakeHttp
         /// that is more serialization friendly
         /// </summary>
         /// <param name="response">The <see cref="System.Net.Http.HttpResponseMessage"/></param>
+        /// <param name="filter">Predicate to applt to each paramter that can be used to keep them out of the packaged response</param>
         /// <returns>A serializable object</returns>
         public ResponseInfo PackageResponse(HttpResponseMessage response, Func<string, string, bool> filter)
         {
@@ -61,6 +62,7 @@ namespace FakeHttp
         /// Deterministically generated file name for a request message
         /// </summary>
         /// <param name="request">The request</param>
+        /// <param name="filter">Parameter filtering predicate</param>
         /// <returns>Filename</returns>
         public string ToName(HttpRequestMessage request, Func<string, string, bool> filter)
         {
