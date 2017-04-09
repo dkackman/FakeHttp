@@ -95,7 +95,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Compression\ExampleTests.cs" />
+    <Compile Include="Other\ExampleTests.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="CaptureTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

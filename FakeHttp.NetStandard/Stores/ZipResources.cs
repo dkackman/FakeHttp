@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace FakeHttp.Stores
 
             return await Task.Run<bool>(() =>
                 {
-                    return File.Exists(Path.Combine(folder, fileName));
+                    return GetEntry(folder, fileName) != null;
                 });
         }
 
@@ -45,8 +46,19 @@ namespace FakeHttp.Stores
         {
             if (!await Exists(folder, fileName)) return null;
 
-            return await Task.Run(() =>
-                 new FileStream(Path.Combine(folder, fileName), FileMode.Open, FileAccess.Read, FileShare.Read));
+            return await Task.Run(() => GetEntry(folder, fileName).Open());
+        }
+
+
+        private ZipArchiveEntry GetEntry(string folder, string fileName)
+        {
+            // we use this instead of ZipArchive.GetEntry in order to do case insensitve searching
+            return _archive.Entries.Where(e => e.FullName.Equals(FullPath(folder, fileName), StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+        }
+
+        private static string FullPath(string folder, string fileName)
+        {
+            return Path.Combine(folder, fileName).Replace("\\", "/");
         }
     }
 }
