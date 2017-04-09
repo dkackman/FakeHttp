@@ -1,24 +1,17 @@
 ﻿using System;
 using System.IO;
-using System.IO.Compression;
+using System.IO.IsolatedStorage;
 using System.Threading.Tasks;
 
 namespace FakeHttp.Stores
 {
-    public sealed class ZipResources : IResources, IDisposable
+    public sealed class IsolatedStorageResources : IResources
     {
-        private readonly ZipArchive _archive;
+        private IsolatedStorageFile _folder;
 
-        public ZipResources(string archiveFilePath)
-        {
-            if (string.IsNullOrEmpty(archiveFilePath)) throw new ArgumentException("storeFolder cannot be empty", "storeFolder");
-
-            _archive = ZipFile.OpenRead(archiveFilePath);
-        }
-
-        public void Dispose()
-        {
-            _archive.Dispose();
+        public IsolatedStorageResources(IsolatedStorageFile storage)
+        {        
+            _folder = storage ?? throw new ArgumentNullException("storage");
         }
 
         public async Task<bool> Exists(string folder, string fileName)
@@ -26,9 +19,9 @@ namespace FakeHttp.Stores
             if (string.IsNullOrEmpty(folder) || string.IsNullOrEmpty(fileName)) return false;
 
             return await Task.Run<bool>(() =>
-                {
-                    return File.Exists(Path.Combine(folder, fileName));
-                });
+            {
+                return _folder.FileExists(Path.Combine(folder, fileName));
+            });
         }
 
         public async Task<string> LoadAsString(string folder, string fileName)
@@ -46,7 +39,8 @@ namespace FakeHttp.Stores
             if (!await Exists(folder, fileName)) return null;
 
             return await Task.Run(() =>
-                 new FileStream(Path.Combine(folder, fileName), FileMode.Open, FileAccess.Read, FileShare.Read));
+                _folder.OpenFile(Path.Combine(folder, fileName), FileMode.Open, FileAccess.Read, FileShare.Read)
+            );
         }
     }
 }

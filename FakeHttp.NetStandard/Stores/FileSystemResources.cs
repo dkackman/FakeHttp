@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace FakeHttp.Stores
 {
-    sealed class FileSystemResources : IResources
+    public sealed class FileSystemResources : IResources
     {
         private readonly string _storeFolder;
 

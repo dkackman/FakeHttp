@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Threading.Tasks;
-using System.Net.Http;
+using System.Collections.Generic;
+using System.Text;
 
 namespace FakeHttp.Stores
 {
-    /// <summary>
-    /// Class that can store and retrieve response messages in a win32 runtime environment
-    /// </summary>
-    public sealed class ZipFileResponseStore : ReadonlyResponseStore
+    public sealed class IsolatedStorageStore : ReadonlyResponseStore
     {
         /// <summary>
         /// ctor
         /// </summary>
         /// <param name="storeFolder">root folder for storage</param>
-        public ZipFileResponseStore(string storeFolder)
+        public IsolatedStorageStore(string storeFolder)
             : this(storeFolder, new ResponseCallbacks())
         {
         }
@@ -23,7 +20,7 @@ namespace FakeHttp.Stores
         /// </summary>
         /// <param name="storeFolder">root folder for storage</param>
         /// <param name="callbacks">Object to manage responses at runtime</param>
-        public ZipFileResponseStore(string storeFolder, IResponseCallbacks callbacks)
+        public IsolatedStorageStore(string storeFolder, IResponseCallbacks callbacks)
             : base(new ZipResources(storeFolder), callbacks)
         {
         }
