@@ -21,6 +21,6 @@ namespace FakeHttp
         /// </summary>
         /// <param name="request">The <see cref="HttpRequestMessage"/></param>
         /// <returns>True if a response exists for the request. Otherwise false</returns>
-        Task<bool> ResponseExists(HttpRequestMessage request);
+        bool ResponseExists(HttpRequestMessage request);
     }
 }

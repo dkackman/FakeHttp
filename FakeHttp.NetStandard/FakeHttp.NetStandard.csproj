@@ -29,6 +29,8 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RootNamespace>FakeHttp</RootNamespace>
     <AssemblyName>FakeHttp</AssemblyName>
+    <AssemblyVersion>2.0.1.0</AssemblyVersion>
+    <FileVersion>2.0.1.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

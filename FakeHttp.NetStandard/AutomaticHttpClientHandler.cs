@@ -32,7 +32,7 @@ namespace FakeHttp
         protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             // if the response exists in the store go get it from there
-            if (await _store.ResponseExists(request))
+            if (_store.ResponseExists(request))
             {
                 return await _store.FindResponse(request);
             }

@@ -41,11 +41,11 @@ namespace FakeHttp.Stores
         /// </summary>
         /// <param name="request">The <see cref="HttpRequestMessage"/></param>
         /// <returns>True if a response exists for the request. Otherwise false</returns>
-        public async Task<bool> ResponseExists(HttpRequestMessage request)
+        public bool ResponseExists(HttpRequestMessage request)
         {
             if (request == null) throw new ArgumentNullException("request");
 
-            return await _responseAdapter.Exists(request);
+            return _responseAdapter.Exists(request);
         }
 
         /// <summary>

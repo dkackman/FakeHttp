@@ -45,13 +45,13 @@ namespace FakeHttp
         /// </summary>
         /// <param name="request">The <see cref="HttpRequestMessage"/></param>
         /// <returns>True if a response exists for the request. Otherwise false</returns>
-        public async Task<bool> Exists(HttpRequestMessage request)
+        public bool Exists(HttpRequestMessage request)
         {
             var folderPath = _formatter.ToResourcePath(request.RequestUri);
             var longName = _formatter.ToName(request, _callbacks.FilterParameter);
             var shortName = _formatter.ToShortName(request);
 
-            return await _resources.Exists(folderPath, longName + ".response.json") || await _resources.Exists(folderPath, shortName + ".response.json");
+            return _resources.Exists(folderPath, longName + ".response.json") || _resources.Exists(folderPath, shortName + ".response.json");
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace FakeHttp
         {
             var fileName = baseName + ".response.json";
             // first look for a completely serialized response
-            if (await _resources.Exists(folder, fileName))
+            if (_resources.Exists(folder, fileName))
             {
                 Debug.WriteLine($"Creating response from {Path.Combine(folder, fileName)}");
 

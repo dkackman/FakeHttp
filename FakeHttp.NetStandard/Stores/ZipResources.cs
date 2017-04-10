@@ -38,14 +38,11 @@ namespace FakeHttp.Stores
         /// <param name="folder">The folder name</param>
         /// <param name="fileName">The file name</param>
         /// <returns>Flag indicating whether file exists</returns>
-        public async Task<bool> Exists(string folder, string fileName)
+        public bool Exists(string folder, string fileName)
         {
             if (string.IsNullOrEmpty(folder) || string.IsNullOrEmpty(fileName)) return false;
 
-            return await Task.Run<bool>(() =>
-                {
-                    return GetEntry(folder, fileName) != null;
-                });
+            return GetEntry(folder, fileName) != null;
         }
 
         /// <summary>
@@ -56,7 +53,7 @@ namespace FakeHttp.Stores
         /// <returns>The file's contents as a string</returns>
         public async Task<string> LoadAsString(string folder, string fileName)
         {
-            if (!await Exists(folder, fileName)) return null;
+            if (!Exists(folder, fileName)) return null;
 
             using (var reader = new StreamReader(await LoadAsStream(folder, fileName)))
             {
@@ -72,7 +69,7 @@ namespace FakeHttp.Stores
         /// <returns>File's contents as a stream</returns>
         public async Task<Stream> LoadAsStream(string folder, string fileName)
         {
-            if (!await Exists(folder, fileName)) return null;
+            if (!Exists(folder, fileName)) return null;
 
             return await Task.Run(() => GetEntry(folder, fileName).Open());
         }

@@ -16,7 +16,7 @@ namespace FakeHttp
         /// <param name="folder">The folder name</param>
         /// <param name="fileName">The file name</param>
         /// <returns>Flag indicating whether file exists</returns>
-        Task<bool> Exists(string folder, string fileName);
+        bool Exists(string folder, string fileName);
 
         /// <summary>
         /// Loads a given file as a string
