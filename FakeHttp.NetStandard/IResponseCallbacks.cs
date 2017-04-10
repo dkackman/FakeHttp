@@ -16,7 +16,7 @@ namespace FakeHttp
         /// <param name="info">Deserialized response data. Header collections can be modified. Might be null if content file but no response file is present</param>
         /// <param name="content">The deserialized content stream. Might be null if response has no content</param>
         /// <returns>The original content or a modified content stream to attach to the <see cref="HttpResponseMessage"/></returns>
-        Task<Stream> Deserialized(ResponseInfo info, Stream content);
+        Stream Deserialized(ResponseInfo info, Stream content);
 
         /// <summary>
         /// Called after content is retrieved from the actual service during capturing and before it is saved to disk.

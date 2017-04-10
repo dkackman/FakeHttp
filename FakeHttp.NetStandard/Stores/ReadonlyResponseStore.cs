@@ -53,11 +53,11 @@ namespace FakeHttp.Stores
         /// </summary>
         /// <param name="request">The request message</param>
         /// <returns>The response messsage</returns>
-        public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
+        public HttpResponseMessage FindResponse(HttpRequestMessage request)
         {
             if (request == null) throw new ArgumentNullException("request");
 
-            return await _responseAdapter.FindResponse(request);
+            return _responseAdapter.FindResponse(request);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace FakeHttp
             // if the response exists in the store go get it from there
             if (_store.ResponseExists(request))
             {
-                return await _store.FindResponse(request);
+                return _store.FindResponse(request);
             }
 
             // otherwise get it from the actual endpoint, store it and return it

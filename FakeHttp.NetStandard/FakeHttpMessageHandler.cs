@@ -32,7 +32,7 @@ namespace FakeHttp
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            return await _store.FindResponse(request);
+            return await Task.FromResult(_store.FindResponse(request));
         }
     }
 }

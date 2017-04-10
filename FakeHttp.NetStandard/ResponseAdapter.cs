@@ -59,7 +59,7 @@ namespace FakeHttp
         /// </summary>
         /// <param name="request">The request message</param>
         /// <returns>The response message or a 404 message if not found</returns>
-        public async Task<HttpResponseMessage> FindResponse(HttpRequestMessage request)
+        public HttpResponseMessage FindResponse(HttpRequestMessage request)
         {
             if (request == null) throw new ArgumentNullException("request");
 
@@ -68,24 +68,24 @@ namespace FakeHttp
             var shortName = _formatter.ToShortName(request);
 
             // first try to find a file keyed to the request method and query
-            var response = await DeserializeResponse(request, folderPath, longName)
+            var response = DeserializeResponse(request, folderPath, longName)
                 // next just look for a default response based on just the http method
-                ?? await DeserializeResponse(request, folderPath, shortName)
+                ?? DeserializeResponse(request, folderPath, shortName)
                 // otherwise return 404            
-                ?? await Create404(request, folderPath, longName, shortName);
+                ?? Create404(request, folderPath, longName, shortName);
 
             return response.Prepare();
         }
 
-        private static async Task<HttpResponseMessage> Create404(HttpRequestMessage request, string folderPath, string longName, string shortName)
+        private static HttpResponseMessage Create404(HttpRequestMessage request, string folderPath, string longName, string shortName)
         {
             Debug.WriteLine("Did not find response for verb {0} and uri {1} in folder {2}.", request.Method, request.RequestUri, folderPath);
             Debug.WriteLine("\tTried content and response files with bases names {0} and {1}.\n\tCheck that fake responses are copied to unit test location.", longName, shortName);
 
-            return await Task.Run(() => new HttpResponseMessage(HttpStatusCode.NotFound) { RequestMessage = request });
+            return new HttpResponseMessage(HttpStatusCode.NotFound) { RequestMessage = request };
         }
 
-        private async Task<HttpResponseMessage> DeserializeResponse(HttpRequestMessage request, string folder, string baseName)
+        private HttpResponseMessage DeserializeResponse(HttpRequestMessage request, string folder, string baseName)
         {
             var fileName = baseName + ".response.json";
             // first look for a completely serialized response
@@ -96,16 +96,16 @@ namespace FakeHttp
                 var json = _resources.LoadAsString(folder, fileName);
                 var info = JsonConvert.DeserializeObject<ResponseInfo>(json) ?? throw new InvalidDataException("The response exists but could not be deserialized");
 
-                var content = await _callbacks.Deserialized(info, _resources.LoadAsStream(folder, info.ContentFileName));
+                var content = _callbacks.Deserialized(info, _resources.LoadAsStream(folder, info.ContentFileName));
 
                 return info.CreateResponse(request, content);
             }
 
             // no fully serialized response exists just look for a content file
-            return await CreateResponseFromContent(request, folder, baseName);
+            return CreateResponseFromContent(request, folder, baseName);
         }
 
-        private async Task<HttpResponseMessage> CreateResponseFromContent(HttpRequestMessage request, string folder, string baseName)
+        private HttpResponseMessage CreateResponseFromContent(HttpRequestMessage request, string folder, string baseName)
         {
             var fileName = baseName + ".content.json"; // only json supported as raw content right now
 
@@ -114,7 +114,7 @@ namespace FakeHttp
             {
                 Debug.WriteLine($"Creating response from {Path.Combine(folder, fileName)}");
 
-                var content = await _callbacks.Deserialized(null, stream);
+                var content = _callbacks.Deserialized(null, stream);
 
                 // no serialized response but we have serialized content
                 // craft a response and attach content

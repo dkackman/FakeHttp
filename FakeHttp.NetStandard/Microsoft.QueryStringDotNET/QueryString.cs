@@ -67,10 +67,12 @@ namespace Microsoft.QueryStringDotNET
     /// </summary>
     internal enum QueryStringSeparator
     {
+#pragma warning disable CS1570 // XML comment has badly formed XML
         /// <summary>
         /// The default separator for query string parameters. Generated query string is like "a=1&b=5".
         /// </summary>
         Ampersand,
+#pragma warning restore CS1570 // XML comment has badly formed XML
 
         /// <summary>
         /// An alternative separator for query string parameters. Generated query string is like "a=1;b=5".

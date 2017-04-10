@@ -26,14 +26,14 @@ namespace FakeHttp.UnitTests
                 return name == "key";
             }
 
-            public async override Task<Stream> Deserialized(ResponseInfo info, Stream content)
+            public override Stream Deserialized(ResponseInfo info, Stream content)
             {
                 if (info != null)
                 {
                     info.ResponseHeaders.Add("FAKE_HEADER", Enumerable.Repeat("FAKE", 1));
                 }
 
-                return await base.Deserialized(info, content);
+                return base.Deserialized(info, content);
             }
 
             public async override Task<Stream> Serializing(HttpResponseMessage response)

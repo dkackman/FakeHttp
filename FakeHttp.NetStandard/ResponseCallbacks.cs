@@ -41,14 +41,14 @@ namespace FakeHttp
         /// <param name="info">Deserialized response data. Header collections can be modified. Might be null if content file but no response file is present</param>
         /// <param name="content">The deserialized content stream. Might be null if response has no content</param>
         /// <returns>The original content or a modified content stream to attach to the <see cref="HttpResponseMessage"/></returns>
-        public async virtual Task<Stream> Deserialized(ResponseInfo info, Stream content)
+        public virtual Stream Deserialized(ResponseInfo info, Stream content)
         {
             if (SetHeaderDate && (info?.ResponseHeaders?.ContainsKey("Date") == true))
             {
                 info.ResponseHeaders["Date"] = Enumerable.Repeat(DateTimeOffset.UtcNow.ToString("r"), 1);
             }
 
-            return await Task.Run(() => content); 
+            return  content; 
         }
 
         /// <summary>

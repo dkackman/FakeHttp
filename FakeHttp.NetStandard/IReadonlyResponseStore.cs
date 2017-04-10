@@ -13,7 +13,7 @@ namespace FakeHttp
         /// </summary>
         /// <param name="request">A <see cref="HttpRequestMessage"/> that describes the desired response</param>
         /// <returns>A <see cref="HttpResponseMessage"/>. Will return a 404 message if no response is found</returns>
-        Task<HttpResponseMessage> FindResponse(HttpRequestMessage request);
+        HttpResponseMessage FindResponse(HttpRequestMessage request);
 
         /// <summary>
         /// Determines if a <see cref="HttpResponseMessage"/> exists for the 
