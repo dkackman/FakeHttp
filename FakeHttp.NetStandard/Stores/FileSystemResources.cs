@@ -41,13 +41,13 @@ namespace FakeHttp.Stores
         /// <param name="folder">The folder name</param>
         /// <param name="fileName">The file name</param>
         /// <returns>The file's contents as a string</returns>
-        public async Task<string> LoadAsString(string folder, string fileName)
+        public string LoadAsString(string folder, string fileName)
         {
             if (!Exists(folder, fileName)) return null;
 
-            using (var reader = new StreamReader(await LoadAsStream(folder, fileName)))
+            using (var reader = new StreamReader(LoadAsStream(folder, fileName)))
             {
-                return await reader.ReadToEndAsync();
+                return reader.ReadToEnd();
             }
         }
 
@@ -58,12 +58,11 @@ namespace FakeHttp.Stores
         /// <param name="fileName">The file name</param>
         /// <returns>File's contents as a stream</returns>
         /// <returns></returns>
-        public async Task<Stream> LoadAsStream(string folder, string fileName)
+        public Stream LoadAsStream(string folder, string fileName)
         {
             if (!Exists(folder, fileName)) return null;
 
-            return await Task.Run(() =>
-                 new FileStream(FullPath(folder, fileName), FileMode.Open, FileAccess.Read, FileShare.Read));
+            return new FileStream(FullPath(folder, fileName), FileMode.Open, FileAccess.Read, FileShare.Read);
         }
 
         private string FullPath(string folder, string fileName)

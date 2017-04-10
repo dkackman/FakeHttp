@@ -24,7 +24,7 @@ namespace FakeHttp
         /// <param name="folder">The folder name</param>
         /// <param name="fileName">The file name</param>
         /// <returns>The file's contents as a string</returns>
-        Task<string> LoadAsString(string folder, string fileName);
+        string LoadAsString(string folder, string fileName);
 
         /// <summary>
         /// Loads a given file as a stream
@@ -32,6 +32,6 @@ namespace FakeHttp
         /// <param name="folder">The folder name</param>
         /// <param name="fileName">The file name</param>
         /// <returns>File's contents as a stream</returns>
-        Task<Stream> LoadAsStream(string folder, string fileName);
+        Stream LoadAsStream(string folder, string fileName);
     }
 }

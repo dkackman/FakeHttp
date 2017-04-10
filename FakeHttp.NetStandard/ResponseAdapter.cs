@@ -93,10 +93,10 @@ namespace FakeHttp
             {
                 Debug.WriteLine($"Creating response from {Path.Combine(folder, fileName)}");
 
-                var json = await _resources.LoadAsString(folder, fileName);
+                var json = _resources.LoadAsString(folder, fileName);
                 var info = JsonConvert.DeserializeObject<ResponseInfo>(json) ?? throw new InvalidDataException("The response exists but could not be deserialized");
 
-                var content = await _callbacks.Deserialized(info, await _resources.LoadAsStream(folder, info.ContentFileName));
+                var content = await _callbacks.Deserialized(info, _resources.LoadAsStream(folder, info.ContentFileName));
 
                 return info.CreateResponse(request, content);
             }
@@ -109,7 +109,7 @@ namespace FakeHttp
         {
             var fileName = baseName + ".content.json"; // only json supported as raw content right now
 
-            var stream = await _resources.LoadAsStream(folder, fileName);
+            var stream = _resources.LoadAsStream(folder, fileName);
             if (stream != null)
             {
                 Debug.WriteLine($"Creating response from {Path.Combine(folder, fileName)}");
