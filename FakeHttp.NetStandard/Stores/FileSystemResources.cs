@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace FakeHttp.Stores
 {
@@ -43,8 +42,6 @@ namespace FakeHttp.Stores
         /// <returns>The file's contents as a string</returns>
         public string LoadAsString(string folder, string fileName)
         {
-            if (!Exists(folder, fileName)) return null;
-
             using (var reader = new StreamReader(LoadAsStream(folder, fileName)))
             {
                 return reader.ReadToEnd();
@@ -60,8 +57,6 @@ namespace FakeHttp.Stores
         /// <returns></returns>
         public Stream LoadAsStream(string folder, string fileName)
         {
-            if (!Exists(folder, fileName)) return null;
-
             return new FileStream(FullPath(folder, fileName), FileMode.Open, FileAccess.Read, FileShare.Read);
         }
 

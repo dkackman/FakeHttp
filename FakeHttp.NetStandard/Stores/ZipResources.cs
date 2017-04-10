@@ -2,7 +2,6 @@
 using System.Linq;
 using System.IO;
 using System.IO.Compression;
-using System.Threading.Tasks;
 
 namespace FakeHttp.Stores
 {
@@ -19,7 +18,7 @@ namespace FakeHttp.Stores
         /// <param name="archiveFilePath">full or relative path to the zip archive file</param>
         public ZipResources(string archiveFilePath)
         {
-            if (string.IsNullOrEmpty(archiveFilePath)) throw new ArgumentException("storeFolder cannot be empty", "storeFolder");
+            if (string.IsNullOrEmpty(archiveFilePath)) throw new ArgumentException("archiveFilePath cannot be empty", "archiveFilePath");
 
             _archive = ZipFile.OpenRead(archiveFilePath);
         }
@@ -53,9 +52,8 @@ namespace FakeHttp.Stores
         /// <returns>The file's contents as a string</returns>
         public string LoadAsString(string folder, string fileName)
         {
-            if (!Exists(folder, fileName)) return null;
-
-            using (var reader = new StreamReader(LoadAsStream(folder, fileName)))
+            var stream = LoadAsStream(folder, fileName) ?? throw new InvalidOperationException($"Archive entry {folder}, {fileName} not found - Check Exists first");
+            using (var reader = new StreamReader(stream))
             {
                 return reader.ReadToEnd();
             }
@@ -69,14 +67,14 @@ namespace FakeHttp.Stores
         /// <returns>File's contents as a stream</returns>
         public Stream LoadAsStream(string folder, string fileName)
         {
-            if (!Exists(folder, fileName)) return null;
+            var entry = GetEntry(folder, fileName) ?? throw new InvalidOperationException($"Archive entry {folder}, {fileName} not found - Check Exists first");
 
-            return GetEntry(folder, fileName).Open();
+            return entry.Open();
         }
-
 
         private ZipArchiveEntry GetEntry(string folder, string fileName)
         {
+            // TODO - this might be a performance hotspot
             // we use this instead of ZipArchive.GetEntry in order to do case insensitve searching
             return _archive.Entries.Where(e => e.FullName.Equals(FullPath(folder, fileName), StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
         }

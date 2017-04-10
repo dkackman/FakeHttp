@@ -96,7 +96,8 @@ namespace FakeHttp
                 var json = _resources.LoadAsString(folder, fileName);
                 var info = JsonConvert.DeserializeObject<ResponseInfo>(json) ?? throw new InvalidDataException("The response exists but could not be deserialized");
 
-                var content = _callbacks.Deserialized(info, _resources.LoadAsStream(folder, info.ContentFileName));
+                var stream = _resources.Exists(folder, info.ContentFileName) ? _resources.LoadAsStream(folder, info.ContentFileName) : null;
+                var content = _callbacks.Deserialized(info, stream);
 
                 return info.CreateResponse(request, content);
             }
@@ -109,24 +110,28 @@ namespace FakeHttp
         {
             var fileName = baseName + ".content.json"; // only json supported as raw content right now
 
-            var stream = _resources.LoadAsStream(folder, fileName);
-            if (stream != null)
+            if (_resources.Exists(folder, fileName))
             {
-                Debug.WriteLine($"Creating response from {Path.Combine(folder, fileName)}");
-
-                var content = _callbacks.Deserialized(null, stream);
-
-                // no serialized response but we have serialized content
-                // craft a response and attach content
-                return new HttpResponseMessage(HttpStatusCode.OK)
+                var stream = _resources.LoadAsStream(folder, fileName);
+                if (stream != null)
                 {
-                    Content = new StreamContent(content),
-                    RequestMessage = request
-                };
+                    Debug.WriteLine($"Creating response from {Path.Combine(folder, fileName)}");
+
+                    var content = _callbacks.Deserialized(null, stream);
+
+                    // no serialized response but we have serialized content
+                    // craft a response and attach content
+                    return new HttpResponseMessage(HttpStatusCode.OK)
+                    {
+                        Content = new StreamContent(content),
+                        RequestMessage = request
+                    };
+                }
             }
 
             Debug.WriteLine($"No response found for {Path.Combine(folder, baseName)}");
             return null;
+
         }
     }
 }
