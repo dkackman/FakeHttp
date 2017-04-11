@@ -11,7 +11,7 @@ using UnitTestHelpers;
 
 using Newtonsoft.Json;
 
-using FakeHttp.Stores;
+using FakeHttp.Resources;
 
 namespace FakeHttp.UnitTests
 {
@@ -80,8 +80,8 @@ namespace FakeHttp.UnitTests
             // this test ensures that our mechanism to filter out those parameters we want to ignore works
             //
             var callbacks = new ResponseCallbacks((name, value) => name == "key");
-            var capturingHandler = new CapturingHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder, callbacks));
-            var fakingHandler = new FakeHttpMessageHandler(new FileSystemResponseStore(captureFolder, callbacks)); // point the fake to where the capture is stored
+            var capturingHandler = new CapturingHttpClientHandler(new ResponseStore(new FileSystemResources(TestContext.DeploymentDirectory, captureFolder), callbacks));
+            var fakingHandler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(new FileSystemResources(captureFolder), callbacks)); // point the fake to where the capture is stored
 
             using (var capturingClient = new HttpClient(capturingHandler, true))
             using (var fakingClient = new HttpClient(fakingHandler, true))
@@ -121,8 +121,8 @@ namespace FakeHttp.UnitTests
             //
             // this test ensures that our mechanism to filter out those parameters we want to ignore works
             //
-            var capturingHandler = new CapturingHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder, new TestCallbacks()));
-            var fakingHandler = new FakeHttpMessageHandler(new FileSystemResponseStore(captureFolder, new TestCallbacks())); // point the fake to where the capture is stored
+            var capturingHandler = new CapturingHttpClientHandler(new ResponseStore(new FileSystemResources(TestContext.DeploymentDirectory, captureFolder), new TestCallbacks()));
+            var fakingHandler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(new FileSystemResources(captureFolder), new TestCallbacks())); // point the fake to where the capture is stored
 
             using (var capturingClient = new HttpClient(capturingHandler, true))
             using (var fakingClient = new HttpClient(fakingHandler, true))
@@ -148,7 +148,7 @@ namespace FakeHttp.UnitTests
         [TestCategory("fake")]
         public async Task SetHeaderTimestampViaResponseCallback()
         {
-            var handler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
+            var handler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(new FileSystemResources(TestContext.DeploymentDirectory)));
             using (var client = new HttpClient(handler, true))
             {
                 client.BaseAddress = new Uri("https://dev.virtualearth.net/");
@@ -170,7 +170,7 @@ namespace FakeHttp.UnitTests
         [TestCategory("fake")]
         public async Task SetHeaderValueDuringCallback()
         {
-            var handler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, new TestCallbacks()));
+            var handler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(new FileSystemResources(TestContext.DeploymentDirectory), new TestCallbacks()));
             using (var client = new HttpClient(handler, true))
             {
                 client.BaseAddress = new Uri("https://dev.virtualearth.net/");
@@ -186,7 +186,7 @@ namespace FakeHttp.UnitTests
         {
             // capture the response from an enpoiint - TestCallBacks instance will mask a value
             var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\FakeResponses\");
-            var capturingHandler = new CapturingHttpClientHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory, captureFolder, new TestCallbacks()));
+            var capturingHandler = new CapturingHttpClientHandler(new ResponseStore(new FileSystemResources(TestContext.DeploymentDirectory, captureFolder), new TestCallbacks()));
             using (var client = new HttpClient(capturingHandler, true))
             {
                 client.BaseAddress = new Uri("https://www.googleapis.com/");
@@ -195,7 +195,7 @@ namespace FakeHttp.UnitTests
             }
 
             // now use a fake handler and get the captured response, ensure that value is masked
-            var fakeHandler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
+            var fakeHandler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(new FileSystemResources(TestContext.DeploymentDirectory)));
             using (var client = new HttpClient(fakeHandler, true))
             {
                 client.BaseAddress = new Uri("https://www.googleapis.com/");

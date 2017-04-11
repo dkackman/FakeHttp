@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using UnitTestHelpers;
 
-using FakeHttp.Stores;
+using FakeHttp.Resources;
 
 namespace FakeHttp.UnitTests
 {
@@ -20,7 +20,7 @@ namespace FakeHttp.UnitTests
         public async Task ContentHeaderAreRestored()
         {
             using (var temp = new TempFolder("FakeHttp_UnitTests"))
-            using (var client = new HttpClient(new AutomaticHttpClientHandler(new FileSystemResponseStore(temp.RootPath, temp.RootPath)), true))
+            using (var client = new HttpClient(new AutomaticHttpClientHandler(new ResponseStore(new FileSystemResources(temp.RootPath))), true))
             {
                 // create the correct folder and place the response files there
                 var responseFolder = Path.Combine(temp.RootPath, @"www.googleapis.com\storage\v1\b\uspto-pair");
@@ -42,7 +42,7 @@ namespace FakeHttp.UnitTests
         [TestMethod]
         public async Task FakeHttpHeaderIsPresentIn404()
         {
-            var handler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
+            var handler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(new FileSystemResources(TestContext.DeploymentDirectory)));
             using (var client = new HttpClient(handler, true))
             {
                 client.BaseAddress = new Uri("https://www.example.com/");

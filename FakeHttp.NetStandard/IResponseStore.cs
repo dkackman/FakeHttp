@@ -7,7 +7,7 @@ namespace FakeHttp
     /// <summary>
     /// Interface to abstract storage and retrieval of <see cref="System.Net.Http.HttpResponseMessage"/> instances
     /// </summary>
-    public interface IResponseStore : IReadonlyResponseStore
+    public interface IResponseStore : IReadOnlyResponseStore
     {
         /// <summary>
         /// Store a <see cref="System.Net.Http.HttpResponseMessage"/> 

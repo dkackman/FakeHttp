@@ -8,7 +8,7 @@ using Microsoft.Practices.ServiceLocation;
 using GalaSoft.MvvmLight.Ioc;
 
 using FakeHttp;
-using FakeHttp.Stores;
+using FakeHttp.Resources;
 
 namespace BingGeoCoder.Client.UnitTests
 {
@@ -31,7 +31,7 @@ namespace BingGeoCoder.Client.UnitTests
             // here we don't want to serialize or include our api key in response lookups so
             // pass a lambda that will indicate to the serialzier to filter that param out
             var callbacks = new ResponseCallbacks((name, value) => name.Equals("key", StringComparison.InvariantCultureIgnoreCase));
-            var store = new FileSystemResponseStore(fakeFolder, captureFolder, callbacks);
+            var store = new ResponseStore(new FileSystemResources(fakeFolder, captureFolder), callbacks);
 
             SimpleIoc.Default.Register<HttpMessageHandler>(() => MessageHandlerFactory.CreateMessageHandler(store));
         }

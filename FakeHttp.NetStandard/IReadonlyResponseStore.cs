@@ -5,7 +5,7 @@ namespace FakeHttp
     /// <summary>
     /// Interface to abstract retrieval of <see cref="HttpResponseMessage"/> instances
     /// </summary>
-    public interface IReadonlyResponseStore
+    public interface IReadOnlyResponseStore
     {
         /// <summary>
         /// Find a response in the store

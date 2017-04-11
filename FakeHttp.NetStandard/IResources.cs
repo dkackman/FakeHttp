@@ -1,34 +1,23 @@
-﻿using System.IO;
+﻿using System.Threading.Tasks;
+using System.Net.Http;
+using System.IO;
 
 namespace FakeHttp
 {
     /// <summary>
-    /// Interface to retrieve named resources that exist in a named container.
+    /// A reource type that can store new response messages at runtime
     /// </summary>
-    public interface IResources
-    {   
+    public interface IResources : IReadOnlyResources
+    {
         /// <summary>
-        /// Checks whether the specified file exists
+        /// 
         /// </summary>
-        /// <param name="folder">The folder name</param>
-        /// <param name="fileName">The file name</param>
-        /// <returns>Flag indicating whether file exists</returns>
-        bool Exists(string folder, string fileName);
+        /// <param name="folder"></param>
+        /// <param name="fileName"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        void Store(string folder, string fileName, string content);
 
-        /// <summary>
-        /// Loads a given file as a string
-        /// </summary>
-        /// <param name="folder">The folder name</param>
-        /// <param name="fileName">The file name</param>
-        /// <returns>The file's contents as a string</returns>
-        string LoadAsString(string folder, string fileName);
-
-        /// <summary>
-        /// Loads a given file as a stream
-        /// </summary>
-        /// <param name="folder">The folder name</param>
-        /// <param name="fileName">The file name</param>
-        /// <returns>File's contents as a stream</returns>
-        Stream LoadAsStream(string folder, string fileName);
+        void Store(string folder, string fileName, Stream content);
     }
 }

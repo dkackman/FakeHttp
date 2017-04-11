@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Net.Http;
 
-namespace FakeHttp.Stores
+namespace FakeHttp
 {
     /// <summary>
-    /// A store that can serve responses from an <see cref="IResources"/> instance
+    /// A store that can serve responses from an <see cref="IReadOnlyResources"/> instance
     /// </summary>
-    public class ReadonlyResponseStore : IReadonlyResponseStore
+    public class ReadOnlyResponseStore : IReadOnlyResponseStore
     {
         private readonly ResponseAdapter _responseAdapter;
 
@@ -14,7 +14,7 @@ namespace FakeHttp.Stores
         /// 
         /// </summary>
         /// <param name="resources"></param>
-        public ReadonlyResponseStore(IResources resources)
+        public ReadOnlyResponseStore(IReadOnlyResources resources)
             :this(resources, new ResponseCallbacks())
         {
         }
@@ -24,13 +24,13 @@ namespace FakeHttp.Stores
         /// </summary>
         /// <param name="resources"></param>
         /// <param name="callbacks"></param>
-        public ReadonlyResponseStore(IResources resources, IResponseCallbacks callbacks)
+        public ReadOnlyResponseStore(IReadOnlyResources resources, IResponseCallbacks callbacks)
         {
             _responseAdapter = new ResponseAdapter(resources, callbacks);
         }
 
         /// <summary>
-        /// Used by derived classes to adapt <see cref="HttpResponseMessage"/>s to <see cref="IResources"/>
+        /// Used by derived classes to adapt <see cref="HttpResponseMessage"/>s to <see cref="IReadOnlyResources"/>
         /// </summary>
         protected internal ResponseAdapter Adapter => _responseAdapter;
 

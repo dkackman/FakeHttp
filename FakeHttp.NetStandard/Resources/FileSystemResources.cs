@@ -1,13 +1,15 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
-namespace FakeHttp.Stores
+namespace FakeHttp.Resources
 {
     /// <summary>
     /// Resources stores on the file system and accesible via <see cref="System.IO.File"/>
     /// </summary>
     public sealed class FileSystemResources : IResources
     {
+        private readonly string _captureFolder;
         private readonly string _storeFolder;
 
         /// <summary>
@@ -15,10 +17,21 @@ namespace FakeHttp.Stores
         /// </summary>
         /// <param name="storeFolder">The root folder where resources reside</param>
         public FileSystemResources(string storeFolder)
+            : this(storeFolder, storeFolder)
+        {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="storeFolder">The root folder where resources reside</param>
+        public FileSystemResources(string storeFolder, string captureFolder)
         {
             if (string.IsNullOrEmpty(storeFolder)) throw new ArgumentException("storeFolder cannot be empty", "storeFolder");
+            if (string.IsNullOrEmpty(captureFolder)) throw new ArgumentException("captureFolder cannot be empty", "captureFolder");
 
             _storeFolder = storeFolder;
+            _captureFolder = captureFolder;
         }
 
         /// <summary>
@@ -63,6 +76,32 @@ namespace FakeHttp.Stores
         private string FullPath(string folder, string fileName)
         {
             return Path.Combine(_storeFolder, Path.Combine(folder, fileName));
+        }
+
+        private string FullCapturePath(string folder, string fileName)
+        {
+            return Path.Combine(_captureFolder, Path.Combine(folder, fileName));
+        }
+
+        public void Store(string folder, string fileName, Stream content)
+        {
+            Directory.CreateDirectory(Path.Combine(_captureFolder, folder));
+
+            using (var file = new FileStream(FullCapturePath(folder, fileName), FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                content.CopyTo(file);
+            }
+        }
+
+        public void Store(string folder, string fileName, string content)
+        {
+            Directory.CreateDirectory(Path.Combine(_captureFolder, folder));
+
+            using (var stream = new FileStream(FullCapturePath(folder, fileName), FileMode.Create, FileAccess.Write, FileShare.None))
+            using (var responseWriter = new StreamWriter(stream, Encoding.UTF8))
+            {
+                responseWriter.Write(content);
+            }
         }
     }
 }

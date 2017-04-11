@@ -3,12 +3,12 @@ using System.Linq;
 using System.IO;
 using System.IO.Compression;
 
-namespace FakeHttp.Stores
+namespace FakeHttp.Resources
 {
     /// <summary>
     /// Resources stored ina <see cref="ZipArchive"/>
     /// </summary>
-    public sealed class ZipResources : IResources, IDisposable
+    public sealed class ZipResources : IReadOnlyResources, IDisposable
     {
         private readonly ZipArchive _archive;
 

@@ -11,13 +11,13 @@ namespace FakeHttp
     /// </summary>
     public sealed class FakeHttpMessageHandler : HttpMessageHandler
     {
-        private readonly IReadonlyResponseStore _store;
+        private readonly IReadOnlyResponseStore _store;
 
         /// <summary>
         /// ctor
         /// </summary>
         /// <param name="store">The storage mechanism for responses</param>
-        public FakeHttpMessageHandler(IReadonlyResponseStore store)
+        public FakeHttpMessageHandler(IReadOnlyResponseStore store)
         {
             _store = store ?? throw new ArgumentNullException("store");
         }

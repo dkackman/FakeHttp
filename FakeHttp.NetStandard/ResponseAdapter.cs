@@ -15,7 +15,7 @@ namespace FakeHttp
     public sealed class ResponseAdapter
     {
         private readonly MessageFormatter _formatter = new MessageFormatter();
-        private readonly IResources _resources;
+        private readonly IReadOnlyResources _resources;
         private readonly IResponseCallbacks _callbacks;
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace FakeHttp
         /// </summary>
         /// <param name="callbacks"></param>
         /// <param name="resources"></param>
-        public ResponseAdapter(IResources resources, IResponseCallbacks callbacks)
+        public ResponseAdapter(IReadOnlyResources resources, IResponseCallbacks callbacks)
         {
             _resources = resources ?? throw new ArgumentNullException("loader");
             _callbacks = callbacks ?? throw new ArgumentNullException("callbacks");

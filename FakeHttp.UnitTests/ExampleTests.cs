@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using UnitTestHelpers;
 
-using FakeHttp.Stores;
+using FakeHttp.Resources;
 
 namespace FakeHttp.UnitTests
 {
@@ -19,7 +19,7 @@ namespace FakeHttp.UnitTests
         [TestMethod]
         public async Task MinimalExampleTest()
         {
-            var handler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
+            var handler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(new FileSystemResources(TestContext.DeploymentDirectory)));
             using (var client = new HttpClient(handler, true))
             {
                 client.BaseAddress = new Uri("https://www.example.com/");
@@ -37,8 +37,7 @@ namespace FakeHttp.UnitTests
         [TestCategory("fake")]
         public async Task CanGetSimpleJsonResult()
         {
-            var store = new FileSystemResponseStore(TestContext.DeploymentDirectory);
-            var handler = new FakeHttpMessageHandler(store);
+            var handler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(new FileSystemResources(TestContext.DeploymentDirectory)));
 
             using (var client = new HttpClient(handler, true))
             {

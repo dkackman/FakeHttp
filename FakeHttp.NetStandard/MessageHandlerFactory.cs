@@ -53,7 +53,7 @@ namespace FakeHttp
         /// </summary>
         /// <param name="responseStore">Object that can store and retrieve response messages</param>
         /// <returns>A <see cref="System.Net.Http.HttpMessageHandler"/></returns>
-        public static HttpMessageHandler CreateMessageHandler(IReadonlyResponseStore responseStore)
+        public static HttpMessageHandler CreateMessageHandler(IReadOnlyResponseStore responseStore)
         {
             if (Mode == MessageHandlerMode.Fake)
             {

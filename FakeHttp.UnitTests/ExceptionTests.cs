@@ -4,7 +4,7 @@ using System.Net.Http;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using FakeHttp.Stores;
+using FakeHttp.Resources;
 
 namespace FakeHttp.UnitTests
 {
@@ -19,7 +19,7 @@ namespace FakeHttp.UnitTests
         [ExpectedException(typeof(HttpRequestException))]
         public async Task ThrowWhenNoStaticResponseFound()
         {
-            var handler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
+            var handler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(new FileSystemResources(TestContext.DeploymentDirectory)));
 
             using (var client = new HttpClient(handler, true))
             {
@@ -36,7 +36,7 @@ namespace FakeHttp.UnitTests
         [ExpectedException(typeof(HttpRequestException))]
         public async Task ThrowWhenNoStaticResponseFoundByParameterLookup()
         {
-            var handler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
+            var handler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(new FileSystemResources(TestContext.DeploymentDirectory)));
 
             using (var fakingClient = new HttpClient(handler, true))
             {
@@ -52,7 +52,7 @@ namespace FakeHttp.UnitTests
         [TestCategory("fake")]
         public async Task ThrowWhenStaticallySimulateFailure()
         {
-            var handler = new FakeHttpMessageHandler(new FileSystemResponseStore(TestContext.DeploymentDirectory));
+            var handler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(new FileSystemResources(TestContext.DeploymentDirectory)));
 
             using (var client = new HttpClient(handler, true))
             {
