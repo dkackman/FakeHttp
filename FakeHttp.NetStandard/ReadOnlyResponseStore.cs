@@ -75,13 +75,14 @@ namespace FakeHttp
                 // otherwise return 404            
                 ?? Create404(request, folderPath, longName, shortName);
 
-            return response.Prepare();
+            response.Headers.TryAddWithoutValidation("FAKEHTTP", "1");
+            return response;
         }
 
         private static HttpResponseMessage Create404(HttpRequestMessage request, string folderPath, string longName, string shortName)
         {
             Debug.WriteLine($"Did not find response for verb {request.Method} and uri {request.RequestUri} in {folderPath}.");
-            Debug.WriteLine($"\tTried content and response files with bases names {longName} and {shortName}.");
+            Debug.WriteLine($"\tTried content and response files with base names {longName} and {shortName}.");
             Debug.WriteLine($"\tCheck that fake responses are copied to the unit test location.");
 
             return new HttpResponseMessage(HttpStatusCode.NotFound) { RequestMessage = request };
@@ -104,7 +105,7 @@ namespace FakeHttp
                 return info.CreateResponse(request, content);
             }
 
-            // no fully serialized response exists just look for a content file
+            // no fully serialized response exists, just look for a content file
             return CreateResponseFromContent(request, folder, baseName);
         }
 
@@ -117,7 +118,7 @@ namespace FakeHttp
                 var stream = _resources.LoadAsStream(folder, fileName);
                 if (stream != null)
                 {
-                    Debug.WriteLine($"Creating response for {folder} {fileName}");
+                    Debug.WriteLine($"Creating content only response for {folder} {fileName}");
 
                     var content = _callbacks.Deserialized(null, stream);
 

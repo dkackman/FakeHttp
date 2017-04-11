@@ -43,7 +43,7 @@ namespace FakeHttp
 
             await _store.StoreResponse(response);
 
-            return response;
+            return _store.FindResponse(request);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace FakeHttp.UnitTests
             // this is the path where responses will be stored for future use
             var path = Path.Combine(Path.GetTempPath(), "FakeHttp_UnitTests_");
 
-            var handler = new AutomaticHttpClientHandler(new ResponseStore(new FileSystemResources(path, path)));
+            var handler = new AutomaticHttpClientHandler(new ResponseStore(new FileSystemResources(path)));
 
             using (var client = new HttpClient(handler, true))
             {

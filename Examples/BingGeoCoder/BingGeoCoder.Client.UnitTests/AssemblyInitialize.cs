@@ -26,12 +26,11 @@ namespace BingGeoCoder.Client.UnitTests
 
             // folders where fake responses are stored and where captured response should be saved
             var fakeFolder = context.DeploymentDirectory; // the folder where the unit tests are running
-            var captureFolder = Path.Combine(context.TestRunDirectory, @"..\..\FakeResponses\"); // kinda hacky but this should be the solution folder
 
             // here we don't want to serialize or include our api key in response lookups so
             // pass a lambda that will indicate to the serialzier to filter that param out
             var callbacks = new ResponseCallbacks((name, value) => name.Equals("key", StringComparison.InvariantCultureIgnoreCase));
-            var store = new ResponseStore(new FileSystemResources(fakeFolder, captureFolder), callbacks);
+            var store = new ResponseStore(new FileSystemResources(fakeFolder), callbacks);
 
             SimpleIoc.Default.Register<HttpMessageHandler>(() => MessageHandlerFactory.CreateMessageHandler(store));
         }

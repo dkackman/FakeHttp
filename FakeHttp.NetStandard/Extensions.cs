@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Text;
-using System.Net.Http;
-using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Linq;
 
@@ -11,17 +9,6 @@ namespace FakeHttp
 {
     static class Extensions
     {
-        public static HttpResponseMessage Prepare(this HttpResponseMessage response)
-        {
-            Debug.Assert(response != null);
-
-            // this header value is never serialized it is 
-            // used for debugging that the response was loaded from storage not retrieved from a live service
-            response.Headers.TryAddWithoutValidation("FAKEHTTP", "1");
-
-            return response;
-        }
-
         public static string Hash(this string text)
         {
             if (string.IsNullOrEmpty(text)) return string.Empty;

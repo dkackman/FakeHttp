@@ -9,7 +9,6 @@ namespace FakeHttp.Resources
     /// </summary>
     public sealed class FileSystemResources : IResources
     {
-        private readonly string _captureFolder;
         private readonly string _storeFolder;
 
         /// <summary>
@@ -17,22 +16,10 @@ namespace FakeHttp.Resources
         /// </summary>
         /// <param name="storeFolder">The root folder where resources reside</param>
         public FileSystemResources(string storeFolder)
-            : this(storeFolder, storeFolder)
-        {
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="storeFolder">The root folder where resources reside</param>
-        /// <param name="captureFolder">The root folder where resources will be captured</param>
-        public FileSystemResources(string storeFolder, string captureFolder)
         {
             if (string.IsNullOrEmpty(storeFolder)) throw new ArgumentException("storeFolder cannot be empty", "storeFolder");
-            if (string.IsNullOrEmpty(captureFolder)) throw new ArgumentException("captureFolder cannot be empty", "captureFolder");
 
             _storeFolder = storeFolder;
-            _captureFolder = captureFolder;
         }
 
         /// <summary>
@@ -56,7 +43,7 @@ namespace FakeHttp.Resources
         /// <returns>The file's contents as a string</returns>
         public string LoadAsString(string folder, string fileName)
         {
-            using (var reader = new StreamReader(LoadAsStream(folder, fileName)))
+            using (var reader = new StreamReader(LoadFromFile(folder, fileName)))
             {
                 return reader.ReadToEnd();
             }
@@ -71,6 +58,20 @@ namespace FakeHttp.Resources
         /// <returns></returns>
         public Stream LoadAsStream(string folder, string fileName)
         {
+            // because this will bury the stream in a HttpContent message 
+            // which might be relatively long lived,
+            // pick it up off of disk and into memory so we don't lock the file
+            using (var file = LoadFromFile(folder, fileName))
+            {
+                var memoryStream = new MemoryStream();
+                file.CopyTo(memoryStream);
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                return memoryStream;
+            }
+        }
+
+        private Stream LoadFromFile(string folder, string fileName)
+        {
             return new FileStream(FullPath(folder, fileName), FileMode.Open, FileAccess.Read, FileShare.Read);
         }
 
@@ -79,16 +80,11 @@ namespace FakeHttp.Resources
             return Path.Combine(_storeFolder, Path.Combine(folder, fileName));
         }
 
-        private string FullCapturePath(string folder, string fileName)
-        {
-            return Path.Combine(_captureFolder, Path.Combine(folder, fileName));
-        }
-
         public void Store(string folder, string fileName, Stream content)
         {
-            Directory.CreateDirectory(Path.Combine(_captureFolder, folder));
+            Directory.CreateDirectory(Path.Combine(_storeFolder, folder));
 
-            using (var file = new FileStream(FullCapturePath(folder, fileName), FileMode.Create, FileAccess.Write, FileShare.None))
+            using (var file = new FileStream(FullPath(folder, fileName), FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 content.CopyTo(file);
             }
@@ -96,9 +92,9 @@ namespace FakeHttp.Resources
 
         public void Store(string folder, string fileName, string content)
         {
-            Directory.CreateDirectory(Path.Combine(_captureFolder, folder));
+            Directory.CreateDirectory(Path.Combine(_storeFolder, folder));
 
-            using (var stream = new FileStream(FullCapturePath(folder, fileName), FileMode.Create, FileAccess.Write, FileShare.None))
+            using (var stream = new FileStream(FullPath(folder, fileName), FileMode.Create, FileAccess.Write, FileShare.None))
             using (var responseWriter = new StreamWriter(stream, Encoding.UTF8))
             {
                 responseWriter.Write(content);

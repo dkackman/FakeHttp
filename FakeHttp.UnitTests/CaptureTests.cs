@@ -25,7 +25,7 @@ namespace FakeHttp.UnitTests
         {
             // store the rest response in a subfolder of the solution directory for future use
             var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\FakeResponses\");
-            var handler = new CapturingHttpClientHandler(new ResponseStore(new FileSystemResources(TestContext.DeploymentDirectory, captureFolder)));
+            var handler = new CapturingHttpClientHandler(new ResponseStore(new FileSystemResources(captureFolder)));
 
             using (var client = new HttpClient(handler, true))
             {
@@ -54,7 +54,7 @@ namespace FakeHttp.UnitTests
             // store the rest response in a subfolder of the solution directory for future use
             var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\FakeResponses\");
 
-            var capturingHandler = new CapturingHttpClientHandler(new ResponseStore(new FileSystemResources(TestContext.DeploymentDirectory, captureFolder)));
+            var capturingHandler = new CapturingHttpClientHandler(new ResponseStore(new FileSystemResources(captureFolder)));
             var fakingHandler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(new FileSystemResources(captureFolder))); // point the fake to where the capture is stored
 
             using (var capturingClient = new HttpClient(capturingHandler, true))
