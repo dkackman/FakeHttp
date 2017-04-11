@@ -27,7 +27,7 @@ namespace FakeHttp
         public ResponseStore(IResources resources, IResponseCallbacks callbacks)
             : base(resources, callbacks)
         {
-            _resources = resources ?? throw new ArgumentNullException("resources");
+            _resources = resources;
         }
 
         /// <summary>
@@ -39,18 +39,18 @@ namespace FakeHttp
         {
             if (response == null) throw new ArgumentNullException("response");
 
-            var folderPath = Adapter.Formatter.ToResourcePath(response.RequestMessage.RequestUri);
-            var fileName = Adapter.Formatter.ToName(response.RequestMessage, Adapter.RepsonseCallbacks.FilterParameter);
+            var folderPath = _formatter.ToResourcePath(response.RequestMessage.RequestUri);
 
             // this is the object that is serialized (response, normalized request query and pointer to the content file)
-            var info = Adapter.Formatter.PackageResponse(response, Adapter.RepsonseCallbacks.FilterParameter);
+            var info = _formatter.PackageResponse(response, _callbacks.FilterParameter);
 
             // get the content stream loaded and serialize it
             await response.Content.LoadIntoBufferAsync();
-            var content = await Adapter.RepsonseCallbacks.Serializing(response);
+            var content = await _callbacks.Serializing(response);
             _resources.Store(folderPath, info.ContentFileName, content);
 
             // now serialize the response object and its meta-data
+            var fileName = _formatter.ToName(response.RequestMessage, _callbacks.FilterParameter);
             var json = JsonConvert.SerializeObject(info, Formatting.Indented, new VersionConverter());
             _resources.Store(folderPath, fileName + ".response.json", json);
         }

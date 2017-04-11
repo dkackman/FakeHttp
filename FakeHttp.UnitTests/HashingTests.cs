@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -34,6 +33,48 @@ namespace FakeHttp.UnitTests
             var fileName2 = formatter.ToName(request2, (s1, s2) => false);
 
             Assert.AreEqual(fileName1, fileName2);
+        }
+
+        [TestMethod]
+        public void HashIsSchemeInsensitive()
+        {
+            var formatter = new MessageFormatter();
+
+            var request1 = new HttpRequestMessage(HttpMethod.Get, "http://www.example.com?hi=there");
+            var fileName1 = formatter.ToName(request1, (s1, s2) => false);
+
+            var request2 = new HttpRequestMessage(HttpMethod.Get, "https://www.example.com?hi=there");
+            var fileName2 = formatter.ToName(request2, (s1, s2) => false);
+
+            Assert.AreEqual(fileName1, fileName2);
+        }
+
+        [TestMethod]
+        public void HashIsDifferentBasedOnParamValues()
+        {
+            var formatter = new MessageFormatter();
+
+            var request1 = new HttpRequestMessage(HttpMethod.Get, "http://www.example.com?hi=there");
+            var fileName1 = formatter.ToName(request1, (s1, s2) => false);
+
+            var request2 = new HttpRequestMessage(HttpMethod.Get, "https://www.example.com?hi=thier");
+            var fileName2 = formatter.ToName(request2, (s1, s2) => false);
+
+            Assert.AreNotEqual(fileName1, fileName2);
+        }
+
+        [TestMethod]
+        public void HashIsDifferentBasedOnParamName()
+        {
+            var formatter = new MessageFormatter();
+
+            var request1 = new HttpRequestMessage(HttpMethod.Get, "http://www.example.com?hi=there");
+            var fileName1 = formatter.ToName(request1, (s1, s2) => false);
+
+            var request2 = new HttpRequestMessage(HttpMethod.Get, "https://www.example.com?hey=there");
+            var fileName2 = formatter.ToName(request2, (s1, s2) => false);
+
+            Assert.AreNotEqual(fileName1, fileName2);
         }
     }
 }
