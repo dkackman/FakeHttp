@@ -25,6 +25,7 @@ namespace FakeHttp.Resources
         /// 
         /// </summary>
         /// <param name="storeFolder">The root folder where resources reside</param>
+        /// <param name="captureFolder">The root folder where resources will be captured</param>
         public FileSystemResources(string storeFolder, string captureFolder)
         {
             if (string.IsNullOrEmpty(storeFolder)) throw new ArgumentException("storeFolder cannot be empty", "storeFolder");

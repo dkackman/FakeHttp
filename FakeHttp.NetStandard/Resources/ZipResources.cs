@@ -75,7 +75,7 @@ namespace FakeHttp.Resources
         private ZipArchiveEntry GetEntry(string folder, string fileName)
         {
             // TODO - this might be a performance hotspot
-            // we use this instead of ZipArchive.GetEntry in order to do case insensitve searching
+            // we use this instead of ZipArchive.GetEntry in order to do case insensitve searching - because DNS is not case sensistive
             return _archive.Entries.Where(e => e.FullName.Equals(FullPath(folder, fileName), StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
         }
 

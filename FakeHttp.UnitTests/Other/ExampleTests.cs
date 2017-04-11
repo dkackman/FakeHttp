@@ -39,7 +39,6 @@ namespace FakeHttp.UnitTests.Zip
         }
 
         [TestMethod]
-        [TestCategory("fake")]
         [TestCategory("Zip")]
         public async Task ZipCanGetSimpleJsonResult()
         {

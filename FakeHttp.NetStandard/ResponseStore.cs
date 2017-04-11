@@ -16,14 +16,18 @@ namespace FakeHttp
         /// <summary>
         /// ctor
         /// </summary>
-        /// <param name="storeFolder">root folder for storage</param>
-        /// <param name="captureFolder">folder to store captued response messages</param>
+        /// <param name="resources">An instance that manages the underlying storage of response resources</param>
         /// <param name="callbacks">Object to manage responses at runtime</param>
         public ResponseStore(IResources resources)
             : this(resources, new ResponseCallbacks())
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resources">An instance that manages the underlying storage of response resources</param>
+        /// <param name="callbacks">Object to manage responses at runtime</param>
         public ResponseStore(IResources resources, IResponseCallbacks callbacks)
             : base(resources, callbacks)
         {
