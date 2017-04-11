@@ -51,13 +51,25 @@ namespace FakeHttp
         /// <summary>
         /// Create an <see cref="System.Net.Http.HttpMessageHandler"/>.
         /// </summary>
-        /// <param name="responseStore">Object that can store and retrieve response messages</param>
+        /// <param name="resources">Instance where faked responses are stored</param>
         /// <returns>A <see cref="System.Net.Http.HttpMessageHandler"/></returns>
-        public static HttpMessageHandler CreateMessageHandler(IReadOnlyResponseStore responseStore)
+        /// 
+        public static HttpMessageHandler CreateMessageHandler(IReadOnlyResources resources)
+        {
+            return CreateMessageHandler(resources, new ResponseCallbacks());
+        }
+
+        /// <summary>
+        /// Create an <see cref="System.Net.Http.HttpMessageHandler"/>.
+        /// </summary>
+        /// <param name="resources">Instance where faked responses are stored</param>
+        /// <param name="callbacks"></param>
+        /// <returns></returns>
+        public static HttpMessageHandler CreateMessageHandler(IReadOnlyResources resources, IResponseCallbacks callbacks)
         {
             if (Mode == MessageHandlerMode.Fake)
             {
-                return new FakeHttpMessageHandler(responseStore);
+                return new FakeHttpMessageHandler(new ReadOnlyResponseStore(resources, callbacks));
             }
 
             if (Mode == MessageHandlerMode.Capture || Mode == MessageHandlerMode.Automatic)
@@ -78,18 +90,33 @@ namespace FakeHttp
         /// <summary>
         /// Create an <see cref="System.Net.Http.HttpMessageHandler"/>.
         /// </summary>
-        /// <param name="responseStore">Object that can store and retrieve response messages</param>
+        /// <param name="resources">Instance where faked responses are stored</param>
         /// <returns>A <see cref="System.Net.Http.HttpMessageHandler"/></returns>
-        public static HttpMessageHandler CreateMessageHandler(IResponseStore responseStore)
+        public static HttpMessageHandler CreateMessageHandler(IResources resources)
         {
+            return CreateMessageHandler(resources, new ResponseCallbacks());
+        }
+
+        /// <summary>
+        /// Create an <see cref="System.Net.Http.HttpMessageHandler"/>.
+        /// </summary>
+        /// <param name="resources">Instance where faked responses are stored</param>
+        /// <param name="callbacks"></param>
+        /// <returns>A <see cref="System.Net.Http.HttpMessageHandler"/></returns>
+        public static HttpMessageHandler CreateMessageHandler(IResources resources, IResponseCallbacks callbacks)
+        {
+            var store = new ResponseStore(resources, callbacks);
+
+            // fake has a different base class than capture and automatic
+            // so thats why this is up here
             if (Mode == MessageHandlerMode.Fake)
             {
-                return new FakeHttpMessageHandler(responseStore);
+                return new FakeHttpMessageHandler(store);
             }
 
             var clientHandler =
-                Mode == MessageHandlerMode.Capture ? new CapturingHttpClientHandler(responseStore) :
-                Mode == MessageHandlerMode.Automatic ? new AutomaticHttpClientHandler(responseStore) :
+                Mode == MessageHandlerMode.Capture ? new CapturingHttpClientHandler(store) :
+                Mode == MessageHandlerMode.Automatic ? new AutomaticHttpClientHandler(store) :
                 new HttpClientHandler();
 
             if (clientHandler.SupportsAutomaticDecompression)
