@@ -52,8 +52,7 @@ namespace FakeHttp.Resources
         /// <returns>The file's contents as a string</returns>
         public string LoadAsString(string folder, string fileName)
         {
-            var stream = LoadAsStream(folder, fileName) ?? throw new InvalidOperationException($"Archive entry {folder}, {fileName} not found - Check Exists first");
-            using (var reader = new StreamReader(stream))
+            using (var reader = new StreamReader(LoadFromEntry(folder, fileName)))
             {
                 return reader.ReadToEnd();
             }
@@ -67,8 +66,20 @@ namespace FakeHttp.Resources
         /// <returns>File's contents as a stream</returns>
         public Stream LoadAsStream(string folder, string fileName)
         {
-            var entry = GetEntry(folder, fileName) ?? throw new InvalidOperationException($"Archive entry {folder}, {fileName} not found - Check Exists first");
+            // since we are passing the stream out of our control
+            // disconnect it from the lifetime of the ZipArchive
+            using (var entry = LoadFromEntry(folder, fileName))
+            {
+                var memoryStream = new MemoryStream();
+                entry.CopyTo(memoryStream);
+                memoryStream.Seek(0, SeekOrigin.Begin);
+                return memoryStream;
+            }
+        }
 
+        private Stream LoadFromEntry(string folder, string fileName)
+        {
+            var entry = GetEntry(folder, fileName) ?? throw new InvalidOperationException($"Archive entry {folder}, {fileName} not found - Check Exists first");
             return entry.Open();
         }
 
