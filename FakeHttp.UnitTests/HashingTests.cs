@@ -36,7 +36,7 @@ namespace FakeHttp.UnitTests
         }
 
         [TestMethod]
-        public void HashIsSchemeInsensitive()
+        public void FileNameIsSchemeInsensitive()
         {
             var formatter = new MessageFormatter();
 
