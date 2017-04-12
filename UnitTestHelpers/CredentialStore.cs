@@ -45,8 +45,7 @@ namespace UnitTestHelpers
 
         public static void StoreObject(string name, dynamic o)
         {
-            using (var file = File.Open(_root + name, FileMode.Create, FileAccess.Write, FileShare.None))
-            using (var writer = new StreamWriter(file))
+            using (var writer = new StreamWriter(File.Open(_root + name, FileMode.Create, FileAccess.Write, FileShare.None)))
             {
                 string json = JsonConvert.SerializeObject(o);
                 writer.Write(json);
