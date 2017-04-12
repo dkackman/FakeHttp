@@ -81,11 +81,16 @@ namespace FakeHttp
 
         private static HttpResponseMessage Create404(HttpRequestMessage request, string folderPath, string longName, string shortName)
         {
-            Debug.WriteLine($"Did not find response for verb {request.Method} and uri {request.RequestUri} in {folderPath}.");
-            Debug.WriteLine($"\tTried content and response files with base names {longName} and {shortName}.");
-            Debug.WriteLine($"\tCheck that fake responses are copied to the unit test location.");
+            var msg = $"Did not find response for verb {request.Method} and uri {request.RequestUri} in {folderPath}." +
+                $"\nTried content and response files with base names {longName} and {shortName}." +
+                "\nCheck that fake responses are copied to the unit test location.";
 
-            return new HttpResponseMessage(HttpStatusCode.NotFound) { RequestMessage = request };
+            Debug.WriteLine(msg);
+            return new HttpResponseMessage(HttpStatusCode.NotFound)
+            {
+                RequestMessage = request,
+                Content = new StringContent(msg)
+            };
         }
 
         private HttpResponseMessage DeserializeResponse(HttpRequestMessage request, string folder, string baseName)

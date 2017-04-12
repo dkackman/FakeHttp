@@ -4,11 +4,13 @@
     <TargetFramework>netstandard1.4</TargetFramework>
     <PackageId>Dkackman.FakeHttp</PackageId>
     <Authors>dkackman</Authors>
-    <Version>2.0.0</Version>
+    <Version>2.0.1</Version>
     <Company>kackman.net</Company>
     <Product>FakeHttp</Product>
     <Description>A library to allow faking of client http logic with System.Net.Http. Supports recording and playback of responses. Particularly useful for separating client-side unit tests from web services.</Description>
-    <PackageReleaseNotes>2.0.0 - Convert to NetStandard
+    <PackageReleaseNotes>2.0.1 - bug fixes
+
+2.0.0 - Convert to NetStandard
 	- remove platform assemblies
 	- add ZipArchive support
 
