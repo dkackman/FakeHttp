@@ -11,7 +11,7 @@ namespace FakeHttp
     /// <summary>
     /// A store that can serve responses from an <see cref="IReadOnlyResources"/> instance
     /// </summary>
-    public class ReadOnlyResponseStore : IReadOnlyResponseStore 
+    public class ReadOnlyResponseStore : IReadOnlyResponseStore
     {
         protected readonly MessageFormatter _formatter = new MessageFormatter();
         protected readonly IResponseCallbacks _callbacks;
@@ -121,20 +121,18 @@ namespace FakeHttp
             if (_resources.Exists(folder, fileName))
             {
                 var stream = _resources.LoadAsStream(folder, fileName);
-                if (stream != null)
+
+                Debug.WriteLine($"Creating content only response for {folder} {fileName}");
+
+                var content = _callbacks.Deserialized(null, stream);
+
+                // no serialized response but we have serialized content
+                // craft a response and attach content
+                return new HttpResponseMessage(HttpStatusCode.OK)
                 {
-                    Debug.WriteLine($"Creating content only response for {folder} {fileName}");
-
-                    var content = _callbacks.Deserialized(null, stream);
-
-                    // no serialized response but we have serialized content
-                    // craft a response and attach content
-                    return new HttpResponseMessage(HttpStatusCode.OK)
-                    {
-                        Content = new StreamContent(content),
-                        RequestMessage = request
-                    };
-                }
+                    Content = new StreamContent(content),
+                    RequestMessage = request
+                };
             }
 
             Debug.WriteLine($"No response found for {folder} {baseName}");
