@@ -38,15 +38,10 @@ namespace FakeHttp
     /// </summary>
     public static class MessageHandlerFactory
     {
-        static MessageHandlerFactory()
-        {
-            Mode = MessageHandlerMode.Automatic;
-        }
-
         /// <summary>
         /// Controls what type of <see cref="System.Net.Http.HttpMessageHandler"/> to create by default
         /// </summary>
-        public static MessageHandlerMode Mode { get; set; }
+        public static MessageHandlerMode Mode { get; set; } = MessageHandlerMode.Automatic;
 
         /// <summary>
         /// Create an <see cref="System.Net.Http.HttpMessageHandler"/>.
@@ -74,7 +69,7 @@ namespace FakeHttp
 
             if (Mode == MessageHandlerMode.Capture || Mode == MessageHandlerMode.Automatic)
             {
-                throw new InvalidOperationException("Cannot use Capture or Automatic mode with an IReadonlyResponseStore");
+                throw new InvalidOperationException("Cannot use Capture or Automatic mode with an IReadOnlyResources");
             }
 
             // else online

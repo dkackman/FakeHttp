@@ -11,24 +11,19 @@ namespace FakeHttp
     public sealed class MessageFormatter
     {
         /// <summary>
-        /// ctor
-        /// </summary>
-        public MessageFormatter()
-        {
-        }
-
-        /// <summary>
-        /// Convert the <see cref="System.Net.Http.HttpResponseMessage"/> into an object
-        /// that is more serialization friendly
+        /// Convert the <see cref="System.Net.Http.HttpResponseMessage"/> into an object that is more serialization friendly
         /// </summary>
         /// <param name="response">The <see cref="System.Net.Http.HttpResponseMessage"/></param>
         /// <param name="filter">Predicate to applt to each paramter that can be used to keep them out of the packaged response</param>
         /// <returns>A serializable object</returns>
         public ResponseInfo PackageResponse(HttpResponseMessage response, Func<string, string, bool> filter)
         {
+            if (response == null) throw new ArgumentNullException("response");
+            if (filter == null) throw new ArgumentNullException("filter");
+
             var uri = response.RequestMessage.RequestUri;
             var name = ToName(response.RequestMessage, filter);
-            var contentExtension = MimeMap.GetFileExtension(response?.Content?.Headers?.ContentType?.MediaType);
+            var contentExtension = MimeMap.GetFileExtension(response.Content.Headers.ContentType?.MediaType);
 
             // since HttpHeaders is not a creatable object, store the headers off to the side
             // also never put our FAKEHTTP header in the serializable object

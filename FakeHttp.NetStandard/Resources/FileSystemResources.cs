@@ -58,9 +58,8 @@ namespace FakeHttp.Resources
         /// <returns></returns>
         public Stream LoadAsStream(string folder, string fileName)
         {
-            // because this will bury the stream in a HttpContent message 
-            // which might be relatively long lived,
-            // pick it up off of disk and into memory so we don't lock the file
+            // since we are passing the stream out of our control
+            // disconnect it from the File in order to avoid IO locks
             using (var file = LoadFromFile(folder, fileName))
             {
                 var memoryStream = new MemoryStream();
