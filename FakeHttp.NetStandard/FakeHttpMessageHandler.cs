@@ -14,6 +14,16 @@ namespace FakeHttp
         private readonly IReadOnlyResponseStore _store;
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resources"></param>
+        public FakeHttpMessageHandler(IReadOnlyResources resources)
+            :this(new ReadOnlyResponseStore(resources))
+        {
+
+        }
+
+        /// <summary>
         /// ctor
         /// </summary>
         /// <param name="store">The storage mechanism for responses</param>

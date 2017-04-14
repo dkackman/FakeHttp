@@ -23,7 +23,7 @@ namespace FakeHttp.UnitTests.Zip
         {
             using (var resources = new ZipResources(Path.Combine(TestContext.DeploymentDirectory, "FakeResponses.zip")))
             {
-                var handler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(resources));
+                var handler = new FakeHttpMessageHandler(resources);
                 using (var client = new HttpClient(handler, true))
                 {
                     client.BaseAddress = new Uri("https://www.example.com/");
@@ -44,7 +44,7 @@ namespace FakeHttp.UnitTests.Zip
         {
             using (var resources = new ZipResources(Path.Combine(TestContext.DeploymentDirectory, "FakeResponses.zip")))
             {
-                var handler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(resources));
+                var handler = new FakeHttpMessageHandler(resources);
                 using (var client = new HttpClient(handler, true))
                 {
                     client.BaseAddress = new Uri("http://openstates.org/api/v1/");

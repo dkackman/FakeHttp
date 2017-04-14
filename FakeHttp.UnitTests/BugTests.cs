@@ -20,7 +20,7 @@ namespace FakeHttp.UnitTests
         public async Task FakeResponseHadRequestMessageSet()
         {
             var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\FakeResponses\");
-            var handler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(new FileSystemResources(TestContext.DeploymentDirectory)));
+            var handler = new FakeHttpMessageHandler(new FileSystemResources(TestContext.DeploymentDirectory));
 
             using (var client = new HttpClient(handler, true))
             {
