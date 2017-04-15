@@ -18,7 +18,7 @@ namespace BingGeoCoder.Client.UnitTests
         public static void AssemblyInitialize(TestContext context)
         {
             // set the http message handler factory to the mode we want for the entire assmebly test execution
-            MessageHandlerFactory.Mode = MessageHandlerMode.Automatic;
+            MessageHandlerFactory.Mode = MessageHandlerMode.Fake;
 
             // setup IOC so test classes can get the shared message handler
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);

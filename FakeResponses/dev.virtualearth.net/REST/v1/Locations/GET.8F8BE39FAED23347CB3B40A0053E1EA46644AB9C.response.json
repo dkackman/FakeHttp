@@ -3,7 +3,7 @@
     "Major": 1,
     "Minor": 1
   },
-  "StatusCode": 200,
+  "StatusCode": 401,
   "BaseUri": "dev.virtualearth.net/REST/v1/Locations",
   "Query": "c=en-us&countryregion=us&maxres=1&postalcode=55116",
   "ContentFileName": "GET.8F8BE39FAED23347CB3B40A0053E1EA46644AB9C.content.json",
@@ -12,16 +12,13 @@
       "chunked"
     ],
     "X-BM-TraceID": [
-      "b7c51c6db98b47fb87fcc11684b7bb87"
-    ],
-    "X-BM-BE-Elapsed": [
-      "46"
+      "6c1f61d82d3b47929b2d6bb0a49ab12b"
     ],
     "X-BM-FE-Elapsed": [
-      "53"
+      "0"
     ],
     "X-BM-Srv": [
-      "BN20130634"
+      "CO30275938"
     ],
     "X-MS-BM-WS-INFO": [
       "0"
@@ -30,7 +27,7 @@
       "no-cache"
     ],
     "Date": [
-      "Wed, 12 Apr 2017 03:36:50 GMT"
+      "Sat, 15 Apr 2017 04:08:47 GMT"
     ],
     "Server": [
       "Microsoft-IIS/8.0"
