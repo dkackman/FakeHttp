@@ -50,7 +50,7 @@ namespace FakeHttp
         /// <returns>Resource path</returns>
         public string ToResourcePath(Uri uri)
         {
-            return Path.Combine(uri.Host, uri.LocalPath.TrimStart('/')).Replace("/", "\\");
+            return Path.Combine(uri.Host, uri.LocalPath.TrimStart('/')).Replace('/', '\\');
         }
 
         /// <summary>

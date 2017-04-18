@@ -92,7 +92,7 @@ namespace FakeHttp.Resources
 
         private static string FullPath(string folder, string fileName)
         {
-            return Path.Combine(folder, fileName).Replace("\\", "/");
+            return Path.Combine(folder, fileName).Replace('\\', '/');
         }
     }
 }
