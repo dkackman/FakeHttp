@@ -19,7 +19,7 @@ namespace FakeHttp.UnitTests
         [TestMethod]
         public async Task MinimalExampleTest()
         {
-            var handler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(new FileSystemResources(TestContext.DeploymentDirectory)));
+            var handler = new FakeHttpMessageHandler(new FileSystemResources(TestContext.DeploymentDirectory));
             using (var client = new HttpClient(handler, true))
             {
                 client.BaseAddress = new Uri("https://www.example.com/");
@@ -37,7 +37,7 @@ namespace FakeHttp.UnitTests
         [TestCategory("fake")]
         public async Task CanGetSimpleJsonResult()
         {
-            var handler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(new FileSystemResources(TestContext.DeploymentDirectory)));
+            var handler = new FakeHttpMessageHandler(new FileSystemResources(TestContext.DeploymentDirectory));
 
             using (var client = new HttpClient(handler, true))
             {

@@ -24,7 +24,7 @@ namespace UnitTestHelpers
 
         public static dynamic RetrieveObject(string name)
         {
-            Debug.Assert(File.Exists(_root + name));
+            //Debug.Assert(File.Exists(_root + name));
             try
             {
                 using (var file = File.OpenRead(_root + name))
@@ -37,10 +37,11 @@ namespace UnitTestHelpers
             }
             catch (Exception e)
             {
-                Debug.Assert(false, e.Message);
+                //Debug.Assert(false, e.Message);
             }
-
-            return null;
+            dynamic o = new ExpandoObject();
+            o.Key = "";
+            return o;
         }
 
         public static void StoreObject(string name, dynamic o)

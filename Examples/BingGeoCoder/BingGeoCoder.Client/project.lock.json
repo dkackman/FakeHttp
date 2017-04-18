@@ -4636,14 +4636,14 @@
     ".NETStandard,Version=v1.3": []
   },
   "packageFolders": {
-    "C:\\Users\\Erffice\\.nuget\\packages\\": {}
+    "C:\\Users\\kackmand\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
-      "projectUniqueName": "C:\\Users\\Erffice\\Documents\\GitHub\\FakeHttp\\Examples\\BingGeoCoder\\BingGeoCoder.Client\\BingGeoCoder.Client.csproj",
+      "projectUniqueName": "C:\\Users\\kackmand\\Documents\\GitHub\\FakeHttp\\Examples\\BingGeoCoder\\BingGeoCoder.Client\\BingGeoCoder.Client.csproj",
       "projectName": "BingGeoCoder.Client",
-      "projectPath": "C:\\Users\\Erffice\\Documents\\GitHub\\FakeHttp\\Examples\\BingGeoCoder\\BingGeoCoder.Client\\BingGeoCoder.Client.csproj",
-      "projectJsonPath": "C:\\Users\\Erffice\\Documents\\GitHub\\FakeHttp\\Examples\\BingGeoCoder\\BingGeoCoder.Client\\project.json",
+      "projectPath": "C:\\Users\\kackmand\\Documents\\GitHub\\FakeHttp\\Examples\\BingGeoCoder\\BingGeoCoder.Client\\BingGeoCoder.Client.csproj",
+      "projectJsonPath": "C:\\Users\\kackmand\\Documents\\GitHub\\FakeHttp\\Examples\\BingGeoCoder\\BingGeoCoder.Client\\project.json",
       "projectStyle": "ProjectJson"
     },
     "dependencies": {
