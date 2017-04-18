@@ -19,11 +19,6 @@ namespace FakeHttp.Resources
 
         public bool Exists(string folder, string fileName)
         {
-            foreach(var r in _assembly.GetManifestResourceNames())
-            {
-                System.Diagnostics.Debug.WriteLine(r);
-            }
-
             var resource = ResourceName(folder, fileName);
 
             return _assembly.GetManifestResourceNames().Where(s => s == resource).Any();
