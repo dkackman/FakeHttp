@@ -12,12 +12,17 @@ namespace FakeHttp
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="folder"></param>
-        /// <param name="fileName"></param>
+        /// <param name="folder">The folder name</param>
+        /// <param name="fileName">The file name</param>
         /// <param name="content"></param>
-        /// <returns></returns>
         void Store(string folder, string fileName, string content);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="folder">The folder name</param>
+        /// <param name="fileName">The file name</param>
+        /// <param name="content"></param>
         void Store(string folder, string fileName, Stream content);
     }
 }

@@ -17,7 +17,6 @@ namespace FakeHttp
         /// ctor
         /// </summary>
         /// <param name="resources">An instance that manages the underlying storage of response resources</param>
-        /// <param name="callbacks">Object to manage responses at runtime</param>
         public ResponseStore(IResources resources)
             : this(resources, new ResponseCallbacks())
         {

@@ -13,7 +13,14 @@ namespace FakeHttp
     /// </summary>
     public class ReadOnlyResponseStore : IReadOnlyResponseStore
     {
+        /// <summary>
+        /// Object used to format folder and file names for storage
+        /// </summary>
         protected readonly MessageFormatter _formatter = new MessageFormatter();
+
+        /// <summary>
+        /// object used to allow client code to modify responses during load and storage
+        /// </summary>
         protected readonly IResponseCallbacks _callbacks;
 
         private readonly IReadOnlyResources _resources;
@@ -21,7 +28,7 @@ namespace FakeHttp
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="resources"></param>
+        /// <param name="resources">An instance that manages the underlying storage of response resources</param>
         public ReadOnlyResponseStore(IReadOnlyResources resources)
             : this(resources, new ResponseCallbacks())
         {
@@ -30,8 +37,8 @@ namespace FakeHttp
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="resources"></param>
-        /// <param name="callbacks"></param>
+        /// <param name="resources">An instance that manages the underlying storage of response resources</param>
+        /// <param name="callbacks">object used to allow client code to modify responses during load and storage</param>
         public ReadOnlyResponseStore(IReadOnlyResources resources, IResponseCallbacks callbacks)
         {
             _resources = resources ?? throw new ArgumentNullException("loader");

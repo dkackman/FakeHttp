@@ -40,7 +40,7 @@ namespace FakeHttp.Resources
         /// </summary>
         /// <param name="folder">The folder name</param>
         /// <param name="fileName">The file name</param>
-        /// <returns>The file's contents as a string</returns>
+        /// <returns>The file's contents as a <see cref="String"/></returns>
         public string LoadAsString(string folder, string fileName)
         {
             using (var reader = new StreamReader(LoadFromFile(folder, fileName)))
@@ -55,7 +55,7 @@ namespace FakeHttp.Resources
         /// <param name="folder">The folder name</param>
         /// <param name="fileName">The file name</param>
         /// <returns>File's contents as a stream</returns>
-        /// <returns></returns>
+        /// <returns>The file's contents as a <see cref="Stream"/></returns>
         public Stream LoadAsStream(string folder, string fileName)
         {
             // since we are passing the stream out of our control
@@ -79,6 +79,12 @@ namespace FakeHttp.Resources
             return Path.Combine(_storeFolder, Path.Combine(folder, fileName));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="folder">The folder name</param>
+        /// <param name="fileName">The file name</param>
+        /// <param name="content"></param>
         public void Store(string folder, string fileName, Stream content)
         {
             Directory.CreateDirectory(Path.Combine(_storeFolder, folder));
@@ -89,6 +95,12 @@ namespace FakeHttp.Resources
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="folder">The folder name</param>
+        /// <param name="fileName">The file name</param>
+        /// <param name="content"></param>
         public void Store(string folder, string fileName, string content)
         {
             Directory.CreateDirectory(Path.Combine(_storeFolder, folder));
