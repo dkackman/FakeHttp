@@ -6,14 +6,15 @@ using System.IO.Compression;
 namespace FakeHttp.Resources
 {
     /// <summary>
-    /// Resources stored ina <see cref="ZipArchive"/>
+    /// Resources stored in a <see cref="ZipArchive"/>
     /// </summary>
     public sealed class ZipResources : IReadOnlyResources, IDisposable
     {
         private readonly ZipArchive _archive;
 
         /// <summary>
-        /// ctor
+        /// Opens the <see cref="ZipArchive"/> located at archiveFilePath.
+        /// The archive will remain opened until <see cref="ZipResources.Dispose"/> is called
         /// </summary>
         /// <param name="archiveFilePath">full or relative path to the zip archive file</param>
         public ZipResources(string archiveFilePath)
@@ -25,6 +26,7 @@ namespace FakeHttp.Resources
 
         /// <summary>
         /// <see cref="IDisposable.Dispose"/>
+        /// Disposes the underlying <see cref="ZipArchive"/>
         /// </summary>
         public void Dispose()
         {
