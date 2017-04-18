@@ -95,7 +95,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Other\ExampleTests.cs" />
+    <Compile Include="Other\AssemblyExampleTests.cs" />
+    <Compile Include="Other\ZipExampleTests.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="CaptureTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -125,6 +126,8 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="www.googleapis.com\storage\v1\b\uspto-pair\GET.response.json" />
+    <EmbeddedResource Include="www.googleapis.com\storage\v1\b\uspto-pair\GET.content.json" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

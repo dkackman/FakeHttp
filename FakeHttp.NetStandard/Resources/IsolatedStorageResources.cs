@@ -1,71 +1,53 @@
-﻿//using System;
-//using System.IO;
-//using System.IO.IsolatedStorage;
-//using System.Threading.Tasks;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using System.Linq;
 
-//namespace FakeHttp.Stores
-//{
-//    /// <summary>
-//    /// Resources that reside in IsolatedStorage (used for store apps
-//    /// </summary>
-//    public sealed class IsolatedStorageResources : IResources
-//    {
-//        private IsolatedStorageFile _folder;
+namespace FakeHttp.Resources
+{
+    /// <summary>
+    /// Resources that reside in IsolatedStorage (used for store apps
+    /// </summary>
+    public sealed class AssemblyResources : IReadOnlyResources
+    {
+        private readonly Assembly _assembly;
 
-//        /// <summary>
-//        /// 
-//        /// </summary>
-//        /// <param name="storage">The folder where resources reside</param>
-//        public IsolatedStorageResources(IsolatedStorageFile storage)
-//        {        
-//            _folder = storage ?? throw new ArgumentNullException("storage");
-//        }
+        public AssemblyResources(Assembly assembly)
+        {
+            _assembly = assembly ?? throw new ArgumentNullException("assembly");
+        }
 
-//        /// <summary>
-//        /// Checks whether the specified file exists
-//        /// </summary>
-//        /// <param name="folder">The folder name</param>
-//        /// <param name="fileName">The file name</param>
-//        /// <returns>Flag indicating whether file exists</returns>
-//        public async Task<bool> Exists(string folder, string fileName)
-//        {
-//            if (string.IsNullOrEmpty(folder) || string.IsNullOrEmpty(fileName)) return false;
+        public bool Exists(string folder, string fileName)
+        {
+            foreach(var r in _assembly.GetManifestResourceNames())
+            {
+                System.Diagnostics.Debug.WriteLine(r);
+            }
 
-//            return await Task.Run<bool>(() =>
-//            {
-//                return _folder.FileExists(Path.Combine(folder, fileName));
-//            });
-//        }
+            var resource = ResourceName(folder, fileName);
 
-//        /// <summary>
-//        /// Loads a given file as a string
-//        /// </summary>
-//        /// <param name="folder">The folder name</param>
-//        /// <param name="fileName">The file name</param>
-//        /// <returns>The file's contents as a string</returns>
-//        public async Task<string> LoadAsString(string folder, string fileName)
-//        {
-//            if (!await Exists(folder, fileName)) return null;
+            return _assembly.GetManifestResourceNames().Where(s => s == resource).Any();
+        }
 
-//            using (var reader = new StreamReader(await LoadAsStream(folder, fileName)))
-//            {
-//                return await reader.ReadToEndAsync();
-//            }
-//        }
+        private string ResourceName(string folder, string fileName)
+        {
+            // '.' is the separator for an embedded resource folder structure
+            var name = _assembly.GetName().Name + "." + Path.Combine(folder, fileName).Replace('\\', '.');
+            return name.Replace('-', '_'); // resource names replace dashes with underbars
+        }
 
-//        /// <summary>
-//        /// Loads a given file as a stream
-//        /// </summary>
-//        /// <param name="folder">The folder name</param>
-//        /// <param name="fileName">The file name</param>
-//        /// <returns>File's contents as a stream</returns>
-//        public async Task<Stream> LoadAsStream(string folder, string fileName)
-//        {
-//            if (!await Exists(folder, fileName)) return null;
+        public Stream LoadAsStream(string folder, string fileName)
+        {
+            var resource = ResourceName(folder, fileName);
+            return _assembly.GetManifestResourceStream(resource);
+        }
 
-//            return await Task.Run(() =>
-//                _folder.OpenFile(Path.Combine(folder, fileName), FileMode.Open, FileAccess.Read, FileShare.Read)
-//            );
-//        }
-//    }
-//}
+        public string LoadAsString(string folder, string fileName)
+        {
+            using (var reader = new StreamReader(LoadAsStream(folder, fileName)))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+    }
+}
