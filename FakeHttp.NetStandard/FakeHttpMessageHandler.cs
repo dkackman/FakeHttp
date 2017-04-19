@@ -17,8 +17,9 @@ namespace FakeHttp
         /// 
         /// </summary>
         /// <param name="resources"></param>
+        /// <exception cref="ArgumentNullException"/>
         public FakeHttpMessageHandler(IReadOnlyResources resources)
-            :this(new ReadOnlyResponseStore(resources))
+            : this(new ReadOnlyResponseStore(resources))
         {
 
         }
@@ -27,6 +28,7 @@ namespace FakeHttp
         /// ctor
         /// </summary>
         /// <param name="store">The storage mechanism for responses</param>
+        /// <exception cref="ArgumentNullException"/>
         public FakeHttpMessageHandler(IReadOnlyResponseStore store)
         {
             _store = store ?? throw new ArgumentNullException("store");

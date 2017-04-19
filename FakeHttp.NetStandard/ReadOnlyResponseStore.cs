@@ -29,6 +29,7 @@ namespace FakeHttp
         /// 
         /// </summary>
         /// <param name="resources">An instance that manages the underlying storage of response resources</param>
+        /// <exception cref="ArgumentNullException"/>
         public ReadOnlyResponseStore(IReadOnlyResources resources)
             : this(resources, new ResponseCallbacks())
         {
@@ -39,6 +40,7 @@ namespace FakeHttp
         /// </summary>
         /// <param name="resources">An instance that manages the underlying storage of response resources</param>
         /// <param name="callbacks">object used to allow client code to modify responses during load and storage</param>
+        /// <exception cref="ArgumentNullException"/>
         public ReadOnlyResponseStore(IReadOnlyResources resources, IResponseCallbacks callbacks)
         {
             _resources = resources ?? throw new ArgumentNullException("loader");
@@ -51,6 +53,7 @@ namespace FakeHttp
         /// </summary>
         /// <param name="request">The <see cref="HttpRequestMessage"/></param>
         /// <returns>True if a response exists for the request. Otherwise false</returns>
+        /// <exception cref="ArgumentNullException"/>
         public bool ResponseExists(HttpRequestMessage request)
         {
             if (request == null) throw new ArgumentNullException("request");
@@ -67,6 +70,7 @@ namespace FakeHttp
         /// </summary>
         /// <param name="request">The request message</param>
         /// <returns>The response messsage</returns>
+        /// <exception cref="ArgumentNullException"/>
         public HttpResponseMessage FindResponse(HttpRequestMessage request)
         {
             if (request == null) throw new ArgumentNullException("request");

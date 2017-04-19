@@ -15,6 +15,7 @@ namespace FakeHttp.Resources
         /// 
         /// </summary>
         /// <param name="storeFolder">The root folder where resources reside</param>
+        /// <exception cref="ArgumentException">If storeFolder is null or empty</exception>
         public FileSystemResources(string storeFolder)
         {
             if (string.IsNullOrEmpty(storeFolder)) throw new ArgumentException("storeFolder cannot be empty", "storeFolder");

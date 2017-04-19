@@ -48,7 +48,7 @@ namespace FakeHttp
         /// </summary>
         /// <param name="resources">Instance where faked responses are stored</param>
         /// <returns>A <see cref="System.Net.Http.HttpMessageHandler"/></returns>
-        /// 
+        /// <exception cref="ArgumentNullException"/>
         public static HttpMessageHandler CreateMessageHandler(IReadOnlyResources resources)
         {
             return CreateMessageHandler(resources, new ResponseCallbacks());
@@ -59,9 +59,15 @@ namespace FakeHttp
         /// </summary>
         /// <param name="resources">Instance where faked responses are stored</param>
         /// <param name="callbacks"></param>
-        /// <returns></returns>
+        /// <returns>A <see cref="HttpMessageHandler"/> appropriate for the current <see cref="MessageHandlerFactory.Mode"/></returns>
+        /// <exception cref="InvalidOperationException">If <see cref="MessageHandlerFactory.Mode"/> is <see cref="MessageHandlerMode.Capture"/> 
+        /// or <see cref="MessageHandlerMode.Automatic"/></exception>
+        /// <exception cref="ArgumentNullException"/>
         public static HttpMessageHandler CreateMessageHandler(IReadOnlyResources resources, IResponseCallbacks callbacks)
         {
+            if (resources == null) throw new ArgumentNullException("resources");
+            if (callbacks == null) throw new ArgumentNullException("callbacks");
+
             if (Mode == MessageHandlerMode.Fake)
             {
                 return new FakeHttpMessageHandler(new ReadOnlyResponseStore(resources, callbacks));
@@ -86,7 +92,8 @@ namespace FakeHttp
         /// Create an <see cref="System.Net.Http.HttpMessageHandler"/>.
         /// </summary>
         /// <param name="resources">Instance where faked responses are stored</param>
-        /// <returns>A <see cref="System.Net.Http.HttpMessageHandler"/></returns>
+        /// <returns>A <see cref="HttpMessageHandler"/> appropriate for the current <see cref="MessageHandlerFactory.Mode"/></returns>
+        /// <exception cref="ArgumentNullException"/>
         public static HttpMessageHandler CreateMessageHandler(IResources resources)
         {
             return CreateMessageHandler(resources, new ResponseCallbacks());
@@ -97,9 +104,13 @@ namespace FakeHttp
         /// </summary>
         /// <param name="resources">Instance where faked responses are stored</param>
         /// <param name="callbacks"></param>
-        /// <returns>A <see cref="System.Net.Http.HttpMessageHandler"/></returns>
+        /// <returns>A <see cref="HttpMessageHandler"/> appropriate for the current <see cref="MessageHandlerFactory.Mode"/></returns>
+        /// <exception cref="ArgumentNullException"/>
         public static HttpMessageHandler CreateMessageHandler(IResources resources, IResponseCallbacks callbacks)
         {
+            if (resources == null) throw new ArgumentNullException("resources");
+            if (callbacks == null) throw new ArgumentNullException("callbacks");
+
             var store = new ResponseStore(resources, callbacks);
 
             // fake has a different base class than capture and automatic

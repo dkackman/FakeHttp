@@ -16,6 +16,7 @@ namespace FakeHttp.Resources
         /// ctor
         /// </summary>
         /// <param name="assembly"><see cref="Assembly"/> with response files stored as embedded resources</param>
+        /// <exception cref="ArgumentNullException"/>
         public AssemblyResources(Assembly assembly)
         {
             _assembly = assembly ?? throw new ArgumentNullException("assembly");

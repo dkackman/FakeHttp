@@ -17,8 +17,9 @@ namespace FakeHttp
         /// 
         /// </summary>
         /// <param name="resources"></param>
+        /// <exception cref="ArgumentNullException"/>
         public AutomaticHttpClientHandler(IResources resources)
-            :this(new ResponseStore(resources))
+            : this(new ResponseStore(resources))
         {
 
         }
@@ -27,6 +28,7 @@ namespace FakeHttp
         /// ctor
         /// </summary>
         /// <param name="store">The storage mechanism for responses</param>
+        /// <exception cref="ArgumentNullException"/>
         public AutomaticHttpClientHandler(IResponseStore store)
         {
             _store = store ?? throw new ArgumentNullException("store");

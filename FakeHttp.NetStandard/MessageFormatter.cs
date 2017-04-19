@@ -6,7 +6,7 @@ using System.Net.Http;
 namespace FakeHttp
 {
     /// <summary>
-    /// Base class that formats http request and response message data prior to serialization
+    /// Class that formats http request and response message data prior for serialization and deserialization
     /// </summary>
     public sealed class MessageFormatter
     {
@@ -16,6 +16,7 @@ namespace FakeHttp
         /// <param name="response">The <see cref="System.Net.Http.HttpResponseMessage"/></param>
         /// <param name="filter">Predicate to applt to each paramter that can be used to keep them out of the packaged response</param>
         /// <returns>A serializable object</returns>
+        /// <exception cref="ArgumentNullException"/>
         public ResponseInfo PackageResponse(HttpResponseMessage response, Func<string, string, bool> filter)
         {
             if (response == null) throw new ArgumentNullException("response");
@@ -48,8 +49,11 @@ namespace FakeHttp
         /// </summary>
         /// <param name="uri">The uri</param>
         /// <returns>Resource path</returns>
+        /// <exception cref="ArgumentNullException"/>
         public string ToResourcePath(Uri uri)
         {
+            if (uri == null) throw new ArgumentNullException("uri");
+
             return Path.Combine(uri.Host, uri.LocalPath.TrimStart('/')).Replace('/', '\\');
         }
 
@@ -59,8 +63,12 @@ namespace FakeHttp
         /// <param name="request">The request</param>
         /// <param name="filter">Parameter filtering predicate</param>
         /// <returns>Filename</returns>
+        /// <exception cref="ArgumentNullException"/>
         public string ToName(HttpRequestMessage request, Func<string, string, bool> filter)
         {
+            if (request == null) throw new ArgumentNullException("request");
+            if (filter == null) throw new ArgumentNullException("filter");
+
             var query = request.RequestUri.NormalizeQuery(filter);
             if (string.IsNullOrEmpty(query))
             {
@@ -75,8 +83,11 @@ namespace FakeHttp
         /// </summary>
         /// <param name="request">The request</param>
         /// <returns>Filename</returns>
+        /// <exception cref="ArgumentNullException"/>
         public string ToShortName(HttpRequestMessage request)
         {
+            if (request == null) throw new ArgumentNullException("request");
+
             return request.Method.Method;
         }
     }

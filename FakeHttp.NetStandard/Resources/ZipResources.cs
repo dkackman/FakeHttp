@@ -17,6 +17,7 @@ namespace FakeHttp.Resources
         /// The archive will remain opened until <see cref="ZipResources.Dispose"/> is called
         /// </summary>
         /// <param name="archiveFilePath">full or relative path to the zip archive file</param>
+        /// <exception cref="ArgumentException">If archiveFilePath is null or empty</exception>
         public ZipResources(string archiveFilePath)
         {
             if (string.IsNullOrEmpty(archiveFilePath)) throw new ArgumentException("archiveFilePath cannot be empty", "archiveFilePath");

@@ -7,7 +7,7 @@ using System.Linq;
 namespace FakeHttp
 {
     /// <summary>
-    /// Default implementations of the <see cref="IResponseCallbacks"/> interface that do nothing
+    /// Default implementations of the <see cref="IResponseCallbacks"/> interface
     /// </summary>
     public class ResponseCallbacks : IResponseCallbacks
     {
@@ -32,6 +32,7 @@ namespace FakeHttp
         /// <summary>
         /// Flag indicating whether to automatically set the Date header to the current date/time on deserialization
         /// </summary>
+        /// <value>True</value>
         public bool SetHeaderDate { get; set; } = true;
 
         /// <summary>
@@ -56,7 +57,7 @@ namespace FakeHttp
         /// </summary>
         /// <param name="name">The name of the Uri query parameter</param>
         /// <param name="value">The value of the uri query parameter</param>
-        /// <returns>False</returns>
+        /// <returns>True if the paramter should be filtered from serialization</returns>
         public virtual bool FilterParameter(string name, string value)
         {
             if (_paramFilter != null)

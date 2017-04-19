@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace FakeHttp
 {
     /// <summary>
-    /// Class that can store and retrieve response messages using <see cref="System.IO.File"/>
+    /// Class that can store and retrieve response messages using an <see cref="IResources"/> instance
     /// </summary>
     public sealed class ResponseStore : ReadOnlyResponseStore, IResponseStore
     {
@@ -17,6 +17,7 @@ namespace FakeHttp
         /// ctor
         /// </summary>
         /// <param name="resources">An instance that manages the underlying storage of response resources</param>
+        /// <exception cref="ArgumentNullException"/>
         public ResponseStore(IResources resources)
             : this(resources, new ResponseCallbacks())
         {
@@ -26,7 +27,8 @@ namespace FakeHttp
         /// 
         /// </summary>
         /// <param name="resources">An instance that manages the underlying storage of response resources</param>
-        /// <param name="callbacks">Object to manage responses at runtime</param>
+        /// <param name="callbacks">Object to manage and modify responses at runtime</param>
+        /// <exception cref="ArgumentNullException"/>
         public ResponseStore(IResources resources, IResponseCallbacks callbacks)
             : base(resources, callbacks)
         {
@@ -38,6 +40,7 @@ namespace FakeHttp
         /// </summary>
         /// <param name="response">The response message to store</param>
         /// <returns>Task</returns>
+        /// <exception cref="ArgumentNullException"/>
         public async Task StoreResponse(HttpResponseMessage response)
         {
             if (response == null) throw new ArgumentNullException("response");
