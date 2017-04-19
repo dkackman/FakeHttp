@@ -10,7 +10,7 @@ namespace FakeHttp
     /// and <see cref="Version.Minor"/> values. HTTP specifies only a two field version. <see cref="Version"/> defaults 
     /// build, revision etc to -1 when not set, and these values break deserialization.
     /// </summary>
-    public sealed class VersionConverter : JsonConverter
+    sealed class VersionConverter : JsonConverter
     {
         /// <summary>
         /// <see cref="JsonConverter.WriteJson(JsonWriter, object, JsonSerializer)"/>
