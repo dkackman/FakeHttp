@@ -1,6 +1,7 @@
 {
   "metadata": [
     {
+      "dest": "api",
       "src": [
         {
           "files": [
@@ -13,11 +14,13 @@
           ],
           "src": "../FakeHttp.NetStandard"
         }
-      ],
-      "dest": "api"
+      ]
     }
   ],
   "build": {
+    "xref": [
+      "xref/msdn.4.5.2.zip"
+    ],
     "content": [
       {
         "files": [
