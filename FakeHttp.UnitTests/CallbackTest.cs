@@ -79,7 +79,7 @@ namespace FakeHttp.UnitTests
             //
             // this test ensures that our mechanism to filter out those parameters we want to ignore works
             //
-            var callbacks = new ResponseCallbacks((name, value) => name == "key");
+            var callbacks = new ResponseCallbacks();
             var capturingHandler = new CapturingHttpClientHandler(new ResponseStore(new FileSystemResources(captureFolder), callbacks));
             var fakingHandler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(new FileSystemResources(captureFolder), callbacks)); // point the fake to where the capture is stored
 

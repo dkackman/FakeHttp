@@ -48,15 +48,15 @@ namespace FakeHttp
             var folderPath = _formatter.ToResourcePath(response.RequestMessage.RequestUri);
 
             // this is the object that is serialized (response, normalized request query and pointer to the content file)
-            var info = _formatter.PackageResponse(response, _callbacks.FilterParameter);
+            var info = _formatter.PackageResponse(response);
 
             // get the content stream loaded and serialize it
             await response.Content.LoadIntoBufferAsync();
-            var content = await _callbacks.Serializing(response);
+            var content = await _formatter.Callbacks.Serializing(response);
             _resources.Store(folderPath, info.ContentFileName, content);
 
             // now serialize the response object and its meta-data
-            var fileName = _formatter.ToName(response.RequestMessage, _callbacks.FilterParameter);
+            var fileName = _formatter.ToName(response.RequestMessage);
             var json = JsonConvert.SerializeObject(info, Formatting.Indented, new VersionConverter());
             _resources.Store(folderPath, fileName + ".response.json", json);
         }

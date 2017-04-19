@@ -3,6 +3,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace FakeHttp
 {
@@ -11,23 +12,26 @@ namespace FakeHttp
     /// </summary>
     public class ResponseCallbacks : IResponseCallbacks
     {
-        private readonly Func<string, string, bool> _paramFilter;
-
-        /// <summary>
-        /// This ctor is only meant for backwards compatiblity with the use of the paramFilter constructors
-        /// </summary>
-        /// <param name="paramFilter"></param>
-        public ResponseCallbacks(Func<string, string, bool> paramFilter)
+        private static readonly HashSet<string> SensitiveHeaderNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
-            _paramFilter = paramFilter ?? throw new ArgumentNullException("paramFilter");
-        }
+            "x-api-key",
+            "fakehttp"
+        };
 
-        /// <summary>
-        /// ctor
-        /// </summary>
-        public ResponseCallbacks()
+        private static readonly HashSet<string> HeaderNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
-        }
+            "fakehttp"
+        };
+
+        private static readonly HashSet<string> SensitiveParameterNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "key",
+            "apikey",
+            "api-key",
+            "api_key"
+        };
+
+        private static readonly HashSet<string> ParameterNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// Flag indicating whether to automatically set the Date header to the current date/time on deserialization
@@ -35,6 +39,23 @@ namespace FakeHttp
         /// <value>True</value>
         public bool SetHeaderDate { get; set; } = true;
 
+        /// <summary>
+        /// Flag indicating whether to automatically filter commonly used header
+        /// and query parameter name such as X-API-KEY, api-key, key, etc from being serialized
+        /// </summary>
+        public bool FilterCommonSensitiveValues { get; set; } = true;
+
+        /// <summary>
+        /// A list of header names that will not be serialized. For
+        /// example x-api-key may not be something to store
+        /// </summary>
+        public HashSet<string> FilteredHeaderNames => FilterCommonSensitiveValues ? SensitiveHeaderNames : HeaderNames;
+
+        /// <summary>
+        /// A list of query paramter names that will not be serialized
+        /// </summary>
+        public HashSet<string> FilteredParameterNames => FilterCommonSensitiveValues ? SensitiveParameterNames : ParameterNames;
+ 
         /// <summary>
         /// Called just before the response is returned. Update deserialized values as necessary
         /// Primarily for cases where time based header values (like content expiration) need up to date values
@@ -60,12 +81,7 @@ namespace FakeHttp
         /// <returns>True if the paramter should be filtered from serialization</returns>
         public virtual bool FilterParameter(string name, string value)
         {
-            if (_paramFilter != null)
-            {
-                return _paramFilter(name, value);
-            }
-
-            return false;
+            return FilteredParameterNames.Contains(name);
         }
 
         /// <summary>

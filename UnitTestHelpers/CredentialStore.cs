@@ -35,7 +35,7 @@ namespace UnitTestHelpers
                     return JsonConvert.DeserializeObject<ExpandoObject>(json, new ExpandoObjectConverter());
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //Debug.Assert(false, e.Message);
             }

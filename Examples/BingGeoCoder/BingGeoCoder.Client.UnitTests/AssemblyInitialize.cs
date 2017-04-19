@@ -28,7 +28,7 @@ namespace BingGeoCoder.Client.UnitTests
 
             // here we don't want to serialize or include our api key in response lookups so
             // pass a lambda that will indicate to the serialzier to filter that param out
-            var callbacks = new ResponseCallbacks((name, value) => name.Equals("key", StringComparison.InvariantCultureIgnoreCase));
+            var callbacks = new ResponseCallbacks();
 
             SimpleIoc.Default.Register(() => MessageHandlerFactory.CreateMessageHandler(new FileSystemResources(fakeFolder), callbacks));
         }

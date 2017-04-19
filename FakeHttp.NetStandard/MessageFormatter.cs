@@ -11,24 +11,41 @@ namespace FakeHttp
     public sealed class MessageFormatter
     {
         /// <summary>
+        /// object used to allow client code to modify responses during load and storage
+        /// </summary>
+        private readonly IResponseCallbacks _callbacks;
+
+        public MessageFormatter()
+            : this(new ResponseCallbacks())
+        {
+        }
+
+        public MessageFormatter(IResponseCallbacks callbacks)
+        {
+            _callbacks = callbacks ?? throw new ArgumentNullException("callbacks");
+        }
+
+        public IResponseCallbacks Callbacks => _callbacks;
+
+        /// <summary>
         /// Convert the <see cref="System.Net.Http.HttpResponseMessage"/> into an object that is more serialization friendly
         /// </summary>
         /// <param name="response">The <see cref="System.Net.Http.HttpResponseMessage"/></param>
-        /// <param name="filter">Predicate to applt to each paramter that can be used to keep them out of the packaged response</param>
+        /// <param name="callbacks">Object used to customize and control serialization</param>
         /// <returns>A serializable object</returns>
         /// <exception cref="ArgumentNullException"/>
-        public ResponseInfo PackageResponse(HttpResponseMessage response, Func<string, string, bool> filter)
+        public ResponseInfo PackageResponse(HttpResponseMessage response)
         {
             if (response == null) throw new ArgumentNullException("response");
-            if (filter == null) throw new ArgumentNullException("filter");
 
             var uri = response.RequestMessage.RequestUri;
-            var name = ToName(response.RequestMessage, filter);
+            var name = ToName(response.RequestMessage);
             var contentExtension = MimeMap.GetFileExtension(response.Content.Headers.ContentType?.MediaType);
 
             // since HttpHeaders is not a creatable object, store the headers off to the side
-            // also never put our FAKEHTTP header in the serializable object
-            var headers = response.Headers.Where(h => h.Key != "FAKEHTTP").ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            // sensitive header values are filtered here
+            var headers = response.Headers.Where(h => !_callbacks.FilteredHeaderNames.Contains(h.Key)).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
             var contentHeaders = response.Content.Headers.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
             return new ResponseInfo()
@@ -36,7 +53,7 @@ namespace FakeHttp
                 HttpVersion = response.Version,
                 StatusCode = response.StatusCode,
                 BaseUri = uri.GetComponents(UriComponents.NormalizedHost | UriComponents.Path, UriFormat.Unescaped),
-                Query = uri.NormalizeQuery(filter),
+                Query = uri.NormalizeQuery(_callbacks.FilterParameter),
                 // if file extension is null we have no content
                 ContentFileName = !string.IsNullOrEmpty(contentExtension) ? string.Concat(name, ".content", contentExtension) : null,
                 ResponseHeaders = headers,
@@ -64,12 +81,11 @@ namespace FakeHttp
         /// <param name="filter">Parameter filtering predicate</param>
         /// <returns>Filename</returns>
         /// <exception cref="ArgumentNullException"/>
-        public string ToName(HttpRequestMessage request, Func<string, string, bool> filter)
+        public string ToName(HttpRequestMessage request)
         {
             if (request == null) throw new ArgumentNullException("request");
-            if (filter == null) throw new ArgumentNullException("filter");
 
-            var query = request.RequestUri.NormalizeQuery(filter);
+            var query = request.RequestUri.NormalizeQuery(_callbacks.FilterParameter);
             if (string.IsNullOrEmpty(query))
             {
                 return ToShortName(request);

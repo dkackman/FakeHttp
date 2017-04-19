@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.Collections.Generic;
 
 namespace FakeHttp
 {
@@ -38,5 +39,22 @@ namespace FakeHttp
         /// Flag indicating whether to automatically set the Date header to the current date/time on deserialization
         /// </summary>
         bool SetHeaderDate { get; set; }
+
+        /// <summary>
+        /// Flag indicating whether to automatically filter commonly used header
+        /// and query parameter names such as X-API-KEY, api-key, key, etc from being serialized
+        /// </summary>
+        bool FilterCommonSensitiveValues { get; set; }
+
+        /// <summary>
+        /// A list of header names that will not be serialized. For
+        /// example x-api-key may not be something to store
+        /// </summary>
+        HashSet<string> FilteredHeaderNames { get; }
+
+        /// <summary>
+        /// A list of query paramter names that will not be serialized
+        /// </summary>
+        HashSet<string> FilteredParameterNames { get; }
     }
 }

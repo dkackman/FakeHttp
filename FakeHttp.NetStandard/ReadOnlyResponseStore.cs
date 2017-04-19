@@ -16,12 +16,7 @@ namespace FakeHttp
         /// <summary>
         /// Object used to format folder and file names for storage
         /// </summary>
-        protected readonly MessageFormatter _formatter = new MessageFormatter();
-
-        /// <summary>
-        /// object used to allow client code to modify responses during load and storage
-        /// </summary>
-        protected readonly IResponseCallbacks _callbacks;
+        protected readonly MessageFormatter _formatter;
 
         private readonly IReadOnlyResources _resources;
 
@@ -44,7 +39,8 @@ namespace FakeHttp
         public ReadOnlyResponseStore(IReadOnlyResources resources, IResponseCallbacks callbacks)
         {
             _resources = resources ?? throw new ArgumentNullException("loader");
-            _callbacks = callbacks ?? throw new ArgumentNullException("callbacks");
+
+            _formatter = new MessageFormatter(callbacks);
         }
 
         /// <summary>
@@ -59,7 +55,7 @@ namespace FakeHttp
             if (request == null) throw new ArgumentNullException("request");
 
             var folderPath = _formatter.ToResourcePath(request.RequestUri);
-            var longName = _formatter.ToName(request, _callbacks.FilterParameter);
+            var longName = _formatter.ToName(request);
             var shortName = _formatter.ToShortName(request);
 
             return _resources.Exists(folderPath, longName + ".response.json") || _resources.Exists(folderPath, shortName + ".response.json");
@@ -76,7 +72,7 @@ namespace FakeHttp
             if (request == null) throw new ArgumentNullException("request");
 
             var folderPath = _formatter.ToResourcePath(request.RequestUri);
-            var longName = _formatter.ToName(request, _callbacks.FilterParameter);
+            var longName = _formatter.ToName(request);
             var shortName = _formatter.ToShortName(request);
 
             // first try to find a file keyed to the request method and query
@@ -116,7 +112,7 @@ namespace FakeHttp
                 var info = JsonConvert.DeserializeObject<ResponseInfo>(json) ?? throw new InvalidDataException("The response exists but could not be deserialized");
 
                 var stream = _resources.Exists(folder, info.ContentFileName) ? _resources.LoadAsStream(folder, info.ContentFileName) : null;
-                var content = _callbacks.Deserialized(info, stream);
+                var content = _formatter.Callbacks.Deserialized(info, stream);
 
                 return info.CreateResponse(request, content);
             }
@@ -135,7 +131,7 @@ namespace FakeHttp
 
                 Debug.WriteLine($"Creating content only response for {folder} {fileName}");
 
-                var content = _callbacks.Deserialized(null, stream);
+                var content = _formatter.Callbacks.Deserialized(null, stream);
 
                 // no serialized response but we have serialized content
                 // craft a response and attach content
