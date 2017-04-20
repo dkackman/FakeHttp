@@ -63,48 +63,6 @@ namespace FakeHttp.UnitTests
 
         [TestMethod]
         [TestCategory("fake")]
-        public async Task FilteredQueryParametrIsIgnoredDuringFakingObsoleteMethod()
-        {
-            string key = CredentialStore.RetrieveObject("bing.key.json").Key;
-            // store the rest response in a subfolder of the solution directory for future use
-            var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\FakeResponses\");
-
-            // when capturing the real response, we do not want to serialize things like api keys
-            // both because that is a possible infomration leak and also because it would
-            // bind the serialized response to the key, making successful faking dependent on
-            // the key used when capturing the response. The fake response lookup will try to find
-            // a serialized response that matches a hash of all the query paramerters. The lambda in
-            // the response store constructor below allows us to ignore certain parameters for that lookup
-            // when capturing and faking responses
-            //
-            // this test ensures that our mechanism to filter out those parameters we want to ignore works
-            //
-            var callbacks = new ResponseCallbacks();
-            var capturingHandler = new CapturingHttpClientHandler(new ResponseStore(new FileSystemResources(captureFolder), callbacks));
-            var fakingHandler = new FakeHttpMessageHandler(new ReadOnlyResponseStore(new FileSystemResources(captureFolder), callbacks)); // point the fake to where the capture is stored
-
-            using (var capturingClient = new HttpClient(capturingHandler, true))
-            using (var fakingClient = new HttpClient(fakingHandler, true))
-            {
-                capturingClient.BaseAddress = new Uri("http://dev.virtualearth.net/");
-                fakingClient.BaseAddress = new Uri("http://dev.virtualearth.net/");
-
-                using (var capturedResponse = await capturingClient.GetAsync("REST/v1/Locations?c=en-us&countryregion=us&maxres=1&postalcode=55116&key=" + key))
-                using (var fakedResponse = await fakingClient.GetAsync("REST/v1/Locations?c=en-us&countryregion=us&maxres=1&postalcode=55116&key=THIS_SHOULD_NOT_MATTER"))
-                {
-                    capturedResponse.EnsureSuccessStatusCode();
-                    fakedResponse.EnsureSuccessStatusCode();
-
-                    string captured = await capturedResponse.Content.Deserialize<string>();
-                    string faked = await fakedResponse.Content.Deserialize<string>();
-
-                    Assert.AreEqual(captured, faked);
-                }
-            }
-        }
-
-        [TestMethod]
-        [TestCategory("fake")]
         public async Task FilteredQueryParametrIsIgnoredDuringFaking()
         {
             string key = CredentialStore.RetrieveObject("bing.key.json").Key;
