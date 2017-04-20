@@ -11,28 +11,7 @@ namespace FakeHttp
     /// Default implementations of the <see cref="IResponseCallbacks"/> interface
     /// </summary>
     public class ResponseCallbacks : IResponseCallbacks
-    {
-        private static readonly HashSet<string> SensitiveHeaderNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-        {
-            "x-api-key",
-            "fakehttp"
-        };
-
-        private static readonly HashSet<string> HeaderNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-        {
-            "fakehttp"
-        };
-
-        private static readonly HashSet<string> SensitiveParameterNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-        {
-            "key",
-            "apikey",
-            "api-key",
-            "api_key"
-        };
-
-        private static readonly HashSet<string> ParameterNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
+    { 
         /// <summary>
         /// Flag indicating whether to automatically set the Date header to the current date/time on deserialization
         /// </summary>
@@ -49,12 +28,12 @@ namespace FakeHttp
         /// A list of header names that will not be serialized. For
         /// example x-api-key may not be something to store
         /// </summary>
-        public HashSet<string> FilteredHeaderNames => FilterCommonSensitiveValues ? SensitiveHeaderNames : HeaderNames;
+        public HashSet<string> FilteredHeaderNames => FilterCommonSensitiveValues ? GlobalFilters.SensitiveHeaderNames : GlobalFilters.HeaderNames;
 
         /// <summary>
         /// A list of query paramter names that will not be serialized
         /// </summary>
-        public HashSet<string> FilteredParameterNames => FilterCommonSensitiveValues ? SensitiveParameterNames : ParameterNames;
+        public HashSet<string> FilteredParameterNames => FilterCommonSensitiveValues ? GlobalFilters.SensitiveParameterNames : GlobalFilters.ParameterNames;
  
         /// <summary>
         /// Called just before the response is returned. Update deserialized values as necessary

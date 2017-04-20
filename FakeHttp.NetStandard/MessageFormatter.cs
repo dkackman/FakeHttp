@@ -15,23 +15,32 @@ namespace FakeHttp
         /// </summary>
         private readonly IResponseCallbacks _callbacks;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public MessageFormatter()
             : this(new ResponseCallbacks())
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="callbacks"></param>
         public MessageFormatter(IResponseCallbacks callbacks)
         {
             _callbacks = callbacks ?? throw new ArgumentNullException("callbacks");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public IResponseCallbacks Callbacks => _callbacks;
 
         /// <summary>
         /// Convert the <see cref="System.Net.Http.HttpResponseMessage"/> into an object that is more serialization friendly
         /// </summary>
         /// <param name="response">The <see cref="System.Net.Http.HttpResponseMessage"/></param>
-        /// <param name="callbacks">Object used to customize and control serialization</param>
         /// <returns>A serializable object</returns>
         /// <exception cref="ArgumentNullException"/>
         public ResponseInfo PackageResponse(HttpResponseMessage response)
@@ -78,7 +87,6 @@ namespace FakeHttp
         /// Deterministically generated file name for a request message
         /// </summary>
         /// <param name="request">The request</param>
-        /// <param name="filter">Parameter filtering predicate</param>
         /// <returns>Filename</returns>
         /// <exception cref="ArgumentNullException"/>
         public string ToName(HttpRequestMessage request)
