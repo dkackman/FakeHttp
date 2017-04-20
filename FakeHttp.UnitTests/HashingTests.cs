@@ -64,7 +64,7 @@ namespace FakeHttp.UnitTests
         }
 
         [TestMethod]
-        public void HashIsDifferentBasedOnParamValues()
+        public void HashDiffersBasedOnParamValues()
         {
             var formatter = new MessageFormatter();
 
@@ -78,7 +78,7 @@ namespace FakeHttp.UnitTests
         }
 
         [TestMethod]
-        public void HashIsDifferentBasedOnParamName()
+        public void HashDiffersBasedOnParamName()
         {
             var formatter = new MessageFormatter();
 
