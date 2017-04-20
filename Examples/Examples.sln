@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingGeoCoder.Client", "BingGeoCoder\BingGeoCoder.Client\BingGeoCoder.Client.csproj", "{C68D630B-DEB6-452B-BDBC-47EA3CD84BEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingGeoCoder.Client.UnitTests", "BingGeoCoder\BingGeoCoder.Client.UnitTests\BingGeoCoder.Client.UnitTests.csproj", "{55179FB2-B7BB-4456-B801-3A246D919040}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestHelpers", "..\UnitTestHelpers\UnitTestHelpers.csproj", "{A589A7BA-9E16-4AE4-B01C-8D6B0AA9CFF8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C68D630B-DEB6-452B-BDBC-47EA3CD84BEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C68D630B-DEB6-452B-BDBC-47EA3CD84BEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C68D630B-DEB6-452B-BDBC-47EA3CD84BEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C68D630B-DEB6-452B-BDBC-47EA3CD84BEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55179FB2-B7BB-4456-B801-3A246D919040}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55179FB2-B7BB-4456-B801-3A246D919040}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55179FB2-B7BB-4456-B801-3A246D919040}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55179FB2-B7BB-4456-B801-3A246D919040}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A589A7BA-9E16-4AE4-B01C-8D6B0AA9CFF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A589A7BA-9E16-4AE4-B01C-8D6B0AA9CFF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A589A7BA-9E16-4AE4-B01C-8D6B0AA9CFF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A589A7BA-9E16-4AE4-B01C-8D6B0AA9CFF8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

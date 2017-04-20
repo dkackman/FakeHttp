@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.IO;
 using System.Net.Http;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -28,9 +28,9 @@ namespace BingGeoCoder.Client.UnitTests
 
             // here we don't want to serialize or include our api key in response lookups so
             // pass a lambda that will indicate to the serialzier to filter that param out
-            var callbacks = new ResponseCallbacks();
 
-            SimpleIoc.Default.Register(() => MessageHandlerFactory.CreateMessageHandler(new FileSystemResources(fakeFolder), callbacks));
+            var archivePath = Path.Combine(fakeFolder, "dev.virtualearth.net.zip");
+            SimpleIoc.Default.Register(() => MessageHandlerFactory.CreateMessageHandler(new ZipResources(archivePath)));
         }
 
         [AssemblyCleanup]

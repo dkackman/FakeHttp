@@ -13,7 +13,7 @@ using GalaSoft.MvvmLight.Ioc;
 namespace GeoCoderTests
 {
     [TestClass]
-    [DeploymentItem(@"FakeResponses\")]
+    [DeploymentItem("dev.virtualearth.net.zip")]
     public class AddressTests
     {
         private static IGeoCoder _service;
