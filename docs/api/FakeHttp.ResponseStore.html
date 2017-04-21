@@ -1,0 +1,338 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ResponseStore
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ResponseStore
+   ">
+    <meta name="generator" content="docfx 2.16.2.2">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content">
+              
+              
+              <h1 id="FakeHttp_ResponseStore" data-uid="FakeHttp.ResponseStore">Class ResponseStore
+              </h1>
+              <div class="markdown level0 summary"><p>Class that can store and retrieve response messages using an <a class="xref" href="FakeHttp.IResources.html">IResources</a> instance</p>
+</div>
+              <div class="markdown level0 conceptual"></div>
+              <div class="inheritance">
+                <h5>Inheritance</h5>
+                  <div class="level0"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.object(v=vs.110).aspx">Object</a></div>
+                  <div class="level1"><a class="xref" href="FakeHttp.ReadOnlyResponseStore.html">ReadOnlyResponseStore</a></div>
+                  <div class="level2"><span class="xref">ResponseStore</span></div>
+              </div>
+              <div class="inheritedMembers">
+                <h5>Inherited Members</h5>
+                <div>
+                  <a class="xref" href="FakeHttp.ReadOnlyResponseStore.html#FakeHttp_ReadOnlyResponseStore__formatter">ReadOnlyResponseStore._formatter</a>
+                </div>
+                <div>
+                  <a class="xref" href="FakeHttp.ReadOnlyResponseStore.html#FakeHttp_ReadOnlyResponseStore_ResponseExists_System_Net_Http_HttpRequestMessage_">ReadOnlyResponseStore.ResponseExists(HttpRequestMessage)</a>
+                </div>
+                <div>
+                  <a class="xref" href="FakeHttp.ReadOnlyResponseStore.html#FakeHttp_ReadOnlyResponseStore_FindResponse_System_Net_Http_HttpRequestMessage_">ReadOnlyResponseStore.FindResponse(HttpRequestMessage)</a>
+                </div>
+                <div>
+                  <a class="xref" href="https://msdn.microsoft.com/en-us/library/bsc2ak47(v=vs.110).aspx">Object.Equals(Object)</a>
+                </div>
+                <div>
+                  <a class="xref" href="https://msdn.microsoft.com/en-us/library/w4hkze5k(v=vs.110).aspx">Object.Equals(Object, Object)</a>
+                </div>
+                <div>
+                  <a class="xref" href="https://msdn.microsoft.com/en-us/library/zdee4b3y(v=vs.110).aspx">Object.GetHashCode()</a>
+                </div>
+                <div>
+                  <a class="xref" href="https://msdn.microsoft.com/en-us/library/dfwy45w9(v=vs.110).aspx">Object.GetType()</a>
+                </div>
+                <div>
+                  <a class="xref" href="https://msdn.microsoft.com/en-us/library/57ctke0a(v=vs.110).aspx">Object.MemberwiseClone()</a>
+                </div>
+                <div>
+                  <a class="xref" href="https://msdn.microsoft.com/en-us/library/hz2a0b8x(v=vs.110).aspx">Object.ReferenceEquals(Object, Object)</a>
+                </div>
+                <div>
+                  <a class="xref" href="https://msdn.microsoft.com/en-us/library/7bxwbwt2(v=vs.110).aspx">Object.ToString()</a>
+                </div>
+              </div>
+              <h6><strong>Namespace</strong>:FakeHttp</h6>
+              <h6><strong>Assembly</strong>:FakeHttp.dll</h6>
+              <h5 id="FakeHttp_ResponseStore_syntax">Syntax</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public sealed class ResponseStore : ReadOnlyResponseStore, IResponseStore, IReadOnlyResponseStore</code></pre>
+              </div>
+              <h3 id="constructors">Constructors
+              </h3>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/dkackman/FakeHttp/new/master/apiSpec/new?filename=FakeHttp_ResponseStore__ctor_FakeHttp_IResources_.md&amp;value=---%0Auid%3A%20FakeHttp.ResponseStore.%23ctor(FakeHttp.IResources)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/dkackman/FakeHttp/blob/master/FakeHttp.NetStandard/ResponseStore.cs/#L21">View Source</a>
+              </span>
+              <a id="FakeHttp_ResponseStore__ctor_" data-uid="FakeHttp.ResponseStore.#ctor*"></a>
+              <h4 id="FakeHttp_ResponseStore__ctor_FakeHttp_IResources_" data-uid="FakeHttp.ResponseStore.#ctor(FakeHttp.IResources)">ResponseStore(IResources)</h4>
+              <div class="markdown level1 summary"><p>ctor</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public ResponseStore(IResources resources)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="xref" href="FakeHttp.IResources.html">IResources</a></td>
+                    <td><span class="parametername">resources</span></td>
+                    <td><p>An instance that manages the underlying storage of response resources</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="exceptions">Exceptions</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Condition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.argumentnullexception(v=vs.110).aspx">ArgumentNullException</a></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/dkackman/FakeHttp/new/master/apiSpec/new?filename=FakeHttp_ResponseStore__ctor_FakeHttp_IResources_FakeHttp_IResponseCallbacks_.md&amp;value=---%0Auid%3A%20FakeHttp.ResponseStore.%23ctor(FakeHttp.IResources%2CFakeHttp.IResponseCallbacks)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/dkackman/FakeHttp/blob/master/FakeHttp.NetStandard/ResponseStore.cs/#L32">View Source</a>
+              </span>
+              <a id="FakeHttp_ResponseStore__ctor_" data-uid="FakeHttp.ResponseStore.#ctor*"></a>
+              <h4 id="FakeHttp_ResponseStore__ctor_FakeHttp_IResources_FakeHttp_IResponseCallbacks_" data-uid="FakeHttp.ResponseStore.#ctor(FakeHttp.IResources,FakeHttp.IResponseCallbacks)">ResponseStore(IResources, IResponseCallbacks)</h4>
+              <div class="markdown level1 summary"></div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public ResponseStore(IResources resources, IResponseCallbacks callbacks)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="xref" href="FakeHttp.IResources.html">IResources</a></td>
+                    <td><span class="parametername">resources</span></td>
+                    <td><p>An instance that manages the underlying storage of response resources</p>
+</td>
+                  </tr>
+                  <tr>
+                    <td><a class="xref" href="FakeHttp.IResponseCallbacks.html">IResponseCallbacks</a></td>
+                    <td><span class="parametername">callbacks</span></td>
+                    <td><p>Object to manage and modify responses at runtime</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="exceptions">Exceptions</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Condition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.argumentnullexception(v=vs.110).aspx">ArgumentNullException</a></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3 id="methods">Methods
+              </h3>
+              <span class="small pull-right mobile-hide">
+                <span class="divider">|</span>
+                <a href="https://github.com/dkackman/FakeHttp/new/master/apiSpec/new?filename=FakeHttp_ResponseStore_StoreResponse_System_Net_Http_HttpResponseMessage_.md&amp;value=---%0Auid%3A%20FakeHttp.ResponseStore.StoreResponse(System.Net.Http.HttpResponseMessage)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+              </span>
+              <span class="small pull-right mobile-hide">
+                <a href="https://github.com/dkackman/FakeHttp/blob/master/FakeHttp.NetStandard/ResponseStore.cs/#L44">View Source</a>
+              </span>
+              <a id="FakeHttp_ResponseStore_StoreResponse_" data-uid="FakeHttp.ResponseStore.StoreResponse*"></a>
+              <h4 id="FakeHttp_ResponseStore_StoreResponse_System_Net_Http_HttpResponseMessage_" data-uid="FakeHttp.ResponseStore.StoreResponse(System.Net.Http.HttpResponseMessage)">StoreResponse(HttpResponseMessage)</h4>
+              <div class="markdown level1 summary"><p>Stores a response message for later retrieval</p>
+</div>
+              <div class="markdown level1 conceptual"></div>
+              <h5 class="decalaration">Declaration</h5>
+              <div class="codewrapper">
+                <pre><code class="lang-csharp hljs">public Task StoreResponse(HttpResponseMessage response)</code></pre>
+              </div>
+              <h5 class="parameters">Parameters</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httpresponsemessage(v=vs.110).aspx">HttpResponseMessage</a></td>
+                    <td><span class="parametername">response</span></td>
+                    <td><p>The response message to store</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="returns">Returns</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.threading.tasks.task(v=vs.110).aspx">Task</a></td>
+                    <td><p>Task</p>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h5 class="implements">Implements</h5>
+                  <div><a class="xref" href="FakeHttp.IResponseStore.html#FakeHttp_IResponseStore_StoreResponse_System_Net_Http_HttpResponseMessage_">IResponseStore.StoreResponse(HttpResponseMessage)</a></div>
+              <h5 class="exceptions">Exceptions</h5>
+              <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Condition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.argumentnullexception(v=vs.110).aspx">ArgumentNullException</a></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+                        </article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/dkackman/FakeHttp/new/master/apiSpec/new?filename=FakeHttp_ResponseStore.md&amp;value=---%0Auid%3A%20FakeHttp.ResponseStore%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/dkackman/FakeHttp/blob/master/FakeHttp.NetStandard/ResponseStore.cs/#L12" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2017 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
