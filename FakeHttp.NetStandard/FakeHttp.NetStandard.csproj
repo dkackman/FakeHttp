@@ -8,7 +8,11 @@
     <Company>kackman.net</Company>
     <Product>FakeHttp</Product>
     <Description>A library to allow faking of client http logic with System.Net.Http. Supports recording and playback of responses. Particularly useful for separating client-side unit tests from web services.</Description>
-    <PackageReleaseNotes>2.0.1 - bug fixes
+    <PackageReleaseNotes>3.0.0
+    - Add AssemblyResources
+    - Add AutoFiltering of common sensitive values
+
+2.0.1 - bug fixes
 
 2.0.0 - Convert to NetStandard
 	- remove platform assemblies
@@ -31,8 +35,8 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <RootNamespace>FakeHttp</RootNamespace>
     <AssemblyName>FakeHttp</AssemblyName>
-    <AssemblyVersion>2.0.1.0</AssemblyVersion>
-    <FileVersion>2.0.1.0</FileVersion>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>3.0.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
