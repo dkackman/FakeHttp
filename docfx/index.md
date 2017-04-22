@@ -7,8 +7,11 @@ The advantages of faking http responses in unit tests are:
 3. Faking can dramatically improve the performance of http client tests by removing internet latency.
 
 ## How does FakeHttp work?
-FakeHttp works by deriving from System.Net.Http.HttpMessageHandler. It can capture and store actual service 
+FakeHttp works by deriving from [HttpMessageHandler](xref:System.Net.Http.HttpMessageHandler). It can capture and store actual service 
 responses and cache them locally as JSON files (headers and content). These can then be tweaked, commited to source control with the tests
 and used for subsequent unt testing.
 
-
+## Where to from here?
+- [Getting Started](articles/GettingStarted.md)
+- [API Documentation](api/index.md)
+- Advanced Topics

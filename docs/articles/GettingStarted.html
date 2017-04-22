@@ -5,16 +5,16 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Welcome to FakeHttp. </title>
+    <title> </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Welcome to FakeHttp. ">
+    <meta name="title" content=" ">
     <meta name="generator" content="docfx 2.16.2.2">
     
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="stylesheet" href="styles/docfx.vendor.css">
-    <link rel="stylesheet" href="styles/docfx.css">
-    <link rel="stylesheet" href="styles/main.css">
-    <meta property="docfx:navrel" content="toc.html">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
     <meta property="docfx:tocrel" content="toc.html">
     
     
@@ -33,8 +33,8 @@
                 <span class="icon-bar"></span>
               </button>
               
-              <a class="navbar-brand" href="index.html">
-                <img id="logo" class="svg" src="logo.svg" alt="">
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
               </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -56,28 +56,18 @@
         </div>
       </header>
       <div role="main" class="container body-content hide-when-search">
-        <div class="article row grid">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-              <h1 id="welcome-to-fakehttp">Welcome to <strong>FakeHttp</strong>.</h1>
               
-<p>FakeHttp is a .NetStandard library that allows you to &quot;fake&quot; calls to RESTful services.
-The advantages of faking http responses in unit tests are:</p>
-<ol>
-<li>Faking decouples test results from service implementation. Faked responses allow test code to operate on known test cases. This keeps unit test from becoming integration tests.</li>
-<li>Faking allows client code to be tested under simulated conditions (such as service unavailble) without the need to modify the service.</li>
-<li>Faking can dramatically improve the performance of http client tests by removing internet latency.</li>
-</ol>
-<h2 id="how-does-fakehttp-work">How does FakeHttp work?</h2>
-<p>FakeHttp works by deriving from <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httpmessagehandler(v=vs.110).aspx">HttpMessageHandler</a>. It can capture and store actual service 
-responses and cache them locally as JSON files (headers and content). These can then be tweaked, commited to source control with the tests
-and used for subsequent unt testing.</p>
-<h2 id="where-to-from-here">Where to from here?</h2>
-<ul>
-<li><a href="articles/GettingStarted.html">Getting Started</a></li>
-<li><a href="api/index.html">API Documentation</a></li>
-<li>Advanced Topics</li>
-</ul>
+              <p>todo</p>
 
             </article>
           </div>
@@ -87,7 +77,7 @@ and used for subsequent unt testing.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/dkackman/FakeHttp/blob/master/docfx/index.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/dkackman/FakeHttp/blob/master/docfx/articles/GettingStarted.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
@@ -113,8 +103,8 @@ and used for subsequent unt testing.</p>
       </footer>
     </div>
     
-    <script type="text/javascript" src="styles/docfx.vendor.js"></script>
-    <script type="text/javascript" src="styles/docfx.js"></script>
-    <script type="text/javascript" src="styles/main.js"></script>
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
   </body>
 </html>

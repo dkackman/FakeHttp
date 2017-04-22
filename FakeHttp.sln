@@ -21,25 +21,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeHttp.UnitTests", "FakeH
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FakeHttp.NetStandard", "FakeHttp.NetStandard\FakeHttp.NetStandard.csproj", "{6D1F3255-F32F-476A-A332-7B8756364B26}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docfx", "docfx", "{EF5A9DDD-003D-492E-AAEB-C0519E98DFC3}"
-	ProjectSection(SolutionItems) = preProject
-		docfx\docfx.json = docfx\docfx.json
-		docfx\index.md = docfx\index.md
-		docfx\toc.yml = docfx\toc.yml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{E86D9662-9515-4E64-8935-ABD64C46FEFC}"
-	ProjectSection(SolutionItems) = preProject
-		docfx\api\index.md = docfx\api\index.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "articles", "articles", "{7CB2AF52-2254-438A-A80B-F1D8DA3D8F17}"
-	ProjectSection(SolutionItems) = preProject
-		docfx\articles\intro.md = docfx\articles\intro.md
-		docfx\articles\toc.yml = docfx\articles\toc.yml
-	EndProjectSection
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "docfx", "docfx\docfx.shproj", "{845B3C57-6AE8-4346-BB9F-5D9741D44B42}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		docfx\SharedProject1.projitems*{845b3c57-6ae8-4346-bb9f-5d9741d44b42}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
@@ -96,9 +83,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{E86D9662-9515-4E64-8935-ABD64C46FEFC} = {EF5A9DDD-003D-492E-AAEB-C0519E98DFC3}
-		{7CB2AF52-2254-438A-A80B-F1D8DA3D8F17} = {EF5A9DDD-003D-492E-AAEB-C0519E98DFC3}
 	EndGlobalSection
 EndGlobal
