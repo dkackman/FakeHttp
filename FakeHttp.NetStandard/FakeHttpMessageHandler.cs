@@ -14,7 +14,7 @@ namespace FakeHttp
         private readonly IReadOnlyResponseStore _store;
 
         /// <summary>
-        /// 
+        /// ctor
         /// </summary>
         /// <param name="resources">An object that can access stored response</param>
         /// <exception cref="ArgumentNullException"/>

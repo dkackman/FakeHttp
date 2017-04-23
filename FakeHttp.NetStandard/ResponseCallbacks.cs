@@ -11,7 +11,7 @@ namespace FakeHttp
     /// Default implementations of the <see cref="IResponseCallbacks"/> interface
     /// </summary>
     public class ResponseCallbacks : IResponseCallbacks
-    { 
+    {
         /// <summary>
         /// Flag indicating whether to automatically set the Date header to the current date/time on deserialization
         /// </summary>
@@ -34,7 +34,7 @@ namespace FakeHttp
         /// A list of query paramter names that will not be serialized
         /// </summary>
         public virtual HashSet<string> FilteredParameterNames => FilterCommonSensitiveValues ? GlobalFilters.SensitiveParameterNames : GlobalFilters.ParameterNames;
- 
+
         /// <summary>
         /// Called just before the response is returned. Update deserialized values as necessary
         /// Primarily for cases where time based header values (like content expiration) need up to date values
@@ -49,7 +49,7 @@ namespace FakeHttp
                 info.ResponseHeaders["Date"] = Enumerable.Repeat(DateTimeOffset.UtcNow.ToString("r"), 1);
             }
 
-            return  content; 
+            return content;
         }
 
         /// <summary>

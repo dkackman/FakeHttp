@@ -7,13 +7,6 @@ namespace FakeHttp
 {
     static class ResponseFactory
     {
-        /// <summary>
-        /// Create an <see cref="System.Net.Http.HttpResponseMessage"/> from the object's state
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="request">The <see cref="HttpRequestMessage"/> the initiates the response</param>
-        /// <param name="content">The content stream</param>
-        /// <returns>The <see cref="System.Net.Http.HttpResponseMessage"/></returns>
         public static HttpResponseMessage CreateResponse(this ResponseInfo info, HttpRequestMessage request, Stream content)
         {
             var response = new HttpResponseMessage(info.StatusCode)
@@ -35,12 +28,6 @@ namespace FakeHttp
             return response;
         }
 
-        /// <summary>
-        /// Creates an <see cref="System.Net.Http.HttpContent"/> object from a stream, setting content headers
-        /// </summary>
-        /// <param name="info">T<see cref="ResponseInfo"/></param>
-        /// <param name="stream">The content stream</param>
-        /// <returns>The <see cref="HttpContent"/> object</returns>
         public static HttpContent CreateContent(this ResponseInfo info, Stream stream)
         {
             var content = new StreamContent(stream);

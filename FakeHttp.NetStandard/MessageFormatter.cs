@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Linq;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 
 namespace FakeHttp
 {
     /// <summary>
-    /// Class that formats http request and response message data prior for serialization and deserialization
+    /// Class that formats http request and response message data prior for serialization and deserialization.
+    /// You shouldn't need to use this type.
     /// </summary>
     public sealed class MessageFormatter
     {
@@ -16,34 +17,34 @@ namespace FakeHttp
         private readonly IResponseCallbacks _callbacks;
 
         /// <summary>
-        /// 
+        /// ctor
         /// </summary>
-        public MessageFormatter()
+        internal MessageFormatter()
             : this(new ResponseCallbacks())
         {
         }
 
         /// <summary>
-        /// 
+        /// ctor
         /// </summary>
-        /// <param name="callbacks"></param>
-        public MessageFormatter(IResponseCallbacks callbacks)
+        /// <param name="callbacks">object used to allow client code to modify responses during load and storage</param>
+        internal MessageFormatter(IResponseCallbacks callbacks)
         {
             _callbacks = callbacks ?? throw new ArgumentNullException("callbacks");
         }
 
         /// <summary>
-        /// 
+        /// object used to allow client code to modify responses during load and storage
         /// </summary>
-        public IResponseCallbacks Callbacks => _callbacks;
+        internal IResponseCallbacks Callbacks => _callbacks;
 
         /// <summary>
-        /// Convert the <see cref="System.Net.Http.HttpResponseMessage"/> into an object that is more serialization friendly
+        /// Convert the <see cref="HttpResponseMessage"/> into an object that is more serialization friendly
         /// </summary>
-        /// <param name="response">The <see cref="System.Net.Http.HttpResponseMessage"/></param>
+        /// <param name="response">The <see cref="HttpResponseMessage"/></param>
         /// <returns>A serializable object</returns>
         /// <exception cref="ArgumentNullException"/>
-        public ResponseInfo PackageResponse(HttpResponseMessage response)
+        internal ResponseInfo PackageResponse(HttpResponseMessage response)
         {
             if (response == null) throw new ArgumentNullException("response");
 
@@ -76,7 +77,7 @@ namespace FakeHttp
         /// <param name="uri">The uri</param>
         /// <returns>Resource path</returns>
         /// <exception cref="ArgumentNullException"/>
-        public string ToResourcePath(Uri uri)
+        internal string ToResourcePath(Uri uri)
         {
             if (uri == null) throw new ArgumentNullException("uri");
 
@@ -89,7 +90,7 @@ namespace FakeHttp
         /// <param name="request">The request</param>
         /// <returns>Filename</returns>
         /// <exception cref="ArgumentNullException"/>
-        public string ToName(HttpRequestMessage request)
+        internal string ToName(HttpRequestMessage request)
         {
             if (request == null) throw new ArgumentNullException("request");
 
@@ -108,7 +109,7 @@ namespace FakeHttp
         /// <param name="request">The request</param>
         /// <returns>Filename</returns>
         /// <exception cref="ArgumentNullException"/>
-        public string ToShortName(HttpRequestMessage request)
+        internal string ToShortName(HttpRequestMessage request)
         {
             if (request == null) throw new ArgumentNullException("request");
 

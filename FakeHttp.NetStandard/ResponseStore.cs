@@ -16,7 +16,7 @@ namespace FakeHttp
         /// <summary>
         /// ctor
         /// </summary>
-        /// <param name="resources">An instance that can read and store the underlying storage of response resources</param>
+        /// <param name="resources">An instance that can read and write to the underlying storage of response resources</param>
         /// <exception cref="ArgumentNullException"/>
         public ResponseStore(IResources resources)
             : this(resources, new ResponseCallbacks())
@@ -26,7 +26,7 @@ namespace FakeHttp
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="resources">An instance that can read and store the underlying storage of response resources</param>
+        /// <param name="resources">An instance that can read and write to the underlying storage of response resources</param>
         /// <param name="callbacks">Object to manage and modify responses at runtime</param>
         /// <exception cref="ArgumentNullException"/>
         public ResponseStore(IResources resources, IResponseCallbacks callbacks)
