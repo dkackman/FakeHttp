@@ -7,7 +7,6 @@ namespace FakeHttp
 {
     /// <summary>
     /// Class that formats http request and response message data prior for serialization and deserialization.
-    /// You shouldn't need to use this type.
     /// </summary>
     sealed class MessageFormatter
     {

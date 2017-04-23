@@ -126,10 +126,9 @@ namespace FakeHttp
 
             if (_resources.Exists(folder, fileName))
             {
-                var stream = _resources.LoadAsStream(folder, fileName);
-
                 Debug.WriteLine($"Creating content only response for {folder} {fileName}");
 
+                var stream = _resources.LoadAsStream(folder, fileName);
                 var content = _formatter.Callbacks.Deserialized(null, stream);
 
                 // no serialized response but we have serialized content
