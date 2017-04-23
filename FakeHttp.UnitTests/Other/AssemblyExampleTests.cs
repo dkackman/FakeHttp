@@ -18,12 +18,13 @@ namespace FakeHttp.UnitTests.Other
         [TestCategory("Embedded resource")]
         public async Task AssemblyEmbeddedResourcesAreCaseInsensitive()
         {
+            //http://stackoverflow.com/questions/21001455/should-a-rest-api-be-case-sensitive-or-non-case-sensitive
             var resources = new AssemblyResources(Assembly.GetExecutingAssembly());
             using (var client = new HttpClient(new FakeHttpMessageHandler(resources), true))
             {
                 client.BaseAddress = new Uri("https://www.googleapis.com/");
 
-                using (var response = await client.GetAsync("STORAGE/v1/b/uspto-pair"))
+                using (var response = await client.GetAsync("STORAGE/v1/b/uspto-pair")) 
                 {
                     response.EnsureSuccessStatusCode();
 
