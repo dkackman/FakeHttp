@@ -16,7 +16,7 @@ namespace FakeHttp
         /// <summary>
         /// Object used to format folder and file names for storage
         /// </summary>
-        protected readonly MessageFormatter _formatter;
+        internal readonly MessageFormatter _formatter;
 
         private readonly IReadOnlyResources _resources;
 

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
+using System.IO;
 using System.Net.Http;
 
 namespace FakeHttp
@@ -9,7 +9,7 @@ namespace FakeHttp
     /// Class that formats http request and response message data prior for serialization and deserialization.
     /// You shouldn't need to use this type.
     /// </summary>
-    public sealed class MessageFormatter
+    sealed class MessageFormatter
     {
         /// <summary>
         /// object used to allow client code to modify responses during load and storage
@@ -19,7 +19,7 @@ namespace FakeHttp
         /// <summary>
         /// ctor
         /// </summary>
-        internal MessageFormatter()
+        public MessageFormatter()
             : this(new ResponseCallbacks())
         {
         }
@@ -28,7 +28,7 @@ namespace FakeHttp
         /// ctor
         /// </summary>
         /// <param name="callbacks">object used to allow client code to modify responses during load and storage</param>
-        internal MessageFormatter(IResponseCallbacks callbacks)
+        public MessageFormatter(IResponseCallbacks callbacks)
         {
             _callbacks = callbacks ?? throw new ArgumentNullException("callbacks");
         }
@@ -36,7 +36,7 @@ namespace FakeHttp
         /// <summary>
         /// object used to allow client code to modify responses during load and storage
         /// </summary>
-        internal IResponseCallbacks Callbacks => _callbacks;
+        public IResponseCallbacks Callbacks => _callbacks;
 
         /// <summary>
         /// Convert the <see cref="HttpResponseMessage"/> into an object that is more serialization friendly
@@ -44,7 +44,7 @@ namespace FakeHttp
         /// <param name="response">The <see cref="HttpResponseMessage"/></param>
         /// <returns>A serializable object</returns>
         /// <exception cref="ArgumentNullException"/>
-        internal ResponseInfo PackageResponse(HttpResponseMessage response)
+        public ResponseInfo PackageResponse(HttpResponseMessage response)
         {
             if (response == null) throw new ArgumentNullException("response");
 
@@ -77,7 +77,7 @@ namespace FakeHttp
         /// <param name="uri">The uri</param>
         /// <returns>Resource path</returns>
         /// <exception cref="ArgumentNullException"/>
-        internal string ToResourcePath(Uri uri)
+        public string ToResourcePath(Uri uri)
         {
             if (uri == null) throw new ArgumentNullException("uri");
 
@@ -90,7 +90,7 @@ namespace FakeHttp
         /// <param name="request">The request</param>
         /// <returns>Filename</returns>
         /// <exception cref="ArgumentNullException"/>
-        internal string ToName(HttpRequestMessage request)
+        public string ToName(HttpRequestMessage request)
         {
             if (request == null) throw new ArgumentNullException("request");
 
@@ -109,7 +109,7 @@ namespace FakeHttp
         /// <param name="request">The request</param>
         /// <returns>Filename</returns>
         /// <exception cref="ArgumentNullException"/>
-        internal string ToShortName(HttpRequestMessage request)
+        public string ToShortName(HttpRequestMessage request)
         {
             if (request == null) throw new ArgumentNullException("request");
 
