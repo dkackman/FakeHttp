@@ -5,18 +5,18 @@ namespace FakeHttp
 {
     static class GlobalFilters
     {
-        public static readonly HashSet<string> SensitiveHeaderNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        public static HashSet<string> SensitiveHeaderNames { get; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
             "x-api-key",
             "fakehttp"
         };
 
-        public static readonly HashSet<string> HeaderNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        public static HashSet<string> HeaderNames { get; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
             "fakehttp"
         };
 
-        public static readonly HashSet<string> SensitiveParameterNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        public static HashSet<string> SensitiveParameterNames { get; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
             "key",
             "apikey",
@@ -31,6 +31,6 @@ namespace FakeHttp
             "SAMLart"
         };
 
-        public static readonly HashSet<string> ParameterNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        public static HashSet<string> ParameterNames { get; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
     }
 }
