@@ -16,11 +16,31 @@ namespace FakeHttp.UnitTests.Other
 
         [TestMethod]
         [TestCategory("Embedded resource")]
+        public async Task AssemblyEmbeddedResourcesAreCaseInsensitive()
+        {
+            var resources = new AssemblyResources(Assembly.GetExecutingAssembly());
+            using (var client = new HttpClient(new FakeHttpMessageHandler(resources), true))
+            {
+                client.BaseAddress = new Uri("https://www.googleapis.com/");
+
+                using (var response = await client.GetAsync("STORAGE/v1/b/uspto-pair"))
+                {
+                    response.EnsureSuccessStatusCode();
+
+                    dynamic metaData = await response.Content.Deserialize<dynamic>();
+
+                    // we got a response and it looks like the one we want
+                    Assert.IsNotNull(metaData);
+                }
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("Embedded resource")]
         public async Task CanRetreiveEmbeedResourceResponse()
         {
             var resources = new AssemblyResources(Assembly.GetExecutingAssembly());
-            var handler = new FakeHttpMessageHandler(resources);
-            using (var client = new HttpClient(handler, true))
+            using (var client = new HttpClient(new FakeHttpMessageHandler(resources), true))
             {
                 client.BaseAddress = new Uri("https://www.googleapis.com/");
 

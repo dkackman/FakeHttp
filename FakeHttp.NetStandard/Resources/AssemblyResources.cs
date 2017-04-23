@@ -34,7 +34,7 @@ namespace FakeHttp.Resources
 
             var resource = ResourceName(folder, fileName);
 
-            return _assembly.GetManifestResourceNames().Where(s => s == resource).Any();
+            return _assembly.GetManifestResourceNames().Where(r => r.Equals(resource, StringComparison.OrdinalIgnoreCase)).Any();
         }
 
         /// <summary>
@@ -47,7 +47,10 @@ namespace FakeHttp.Resources
         public Stream LoadAsStream(string folder, string fileName)
         {
             var resource = ResourceName(folder, fileName);
-            return _assembly.GetManifestResourceStream(resource);
+
+            // this bit makes uri to resource mapping case insensitive
+            var actualName = _assembly.GetManifestResourceNames().Where(r => r.Equals(resource, StringComparison.OrdinalIgnoreCase)).First();
+            return _assembly.GetManifestResourceStream(actualName);
         }
 
         /// <summary>
