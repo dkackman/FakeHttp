@@ -53,7 +53,7 @@ namespace FakeHttp
         HashSet<string> FilteredHeaderNames { get; }
 
         /// <summary>
-        /// A list of query paramter names that will not be serialized
+        /// A list of query parameter names that will not be serialized
         /// </summary>
         HashSet<string> FilteredParameterNames { get; }
     }

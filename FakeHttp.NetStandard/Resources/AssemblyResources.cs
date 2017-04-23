@@ -30,6 +30,8 @@ namespace FakeHttp.Resources
         /// <returns>Flag indicating whether file exists</returns>
         public bool Exists(string folder, string fileName)
         {
+            if (string.IsNullOrEmpty(folder) || string.IsNullOrEmpty(fileName)) return false;
+
             var resource = ResourceName(folder, fileName);
 
             return _assembly.GetManifestResourceNames().Where(s => s == resource).Any();
@@ -41,6 +43,7 @@ namespace FakeHttp.Resources
         /// <param name="folder">The folder name</param>
         /// <param name="fileName">The file name</param>
         /// <returns>File's contents as a stream</returns>
+        /// <exception cref="FileLoadException"/>
         public Stream LoadAsStream(string folder, string fileName)
         {
             var resource = ResourceName(folder, fileName);
@@ -53,6 +56,7 @@ namespace FakeHttp.Resources
         /// <param name="folder">The folder name</param>
         /// <param name="fileName">The file name</param>
         /// <returns>The file's contents as a string</returns>
+        /// <exception cref="FileLoadException"/>
         public string LoadAsString(string folder, string fileName)
         {
             using (var reader = new StreamReader(LoadAsStream(folder, fileName)))
@@ -67,6 +71,5 @@ namespace FakeHttp.Resources
             var name = _assembly.GetName().Name + "." + Path.Combine(folder, fileName).Replace('\\', '.');
             return name.Replace('-', '_'); // resource names replace dashes with underbars
         }
-
     }
 }

@@ -33,13 +33,12 @@ namespace FakeHttp
     }
 
     /// <summary>
-    /// Static factory class that creates <see cref="System.Net.Http.HttpMessageHandler"/>
-    /// instances for unit tests
+    /// Static factory class that creates <see cref="HttpMessageHandler"/> instances for unit tests
     /// </summary>
     public static class MessageHandlerFactory
     {
         /// <summary>
-        /// Controls what type of <see cref="System.Net.Http.HttpMessageHandler"/> to create by default
+        /// Controls what type of <see cref="HttpMessageHandler"/> to create by default
         /// </summary>
         public static MessageHandlerMode Mode { get; set; } = MessageHandlerMode.Automatic;
 
@@ -55,12 +54,12 @@ namespace FakeHttp
         }
 
         /// <summary>
-        /// Create an <see cref="System.Net.Http.HttpMessageHandler"/>.
+        /// Create an <see cref="HttpMessageHandler"/>.
         /// </summary>
         /// <param name="resources">Instance where faked responses are stored</param>
         /// <param name="callbacks"></param>
-        /// <returns>A <see cref="HttpMessageHandler"/> appropriate for the current <see cref="MessageHandlerFactory.Mode"/></returns>
-        /// <exception cref="InvalidOperationException">If <see cref="MessageHandlerFactory.Mode"/> is <see cref="MessageHandlerMode.Capture"/> 
+        /// <returns>A <see cref="HttpMessageHandler"/> appropriate for the current <see cref="Mode"/></returns>
+        /// <exception cref="InvalidOperationException">If <see cref="Mode"/> is <see cref="MessageHandlerMode.Capture"/> 
         /// or <see cref="MessageHandlerMode.Automatic"/></exception>
         /// <exception cref="ArgumentNullException"/>
         public static HttpMessageHandler CreateMessageHandler(IReadOnlyResources resources, IResponseCallbacks callbacks)
@@ -89,10 +88,10 @@ namespace FakeHttp
         }
 
         /// <summary>
-        /// Create an <see cref="System.Net.Http.HttpMessageHandler"/>.
+        /// Create an <see cref="HttpMessageHandler"/>.
         /// </summary>
         /// <param name="resources">Instance where faked responses are stored</param>
-        /// <returns>A <see cref="HttpMessageHandler"/> appropriate for the current <see cref="MessageHandlerFactory.Mode"/></returns>
+        /// <returns>A <see cref="HttpMessageHandler"/> appropriate for the current <see cref="Mode"/></returns>
         /// <exception cref="ArgumentNullException"/>
         public static HttpMessageHandler CreateMessageHandler(IResources resources)
         {
@@ -100,11 +99,11 @@ namespace FakeHttp
         }
 
         /// <summary>
-        /// Create an <see cref="System.Net.Http.HttpMessageHandler"/>.
+        /// Create an <see cref="HttpMessageHandler"/>.
         /// </summary>
         /// <param name="resources">Instance where faked responses are stored</param>
         /// <param name="callbacks"></param>
-        /// <returns>A <see cref="HttpMessageHandler"/> appropriate for the current <see cref="MessageHandlerFactory.Mode"/></returns>
+        /// <returns>A <see cref="HttpMessageHandler"/> appropriate for the current <see cref="Mode"/></returns>
         /// <exception cref="ArgumentNullException"/>
         public static HttpMessageHandler CreateMessageHandler(IResources resources, IResponseCallbacks callbacks)
         {

@@ -42,6 +42,7 @@ namespace FakeHttp.Resources
         /// <param name="folder">The folder name</param>
         /// <param name="fileName">The file name</param>
         /// <returns>The file's contents as a <see cref="String"/></returns>
+        /// <exception cref="FileLoadException"/>
         public string LoadAsString(string folder, string fileName)
         {
             using (var reader = new StreamReader(LoadFromFile(folder, fileName)))
@@ -55,8 +56,8 @@ namespace FakeHttp.Resources
         /// </summary>
         /// <param name="folder">The folder name</param>
         /// <param name="fileName">The file name</param>
-        /// <returns>File's contents as a stream</returns>
         /// <returns>The file's contents as a <see cref="Stream"/></returns>
+        /// <exception cref="FileLoadException"/>
         public Stream LoadAsStream(string folder, string fileName)
         {
             // since we are passing the stream out of our control
@@ -70,47 +71,60 @@ namespace FakeHttp.Resources
             }
         }
 
+        /// <summary>
+        /// Stores a data stream in the corresponding folder and file 
+        /// </summary>
+        /// <param name="folder">The folder name</param>
+        /// <param name="fileName">The file name</param>
+        /// <param name="data">The data to store</param>
+        /// <exception cref="IOException"/>
+        public void Store(string folder, string fileName, Stream data)
+        {
+            try
+            {
+                Directory.CreateDirectory(Path.Combine(_storeFolder, folder));
+
+                using (var file = new FileStream(FullPath(folder, fileName), FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    data.CopyTo(file);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new IOException("An error occured atempting to store " + FullPath(folder, fileName), e);
+            }
+        }
+
+        /// <summary>
+        /// Stores a data string in the corresponding folder and file 
+        /// </summary>
+        /// <param name="folder">The folder name</param>
+        /// <param name="fileName">The file name</param>
+        /// <param name="data">The data to store</param>
+        /// <exception cref="IOException"/>
+        public void Store(string folder, string fileName, string data)
+        {
+            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(data)))
+            {
+                Store(folder, fileName, stream);
+            }
+        }
+
         private Stream LoadFromFile(string folder, string fileName)
         {
-            return new FileStream(FullPath(folder, fileName), FileMode.Open, FileAccess.Read, FileShare.Read);
+            try
+            {
+                return new FileStream(FullPath(folder, fileName), FileMode.Open, FileAccess.Read, FileShare.Read);
+            }
+            catch (Exception e)
+            {
+                throw new FileLoadException(FullPath(folder, fileName) + " could not be opened", e);
+            }
         }
 
         private string FullPath(string folder, string fileName)
         {
             return Path.Combine(_storeFolder, Path.Combine(folder, fileName));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="folder">The folder name</param>
-        /// <param name="fileName">The file name</param>
-        /// <param name="content"></param>
-        public void Store(string folder, string fileName, Stream content)
-        {
-            Directory.CreateDirectory(Path.Combine(_storeFolder, folder));
-
-            using (var file = new FileStream(FullPath(folder, fileName), FileMode.Create, FileAccess.Write, FileShare.None))
-            {
-                content.CopyTo(file);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="folder">The folder name</param>
-        /// <param name="fileName">The file name</param>
-        /// <param name="content"></param>
-        public void Store(string folder, string fileName, string content)
-        {
-            Directory.CreateDirectory(Path.Combine(_storeFolder, folder));
-
-            using (var stream = new FileStream(FullPath(folder, fileName), FileMode.Create, FileAccess.Write, FileShare.None))
-            using (var responseWriter = new StreamWriter(stream, Encoding.UTF8))
-            {
-                responseWriter.Write(content);
-            }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace FakeHttp
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="resources"></param>
+        /// <param name="resources">An object that can access stored response</param>
         /// <exception cref="ArgumentNullException"/>
         public AutomaticHttpClientHandler(IResources resources)
             : this(new ResponseStore(resources))
@@ -38,7 +38,7 @@ namespace FakeHttp
         /// Override the base class to capture and store the response message
         /// if it doesn't already exist in storage
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="request">The <see cref="HttpRequestMessage"/> to find or retreive from the endpoint</param>
         /// <param name="cancellationToken"></param>
         /// <returns>The response message</returns>
         protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)

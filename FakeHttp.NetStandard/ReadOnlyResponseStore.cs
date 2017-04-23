@@ -34,7 +34,7 @@ namespace FakeHttp
         /// 
         /// </summary>
         /// <param name="resources">An instance that manages the underlying storage of response resources</param>
-        /// <param name="callbacks">object used to allow client code to modify responses during load and storage</param>
+        /// <param name="callbacks">Object used to allow client code to modify responses during load and storage</param>
         /// <exception cref="ArgumentNullException"/>
         public ReadOnlyResponseStore(IReadOnlyResources resources, IResponseCallbacks callbacks)
         {
@@ -44,8 +44,7 @@ namespace FakeHttp
         }
 
         /// <summary>
-        /// Determines if a <see cref="HttpResponseMessage"/> exists for the 
-        /// <see cref="HttpRequestMessage"/>
+        /// Determines if a <see cref="HttpResponseMessage"/> exists for the <see cref="HttpRequestMessage"/>
         /// </summary>
         /// <param name="request">The <see cref="HttpRequestMessage"/></param>
         /// <returns>True if a response exists for the request. Otherwise false</returns>
@@ -65,7 +64,7 @@ namespace FakeHttp
         /// Retrieve response message from storage based on a request message
         /// </summary>
         /// <param name="request">The request message</param>
-        /// <returns>The response messsage</returns>
+        /// <returns>The response messsage assoicated with the request. Returns a 404 message if none is found.</returns>
         /// <exception cref="ArgumentNullException"/>
         public HttpResponseMessage FindResponse(HttpRequestMessage request)
         {

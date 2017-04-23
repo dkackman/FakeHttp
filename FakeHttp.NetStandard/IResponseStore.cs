@@ -10,9 +10,9 @@ namespace FakeHttp
     public interface IResponseStore : IReadOnlyResponseStore
     {
         /// <summary>
-        /// Store a <see cref="System.Net.Http.HttpResponseMessage"/> 
+        /// Store a <see cref="HttpResponseMessage"/> 
         /// </summary>
-        /// <param name="response">The <see cref="System.Net.Http.HttpResponseMessage"/> to store</param>
+        /// <param name="response">The <see cref="HttpResponseMessage"/> to store</param>
         /// <returns>A Task</returns>
         Task StoreResponse(HttpResponseMessage response);
     }

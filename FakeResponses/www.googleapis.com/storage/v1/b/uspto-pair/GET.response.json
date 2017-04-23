@@ -1,4 +1,4 @@
-﻿{
+{
   "HttpVersion": {
     "Major": 1,
     "Minor": 1
@@ -9,7 +9,7 @@
   "ContentFileName": "GET.content.json",
   "ResponseHeaders": {
     "X-GUploader-UploadID": [
-      "AEnB2Ur0_79rR79qHXO9aYOrP47uUDpxIEL-XoKbYOIRB8GuyGIyRNgddLhqZDEzv50Sn7vv8HzvOhmzbdELrv5p00oOHAb_RQ"
+      "AEnB2UoKg0ms1HvwNcbOW7m-XpY0D7ATjcOwfkD7N1pvPRffDUbuD-oygvxGErNf3Ceq8ylGHRRoyPI0XUn5ZsAqyiDEi7-Whg"
     ],
     "Vary": [
       "Origin",
@@ -22,7 +22,7 @@
       "no-transform, must-revalidate, max-age=0, private"
     ],
     "Date": [
-      "Thu, 20 Apr 2017 23:12:52 GMT"
+      "Sun, 23 Apr 2017 12:50:37 GMT"
     ],
     "ETag": [
       "CAE="
@@ -39,7 +39,7 @@
       "application/json; charset=UTF-8"
     ],
     "Expires": [
-      "Thu, 20 Apr 2017 23:12:52 GMT"
+      "Sun, 23 Apr 2017 12:50:37 GMT"
     ]
   }
 }

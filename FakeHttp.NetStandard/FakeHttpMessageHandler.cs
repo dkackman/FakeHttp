@@ -6,7 +6,7 @@ using System.Threading;
 namespace FakeHttp
 {
     /// <summary>
-    /// A <see cref="System.Net.Http.HttpMessageHandler"/> that retrieves http response messages from
+    /// A <see cref="HttpMessageHandler"/> that retrieves http response messages from
     /// an alternate storage rather than from a given http endpoint
     /// </summary>
     public sealed class FakeHttpMessageHandler : HttpMessageHandler
@@ -16,7 +16,7 @@ namespace FakeHttp
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="resources"></param>
+        /// <param name="resources">An object that can access stored response</param>
         /// <exception cref="ArgumentNullException"/>
         public FakeHttpMessageHandler(IReadOnlyResources resources)
             : this(new ReadOnlyResponseStore(resources))

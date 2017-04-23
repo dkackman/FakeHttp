@@ -14,15 +14,23 @@ namespace FakeHttp.Resources
 
         /// <summary>
         /// Opens the <see cref="ZipArchive"/> located at archiveFilePath.
-        /// The archive will remain opened until <see cref="ZipResources.Dispose"/> is called
+        /// The archive will remain opened until <see cref="Dispose"/> is called
         /// </summary>
         /// <param name="archiveFilePath">full or relative path to the zip archive file</param>
         /// <exception cref="ArgumentException">If archiveFilePath is null or empty</exception>
+        /// <exception cref="FileLoadException">If archiveFilePath is null or empty</exception>
         public ZipResources(string archiveFilePath)
         {
             if (string.IsNullOrEmpty(archiveFilePath)) throw new ArgumentException("archiveFilePath cannot be empty", "archiveFilePath");
 
-            _archive = ZipFile.OpenRead(archiveFilePath);
+            try
+            {
+                _archive = ZipFile.OpenRead(archiveFilePath);
+            }
+            catch (Exception e)
+            {
+                throw new FileLoadException(archiveFilePath + " could not be opened", e);
+            }
         }
 
         /// <summary>
@@ -53,6 +61,7 @@ namespace FakeHttp.Resources
         /// <param name="folder">The folder name</param>
         /// <param name="fileName">The file name</param>
         /// <returns>The file's contents as a string</returns>
+        /// <exception cref="FileLoadException"/>
         public string LoadAsString(string folder, string fileName)
         {
             using (var reader = new StreamReader(LoadFromEntry(folder, fileName)))
@@ -67,6 +76,7 @@ namespace FakeHttp.Resources
         /// <param name="folder">The folder name</param>
         /// <param name="fileName">The file name</param>
         /// <returns>File's contents as a stream</returns>
+        /// <exception cref="FileLoadException"/>
         public Stream LoadAsStream(string folder, string fileName)
         {
             // since we are passing the stream out of our control
@@ -82,8 +92,16 @@ namespace FakeHttp.Resources
 
         private Stream LoadFromEntry(string folder, string fileName)
         {
-            var entry = GetEntry(folder, fileName) ?? throw new InvalidOperationException($"Archive entry {folder}, {fileName} not found - Check Exists first");
-            return entry.Open();
+            var entry = GetEntry(folder, fileName) ?? throw new FileLoadException($"Archive entry {FullPath(folder, fileName)} not found - Check Exists first");
+
+            try
+            {
+                return entry.Open();
+            }
+            catch (Exception e)
+            {
+                throw new FileLoadException(FullPath(folder, fileName) + " could not be opened", e);
+            }
         }
 
         private ZipArchiveEntry GetEntry(string folder, string fileName)

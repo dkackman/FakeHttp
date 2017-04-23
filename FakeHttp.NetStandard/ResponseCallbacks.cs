@@ -28,12 +28,12 @@ namespace FakeHttp
         /// A list of header names that will not be serialized. For
         /// example x-api-key may not be something to store
         /// </summary>
-        public HashSet<string> FilteredHeaderNames => FilterCommonSensitiveValues ? GlobalFilters.SensitiveHeaderNames : GlobalFilters.HeaderNames;
+        public virtual HashSet<string> FilteredHeaderNames => FilterCommonSensitiveValues ? GlobalFilters.SensitiveHeaderNames : GlobalFilters.HeaderNames;
 
         /// <summary>
         /// A list of query paramter names that will not be serialized
         /// </summary>
-        public HashSet<string> FilteredParameterNames => FilterCommonSensitiveValues ? GlobalFilters.SensitiveParameterNames : GlobalFilters.ParameterNames;
+        public virtual HashSet<string> FilteredParameterNames => FilterCommonSensitiveValues ? GlobalFilters.SensitiveParameterNames : GlobalFilters.ParameterNames;
  
         /// <summary>
         /// Called just before the response is returned. Update deserialized values as necessary
@@ -57,7 +57,7 @@ namespace FakeHttp
         /// </summary>
         /// <param name="name">The name of the Uri query parameter</param>
         /// <param name="value">The value of the uri query parameter</param>
-        /// <returns>True if the paramter should be filtered from serialization</returns>
+        /// <returns>True if the parameter should be filtered from serialization</returns>
         public virtual bool FilterParameter(string name, string value)
         {
             return FilteredParameterNames.Contains(name);
