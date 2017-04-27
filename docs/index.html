@@ -64,16 +64,18 @@
 <p>FakeHttp is a .NetStandard library that allows you to &quot;fake&quot; calls to RESTful services.
 The advantages of faking http responses in unit tests are:</p>
 <ol>
-<li>Faking decouples test results from service implementation. Faked responses allow test code to operate on known test cases. This keeps unit test from becoming integration tests.</li>
+<li>Faking decouples test results from service implementation, resulting in more focused and better tests.</li>
+<li>Faked responses allow test code to operate on known test cases. This keeps unit test from becoming integration tests.</li>
 <li>Faking allows client code to be tested under simulated conditions (such as service unavailble) without the need to modify the service.</li>
 <li>Faking can dramatically improve the performance of http client tests by removing internet latency.</li>
 </ol>
 <h2 id="how-does-fakehttp-work">How does FakeHttp work?</h2>
 <p>FakeHttp works by deriving from <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httpmessagehandler(v=vs.110).aspx">HttpMessageHandler</a>. It can capture and store actual service 
-responses and cache them locally as JSON files (headers and content). These can then be tweaked, commited to source control with the tests
+responses and cache them locally as JSON files (headers and content). These can then be tweaked, commited to source control 
 and used for subsequent unt testing.</p>
 <h2 id="where-to-from-here">Where to from here?</h2>
 <ul>
+<li>Get the <a href="https://www.nuget.org/packages/Dkackman.FakeHttp/">Nuget Pacakge</a></li>
 <li><a href="articles/GettingStarted.html">Getting Started</a></li>
 <li><a href="api/index.html">API Documentation</a></li>
 <li>Advanced Topics</li>

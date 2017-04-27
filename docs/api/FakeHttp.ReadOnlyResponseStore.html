@@ -195,7 +195,7 @@
                   <tr>
                     <td><a class="xref" href="FakeHttp.IResponseCallbacks.html">IResponseCallbacks</a></td>
                     <td><span class="parametername">callbacks</span></td>
-                    <td><p>object used to allow client code to modify responses during load and storage</p>
+                    <td><p>Object used to allow client code to modify responses during load and storage</p>
 </td>
                   </tr>
                 </tbody>
@@ -215,38 +215,6 @@
                   </tr>
                 </tbody>
               </table>
-              <h3 id="fields">Fields
-              </h3>
-              <span class="small pull-right mobile-hide">
-                <span class="divider">|</span>
-                <a href="https://github.com/dkackman/FakeHttp/new/master/apiSpec/new?filename=FakeHttp_ReadOnlyResponseStore__formatter.md&amp;value=---%0Auid%3A%20FakeHttp.ReadOnlyResponseStore._formatter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-              </span>
-              <span class="small pull-right mobile-hide">
-                <a href="https://github.com/dkackman/FakeHttp/blob/master/FakeHttp.NetStandard/ReadOnlyResponseStore.cs/#L19">View Source</a>
-              </span>
-              <h4 id="FakeHttp_ReadOnlyResponseStore__formatter" data-uid="FakeHttp.ReadOnlyResponseStore._formatter">_formatter</h4>
-              <div class="markdown level1 summary"><p>Object used to format folder and file names for storage</p>
-</div>
-              <div class="markdown level1 conceptual"></div>
-              <h5 class="decalaration">Declaration</h5>
-              <div class="codewrapper">
-                <pre><code class="lang-csharp hljs">protected readonly MessageFormatter _formatter</code></pre>
-              </div>
-              <h5 class="fieldValue">Field Value</h5>
-              <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a class="xref" href="FakeHttp.MessageFormatter.html">MessageFormatter</a></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
               <h3 id="methods">Methods
               </h3>
               <span class="small pull-right mobile-hide">
@@ -254,7 +222,7 @@
                 <a href="https://github.com/dkackman/FakeHttp/new/master/apiSpec/new?filename=FakeHttp_ReadOnlyResponseStore_FindResponse_System_Net_Http_HttpRequestMessage_.md&amp;value=---%0Auid%3A%20FakeHttp.ReadOnlyResponseStore.FindResponse(System.Net.Http.HttpRequestMessage)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/dkackman/FakeHttp/blob/master/FakeHttp.NetStandard/ReadOnlyResponseStore.cs/#L70">View Source</a>
+                <a href="https://github.com/dkackman/FakeHttp/blob/master/FakeHttp.NetStandard/ReadOnlyResponseStore.cs/#L69">View Source</a>
               </span>
               <a id="FakeHttp_ReadOnlyResponseStore_FindResponse_" data-uid="FakeHttp.ReadOnlyResponseStore.FindResponse*"></a>
               <h4 id="FakeHttp_ReadOnlyResponseStore_FindResponse_System_Net_Http_HttpRequestMessage_" data-uid="FakeHttp.ReadOnlyResponseStore.FindResponse(System.Net.Http.HttpRequestMessage)">FindResponse(HttpRequestMessage)</h4>
@@ -294,7 +262,7 @@
                 <tbody>
                   <tr>
                     <td><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httpresponsemessage(v=vs.110).aspx">HttpResponseMessage</a></td>
-                    <td><p>The response messsage</p>
+                    <td><p>The response messsage assoicated with the request. Returns a 404 message if none is found.</p>
 </td>
                   </tr>
                 </tbody>
@@ -321,12 +289,11 @@
                 <a href="https://github.com/dkackman/FakeHttp/new/master/apiSpec/new?filename=FakeHttp_ReadOnlyResponseStore_ResponseExists_System_Net_Http_HttpRequestMessage_.md&amp;value=---%0Auid%3A%20FakeHttp.ReadOnlyResponseStore.ResponseExists(System.Net.Http.HttpRequestMessage)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
               </span>
               <span class="small pull-right mobile-hide">
-                <a href="https://github.com/dkackman/FakeHttp/blob/master/FakeHttp.NetStandard/ReadOnlyResponseStore.cs/#L53">View Source</a>
+                <a href="https://github.com/dkackman/FakeHttp/blob/master/FakeHttp.NetStandard/ReadOnlyResponseStore.cs/#L52">View Source</a>
               </span>
               <a id="FakeHttp_ReadOnlyResponseStore_ResponseExists_" data-uid="FakeHttp.ReadOnlyResponseStore.ResponseExists*"></a>
               <h4 id="FakeHttp_ReadOnlyResponseStore_ResponseExists_System_Net_Http_HttpRequestMessage_" data-uid="FakeHttp.ReadOnlyResponseStore.ResponseExists(System.Net.Http.HttpRequestMessage)">ResponseExists(HttpRequestMessage)</h4>
-              <div class="markdown level1 summary"><p>Determines if a <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httpresponsemessage(v=vs.110).aspx">HttpResponseMessage</a> exists for the 
-<a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httprequestmessage(v=vs.110).aspx">HttpRequestMessage</a></p>
+              <div class="markdown level1 summary"><p>Determines if a <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httpresponsemessage(v=vs.110).aspx">HttpResponseMessage</a> exists for the <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httprequestmessage(v=vs.110).aspx">HttpRequestMessage</a></p>
 </div>
               <div class="markdown level1 conceptual"></div>
               <h5 class="decalaration">Declaration</h5>

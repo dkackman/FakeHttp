@@ -505,12 +505,6 @@ references:
   commentId: Overload:FakeHttp.ReadOnlyResponseStore.#ctor
   fullName: FakeHttp.ReadOnlyResponseStore.ReadOnlyResponseStore
   nameWithType: ReadOnlyResponseStore.ReadOnlyResponseStore
-- uid: FakeHttp.ReadOnlyResponseStore._formatter
-  name: _formatter
-  href: api/FakeHttp.ReadOnlyResponseStore.html#FakeHttp_ReadOnlyResponseStore__formatter
-  commentId: F:FakeHttp.ReadOnlyResponseStore._formatter
-  fullName: FakeHttp.ReadOnlyResponseStore._formatter
-  nameWithType: ReadOnlyResponseStore._formatter
 - uid: FakeHttp.ReadOnlyResponseStore.FindResponse(System.Net.Http.HttpRequestMessage)
   name: FindResponse(HttpRequestMessage)
   href: api/FakeHttp.ReadOnlyResponseStore.html#FakeHttp_ReadOnlyResponseStore_FindResponse_System_Net_Http_HttpRequestMessage_
