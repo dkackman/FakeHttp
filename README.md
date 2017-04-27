@@ -2,6 +2,8 @@
 
 [Nuget Package](https://www.nuget.org/packages/Dkackman.FakeHttp/)
 
+[Project documentation and how to articles](https://dkackman.github.io/FakeHttp/).
+
 A library for faking http Rest client communication using System.Net.Http.
 
 Codeproject article with background: http://www.codeproject.com/Articles/1006722/MockHttp 
@@ -19,7 +21,7 @@ The quickest way to get started is to use an AutomaticHttpClientHandler anywhere
         // this is the path where responses will be stored for future use
         var path = Path.Combine(Path.GetTempPath(), "FakeHttp_UnitTests");
 
-        var handler = new AutomaticHttpClientHandler(new FileSystemResponseStore(path));
+        var handler = new AutomaticHttpClientHandler(new FileSystemResources(path));
 
         using (var client = new HttpClient(handler, true))
         {
@@ -57,8 +59,7 @@ Recorded Http Response messages and content can be edited to create test conditi
     [DeploymentItem(@"FakeResponses\")]
     public async Task CanGetSimpleJsonResult()
     {
-        var captureFolder = Path.Combine(TestContext.TestRunDirectory, @"..\..\FakeResponses\");
-        var handler = MessageHandlerFactory.CreateMessageHandler(TestContext.DeploymentDirectory, captureFolder);
+        var handler = MessageHandlerFactory.CreateMessageHandler(new FileSystemResources(TestContext.DeploymentDirectory));
 
         using (var client = new HttpClient(handler, true))
         {
