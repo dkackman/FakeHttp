@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Net.Http;
 
-[assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute("FakeHttp.UnitTests")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("FakeHttp.UnitTests")]
 
 namespace FakeHttp
 {
