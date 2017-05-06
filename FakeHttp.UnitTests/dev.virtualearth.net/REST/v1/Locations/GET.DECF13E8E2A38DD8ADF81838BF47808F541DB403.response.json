@@ -1,0 +1,43 @@
+﻿{
+  "StatusCode": 200,
+  "BaseUri": "dev.virtualearth.net/REST/v1/Locations",
+  "Query": "c=en-us&incl=queryparse&maxres=1&q=one+microsoft+way%2c+redmond%2c+wa+98052",
+  "ContentFileName": "GET.DECF13E8E2A38DD8ADF81838BF47808F541DB403.content.json",
+  "ResponseHeaders": {
+    "Transfer-Encoding": [
+      "chunked"
+    ],
+    "Vary": [
+      "Accept-Encoding"
+    ],
+    "X-BM-TraceID": [
+      "f834ce7b8f814a5791dbb8d28e62b4a6"
+    ],
+    "X-BM-Srv": [
+      "BN20121764, BN2SCH020131130, BN2SCH020181120, BN2SCH030271419, BN2SCH020201758"
+    ],
+    "X-MS-BM-WS-INFO": [
+      "0"
+    ],
+    "Cache-Control": [
+      "no-cache"
+    ],
+    "Date": [
+      "Wed, 29 Jul 2015 00:54:42 GMT"
+    ],
+    "Server": [
+      "Microsoft-IIS/8.0"
+    ],
+    "X-AspNet-Version": [
+      "4.0.30319"
+    ],
+    "X-Powered-By": [
+      "ASP.NET"
+    ]
+  },
+  "ContentHeaders": {
+    "Content-Type": [
+      "application/json; charset=utf-8"
+    ]
+  }
+}

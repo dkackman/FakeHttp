@@ -1,0 +1,43 @@
+﻿{
+  "StatusCode": 200,
+  "BaseUri": "dev.virtualearth.net/REST/v1/Locations",
+  "Query": "c=en-us&countryregion=us&maxres=1&postalcode=55116",
+  "ContentFileName": "GET.8F8BE39FAED23347CB3B40A0053E1EA46644AB9C.content.json",
+  "ResponseHeaders": {
+    "Transfer-Encoding": [
+      "chunked"
+    ],
+    "Vary": [
+      "Accept-Encoding"
+    ],
+    "X-BM-TraceID": [
+      "5922a185809a42c093718a9d2e05f2c2"
+    ],
+    "X-BM-Srv": [
+      "BN20121764, BN2SCH010000443"
+    ],
+    "X-MS-BM-WS-INFO": [
+      "0"
+    ],
+    "Cache-Control": [
+      "no-cache"
+    ],
+    "Date": [
+      "Wed, 29 Jul 2015 00:54:39 GMT"
+    ],
+    "Server": [
+      "Microsoft-IIS/8.0"
+    ],
+    "X-AspNet-Version": [
+      "4.0.30319"
+    ],
+    "X-Powered-By": [
+      "ASP.NET"
+    ]
+  },
+  "ContentHeaders": {
+    "Content-Type": [
+      "application/json; charset=utf-8"
+    ]
+  }
+}

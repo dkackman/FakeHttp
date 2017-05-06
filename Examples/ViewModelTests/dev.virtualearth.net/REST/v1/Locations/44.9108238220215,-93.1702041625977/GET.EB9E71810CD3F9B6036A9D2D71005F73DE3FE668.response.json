@@ -1,0 +1,43 @@
+﻿{
+  "StatusCode": 200,
+  "BaseUri": "dev.virtualearth.net/REST/v1/Locations/44.9108238220215,-93.1702041625977",
+  "Query": "c=en-us&includeentitytypes=admindivision1",
+  "ContentFileName": "GET.EB9E71810CD3F9B6036A9D2D71005F73DE3FE668.content.json",
+  "ResponseHeaders": {
+    "Transfer-Encoding": [
+      "chunked"
+    ],
+    "Vary": [
+      "Accept-Encoding"
+    ],
+    "X-BM-TraceID": [
+      "519064ddbe6f40f9be3364d99137306a"
+    ],
+    "X-BM-Srv": [
+      "BN20121764, BN2SCH020131319, BN2SCH020230433"
+    ],
+    "X-MS-BM-WS-INFO": [
+      "0"
+    ],
+    "Cache-Control": [
+      "no-cache"
+    ],
+    "Date": [
+      "Wed, 29 Jul 2015 00:54:35 GMT"
+    ],
+    "Server": [
+      "Microsoft-IIS/8.0"
+    ],
+    "X-AspNet-Version": [
+      "4.0.30319"
+    ],
+    "X-Powered-By": [
+      "ASP.NET"
+    ]
+  },
+  "ContentHeaders": {
+    "Content-Type": [
+      "application/json; charset=utf-8"
+    ]
+  }
+}

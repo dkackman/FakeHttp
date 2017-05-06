@@ -72,7 +72,7 @@ namespace FakeHttp.Resources
         {
             // '.' is the separator for an embedded resource folder structure
             var name = _assembly.GetName().Name + "." + Path.Combine(folder, fileName).Replace('\\', '.');
-            return name.Replace('-', '_'); // resource names replace dashes with underbars
+            return name.Replace('-', '_').Replace(' ', '_'); // resource names replace spaces and dashes with underbars
         }
     }
 }

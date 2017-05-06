@@ -43,8 +43,8 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FakeHttp, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Dkackman.FakeHttp.3.0.0-alpha1\lib\netstandard1.4\FakeHttp.dll</HintPath>
+    <Reference Include="FakeHttp, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Dkackman.FakeHttp.3.0.0-alpha3\lib\netstandard1.4\FakeHttp.dll</HintPath>
     </Reference>
     <Reference Include="GalaSoft.MvvmLight">
       <HintPath>..\..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>

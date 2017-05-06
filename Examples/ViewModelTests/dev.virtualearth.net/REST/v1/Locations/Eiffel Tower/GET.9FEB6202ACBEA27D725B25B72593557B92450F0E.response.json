@@ -1,0 +1,43 @@
+﻿{
+  "StatusCode": 200,
+  "BaseUri": "dev.virtualearth.net/REST/v1/Locations/Eiffel Tower",
+  "Query": "c=en-us&maxres=1",
+  "ContentFileName": "GET.9FEB6202ACBEA27D725B25B72593557B92450F0E.content.json",
+  "ResponseHeaders": {
+    "Transfer-Encoding": [
+      "chunked"
+    ],
+    "Vary": [
+      "Accept-Encoding"
+    ],
+    "X-BM-TraceID": [
+      "6394aef6fdd54bc2bfdb56d1cbce4932"
+    ],
+    "X-BM-Srv": [
+      "BN20121764, BN2SCH020171551, BN2SCH020201461"
+    ],
+    "X-MS-BM-WS-INFO": [
+      "0"
+    ],
+    "Cache-Control": [
+      "no-cache"
+    ],
+    "Date": [
+      "Wed, 29 Jul 2015 00:54:29 GMT"
+    ],
+    "Server": [
+      "Microsoft-IIS/8.0"
+    ],
+    "X-AspNet-Version": [
+      "4.0.30319"
+    ],
+    "X-Powered-By": [
+      "ASP.NET"
+    ]
+  },
+  "ContentHeaders": {
+    "Content-Type": [
+      "application/json; charset=utf-8"
+    ]
+  }
+}

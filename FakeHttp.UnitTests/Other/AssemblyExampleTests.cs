@@ -16,28 +16,6 @@ namespace FakeHttp.UnitTests.Other
 
         [TestMethod]
         [TestCategory("Embedded resource")]
-        public async Task AssemblyEmbeddedResourcesAreCaseInsensitive()
-        {
-            //http://stackoverflow.com/questions/21001455/should-a-rest-api-be-case-sensitive-or-non-case-sensitive
-            var resources = new AssemblyResources(Assembly.GetExecutingAssembly());
-            using (var client = new HttpClient(new FakeHttpMessageHandler(resources), true))
-            {
-                client.BaseAddress = new Uri("https://www.googleapis.com/");
-
-                using (var response = await client.GetAsync("STORAGE/v1/b/uspto-pair")) 
-                {
-                    response.EnsureSuccessStatusCode();
-
-                    dynamic metaData = await response.Content.Deserialize<dynamic>();
-
-                    // we got a response and it looks like the one we want
-                    Assert.IsNotNull(metaData);
-                }
-            }
-        }
-
-        [TestMethod]
-        [TestCategory("Embedded resource")]
         public async Task CanRetreiveEmbeedResourceResponse()
         {
             var resources = new AssemblyResources(Assembly.GetExecutingAssembly());
@@ -55,6 +33,23 @@ namespace FakeHttp.UnitTests.Other
                     Assert.IsNotNull(metaData);
                     Assert.AreEqual("THIS_IS_THE_FAKE_ONE", metaData.etag); // our embedded resource has this value to differentiate from what google returns
                 }
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("Embedded resource")]
+        public async Task AssemblySpaceInUriCanBeFound()
+        {
+            var resources = new AssemblyResources(Assembly.GetExecutingAssembly());
+            using (var client = new HttpClient(new FakeHttpMessageHandler(resources), true))
+            {
+                client.BaseAddress = new Uri("http://dev.virtualearth.net/");
+                var response = await client.GetAsync("REST/v1/Locations/Eiffel Tower?key=xxxxx&c=en-US&maxRes=1");
+                response.EnsureSuccessStatusCode();
+
+                dynamic content = await response.Content.Deserialize<dynamic>();
+
+                Assert.IsNotNull(content);
             }
         }
     }

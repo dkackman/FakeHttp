@@ -1,1 +1,13 @@
-{"kind":"storage#bucket","id":"uspto-pair","selfLink":"https://www.googleapis.com/storage/v1/b/uspto-pair","projectNumber":"216725500499","name":"uspto-pair","timeCreated":"2010-08-06T15:59:47.851Z","updated":"2010-08-06T15:59:47.851Z","metageneration":"1","location":"US","storageClass":"THIS VALUE MASKED","etag":"CAE="}
+{
+ "kind": "storage#bucket",
+ "id": "uspto-pair",
+ "selfLink": "https://www.googleapis.com/storage/v1/b/uspto-pair",
+ "projectNumber": "216725500499",
+ "name": "uspto-pair",
+ "timeCreated": "2010-08-06T15:59:47.851Z",
+ "updated": "2010-08-06T15:59:47.851Z",
+ "metageneration": "1",
+ "location": "US",
+ "storageClass": "STANDARD",
+ "etag": "CAE="
+}

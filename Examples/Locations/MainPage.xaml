@@ -1,0 +1,30 @@
+﻿<Page
+    x:Class="Locations.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Locations"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding Main, Source={StaticResource Locator}}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="20">
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical" Margin="0,0,0,20">
+            <TextBox PlaceholderText="Bing locations service api key" Text="{Binding BingMapsApiKey, Mode=TwoWay, Source={StaticResource Locator}}" HorizontalAlignment="Stretch"/>
+                <TextBlock><Italic>(restart the app after adding or changing the api key)</Italic></TextBlock>
+            </StackPanel>
+            <StackPanel Margin="0,0,0,20" Orientation="Horizontal">
+                <TextBox PlaceholderText="Enter a well known landmark name" Text="{Binding Landmark, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Margin="20,0,0,0" Content="Find" Command="{Binding LookupAddress}"/>
+                <ProgressRing Margin="10,0,0,0" Visibility="{Binding IsBusy, Converter={StaticResource VisibilityConverter}}" IsActive="{Binding IsBusy}"/>
+           </StackPanel>
+
+
+            <TextBlock Margin="0,0,0,20">Location:</TextBlock>
+            <TextBlock Margin="10,0,0,0" Text="{Binding Location}"/>
+            
+            <TextBlock Margin="10,0,0,0" Text="{Binding ErrorMessage}"/>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,0 +1,43 @@
+﻿{
+  "StatusCode": 200,
+  "BaseUri": "dev.virtualearth.net/REST/v1/Locations",
+  "Query": "addressline=one+microsoft+way&admindistrict=wa&c=en-us&countryregion=us&locality=redmond&maxres=1&postalcode=98052",
+  "ContentFileName": "GET.D0E90CDC2F2849C6E600876D46057CD84B6B4883.content.json",
+  "ResponseHeaders": {
+    "Transfer-Encoding": [
+      "chunked"
+    ],
+    "Vary": [
+      "Accept-Encoding"
+    ],
+    "X-BM-TraceID": [
+      "06a2cbc92d504b7e84ca218fcfecc8e1"
+    ],
+    "X-BM-Srv": [
+      "BN20121764, BN2SCH010000224, BN2SCH010090161, BN2SCH020180939"
+    ],
+    "X-MS-BM-WS-INFO": [
+      "0"
+    ],
+    "Cache-Control": [
+      "no-cache"
+    ],
+    "Date": [
+      "Wed, 29 Jul 2015 00:54:28 GMT"
+    ],
+    "Server": [
+      "Microsoft-IIS/8.0"
+    ],
+    "X-AspNet-Version": [
+      "4.0.30319"
+    ],
+    "X-Powered-By": [
+      "ASP.NET"
+    ]
+  },
+  "ContentHeaders": {
+    "Content-Type": [
+      "application/json; charset=utf-8"
+    ]
+  }
+}
