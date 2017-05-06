@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Windows.Storage;
-
-using Microsoft.Practices.ServiceLocation;
-
-using GalaSoft.MvvmLight;
+﻿using BingGeoCoder.Client;
 using GalaSoft.MvvmLight.Ioc;
-
 using Locations.ViewModels;
-
-using BingGeoCoder.Client;
+using Microsoft.Practices.ServiceLocation;
+using System.Net.Http;
+using Windows.Storage;
 
 namespace Locations
 {
