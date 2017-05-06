@@ -8,7 +8,7 @@
     <title>Welcome to FakeHttp. </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Welcome to FakeHttp. ">
-    <meta name="generator" content="docfx 2.16.2.2">
+    <meta name="generator" content="docfx 2.16.7.0">
     
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="styles/docfx.vendor.css">
@@ -66,13 +66,13 @@ The advantages of faking http responses in unit tests are:</p>
 <ol>
 <li>Faking decouples test results from service implementation, resulting in more focused and better tests.</li>
 <li>Faked responses allow test code to operate on known test cases. This keeps unit test from becoming integration tests.</li>
-<li>Faking allows client code to be tested under simulated conditions (such as service unavailble) without the need to modify the service.</li>
+<li>Faking allows client code to be tested under simulated service conditions. This enables fine grained control over headers and content without special service versions. (Especially handy when you don&#39;t control the service but you need to simulate difficult to reproduce behavior)</li>
 <li>Faking can dramatically improve the performance of http client tests by removing internet latency.</li>
 </ol>
 <h2 id="how-does-fakehttp-work">How does FakeHttp work?</h2>
 <p>FakeHttp works by deriving from <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httpmessagehandler(v=vs.110).aspx">HttpMessageHandler</a>. It can capture and store actual service 
-responses and cache them locally as JSON files (headers and content). These can then be tweaked, commited to source control 
-and used for subsequent unt testing.</p>
+responses and cache them locally as JSON files (headers and content). These can then be tweaked, committed to source control 
+and used for subsequent unit testing.</p>
 <h2 id="where-to-from-here">Where to from here?</h2>
 <ul>
 <li>Get the <a href="https://www.nuget.org/packages/Dkackman.FakeHttp/">Nuget Pacakge</a></li>
