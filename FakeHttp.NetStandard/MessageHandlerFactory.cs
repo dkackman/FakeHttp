@@ -12,6 +12,7 @@ namespace FakeHttp
     {
         /// <summary>
         /// Create a handler that will retrieve messages from endpoint and store for future use
+        /// (Always calls the endpoint)
         /// </summary>
         Capture,
 
@@ -21,13 +22,14 @@ namespace FakeHttp
         Fake,
 
         /// <summary>
-        /// Create the default HttpMessage handler
+        /// Create a <see cref="HttpClientHandler"/>
         /// </summary>
         Online,
 
         /// <summary>
         /// Create a handler that will use stored responses if they exist. 
         /// If they do not exist the handler will retrieve them from the online endpoint and store for future use
+        /// (Calls the endpoint only if no local response is found)
         /// </summary>                
         Automatic
     }
