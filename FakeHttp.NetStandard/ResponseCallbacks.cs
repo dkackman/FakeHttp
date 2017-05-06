@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace FakeHttp
 {
     /// <summary>
-    /// Default implementations of the <see cref="IResponseCallbacks"/> interface
+    /// Default implementation of the <see cref="IResponseCallbacks"/> interface
     /// </summary>
     public class ResponseCallbacks : IResponseCallbacks
     {
