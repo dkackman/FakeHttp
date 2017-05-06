@@ -5,8 +5,8 @@ using System.Net.Http;
 namespace FakeHttp
 {
     /// <summary>
-    /// Flag indicating what type of <see cref="System.Net.Http.HttpMessageHandler"/> the 
-    /// <see cref="FakeHttp.MessageHandlerFactory"/> will create by default
+    /// Flag indicating what type of <see cref="HttpMessageHandler"/> the 
+    /// <see cref="MessageHandlerFactory"/> will create by default
     /// </summary>
     public enum MessageHandlerMode
     {
