@@ -4,7 +4,7 @@ The advantages of faking http responses in unit tests are:
 
 1. Faking decouples test results from service implementation, resulting in more focused and better tests.
 2. Faked responses allow test code to operate on known test cases. This keeps unit test from becoming integration tests.
-3. Faking allows client code to be tested under simulated conditions. This enables fine grained control over headers and content without special service versions. (Especially handy when you don't control the service but you need to simulate difficult to reproduce behavior)
+3. Faking allows client code to be tested under simulated service conditions. This enables fine grained control over headers and content without special service versions. (Especially handy when you don't control the service but you need to simulate difficult to reproduce behavior)
 4. Faking can dramatically improve the performance of http client tests by removing internet latency.
 
 ## How does FakeHttp work?
