@@ -88,6 +88,11 @@ from the http endpoint and then stores them for future retrieval</p>
       <section><p>A <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httpmessagehandler(v=vs.110).aspx">HttpMessageHandler</a> that retrieves http response messages from
 an alternate storage rather than from a given http endpoint</p>
 </section>
+      <h4><a class="xref" href="FakeHttp.GlobalFilters.html">GlobalFilters</a></h4>
+      <section><p>Sets of header and parameter names to filter out of response hashing and serialization.
+Used to prevent ephemeral values types from changing the hashed name of a response and
+to prevent sensitive information like api keys or auth tokens from being stored.</p>
+</section>
       <h4><a class="xref" href="FakeHttp.MessageHandlerFactory.html">MessageHandlerFactory</a></h4>
       <section><p>Static factory class that creates <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httpmessagehandler(v=vs.110).aspx">HttpMessageHandler</a> instances for unit tests</p>
 </section>
@@ -95,7 +100,7 @@ an alternate storage rather than from a given http endpoint</p>
       <section><p>A store that can serve responses from an <a class="xref" href="FakeHttp.IReadOnlyResources.html">IReadOnlyResources</a> instance</p>
 </section>
       <h4><a class="xref" href="FakeHttp.ResponseCallbacks.html">ResponseCallbacks</a></h4>
-      <section><p>Default implementations of the <a class="xref" href="FakeHttp.IResponseCallbacks.html">IResponseCallbacks</a> interface</p>
+      <section><p>Default implementation of the <a class="xref" href="FakeHttp.IResponseCallbacks.html">IResponseCallbacks</a> interface</p>
 </section>
       <h4><a class="xref" href="FakeHttp.ResponseInfo.html">ResponseInfo</a></h4>
       <section><p>A serialization friendly wrapper around <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httpresponsemessage(v=vs.110).aspx">HttpResponseMessage</a></p>

@@ -115,6 +115,60 @@ references:
   commentId: Overload:FakeHttp.FakeHttpMessageHandler.SendAsync
   fullName: FakeHttp.FakeHttpMessageHandler.SendAsync
   nameWithType: FakeHttpMessageHandler.SendAsync
+- uid: FakeHttp.GlobalFilters
+  name: GlobalFilters
+  href: api/FakeHttp.GlobalFilters.html
+  commentId: T:FakeHttp.GlobalFilters
+  fullName: FakeHttp.GlobalFilters
+  nameWithType: GlobalFilters
+- uid: FakeHttp.GlobalFilters.HeaderNames
+  name: HeaderNames
+  href: api/FakeHttp.GlobalFilters.html#FakeHttp_GlobalFilters_HeaderNames
+  commentId: P:FakeHttp.GlobalFilters.HeaderNames
+  fullName: FakeHttp.GlobalFilters.HeaderNames
+  nameWithType: GlobalFilters.HeaderNames
+- uid: FakeHttp.GlobalFilters.HeaderNames*
+  name: HeaderNames
+  href: api/FakeHttp.GlobalFilters.html#FakeHttp_GlobalFilters_HeaderNames_
+  commentId: Overload:FakeHttp.GlobalFilters.HeaderNames
+  fullName: FakeHttp.GlobalFilters.HeaderNames
+  nameWithType: GlobalFilters.HeaderNames
+- uid: FakeHttp.GlobalFilters.ParameterNames
+  name: ParameterNames
+  href: api/FakeHttp.GlobalFilters.html#FakeHttp_GlobalFilters_ParameterNames
+  commentId: P:FakeHttp.GlobalFilters.ParameterNames
+  fullName: FakeHttp.GlobalFilters.ParameterNames
+  nameWithType: GlobalFilters.ParameterNames
+- uid: FakeHttp.GlobalFilters.ParameterNames*
+  name: ParameterNames
+  href: api/FakeHttp.GlobalFilters.html#FakeHttp_GlobalFilters_ParameterNames_
+  commentId: Overload:FakeHttp.GlobalFilters.ParameterNames
+  fullName: FakeHttp.GlobalFilters.ParameterNames
+  nameWithType: GlobalFilters.ParameterNames
+- uid: FakeHttp.GlobalFilters.SensitiveHeaderNames
+  name: SensitiveHeaderNames
+  href: api/FakeHttp.GlobalFilters.html#FakeHttp_GlobalFilters_SensitiveHeaderNames
+  commentId: P:FakeHttp.GlobalFilters.SensitiveHeaderNames
+  fullName: FakeHttp.GlobalFilters.SensitiveHeaderNames
+  nameWithType: GlobalFilters.SensitiveHeaderNames
+- uid: FakeHttp.GlobalFilters.SensitiveHeaderNames*
+  name: SensitiveHeaderNames
+  href: api/FakeHttp.GlobalFilters.html#FakeHttp_GlobalFilters_SensitiveHeaderNames_
+  commentId: Overload:FakeHttp.GlobalFilters.SensitiveHeaderNames
+  fullName: FakeHttp.GlobalFilters.SensitiveHeaderNames
+  nameWithType: GlobalFilters.SensitiveHeaderNames
+- uid: FakeHttp.GlobalFilters.SensitiveParameterNames
+  name: SensitiveParameterNames
+  href: api/FakeHttp.GlobalFilters.html#FakeHttp_GlobalFilters_SensitiveParameterNames
+  commentId: P:FakeHttp.GlobalFilters.SensitiveParameterNames
+  fullName: FakeHttp.GlobalFilters.SensitiveParameterNames
+  nameWithType: GlobalFilters.SensitiveParameterNames
+- uid: FakeHttp.GlobalFilters.SensitiveParameterNames*
+  name: SensitiveParameterNames
+  href: api/FakeHttp.GlobalFilters.html#FakeHttp_GlobalFilters_SensitiveParameterNames_
+  commentId: Overload:FakeHttp.GlobalFilters.SensitiveParameterNames
+  fullName: FakeHttp.GlobalFilters.SensitiveParameterNames
+  nameWithType: GlobalFilters.SensitiveParameterNames
 - uid: FakeHttp.IReadOnlyResources
   name: IReadOnlyResources
   href: api/FakeHttp.IReadOnlyResources.html

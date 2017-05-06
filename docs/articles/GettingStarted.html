@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title> </title>
+    <title>Getting Started </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content=" ">
+    <meta name="title" content="Getting Started ">
     <meta name="generator" content="docfx 2.17.0.572">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -66,8 +66,57 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started">Getting Started</h1>
 
-<p>todo</p>
+<h2 id="the-system-under-test">The System Under Test</h2>
+<p>Because FakeHttp uses a message handler to do irs fakind, the only requirement for the 
+SUT is that it not instantiate an HttpMessageHandler itself. This is easily accomplished by taking 
+the handler as a parameter, using an IoC containter or via configuration. Whatever mechanism meshes with your design.</p>
+<p>So code that looked like this:</p>
+<pre><code class="lang-csharp">public class GeoCoder : IGeoCoder
+{
+    private readonly HttpClient _httpClient;
+
+    public GeoCoder()
+    {
+        _httpClient = new HttpClient(new HttpClientHandler(), true);
+        _httpClient.BaseAddress = new Uri(&quot;http://dev.virtualearth.net/REST/v1/&quot;, UriKind.Absolute);
+    }
+}
+</code></pre><p>Might change to this:</p>
+<pre><code class="lang-csharp">public class GeoCoder : IGeoCoder
+{
+    private readonly HttpClient _httpClient;
+
+    public GeoCoder(HttpMessageHandler handler)
+    {
+        _httpClient = new HttpClient(handler, false); // flag controls disposal of the handler 
+        _httpClient.BaseAddress = new Uri(&quot;http://dev.virtualearth.net/REST/v1/&quot;, UriKind.Absolute);
+    }
+}
+</code></pre><h2 id="getting-and-using-fake-responses">Getting and Using Fake Responses</h2>
+<p>The easiest way to set up fake response is to capture them from a live service endpoint. Once captured,
+they can be stored for future use and/or tweaked to test and simulate how client code behaves with specific response scenarios</p>
+<p>The FakeHttp library implmenets a handful of different message handler types and a factory class that allow
+a suite of tests to easily switch between them. Assuming you already have, or can write, a suite of tests that 
+interact with a RESTful service the following steps will allow you to fake them. <em>(These examples use MSTest but 
+the same concepts apply to other test frameworks. There is no dependency on MStest)</em></p>
+<h3 id="1-replace-the-httpmessagehandler-used-by-the-tests">1. Replace the HttpMessageHandler Used by the Tests</h3>
+<p>In order to switch an entire suite of tests from one handler to the next it&#39;s easiest to the the MessageHandlerFactory
+and its MessageHandlerMode. The mode can be switched in a single place where a test run is initialized.</p>
+<pre><code class="lang-csharp">    [AssemblyInitialize]
+    public static void AssemblyInitialize(TestContext context)
+    {
+        // set the http message handler factory to the mode we want for the entire assmebly test execution
+        MessageHandlerFactory.Mode = MessageHandlerMode.Fake;
+    }
+</code></pre><h3 id="2-capture-responses">2. Capture Responses</h3>
+<h3 id="3-store-responses-for-future-use">3. Store Responses for Future Use</h3>
+<h3 id="4-run-tests-against-faked-responses">4. Run Tests Against Faked Responses</h3>
+<h2 id="other-considerations">Other Considerations</h2>
+<h3 id="sensitive-data">Sensitive Data</h3>
+<h3 id="storage-mechanisms">Storage Mechanisms</h3>
+<h3 id="runtime-control-of-faked-responses">Runtime Control of Faked Responses</h3>
 </article>
           </div>
           

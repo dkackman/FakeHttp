@@ -72,7 +72,7 @@
   
   <h1 id="FakeHttp_ResponseCallbacks" data-uid="FakeHttp.ResponseCallbacks">Class ResponseCallbacks
   </h1>
-  <div class="markdown level0 summary"><p>Default implementations of the <a class="xref" href="FakeHttp.IResponseCallbacks.html">IResponseCallbacks</a> interface</p>
+  <div class="markdown level0 summary"><p>Default implementation of the <a class="xref" href="FakeHttp.IResponseCallbacks.html">IResponseCallbacks</a> interface</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -161,7 +161,7 @@ example x-api-key may not be something to store</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual HashSet&lt;string&gt; FilteredHeaderNames { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual IEnumerable&lt;string&gt; FilteredHeaderNames { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -173,7 +173,7 @@ example x-api-key may not be something to store</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://msdn.microsoft.com/en-us/library/bb359438(v=vs.110).aspx">HashSet</a>&lt;<a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>&gt;</td>
+        <td><a class="xref" href="https://msdn.microsoft.com/en-us/library/9eekhta0(v=vs.110).aspx">IEnumerable</a>&lt;<a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -189,12 +189,12 @@ example x-api-key may not be something to store</p>
   </span>
   <a id="FakeHttp_ResponseCallbacks_FilteredParameterNames_" data-uid="FakeHttp.ResponseCallbacks.FilteredParameterNames*"></a>
   <h4 id="FakeHttp_ResponseCallbacks_FilteredParameterNames" data-uid="FakeHttp.ResponseCallbacks.FilteredParameterNames">FilteredParameterNames</h4>
-  <div class="markdown level1 summary"><p>A list of query paramter names that will not be serialized</p>
+  <div class="markdown level1 summary"><p>A list of query parameter names that will not be serialized</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual HashSet&lt;string&gt; FilteredParameterNames { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual IEnumerable&lt;string&gt; FilteredParameterNames { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -206,7 +206,7 @@ example x-api-key may not be something to store</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://msdn.microsoft.com/en-us/library/bb359438(v=vs.110).aspx">HashSet</a>&lt;<a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>&gt;</td>
+        <td><a class="xref" href="https://msdn.microsoft.com/en-us/library/9eekhta0(v=vs.110).aspx">IEnumerable</a>&lt;<a class="xref" href="https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx">String</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -258,7 +258,7 @@ example x-api-key may not be something to store</p>
   </span>
   <a id="FakeHttp_ResponseCallbacks_Deserialized_" data-uid="FakeHttp.ResponseCallbacks.Deserialized*"></a>
   <h4 id="FakeHttp_ResponseCallbacks_Deserialized_FakeHttp_ResponseInfo_System_IO_Stream_" data-uid="FakeHttp.ResponseCallbacks.Deserialized(FakeHttp.ResponseInfo,System.IO.Stream)">Deserialized(ResponseInfo, Stream)</h4>
-  <div class="markdown level1 summary"><p>Called just before the response is returned. Update deserialized values as necessary
+  <div class="markdown level1 summary"><p>Called just before the response is returned in order to update deserialized values as necessary.
 Primarily for cases where time based header values (like content expiration) need up to date values</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -412,7 +412,7 @@ Primarily allows for response content to mask sensitive data (ex. SSN or other P
     <tbody>
       <tr>
         <td><a class="xref" href="https://msdn.microsoft.com/en-us/library/dd321424(v=vs.110).aspx">Task</a>&lt;<a class="xref" href="https://msdn.microsoft.com/en-us/library/system.io.stream(v=vs.110).aspx">Stream</a>&gt;</td>
-        <td><p>The original content stream</p>
+        <td><p>The original content stream or a modified content stream</p>
 </td>
       </tr>
     </tbody>
