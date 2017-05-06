@@ -28,15 +28,15 @@ namespace FakeHttp
         /// A list of header names that will not be serialized. For
         /// example x-api-key may not be something to store
         /// </summary>
-        public virtual HashSet<string> FilteredHeaderNames => FilterCommonSensitiveValues ? GlobalFilters.SensitiveHeaderNames : GlobalFilters.HeaderNames;
+        public virtual IEnumerable<string> FilteredHeaderNames => FilterCommonSensitiveValues ? GlobalFilters.SensitiveHeaderNames.Union(GlobalFilters.HeaderNames) : GlobalFilters.HeaderNames;
 
         /// <summary>
-        /// A list of query paramter names that will not be serialized
+        /// A list of query parameter names that will not be serialized
         /// </summary>
-        public virtual HashSet<string> FilteredParameterNames => FilterCommonSensitiveValues ? GlobalFilters.SensitiveParameterNames : GlobalFilters.ParameterNames;
+        public virtual IEnumerable<string> FilteredParameterNames => FilterCommonSensitiveValues ? GlobalFilters.SensitiveParameterNames.Union(GlobalFilters.ParameterNames) : GlobalFilters.ParameterNames;
 
         /// <summary>
-        /// Called just before the response is returned. Update deserialized values as necessary
+        /// Called just before the response is returned in order to update deserialized values as necessary.
         /// Primarily for cases where time based header values (like content expiration) need up to date values
         /// </summary>
         /// <param name="info">Deserialized response data. Header collections can be modified. Might be null if content file but no response file is present</param>
@@ -68,7 +68,7 @@ namespace FakeHttp
         /// Primarily allows for response content to mask sensitive data (ex. SSN or other PII) before it is saved to storage
         /// </summary>
         /// <param name="response">The response</param>
-        /// <returns>The original content stream</returns>
+        /// <returns>The original content stream or a modified content stream</returns>
         public virtual async Task<Stream> Serializing(HttpResponseMessage response)
         {
             return await response.Content.ReadAsStreamAsync();

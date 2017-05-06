@@ -50,11 +50,11 @@ namespace FakeHttp
         /// A list of header names that will not be serialized. For
         /// example x-api-key may not be something to store
         /// </summary>
-        HashSet<string> FilteredHeaderNames { get; }
+        IEnumerable<string> FilteredHeaderNames { get; }
 
         /// <summary>
         /// A list of query parameter names that will not be serialized
         /// </summary>
-        HashSet<string> FilteredParameterNames { get; }
+        IEnumerable<string> FilteredParameterNames { get; }
     }
 }
