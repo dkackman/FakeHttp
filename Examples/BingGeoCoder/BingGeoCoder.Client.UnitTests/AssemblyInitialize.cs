@@ -24,8 +24,8 @@ namespace BingGeoCoder.Client.UnitTests
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             // responses are in a ziparchive that is also referenced by the DeploymentItem attributes
-            var archivePath = Path.Combine(context.DeploymentDirectory, "FakeResponses.zip");
-            SimpleIoc.Default.Register(() => MessageHandlerFactory.CreateMessageHandler(new ZipResources(archivePath)));
+            var resources = new ZipResources(Path.Combine(context.DeploymentDirectory, "FakeResponses.zip"));
+            SimpleIoc.Default.Register(() => MessageHandlerFactory.CreateMessageHandler(resources));
         }
 
         [AssemblyCleanup]
