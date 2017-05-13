@@ -23,13 +23,8 @@ namespace BingGeoCoder.Client.UnitTests
             // setup IOC so test classes can get the shared message handler
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            // folders where fake responses are stored and where captured response should be saved
-            var fakeFolder = context.DeploymentDirectory; // the folder where the unit tests are running
-
-            // here we don't want to serialize or include our api key in response lookups so
-            // pass a lambda that will indicate to the serialzier to filter that param out
-
-            var archivePath = Path.Combine(fakeFolder, "dev.virtualearth.net.zip");
+            // responses are in a ziparchive that is also referenced by the DeploymentItem attributes
+            var archivePath = Path.Combine(context.DeploymentDirectory, "FakeResponses.zip");
             SimpleIoc.Default.Register(() => MessageHandlerFactory.CreateMessageHandler(new ZipResources(archivePath)));
         }
 

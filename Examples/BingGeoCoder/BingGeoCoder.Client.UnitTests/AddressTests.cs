@@ -16,7 +16,7 @@ using FakeHttp.Resources;
 namespace GeoCoderTests
 {
     [TestClass]
-    [DeploymentItem("dev.virtualearth.net.zip")]
+    [DeploymentItem("FakeResponses.zip")]
     public class AddressTests
     {
         private static IGeoCoder _service;

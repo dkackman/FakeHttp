@@ -12,7 +12,7 @@ using UnitTestHelpers;
 namespace GeoCoderTests
 {
     [TestClass]
-    [DeploymentItem("dev.virtualearth.net.zip")]
+    [DeploymentItem("FakeResponses.zip")]
     public class AddressPartTests
     {
         private static IGeoCoder _service;
