@@ -10,6 +10,9 @@ using UnitTestHelpers;
 
 using GalaSoft.MvvmLight.Ioc;
 
+using FakeHttp;
+using FakeHttp.Resources;
+
 namespace GeoCoderTests
 {
     [TestClass]
@@ -34,6 +37,7 @@ namespace GeoCoderTests
                 _service.Dispose();
             }
         }
+        public TestContext TestContext { get; set; }
 
         [TestMethod]
         [TestCategory("geocoder")]
@@ -45,8 +49,21 @@ namespace GeoCoderTests
         }
 
         [TestMethod]
-        [TestCategory("geocoder")]
         public async Task RoundtripPostalCode()
+        {
+            MessageHandlerFactory.Mode = MessageHandlerMode.Capture;
+            var handler = MessageHandlerFactory.CreateMessageHandler(new FileSystemResources(TestContext.TestRunDirectory));
+            var service = new GeoCoder(handler, CredentialStore.RetrieveObject("bing.key.json").Key);
+
+            var coord = await service.GetCoordinate(new Address() { postalCode = "55116", countryRegion = "US" });
+            var address = await service.GetAddress(coord.Item1, coord.Item2);
+
+            Assert.AreEqual("55116", address.postalCode);
+        }
+
+        [TestMethod]
+        [TestCategory("geocoder")]
+        public async Task RoundtripPostalCodes()
         {
             var coord = await _service.GetCoordinate(new Address() { postalCode = "55116", countryRegion = "US" });
             var address = await _service.GetAddress(coord.Item1, coord.Item2);
