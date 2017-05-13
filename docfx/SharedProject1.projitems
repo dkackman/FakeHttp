@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)docfx.json" />
+    <Content Include="$(MSBuildThisFileDirectory)images\folders.PNG" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)api\index.md" />
