@@ -53,7 +53,7 @@ namespace FakeHttp
 
             // since HttpHeaders is not a creatable object, store the headers off to the side
             // sensitive header values are filtered here
-            var headers = response.Headers.Where(h => !_callbacks.FilteredHeaderNames.Contains(h.Key)).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            var headers = response.Headers.Where(h => !_callbacks. FilteredHeaderNames.Contains(h.Key)).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
             var contentHeaders = response.Content.Headers.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 

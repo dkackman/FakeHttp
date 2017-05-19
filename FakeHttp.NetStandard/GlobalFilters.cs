@@ -25,12 +25,12 @@ namespace FakeHttp
         /// </summary>
         public static HashSet<string> HeaderNames { get; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
-            "fakehttp"
+            "fakehttp" // this is a non-serialized sentinal value for debugging
         };
 
         /// <summary>
         /// A list of parameter names that represent senstive data and will prevent them from being 
-        /// being serialized or included as part of responses hashed names 
+        /// being serialized or included as part of responses' hashed names 
         /// </summary>
         public static HashSet<string> SensitiveParameterNames { get; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
@@ -52,6 +52,9 @@ namespace FakeHttp
         /// A list of parameter names that will prevent them from being 
         /// being serialized or included as part of responses' hashed names
         /// </summary>
-        public static HashSet<string> ParameterNames { get; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        public static HashSet<string> ParameterNames { get; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "nonce"
+        };
     }
 }
