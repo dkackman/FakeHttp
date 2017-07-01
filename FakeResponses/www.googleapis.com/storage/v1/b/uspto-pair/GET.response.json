@@ -9,20 +9,20 @@
   "ContentFileName": "GET.content.json",
   "ResponseHeaders": {
     "X-GUploader-UploadID": [
-      "AEnB2UpKeZNx7IHuhqO6aX4OTGDN6NEDo9v8qEj-ighz117SPimkxvgHmdu_NvFmPRDCyogxy4nzEE5G9VSagFNtBFqKx-tsIw"
+      "AEnB2UoKSu3tSpmbAoFLKCV_T4KGVrWrmJNSRNSRa_gQr_f8_sEEZi40FTEJiG1IhdjUX4WZZuxbHClGpZOm4Wck_lvCAuHasg"
     ],
     "Vary": [
       "Origin",
       "X-Origin"
     ],
     "Alt-Svc": [
-      "quic=\":443\"; ma=2592000; v=\"37,36,35\""
+      "quic=\":443\"; ma=2592000; v=\"39,38,37,36,35\""
     ],
     "Cache-Control": [
       "no-transform, must-revalidate, max-age=0, private"
     ],
     "Date": [
-      "Sat, 13 May 2017 12:01:53 GMT"
+      "Sat, 01 Jul 2017 13:53:51 GMT"
     ],
     "ETag": [
       "CAE="
@@ -39,7 +39,7 @@
       "application/json; charset=UTF-8"
     ],
     "Expires": [
-      "Sat, 13 May 2017 12:01:53 GMT"
+      "Sat, 01 Jul 2017 13:53:51 GMT"
     ]
   }
 }
