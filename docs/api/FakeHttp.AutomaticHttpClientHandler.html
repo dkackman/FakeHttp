@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class AutomaticHttpClientHandler
    ">
-    <meta name="generator" content="docfx 2.17.0.572">
+    <meta name="generator" content="docfx 2.21.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -70,7 +70,7 @@
             <article class="content wrap" id="_content" data-uid="FakeHttp.AutomaticHttpClientHandler">
   
   
-  <h1 id="FakeHttp_AutomaticHttpClientHandler" data-uid="FakeHttp.AutomaticHttpClientHandler">Class AutomaticHttpClientHandler
+  <h1 id="FakeHttp_AutomaticHttpClientHandler" data-uid="FakeHttp.AutomaticHttpClientHandler" class="text-break">Class AutomaticHttpClientHandler
   </h1>
   <div class="markdown level0 summary"><p>A <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httpmessagehandler(v=vs.110).aspx">HttpMessageHandler</a> that retrieves http response messages from
 from local storage if they exist or if they do not, from the http endpoint and then stores them for future retrieval</p>
@@ -78,10 +78,10 @@ from local storage if they exist or if they do not, from the http endpoint and t
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
-      <div class="level0"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.object(v=vs.110).aspx">Object</a></div>
-      <div class="level1"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httpmessagehandler(v=vs.110).aspx">HttpMessageHandler</a></div>
-      <div class="level2"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httpclienthandler(v=vs.110).aspx">HttpClientHandler</a></div>
-      <div class="level"><span class="xref"></span></div>
+    <div class="level0"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.object(v=vs.110).aspx">Object</a></div>
+    <div class="level1"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httpmessagehandler(v=vs.110).aspx">HttpMessageHandler</a></div>
+    <div class="level2"><a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httpclienthandler(v=vs.110).aspx">HttpClientHandler</a></div>
+    <div class="level3"><span class="xref">AutomaticHttpClientHandler</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -182,8 +182,8 @@ from local storage if they exist or if they do not, from the http endpoint and t
       <a class="xref" href="https://msdn.microsoft.com/en-us/library/7bxwbwt2(v=vs.110).aspx">Object.ToString()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>:FakeHttp</h6>
-  <h6><strong>Assembly</strong>:FakeHttp.dll</h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="FakeHttp.html">FakeHttp</a></h6>
+  <h6><strong>Assembly</strong>: FakeHttp.dll</h6>
   <h5 id="FakeHttp_AutomaticHttpClientHandler_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public sealed class AutomaticHttpClientHandler : HttpClientHandler, IDisposable</code></pre>
@@ -299,7 +299,7 @@ from local storage if they exist or if they do not, from the http endpoint and t
   <a id="FakeHttp_AutomaticHttpClientHandler_SendAsync_" data-uid="FakeHttp.AutomaticHttpClientHandler.SendAsync*"></a>
   <h4 id="FakeHttp_AutomaticHttpClientHandler_SendAsync_System_Net_Http_HttpRequestMessage_System_Threading_CancellationToken_" data-uid="FakeHttp.AutomaticHttpClientHandler.SendAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">SendAsync(HttpRequestMessage, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Override the base class to capture and store the response message
-if it doesn&#39;t already exist in storage</p>
+if it doesn&apos;t already exist in storage</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>

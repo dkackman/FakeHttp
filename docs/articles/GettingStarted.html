@@ -8,7 +8,7 @@
     <title>Getting Started </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Getting Started ">
-    <meta name="generator" content="docfx 2.17.0.572">
+    <meta name="generator" content="docfx 2.21.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -69,9 +69,10 @@
 <h1 id="getting-started">Getting Started</h1>
 
 <h2 id="the-system-under-test">The System Under Test</h2>
-<p>Because FakeHttp uses a message handler to do irs fakind, the only requirement for the 
-SUT is that it not instantiate an HttpMessageHandler itself. This is easily accomplished by taking 
-the handler as a parameter, using an IoC containter or via configuration. Whatever mechanism meshes with your design.</p>
+<p>Because FakeHttp uses a message handler to do its faking, the only requirement for the 
+SUT is that it not instantiate an <a class="xref" href="https://msdn.microsoft.com/en-us/library/system.net.http.httpmessagehandler(v=vs.110).aspx">HttpMessageHandler</a> itself. 
+This is easily accomplished by taking the handler as a parameter, using an IoC containter 
+or via configuration. Whatever mechanism meshes with your design.</p>
 <p>So code that looked like this:</p>
 <pre><code class="lang-csharp">public class GeoCoder : IGeoCoder
 {
@@ -97,23 +98,70 @@ the handler as a parameter, using an IoC containter or via configuration. Whatev
 </code></pre><h2 id="getting-and-using-fake-responses">Getting and Using Fake Responses</h2>
 <p>The easiest way to set up fake response is to capture them from a live service endpoint. Once captured,
 they can be stored for future use and/or tweaked to test and simulate how client code behaves with specific response scenarios</p>
-<p>The FakeHttp library implmenets a handful of different message handler types and a factory class that allow
+<p>FakeHttp implmenets a handful of different message handler types and a factory class that enables
 a suite of tests to easily switch between them. Assuming you already have, or can write, a suite of tests that 
 interact with a RESTful service the following steps will allow you to fake them. <em>(These examples use MSTest but 
 the same concepts apply to other test frameworks. There is no dependency on MStest)</em></p>
 <h3 id="1-replace-the-httpmessagehandler-used-by-the-tests">1. Replace the HttpMessageHandler Used by the Tests</h3>
-<p>In order to switch an entire suite of tests from one handler to the next it&#39;s easiest to the the MessageHandlerFactory
-and its MessageHandlerMode. The mode can be switched in a single place where a test run is initialized.</p>
+<p>Given a unti test that might look like this, creating the message handler inline:</p>
+<pre><code class="lang-csharp">    [TestMethod]
+    public async Task RoundtripPostalCode()
+    {
+        var service = new GeoCoder(new HttpClientHandler(), &quot;api-key&quot;);
+
+        var coord = await service.GetCoordinate(new Address() { postalCode = &quot;55116&quot;, countryRegion = &quot;US&quot; });
+        var address = await service.GetAddress(coord.Item1, coord.Item2);
+
+        Assert.AreEqual(&quot;55116&quot;, address.postalCode);
+    }
+</code></pre><p>Change it to:</p>
+<pre><code class="lang-csharp">    [TestMethod]
+    public async Task RoundtripPostalCode()
+    {
+        var handler = MessageHandlerFactory.CreateMessageHandler(new FileSystemResources(TestContext.TestRunDirectory));
+        var service = new GeoCoder(handler, &quot;api-key&quot;);
+
+        var coord = await service.GetCoordinate(new Address() { postalCode = &quot;55116&quot;, countryRegion = &quot;US&quot; });
+        var address = await service.GetAddress(coord.Item1, coord.Item2);
+
+        Assert.AreEqual(&quot;55116&quot;, address.postalCode);
+    }
+</code></pre><p>With MSTest, <a href="https://msdn.microsoft.com/query/dev15.query?appId=Dev15IDEF1&amp;l=EN-US&amp;k=k(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext.TestRunDirectory);k(TargetFrameworkMoniker-.NETFramework,Version%3Dv4.6.1);k(DevLang-csharp)&amp;rd=true">TestContext.TestRunDirectory</a> 
+is a folder wehre deployed items and test results are created for each test run. It is in this 
+folder where the above example will store captured responses.</p>
+<h3 id="2-capture-responses">2. Capture Responses</h3>
+<p>In order to switch an entire suite of tests from one handler to the next it&#39;s easiest to use the <a class="xref" href="../api/FakeHttp.MessageHandlerFactory.html">MessageHandlerFactory</a> 
+and its <a class="xref" href="../api/FakeHttp.MessageHandlerMode.html">MessageHandlerMode</a>. The mode can be switched in a single place where a test run is initialized.</p>
+<pre><code class="lang-csharp">    [AssemblyInitialize]
+    public static void AssemblyInitialize(TestContext context)
+    {
+        // set the http message handler factory to the mode we want for the entire assmebly test execution
+        MessageHandlerFactory.Mode = MessageHandlerMode.Capture;
+    }
+</code></pre><p>This code tells the factory to create a message handler that will retreive and store the response from any
+request it processes.</p>
+<h3 id="3-store-responses-for-future-use">3. Store Responses for Future Use</h3>
+<p>After running the tests, respsonses and headers will be stored in a folder structure rooted
+in the TestContext.TestRunDirectory location (this will be in a folder named <em>TestResults</em> in the soltuion
+directory). </p>
+<p><img src="../images/folders.PNG"></p>
+<p>There will be a folder named for each host name captured by the unit tests. Copy each of these folders into the
+root of your unit test solution diretory or other location for further reference.</p>
+<p>Fake data can be made accessible to the unit test in a number of ways:</p>
+<p>1) As loose files 
+2) In a Zip archive
+3) As embedded assembly resources</p>
+<p>Whichever mechanism is chosen, the directory and file names and structure must be maintained so that FakeHttp
+can map http requests to faked responses.</p>
+<h3 id="4-run-tests-against-faked-responses">4. Run Tests Against Faked Responses</h3>
+<p>Next we need to wire them into the unit tests and reconfigure FakeHttp to use fakes instead of actual service endpoints.</p>
 <pre><code class="lang-csharp">    [AssemblyInitialize]
     public static void AssemblyInitialize(TestContext context)
     {
         // set the http message handler factory to the mode we want for the entire assmebly test execution
         MessageHandlerFactory.Mode = MessageHandlerMode.Fake;
     }
-</code></pre><h3 id="2-capture-responses">2. Capture Responses</h3>
-<h3 id="3-store-responses-for-future-use">3. Store Responses for Future Use</h3>
-<h3 id="4-run-tests-against-faked-responses">4. Run Tests Against Faked Responses</h3>
-<h2 id="other-considerations">Other Considerations</h2>
+</code></pre><h2 id="other-considerations">Other Considerations</h2>
 <h3 id="sensitive-data">Sensitive Data</h3>
 <h3 id="storage-mechanisms">Storage Mechanisms</h3>
 <h3 id="runtime-control-of-faked-responses">Runtime Control of Faked Responses</h3>

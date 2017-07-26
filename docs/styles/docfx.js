@@ -6,7 +6,7 @@ $(function () {
   var filtered = 'filtered';
   var show = 'show';
   var hide = 'hide';
-  var util = new util();
+  var util = new utility();
 
   highlight();
   enableSearch();
@@ -20,6 +20,8 @@ $(function () {
   renderFooter();
   renderLogo();
 
+  breakText();
+
   window.refresh = function (article) {
     // Update markup result
     if (typeof article == 'undefined' || typeof article.content == 'undefined')
@@ -30,6 +32,16 @@ $(function () {
     renderTables();
     renderAlerts();
     renderAffix();
+  }
+
+  function breakText() {
+    $(".xref").addClass("text-break");
+    var texts = $(".text-break");
+    texts.each(function () {
+      $(this).text(function (index, text) {
+        return util.breakText(text);
+      })
+    });
   }
 
   // Styling for tables in conceptual documents using Bootstrap.
@@ -45,16 +57,14 @@ $(function () {
     $('.IMPORTANT, .CAUTION').addClass('alert alert-danger');
   }
 
-  // Anchorjs 3.2.2 fails when title content contains '<' and '>'.
-  // TODO: enable this when anchorjs fixes this issue
   // Enable anchors for headings.
-  // (function () {
-  //   anchors.options = {
-  //     placement: 'left',
-  //     visible: 'touch'
-  //   };
-  //   anchors.add('article h2, article h3, article h4, article h5, article h6');
-  // })();
+  (function () {
+    anchors.options = {
+      placement: 'left',
+      visible: 'touch'
+    };
+    anchors.add('article h2, article h3, article h4, article h5, article h6');
+  })();
 
   // Open links to different host in a new window.
   function renderLinks() {
@@ -113,8 +123,13 @@ $(function () {
       return;
     }
     try {
-      var search = searchFactory();
-      search();
+      var worker = new Worker(relHref + 'styles/search-worker.js');
+      if (!worker && !window.worker) {
+        localSearch();
+      } else {
+        webWorkerSearch();
+      }
+
       renderSearchBox();
       highlightKeywords();
       addSearchEvent();
@@ -145,70 +160,66 @@ $(function () {
     }
 
     // Search factory
-    function searchFactory() {
-      var worker = new Worker(relHref + 'styles/search-worker.js');
-      if (!worker) return localSearch;
-      return window.Worker ? webWorkerSearch : localSearch;
+    function localSearch() {
+      console.log("using local search");
+      var lunrIndex = lunr(function () {
+        this.ref('href');
+        this.field('title', { boost: 50 });
+        this.field('keywords', { boost: 20 });
+      });
+      lunr.tokenizer.seperator = /[\s\-\.]+/;
+      var searchData = {};
+      var searchDataRequest = new XMLHttpRequest();
 
-      function localSearch() {
-        console.log("using local search");
-        var lunrIndex = lunr(function () {
-          this.ref('href');
-          this.field('title', { boost: 50 });
-          this.field('keywords', { boost: 20 });
-        });
-        lunr.tokenizer.seperator = /[\s\-\.]+/;
-        var searchData = {};
-        var searchDataRequest = new XMLHttpRequest();
-
-        var indexPath = relHref + "index.json";
-        if (indexPath) {
-          searchDataRequest.open('GET', indexPath);
-          searchDataRequest.onload = function () {
-            if (this.status != 200) {
-              return;
-            }
-            searchData = JSON.parse(this.responseText);
-            for (var prop in searchData) {
+      var indexPath = relHref + "index.json";
+      if (indexPath) {
+        searchDataRequest.open('GET', indexPath);
+        searchDataRequest.onload = function () {
+          if (this.status != 200) {
+            return;
+          }
+          searchData = JSON.parse(this.responseText);
+          for (var prop in searchData) {
+            if (searchData.hasOwnProperty(prop)){
               lunrIndex.add(searchData[prop]);
             }
           }
-          searchDataRequest.send();
         }
+        searchDataRequest.send();
+      }
 
+      $("body").bind("queryReady", function () {
+        var hits = lunrIndex.search(query);
+        var results = [];
+        hits.forEach(function (hit) {
+          var item = searchData[hit.ref];
+          results.push({ 'href': item.href, 'title': item.title, 'keywords': item.keywords });
+        });
+        handleSearchResults(results);
+      });
+    }
+
+    function webWorkerSearch() {
+      console.log("using Web Worker");
+      var indexReady = $.Deferred();
+
+      worker.onmessage = function (oEvent) {
+        switch (oEvent.data.e) {
+          case 'index-ready':
+            indexReady.resolve();
+            break;
+          case 'query-ready':
+            var hits = oEvent.data.d;
+            handleSearchResults(hits);
+            break;
+        }
+      }
+
+      indexReady.promise().done(function () {
         $("body").bind("queryReady", function () {
-          var hits = lunrIndex.search(query);
-          var results = [];
-          hits.forEach(function (hit) {
-            var item = searchData[hit.ref];
-            results.push({ 'href': item.href, 'title': item.title, 'keywords': item.keywords });
-          });
-          handleSearchResults(results);
+          worker.postMessage({ q: query });
         });
-      }
-
-      function webWorkerSearch() {
-        console.log("using Web Worker");
-        var indexReady = $.Deferred();
-
-        worker.onmessage = function (oEvent) {
-          switch (oEvent.data.e) {
-            case 'index-ready':
-              indexReady.resolve();
-              break;
-            case 'query-ready':
-              var hits = oEvent.data.d;
-              handleSearchResults(hits);
-              break;
-          }
-        }
-
-        indexReady.promise().done(function () {
-          $("body").bind("queryReady", function () {
-            worker.postMessage({ q: query });
-          });
-        });
-      }
+      });
     }
 
     // Highlight the searching keywords
@@ -489,7 +500,7 @@ $(function () {
             $(e).addClass(active);
           }
 
-          $(e).text(function(index, text) {
+          $(e).text(function (index, text) {
             return util.breakText(text);
           })
         });
@@ -704,7 +715,7 @@ $(function () {
     });
   }
 
-  function util() {
+  function utility() {
     this.getAbsolutePath = getAbsolutePath;
     this.isRelativePath = isRelativePath;
     this.isAbsolutePath = isAbsolutePath;
