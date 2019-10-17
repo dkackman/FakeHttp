@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -37,7 +37,7 @@ namespace FakeHttp
         }
 
         /// <summary>
-        /// not implemented
+        /// deserialize Version
         /// </summary>
         /// <param name="reader"></param>
         /// <param name="objectType"></param>
@@ -46,13 +46,11 @@ namespace FakeHttp
         /// <returns></returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            var versionDictionary = serializer.Deserialize<Dictionary<string, int>>(reader);
+            return new Version(versionDictionary["Major"], versionDictionary["Minor"]);
         }
 
-        /// <summary>
-        /// We only need to cusotmize writing, not reading as the two field version will desrialize just fine with default behavior
-        /// </summary>
-        public override bool CanRead => false;
+        public override bool CanRead => true;
 
         /// <summary>
         /// <see cref="JsonConverter.CanConvert(Type)"/>

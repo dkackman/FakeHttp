@@ -108,7 +108,7 @@ namespace FakeHttp
                 Debug.WriteLine($"Creating response for {folder} {fileName}");
 
                 var json = _resources.LoadAsString(folder, fileName);
-                var info = JsonConvert.DeserializeObject<ResponseInfo>(json) ?? throw new InvalidDataException("The response exists but could not be deserialized");
+                var info = JsonConvert.DeserializeObject<ResponseInfo>(json, new VersionConverter()) ?? throw new InvalidDataException("The response exists but could not be deserialized");
 
                 var stream = _resources.Exists(folder, info.ContentFileName) ? _resources.LoadAsStream(folder, info.ContentFileName) : null;
                 var content = _formatter.Callbacks.Deserialized(info, stream);
