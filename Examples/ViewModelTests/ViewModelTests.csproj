@@ -160,7 +160,7 @@
       <Version>3.0.0-alpha3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>5.3.3</Version>
+      <Version>5.3.5</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestAdapter">
       <Version>1.1.17</Version>
